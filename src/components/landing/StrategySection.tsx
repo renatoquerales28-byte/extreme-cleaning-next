@@ -19,7 +19,7 @@ export default function StrategySection() {
                             <span className="text-accent">Post-Party Emergency?</span>
                         </h2>
                         <p className="text-lg text-slate-600 font-medium">
-                            We offer same-day "Emergency" slots for when life gets messy. Perfect for post-party recovery or surprise in-law visits.
+                            We offer same-day &quot;Emergency&quot; slots for when life gets messy. Perfect for post-party recovery or surprise in-law visits.
                         </p>
                         <button className="flex items-center gap-2 text-brand-dark font-black uppercase tracking-widest hover:gap-4 transition-all">
                             Check Emergency Slots <ArrowRight size={20} className="text-accent" />

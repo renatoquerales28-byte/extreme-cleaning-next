@@ -25,7 +25,7 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
             </div>
 
             <div className="text-center space-y-2 shrink-0">
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
+                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
                     How <span className="text-accent">Often</span>?
                 </h2>
                 <p className="text-sm text-slate-500 font-medium tracking-tight">

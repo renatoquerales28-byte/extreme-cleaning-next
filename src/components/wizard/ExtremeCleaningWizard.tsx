@@ -135,15 +135,14 @@ export default function ExtremeCleaningWizard() {
     return (
         <FormProvider {...methods}>
             {/* Main Card Container - Ultra Glassmorphism */}
-            <div className="w-full max-w-6xl h-[680px] max-h-[95vh] bg-white/40 backdrop-blur-[40px] rounded-[2.5rem] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] flex overflow-hidden relative z-10 border border-white/60">
+            <div className="w-full max-w-6xl h-auto min-h-[500px] lg:h-[680px] lg:max-h-[95vh] bg-white/40 backdrop-blur-[40px] rounded-[1.5rem] md:rounded-[2.5rem] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] flex flex-col lg:flex-row overflow-hidden relative z-10 border border-white/60">
 
-                {/* Left Panel - Glassy Dark */}
-                <div className="hidden lg:flex w-[40%] bg-brand-dark/60 relative flex-col justify-between p-10 text-white overflow-hidden border-r border-white/10">
+                {/* Left Panel - Hidden on Mobile, Fixed Width on Desktop */}
+                <div className="hidden lg:flex w-[40%] bg-brand-dark/60 relative flex-col justify-between p-10 text-white overflow-hidden border-r border-white/10 shrink-0">
                     <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/30 pointer-events-none" />
 
                     <AnimatePresence mode="wait">
                         {step === 4 ? (
-                            // QUOTE SUMMARY CARD VIEW (Step 4)
                             <motion.div
                                 key="summary"
                                 initial={{ opacity: 0 }}
@@ -199,7 +198,6 @@ export default function ExtremeCleaningWizard() {
                                 </div>
                             </motion.div>
                         ) : (
-                            // DYNAMIC MARKETING VIEW (Steps 0-3)
                             <motion.div
                                 key={step + (data.serviceType || "")}
                                 initial={{ opacity: 0 }}
@@ -233,7 +231,7 @@ export default function ExtremeCleaningWizard() {
                 </div>
 
                 {/* Close Button */}
-                <a href="/" className="absolute top-6 right-6 z-50 p-2 rounded-full bg-white/50 hover:bg-white text-slate-500 transition-colors backdrop-blur-md" title="Exit Wizard">
+                <a href="/" className="absolute top-4 right-4 md:top-6 md:right-6 z-50 p-2 rounded-full bg-white/50 hover:bg-white text-slate-500 transition-colors backdrop-blur-md" title="Exit Wizard">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M18 6 6 18" />
                         <path d="m6 6 12 12" />
@@ -241,7 +239,7 @@ export default function ExtremeCleaningWizard() {
                 </a>
 
                 {/* Right Panel - Wizard Form */}
-                <div className="flex-1 w-full lg:w-[60%] bg-transparent relative flex flex-col p-6 md:p-10">
+                <div className="flex-1 w-full lg:w-[60%] bg-transparent relative flex flex-col p-6 md:p-10 min-h-[500px] lg:min-h-0">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={step}

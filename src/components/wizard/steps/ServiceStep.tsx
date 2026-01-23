@@ -30,7 +30,7 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
             </div>
 
             <div className="text-center space-y-2 shrink-0">
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
+                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
                     Choose Your <span className="text-accent">Service</span>
                 </h2>
                 <p className="text-sm text-slate-500 font-medium tracking-tight">
@@ -46,16 +46,16 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                         onClick={() => {
                             setValue("serviceType", service.id as any);
                         }}
-                        className={`group p-5 glass-card rounded-3xl text-left relative overflow-hidden transition-all duration-300 border-2 ${selectedService === service.id
+                        className={`group p-4 md:p-5 glass-card rounded-3xl text-left relative overflow-hidden transition-all duration-300 border-2 ${selectedService === service.id
                             ? "border-brand-dark bg-slate-50/50 shadow-2xl scale-[1.03] z-10"
                             : "border-transparent hover:border-slate-100 hover:scale-[1.01]"
                             }`}
                     >
-                        <div className={`p-3 rounded-2xl ${service.bg} ${service.color} w-fit mb-4 transition-transform group-hover:scale-110`}>
+                        <div className={`p-2.5 md:p-3 rounded-2xl ${service.bg} ${service.color} w-fit mb-3 md:mb-4 transition-transform group-hover:scale-110`}>
                             <service.icon size={22} strokeWidth={2.5} />
                         </div>
-                        <h3 className="text-xl font-black tracking-tighter mb-1 leading-tight">{service.label}</h3>
-                        <p className="text-[11px] text-slate-500 font-bold leading-snug tracking-tight">{service.desc}</p>
+                        <h3 className="text-lg md:text-xl font-black tracking-tighter mb-0.5 md:mb-1 leading-tight">{service.label}</h3>
+                        <p className="text-[10px] md:text-[11px] text-slate-500 font-bold leading-snug tracking-tight">{service.desc}</p>
                     </button>
                 ))}
             </div>

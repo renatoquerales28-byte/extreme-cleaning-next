@@ -18,7 +18,7 @@ export default function ZipStep({ onNext }: ZipStepProps) {
     return (
         <div className="flex flex-col items-center justify-center gap-10 text-center py-4 antialiased">
             <div className="space-y-4">
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
+                <h2 className="text-3xl md:text-6xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
                     Where is the <br />
                     <span className="text-brand-light">Sparkle</span> needed?
                 </h2>
@@ -35,7 +35,7 @@ export default function ZipStep({ onNext }: ZipStepProps) {
                         {...register("zipCode")}
                         type="text"
                         placeholder="99201"
-                        className="w-full pl-16 pr-8 py-5 bg-white border-2 border-slate-100 rounded-[2.5rem] text-2xl font-black tracking-[0.2em] focus:border-brand-light focus:ring-0 transition-all outline-none shadow-sm"
+                        className="w-full pl-12 md:pl-16 pr-6 md:pr-8 py-4 md:py-5 bg-white border-2 border-slate-100 rounded-[2.5rem] text-xl md:text-2xl font-black tracking-[0.2em] focus:border-brand-light focus:ring-0 transition-all outline-none shadow-sm"
                         maxLength={5}
                     />
                 </div>

@@ -5,7 +5,7 @@ import { Star } from "lucide-react";
 
 export default function QuotePage() {
     return (
-        <div className="min-h-[100dvh] w-full flex items-center justify-center p-4 md:p-8 overflow-hidden relative selection:bg-accent selection:text-white">
+        <div className="min-h-[100dvh] w-full flex items-center justify-center p-4 md:p-8 overflow-y-auto relative selection:bg-accent selection:text-white">
             {/* Background Image */}
             <div className="absolute inset-0 z-0">
                 <Image

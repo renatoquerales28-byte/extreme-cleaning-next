@@ -33,7 +33,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
             </div>
 
             <div className="text-center space-y-2 shrink-0">
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
+                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
                     Tell us about your <span className="text-brand-light">Space</span>
                 </h2>
                 <p className="text-sm text-slate-500 font-medium tracking-tight italic">&quot;A clean home is a clean mind.&quot;</p>
@@ -114,7 +114,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
             <div className="mt-2 shrink-0 space-y-4">
                 <button
                     onClick={onNext}
-                    className="btn-sentient bg-accent text-brand-dark shadow-[0_10px_30px_rgba(5,209,110,0.2)] hover:shadow-[0_15px_40px_rgba(5,209,110,0.3)] hover:scale-[1.01] transition-all flex items-center justify-center gap-3 w-full py-5 text-[11px] font-black uppercase tracking-[0.2em] active:scale-95"
+                    className="btn-sentient bg-accent text-brand-dark shadow-[0_10px_30px_rgba(5,209,110,0.2)] hover:shadow-[0_15px_40px_rgba(5,209,110,0.3)] hover:scale-[1.01] transition-all flex items-center justify-center gap-3 w-full py-4 md:py-5 text-[11px] font-black uppercase tracking-[0.2em] active:scale-95"
                 >
                     Select Frequency <ArrowRight size={18} strokeWidth={3} />
                 </button>

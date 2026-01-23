@@ -50,11 +50,23 @@ export default function QuoteStep({ onBack }: QuoteStepProps) {
                 <span className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-300">Final Phase</span>
             </div>
 
-            <div className="text-center space-y-2 shrink-0 mb-8">
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
+            <div className="text-center space-y-2 shrink-0 mb-6">
+                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
                     Final <span className="text-accent">Details</span>
                 </h2>
                 <p className="text-sm text-slate-500 font-medium tracking-tight">Almost there! We just need your contact info.</p>
+            </div>
+
+            {/* Mobile-only Price Summary */}
+            <div className="lg:hidden bg-brand-dark/5 border border-brand-dark/10 rounded-2xl p-6 mb-8 flex items-baseline justify-between">
+                <div>
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Your Total Estimate</p>
+                    <p className="text-3xl font-black text-brand-dark">${totalPrice}<span className="text-sm font-bold text-slate-400">/svc</span></p>
+                </div>
+                <div className="text-right">
+                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Frequency</p>
+                    <p className="font-black text-brand-light text-sm capitalize">{selectedFreq?.label}</p>
+                </div>
             </div>
 
             <div className="space-y-4 w-full shrink-0 mb-4">

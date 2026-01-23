@@ -17,15 +17,21 @@ import PMSelectionStep from "./steps/PMSelectionStep";
 import FrequencyStep from "./steps/FrequencyStep";
 import QuoteStep from "./steps/QuoteStep";
 
+import { useSearchParams } from "next/navigation";
+
 export default function ExtremeCleaningWizard() {
-    const [step, setStep] = useState(0);
+    const searchParams = useSearchParams();
+    const urlZip = searchParams.get("zip");
+
+    // Start at step 1 if zip is provided, else step 0
+    const [step, setStep] = useState(urlZip ? 1 : 0);
     const [direction, setDirection] = useState(0);
 
     const methods = useForm<WizardData>({
         resolver: zodResolver(wizardSchema),
         defaultValues: {
-            step: 0,
-            zipCode: "",
+            step: urlZip ? 1 : 0,
+            zipCode: urlZip || "",
             bedrooms: 1,
             bathrooms: 1,
             sqFt: 1000,
@@ -114,11 +120,11 @@ export default function ExtremeCleaningWizard() {
     return (
         <FormProvider {...methods}>
             {/* Main Card Container - Fixed Dimensions for "Window" feel */}
-            <div className="w-full max-w-6xl h-[680px] max-h-[95vh] bg-white rounded-[2rem] shadow-2xl flex overflow-hidden relative z-10 ring-1 ring-slate-900/5">
+            <div className="w-full max-w-6xl h-[680px] max-h-[95vh] bg-white/85 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] flex overflow-hidden relative z-10 border border-white/40">
 
                 {/* Left Panel - Dynamic Content */}
-                <div className="hidden lg:flex w-[40%] bg-brand-dark relative flex-col justify-between p-10 text-white overflow-hidden transition-all duration-500">
-                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581578731117-104f2a41272c?q=80&w=1974&auto=format&fit=crop')] bg-cover bg-center opacity-40 mix-blend-overlay" />
+                <div className="hidden lg:flex w-[40%] bg-brand-dark/95 relative flex-col justify-between p-10 text-white overflow-hidden transition-all duration-500 backdrop-blur-sm">
+                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581578731117-104f2a41272c?q=80&w=1974&auto=format&fit=crop')] bg-cover bg-center opacity-30 mix-blend-overlay" />
                     <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/80 via-brand-dark/40 to-brand-dark/90" />
 
                     <AnimatePresence mode="wait">
@@ -211,8 +217,16 @@ export default function ExtremeCleaningWizard() {
                     </AnimatePresence>
                 </div>
 
+                {/* Close Button */}
+                <a href="/" className="absolute top-6 right-6 z-50 p-2 rounded-full bg-slate-100 text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors" title="Exit Wizard">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M18 6 6 18" />
+                        <path d="m6 6 12 12" />
+                    </svg>
+                </a>
+
                 {/* Right Panel - Wizard Form */}
-                <div className="flex-1 w-full lg:w-[60%] bg-white relative flex flex-col p-6 md:p-10">
+                <div className="flex-1 w-full lg:w-[60%] bg-transparent relative flex flex-col p-6 md:p-10">
                     <AnimatePresence mode="wait" custom={direction}>
                         <motion.div
                             key={step}

@@ -41,16 +41,16 @@ export default function HeroSection() {
                 >
                     <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-brand-dark/10 rounded-full w-fit">
                         <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                        <span className="text-[10px] font-black tracking-[0.2em] text-brand-dark uppercase">Available in Spokane, WA</span>
+                        <span className="text-[10px] font-black tracking-[0.2em] text-brand-dark uppercase">Serving Spokane & Surrounding Areas</span>
                     </div>
 
                     <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-brand-dark leading-[0.9]">
-                        Experience the <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-light to-accent">Luxury of Clean.</span>
+                        Clean Spaces, <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-light to-accent">Clear Minds.</span>
                     </h1>
 
                     <p className="text-lg text-slate-500 font-medium leading-relaxed max-w-md">
-                        Reclaim your time and sanity. We provide premium, reliable cleaning services for homes and businesses that demand perfection.
+                        Top-tier professionalism, attention to detail, and reliable results. We specialize in delivering a spotless, sanitized environment for your home or business.
                     </p>
 
                     {/* Zip Code CTA */}

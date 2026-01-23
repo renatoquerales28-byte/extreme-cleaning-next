@@ -12,7 +12,7 @@ export default function ServicesSection() {
             id: "residential",
             title: "Residential",
             icon: Home,
-            description: "From routine maintenance to deep seasonality cleaning. We treat your home like a sanctuary.",
+            description: "From routine maintenance to deep seasonality cleaning. Move-in/move-out services available.",
             image: "/brand/service-residential.png",
             link: "/quote?type=residential"
         },
@@ -20,22 +20,22 @@ export default function ServicesSection() {
             id: "commercial",
             title: "Commercial",
             icon: Building2,
-            description: "Impress clients and boost productivity with an immaculately maintained office environment.",
+            description: "Offices, retail spaces, medical facilities, and banks. We work around your schedule.",
             image: "/brand/service-commercial.png",
             link: "/quote?type=commercial"
         },
         {
-            id: "airbnb",
-            title: "Airbnb / Turnover",
+            id: "move",
+            title: "Move In/Out",
             icon: Key,
-            description: "Hotel-quality turnovers that guarantee 5-star cleanliness ratings for your property.",
+            description: "Ensure every corner is spotless for the next chapter. Deep cleaning for smooth transitions.",
             image: "/brand/service-airbnb.png",
-            link: "/quote?type=property_mgmt"
+            link: "/quote?type=residential"
         }
     ];
 
     return (
-        <section className="py-24 bg-[#F9F8F2] relative">
+        <section className="py-24 bg-[#F9F8F2] relative" id="services">
             <div className="container px-4 mx-auto">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                     <div className="max-w-xl space-y-4">

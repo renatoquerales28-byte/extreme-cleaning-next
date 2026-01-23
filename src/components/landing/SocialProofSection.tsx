@@ -8,40 +8,32 @@ export default function SocialProofSection() {
     const reviews = [
         {
             id: 1,
-            author: "Sarah Jenkins",
-            role: "Homeowner, South Hill",
-            text: "I didn't realize how dirty my carpets were until ECS came. It literally feels like a new house. The team was punctual, polite, and thorough.",
+            author: "Suzanne Heutmaker",
+            role: "Homeowner",
+            text: "I have never had my house this clean! They did an excellent job deep cleaning and added in unexpected special touches and attention to detail. Professional and friendly staff.",
             rating: 5,
             image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1888&auto=format&fit=crop"
         },
         {
             id: 2,
-            author: "Marcus Chen",
-            role: "Office Manager",
-            text: "We've gone through 3 cleaning companies in 2 years. ECS is the first one that actually does what they say. Our office has never looked better.",
+            author: "Philip Salgado",
+            role: "Residential Client",
+            text: "Ricardo and Ana are both punctual, quiet, careful, courteous, and thorough. I find the clutter neatly stacked and organized. Uplifting to be rescued from my inattention to my surroundings.",
             rating: 5,
             image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop"
         },
         {
             id: 3,
-            author: "Emily & David",
-            role: "Airbnb Hosts",
-            text: "Reliability is everything for us. ECS has never missed a turnover, and our guests constantly mention how clean the place is in their 5-star reviews.",
+            author: "Jennifer Piani",
+            role: "Deep Clean Client",
+            text: "I was so impressed and pleased with their professionalism and efficiency! Also, being a woman owned family business is a plus in my book. I highly recommend them!",
             rating: 5,
             image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop"
-        },
-        {
-            id: 4,
-            author: "Jessica R.",
-            role: "Busy Mom of 3",
-            text: "The best investment for my sanity. Coming home to a sparkling clean house on Fridays is the highlight of my week.",
-            rating: 5,
-            image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop"
         }
     ];
 
     return (
-        <section className="py-24 bg-white relative overflow-hidden">
+        <section className="py-24 bg-white relative overflow-hidden" id="reviews">
             {/* Decor */}
             <div className="absolute right-0 top-0 w-1/3 h-full bg-slate-50 -skew-x-12 z-0" />
 

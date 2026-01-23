@@ -15,9 +15,9 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
     const selectedService = watch("serviceType");
 
     const services = [
-        { id: "residential", label: "Residential", icon: Home, desc: "Homes, apartments, and studios.", color: "text-cyan-500", bg: "bg-cyan-50" },
-        { id: "commercial", label: "Commercial", icon: Building2, desc: "Offices, retail, and business spaces.", color: "text-fuchsia-500", bg: "bg-fuchsia-50" },
-        { id: "property_mgmt", label: "Airbnb / PM", icon: Key, desc: "Portfolio management & turnovers.", color: "text-emerald-500", bg: "bg-emerald-50" },
+        { id: "residential", label: "Residential", icon: Home, desc: "Homes, apartments, and studios.", color: "text-brand-dark", bg: "bg-brand-light/10" },
+        { id: "commercial", label: "Commercial", icon: Building2, desc: "Offices, retail, and business spaces.", color: "text-accent", bg: "bg-accent/10" },
+        { id: "property_mgmt", label: "Airbnb / PM", icon: Key, desc: "Portfolio management & turnovers.", color: "text-emerald-500", bg: "bg-emerald-500/10" },
     ];
 
     return (
@@ -30,8 +30,8 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
             </div>
 
             <div className="text-center space-y-4">
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900 leading-none">
-                    Choose Your <span className="text-fuchsia-500">Service</span>
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-brand-dark leading-none">
+                    Choose Your <span className="text-accent">Service</span>
                 </h2>
                 <p className="text-lg text-slate-500 font-medium">
                     Select the type of space we&apos;ll be transforming today.

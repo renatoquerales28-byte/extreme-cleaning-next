@@ -35,8 +35,8 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
             </div>
 
             <div className="space-y-4">
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900">
-                    Commercial <span className="text-fuchsia-500">Details</span>
+                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-brand-dark">
+                    Commercial <span className="text-accent">Details</span>
                 </h2>
                 <p className="text-lg text-slate-500 font-medium">Tell us about your business space.</p>
             </div>

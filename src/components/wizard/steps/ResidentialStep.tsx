@@ -33,8 +33,8 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
             </div>
 
             <div className="text-center space-y-4">
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-slate-900 leading-none">
-                    Tell us about your <span className="text-cyan-500">Space</span>
+                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-brand-dark leading-none">
+                    Tell us about your <span className="text-brand-light">Space</span>
                 </h2>
                 <p className="text-lg text-slate-500 font-medium italic">&quot;A clean home is a clean mind.&quot;</p>
             </div>
@@ -48,13 +48,13 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                             <button
                                 type="button"
                                 onClick={() => setValue("bedrooms", Math.max(1, bedrooms - 1))}
-                                className="w-12 h-12 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-slate-50 transition-colors"
+                                className="w-12 h-12 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-colors"
                             >-</button>
-                            <span className="text-3xl font-black w-8 text-center">{bedrooms}</span>
+                            <span className="text-3xl font-black w-8 text-center text-brand-dark">{bedrooms}</span>
                             <button
                                 type="button"
                                 onClick={() => setValue("bedrooms", Math.min(10, bedrooms + 1))}
-                                className="w-12 h-12 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-slate-50 transition-colors"
+                                className="w-12 h-12 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-colors"
                             >+</button>
                         </div>
                     </div>
@@ -64,13 +64,13 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                             <button
                                 type="button"
                                 onClick={() => setValue("bathrooms", Math.max(1, bathrooms - 1))}
-                                className="w-12 h-12 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-slate-50 transition-colors"
+                                className="w-12 h-12 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-colors"
                             >-</button>
-                            <span className="text-3xl font-black w-8 text-center">{bathrooms}</span>
+                            <span className="text-3xl font-black w-8 text-center text-brand-dark">{bathrooms}</span>
                             <button
                                 type="button"
                                 onClick={() => setValue("bathrooms", Math.min(10, bathrooms + 1))}
-                                className="w-12 h-12 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-slate-50 transition-colors"
+                                className="w-12 h-12 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-colors"
                             >+</button>
                         </div>
                     </div>
@@ -80,13 +80,13 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                 <div className="space-y-4">
                     <div className="flex justify-between items-center">
                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Approx. Square Feet</label>
-                        <span className="px-3 py-1 bg-cyan-50 text-cyan-600 rounded-full text-xs font-black">{sqFt} SQ FT</span>
+                        <span className="px-3 py-1 bg-brand-light/10 text-brand-light rounded-full text-xs font-black">{sqFt} SQ FT</span>
                     </div>
                     <input
                         type="range" min="500" max="6000" step="100"
                         value={sqFt}
                         onChange={(e) => setValue("sqFt", parseInt(e.target.value))}
-                        className="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-cyan-500"
+                        className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-brand-light"
                     />
                 </div>
 
@@ -99,7 +99,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                                 key={opt.id}
                                 type="button"
                                 onClick={() => setValue("cleaningType", opt.id as any)}
-                                className={`py-4 px-2 rounded-2xl border-2 transition-all font-bold text-xs ${cleaningType === opt.id ? "bg-black border-black text-white shadow-xl translate-y-[-2px]" : "border-slate-100 text-slate-400 hover:border-slate-200"
+                                className={`py-4 px-2 rounded-2xl border-2 transition-all font-bold text-xs ${cleaningType === opt.id ? "bg-brand-dark border-brand-dark text-white shadow-xl translate-y-[-2px]" : "border-slate-100 text-slate-400 hover:border-brand-light/30"
                                     }`}
                             >
                                 {opt.label}
@@ -111,14 +111,14 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
 
             <button
                 onClick={onNext}
-                className="btn-sentient btn-sentient-fuchsia flex items-center justify-center gap-3 w-full py-6 text-xl"
+                className="btn-sentient bg-accent text-brand-dark shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all flex items-center justify-center gap-3 w-full py-6 text-xl"
             >
                 Select Frequency <ArrowRight size={20} />
             </button>
 
-            <div className="bg-slate-50/50 p-6 rounded-3xl border border-slate-100/50 flex items-start gap-4">
-                <div className="p-3 bg-white text-cyan-500 rounded-2xl shadow-sm"><Sparkles size={20} /></div>
-                <p className="text-xs text-slate-400 font-medium leading-relaxed">
+            <div className="bg-white/50 p-6 rounded-3xl border border-brand-light/20 flex items-start gap-4">
+                <div className="p-3 bg-white text-brand-light rounded-2xl shadow-sm"><Sparkles size={20} /></div>
+                <p className="text-xs text-slate-500 font-medium leading-relaxed">
                     <strong>Tip:</strong> Deep Cleaning is highly recommended if your home hasn&apos;t been professionally cleaned in the last 30 days.
                 </p>
             </div>

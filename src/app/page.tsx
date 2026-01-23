@@ -28,13 +28,13 @@ export default function Home() {
             </nav>
 
             <div className="max-w-4xl space-y-8 animate-in fade-in slide-in-from-bottom-8 duration-1000">
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 text-[10px] font-black uppercase tracking-widest text-slate-500">
-                    <Sparkles className="text-cyan-500" size={12} /> Reimagining the Clean Experience
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-cream text-[10px] font-black uppercase tracking-widest text-slate-500 border border-slate-200">
+                    <Sparkles className="text-brand-light" size={12} /> Reimagining the Clean Experience
                 </div>
 
-                <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-slate-900">
-                    Pure <span className="text-fuchsia-500">Precision</span>.<br />
-                    Extreme <span className="text-cyan-500">Shine</span>.
+                <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-[0.9] text-brand-dark">
+                    Pure <span className="text-accent">Precision</span>.<br />
+                    Extreme <span className="text-brand">Shine</span>.
                 </h1>
 
                 <p className="max-w-xl mx-auto text-lg md:text-xl text-slate-500 font-medium">
@@ -42,10 +42,10 @@ export default function Home() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6">
-                    <Link href="/quote" className="btn-sentient btn-sentient-fuchsia w-full sm:w-auto flex items-center justify-center gap-2">
+                    <Link href="/quote" className="btn-sentient bg-accent text-brand-dark shadow-[0_0_20px_rgba(5,209,110,0.4)] hover:shadow-[0_0_30px_rgba(5,209,110,0.6)] w-full sm:w-auto flex items-center justify-center gap-2">
                         Start Your Transformation <ArrowRight size={20} />
                     </Link>
-                    <Link href="/services" className="px-8 py-4 border-2 border-slate-200 rounded-full font-bold hover:bg-slate-50 transition-colors w-full sm:w-auto">
+                    <Link href="/services" className="px-8 py-4 border-2 border-brand-light/30 text-brand-dark rounded-full font-bold hover:bg-white transition-colors w-full sm:w-auto">
                         Explore Services
                     </Link>
                 </div>

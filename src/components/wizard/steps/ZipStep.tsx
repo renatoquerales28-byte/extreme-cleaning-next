@@ -3,7 +3,7 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
-import { ArrowRight, MapPin } from "lucide-react";
+import { ArrowRight, MapPin, User } from "lucide-react";
 
 interface ZipStepProps {
     onNext: () => void;
@@ -16,7 +16,7 @@ export default function ZipStep({ onNext }: ZipStepProps) {
     const isValidZip = zipCode?.length === 5 && /^\d+$/.test(zipCode);
 
     return (
-        <div className="flex flex-col items-center justify-center gap-10 text-center py-4 antialiased">
+        <div className="flex flex-col items-center justify-center gap-8 md:gap-10 text-center py-4 antialiased">
             <div className="space-y-4">
                 <h2 className="text-3xl md:text-6xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
                     Where is the <br />
@@ -50,6 +50,21 @@ export default function ZipStep({ onNext }: ZipStepProps) {
                 >
                     Check Availability <ArrowRight size={20} strokeWidth={3} />
                 </button>
+            </div>
+
+            {/* Existing Clients Section */}
+            <div className="pt-8 border-t border-slate-100 w-full max-w-sm">
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Already an ECS Client?</p>
+                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-light/30 transition-all group cursor-pointer shadow-sm">
+                    <div className="flex items-center gap-3">
+                        <div className="p-2 bg-white rounded-xl shadow-sm"><User size={16} className="text-brand-dark" strokeWidth={3} /></div>
+                        <div className="text-left">
+                            <p className="text-xs font-black text-brand-dark">Customer Login</p>
+                            <p className="text-[10px] text-slate-500 font-bold">Manage your cleanings</p>
+                        </div>
+                    </div>
+                    <ArrowRight size={16} className="text-slate-300 group-hover:text-brand-light transition-colors" />
+                </div>
             </div>
 
             <p className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-300">

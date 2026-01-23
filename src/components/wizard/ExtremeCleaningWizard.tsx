@@ -293,11 +293,16 @@ export default function ExtremeCleaningWizard() {
                                     </p>
                                 </div>
 
-                                <div className="space-y-4">
-                                    <div className="flex gap-1">
-                                        {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} className="fill-accent text-accent" />)}
+                                <div className="space-y-4 pt-12">
+                                    <div className="p-4 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10">
+                                        <div className="flex items-center gap-3 mb-2">
+                                            <div className="p-1.5 bg-accent/20 rounded-lg"><Star size={14} className="text-accent fill-accent" /></div>
+                                            <p className="font-black text-white text-xs uppercase tracking-wider">Emergency Services</p>
+                                        </div>
+                                        <p className="text-[11px] text-slate-300 leading-snug font-medium">
+                                            Need a clean ASAP? We offer <strong>Emergency</strong> and <strong>After-Party</strong> cleanup services. Call us directly for immediate dispatch.
+                                        </p>
                                     </div>
-                                    <p className="font-bold text-[10px] tracking-widest uppercase opacity-80">Trusted by 500+ Neighbors</p>
                                 </div>
                             </motion.div>
                         )}
@@ -313,19 +318,57 @@ export default function ExtremeCleaningWizard() {
                 </a>
 
                 {/* Right Panel - Wizard Form */}
-                <div className="flex-1 w-full lg:w-[60%] bg-[#F9F8F2] relative flex flex-col p-6 md:p-12 lg:p-24 min-h-screen overflow-y-auto">
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={step}
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="flex-1 flex flex-col justify-center min-h-0"
-                        >
-                            {renderStep()}
-                        </motion.div>
-                    </AnimatePresence>
+                <div className="flex-1 w-full lg:w-[60%] bg-[#F9F8F2] relative flex flex-col min-h-screen overflow-y-auto">
+
+                    {/* Unified Navigation Header */}
+                    <div className="sticky top-0 z-20 w-full p-6 md:p-8 flex items-center justify-between bg-[#F9F8F2]/80 backdrop-blur-sm">
+                        {step !== 0 && step !== "returning_lookup" && (
+                            <button
+                                onClick={prevStep}
+                                className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-brand-dark transition-colors group"
+                            >
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform">
+                                    <path d="m15 18-6-6 6-6" />
+                                </svg>
+                                Back
+                            </button>
+                        )}
+                        {step === 0 && <div></div>} {/* Spacer */}
+
+                        {/* Progress Bar */}
+                        <div className="flex flex-col items-end gap-1.5 min-w-[120px]">
+                            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-300">
+                                Step {typeof step === 'number' ? Math.min(step + 1, 5) : 1} of 5
+                            </span>
+                            <div className="w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                                <motion.div
+                                    className="h-full bg-brand-light"
+                                    initial={{ width: 0 }}
+                                    animate={{
+                                        width: typeof step === 'number'
+                                            ? `${((Math.max(step, 0) + 1) / 5) * 100}%`
+                                            : "20%"
+                                    }}
+                                    transition={{ duration: 0.5, ease: "anticipate" }}
+                                />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="flex-1 flex flex-col p-6 md:p-12 lg:p-24 pt-0">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={step}
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.2 }}
+                                className="flex-1 flex flex-col justify-center min-h-0"
+                            >
+                                {renderStep()}
+                            </motion.div>
+                        </AnimatePresence>
+                    </div>
                 </div>
             </div>
         </FormProvider>

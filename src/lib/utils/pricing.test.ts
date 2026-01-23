@@ -33,7 +33,8 @@ describe('Pricing Logic', () => {
                 cleaningType: 'regular',
                 frequency: 'weekly',
                 zipCode: '99201',
-                step: 4
+                step: 4,
+                smallPortfolio: []
             };
             // Base 165 * (1 - 0.20) = 165 * 0.8 = 132
             expect(calculateTotal(data)).toBe(132);
@@ -48,7 +49,8 @@ describe('Pricing Logic', () => {
                 cleaningType: 'regular',
                 frequency: 'monthly',
                 zipCode: '99201',
-                step: 4
+                step: 4,
+                smallPortfolio: []
             };
             // Base 165 * (1 - 0.10) = 165 * 0.9 = 148.5 -> rounded to 149
             expect(calculateTotal(data)).toBe(149);

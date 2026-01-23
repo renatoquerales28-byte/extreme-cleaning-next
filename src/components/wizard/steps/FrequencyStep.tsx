@@ -17,20 +17,11 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
 
     const handleSelect = (id: string) => {
         setValue("frequency", id as any);
-        // UX: Auto-advance after small delay
-        setTimeout(() => {
-            onNext();
-        }, 300);
     };
 
     return (
         <div className="flex flex-col h-full justify-start md:justify-center gap-6 w-full max-w-xl mx-auto py-2 antialiased">
-            <div className="flex items-center justify-between w-full shrink-0">
-                <button onClick={onBack} className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-brand-dark transition-all">
-                    <ChevronLeft size={14} strokeWidth={3} /> Back
-                </button>
-                <span className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-300">Phase 04 / 05</span>
-            </div>
+            {/* Nav removed in favor of parent wizard layout */}
 
             <div className="text-center space-y-2 shrink-0">
                 <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
@@ -76,8 +67,6 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
                                 <Star size={10} className="fill-brand-light" /> Popular
                             </div>
                         )}
-
-                        <ArrowRight className={`transition-all duration-300 ${selectedFreq === freq.id ? "opacity-100 text-accent translate-x-0" : "opacity-0 -translate-x-4"}`} size={18} strokeWidth={3} />
                     </button>
                 ))}
             </div>

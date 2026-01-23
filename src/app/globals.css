@@ -26,6 +26,9 @@ body {
     color: var(--foreground);
     background: var(--background);
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
 
 /* Sentient Vignette Effect */

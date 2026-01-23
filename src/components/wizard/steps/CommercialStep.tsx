@@ -26,63 +26,68 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
     ];
 
     return (
-        <div className="flex flex-col h-full justify-center gap-3 w-full py-2">
+        <div className="flex flex-col h-full justify-start md:justify-center gap-6 w-full max-w-xl mx-auto py-2 antialiased">
             <div className="flex items-center justify-between w-full shrink-0">
-                <button onClick={onBack} className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-black transition-colors">
-                    <ChevronLeft size={14} /> Back
+                <button onClick={onBack} className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-brand-dark transition-all">
+                    <ChevronLeft size={14} strokeWidth={3} /> Back
                 </button>
-                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-300">Step 03 / 05</span>
+                <span className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-300">Phase 03 / 05</span>
             </div>
 
-            <div className="space-y-1 shrink-0">
-                <h2 className="text-3xl md:text-4xl font-black tracking-tighter text-brand-dark">
+            <div className="text-center space-y-2 shrink-0">
+                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
                     Commercial <span className="text-accent">Details</span>
                 </h2>
-                <p className="text-xs text-slate-500 font-medium">Tell us about your business space.</p>
+                <p className="text-sm text-slate-500 font-medium tracking-tight">Tell us about your business space.</p>
             </div>
 
-            <div className="grid gap-3 w-full shrink-0">
+            <div className="grid gap-6 w-full shrink-0">
                 <div>
-                    <label className="block text-[9px] font-bold text-slate-700 uppercase tracking-wider mb-1">Business Type</label>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+                    <label className="block text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Business Categorization</label>
+                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                         {businessTypes.map((type) => (
                             <button
                                 key={type.id}
                                 type="button"
                                 onClick={() => setValue("businessType", type.id)}
-                                className={`p-2 rounded-lg border transition-all flex flex-col items-center gap-1 ${businessType === type.id
-                                    ? "border-black bg-black text-white"
+                                className={`p-4 rounded-2xl border-2 transition-all flex flex-col items-center gap-2 ${businessType === type.id
+                                    ? "border-brand-dark bg-brand-dark text-white shadow-xl scale-[1.02]"
                                     : "border-slate-100 bg-white text-slate-500 hover:border-slate-300"
                                     }`}
                             >
-                                <type.icon size={16} />
-                                <span className="text-[9px] font-bold uppercase tracking-wide">{type.label}</span>
+                                <type.icon size={20} strokeWidth={2.5} />
+                                <span className="text-[10px] font-black uppercase tracking-wider">{type.label}</span>
                             </button>
                         ))}
                     </div>
                 </div>
 
-                <div>
-                    <label className="block text-[9px] font-bold text-slate-700 uppercase tracking-wider mb-1">Approx Sq. Footage {commSqFt && <span className="text-accent">({commSqFt} sqft)</span>}</label>
-                    <input
-                        type="number"
-                        placeholder="e.g. 2500"
-                        {...register("commSqFt")}
-                        className="w-full text-xl font-black bg-transparent border-b border-slate-200 focus:border-brand-dark outline-none py-1 placeholder:text-slate-200 transition-colors"
-                    />
+                <div className="space-y-3">
+                    <label className="block text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Approximate Square Footage</label>
+                    <div className="relative">
+                        <input
+                            type="number"
+                            placeholder="e.g. 2500"
+                            {...register("commSqFt")}
+                            className="w-full text-3xl font-black bg-slate-50/50 border-2 border-slate-100 rounded-2xl px-6 py-4 focus:border-brand-dark focus:bg-white outline-none placeholder:text-slate-200 transition-all"
+                        />
+                        <span className="absolute right-6 top-1/2 -translate-y-1/2 font-black text-slate-300 tracking-tighter uppercase text-xs">SQ FT</span>
+                    </div>
                 </div>
             </div>
 
-            <button
-                onClick={onNext}
-                disabled={!isValid}
-                className={`mt-2 w-full py-3 rounded-full font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 transition-all duration-300 shrink-0 ${isValid
-                    ? "bg-black text-white shadow-lg hover:scale-[1.01]"
-                    : "bg-slate-100 text-slate-300 cursor-not-allowed"
-                    }`}
-            >
-                Continue <ArrowRight size={16} />
-            </button>
+            <div className="mt-2 shrink-0">
+                <button
+                    onClick={onNext}
+                    disabled={!isValid}
+                    className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 shrink-0 ${isValid
+                        ? "bg-brand-dark text-white shadow-[0_10px_30px_rgba(2,70,83,0.3)] hover:bg-black hover:scale-[1.01] active:scale-95"
+                        : "bg-slate-100 text-slate-300 cursor-not-allowed"
+                        }`}
+                >
+                    Confirm & Continue <ArrowRight size={18} strokeWidth={3} />
+                </button>
+            </div>
         </div>
     );
 }

@@ -21,24 +21,24 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
     ];
 
     return (
-        <div className="flex flex-col h-full justify-start md:justify-center gap-4 w-full py-2">
+        <div className="flex flex-col h-full justify-start md:justify-center gap-6 w-full py-2 antialiased">
             <div className="flex items-center justify-between w-full shrink-0">
-                <button onClick={onBack} className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-black transition-colors">
-                    <ChevronLeft size={14} /> Back
+                <button onClick={onBack} className="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-brand-dark transition-all">
+                    <ChevronLeft size={14} strokeWidth={3} /> Back
                 </button>
-                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-300">Step 02 / 05</span>
+                <span className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-300">Phase 02 / 05</span>
             </div>
 
-            <div className="text-center space-y-1 shrink-0">
-                <h2 className="text-3xl md:text-4xl font-black tracking-tighter text-brand-dark leading-none">
+            <div className="text-center space-y-2 shrink-0">
+                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
                     Choose Your <span className="text-accent">Service</span>
                 </h2>
-                <p className="text-xs text-slate-500 font-medium">
+                <p className="text-sm text-slate-500 font-medium tracking-tight">
                     Select the type of space we&apos;ll be transforming today.
                 </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-3 w-full shrink-0">
+            <div className="grid md:grid-cols-3 gap-4 w-full shrink-0">
                 {services.map((service) => (
                     <button
                         key={service.id}
@@ -46,28 +46,32 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                         onClick={() => {
                             setValue("serviceType", service.id as any);
                         }}
-                        className={`group p-3 md:p-4 glass-card rounded-2xl text-left relative overflow-hidden transition-all duration-300 border-2 ${selectedService === service.id ? "border-brand-dark bg-slate-50 shadow-md scale-[1.02]" : "border-transparent hover:border-slate-100"
+                        className={`group p-5 glass-card rounded-3xl text-left relative overflow-hidden transition-all duration-300 border-2 ${selectedService === service.id
+                            ? "border-brand-dark bg-slate-50/50 shadow-2xl scale-[1.03] z-10"
+                            : "border-transparent hover:border-slate-100 hover:scale-[1.01]"
                             }`}
                     >
-                        <div className={`p-2 rounded-lg ${service.bg} ${service.color} w-fit mb-2 transition-transform`}>
-                            <service.icon size={18} />
+                        <div className={`p-3 rounded-2xl ${service.bg} ${service.color} w-fit mb-4 transition-transform group-hover:scale-110`}>
+                            <service.icon size={22} strokeWidth={2.5} />
                         </div>
-                        <h3 className="text-base font-black tracking-tighter mb-0.5">{service.label}</h3>
-                        <p className="text-[9px] text-slate-500 font-medium leading-tight">{service.desc}</p>
+                        <h3 className="text-xl font-black tracking-tighter mb-1 leading-tight">{service.label}</h3>
+                        <p className="text-[11px] text-slate-500 font-bold leading-snug tracking-tight">{service.desc}</p>
                     </button>
                 ))}
             </div>
 
-            <button
-                onClick={() => selectedService && onNext()}
-                disabled={!selectedService}
-                className={`w-full py-3 rounded-xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all duration-300 shrink-0 ${selectedService
-                    ? "bg-brand-dark text-white shadow-lg hover:bg-black"
-                    : "bg-slate-100 text-slate-300 cursor-not-allowed"
-                    }`}
-            >
-                Confirm Service <ArrowRight size={14} />
-            </button>
+            <div className="mt-2 shrink-0">
+                <button
+                    onClick={() => selectedService && onNext()}
+                    disabled={!selectedService}
+                    className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 ${selectedService
+                        ? "bg-brand-dark text-white shadow-[0_10px_30px_rgba(2,70,83,0.3)] hover:bg-black hover:scale-[1.01] active:scale-95"
+                        : "bg-slate-100 text-slate-300 cursor-not-allowed"
+                        }`}
+                >
+                    Confirm & Continue <ArrowRight size={16} strokeWidth={3} />
+                </button>
+            </div>
         </div>
     );
 }

@@ -212,16 +212,16 @@ export default function ExtremeCleaningWizard() {
                 </div>
 
                 {/* Right Panel - Wizard Form */}
-                <div className="flex-1 w-full lg:w-[60%] bg-white relative flex flex-col p-6 md:p-8">
+                <div className="flex-1 w-full lg:w-[60%] bg-white relative flex flex-col p-6 md:p-10">
                     <AnimatePresence mode="wait" custom={direction}>
                         <motion.div
                             key={step}
                             custom={direction}
-                            initial={{ opacity: 0, x: direction > 0 ? 20 : -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            exit={{ opacity: 0, x: direction > 0 ? -20 : 20 }}
-                            transition={{ duration: 0.3 }}
-                            className="flex-1 flex flex-col justify-center overflow-hidden"
+                            initial={{ opacity: 0, x: direction > 0 ? 30 : -30, filter: "blur(4px)", scale: 0.98 }}
+                            animate={{ opacity: 1, x: 0, filter: "blur(0px)", scale: 1 }}
+                            exit={{ opacity: 0, x: direction > 0 ? -30 : 30, filter: "blur(4px)", scale: 0.98 }}
+                            transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+                            className="flex-1 flex flex-col justify-center min-h-0"
                         >
                             {renderStep()}
                         </motion.div>

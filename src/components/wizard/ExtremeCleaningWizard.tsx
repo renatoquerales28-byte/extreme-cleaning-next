@@ -74,7 +74,7 @@ export default function ExtremeCleaningWizard() {
                         animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                         exit={{ opacity: 0, x: direction > 0 ? -30 : 30, filter: "blur(10px)" }}
                         transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-                        className="flex-1 flex flex-col justify-center overflow-y-auto"
+                        className="flex-1 flex flex-col justify-center overflow-hidden"
                     >
                         {renderStep()}
                     </motion.div>

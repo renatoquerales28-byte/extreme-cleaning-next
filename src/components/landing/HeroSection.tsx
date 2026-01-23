@@ -56,22 +56,24 @@ export default function HeroSection() {
                     {/* Zip Code CTA */}
                     <form onSubmit={handleStart} className="w-full max-w-sm relative group mt-2">
                         <div className="absolute -inset-1 bg-gradient-to-r from-brand-light to-accent rounded-full blur opacity-20 group-hover:opacity-30 transition duration-500"></div>
-                        <div className="relative flex items-center bg-white rounded-full p-2 shadow-xl border border-slate-100">
-                            <MapPin className="ml-4 text-slate-400" size={20} />
+                        <div className="relative flex items-center bg-white rounded-full shadow-xl border border-slate-100 p-1.5 pl-6 w-full h-16">
+                            <MapPin className="text-slate-400 shrink-0" size={20} />
                             <input
                                 type="text"
                                 value={zip}
                                 onChange={(e) => setZip(e.target.value)}
                                 placeholder="Enter Zip Code"
                                 maxLength={5}
-                                className="flex-1 bg-transparent border-none outline-none px-4 text-brand-dark font-bold placeholder:text-slate-300"
+                                className="flex-1 bg-transparent border-none outline-none px-4 text-brand-dark font-bold placeholder:text-slate-300 h-full w-full min-w-0"
                             />
                             <button
                                 type="submit"
                                 disabled={zip.length !== 5}
-                                className="bg-brand-dark text-white px-6 py-3 rounded-full font-bold text-sm tracking-wide uppercase hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                                className="bg-brand-dark text-white h-full px-6 rounded-full font-bold text-xs md:text-sm tracking-wide uppercase hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shrink-0"
                             >
-                                Get Estimate <ArrowRight size={16} />
+                                <span className="hidden md:inline">Get Estimate</span>
+                                <span className="md:hidden">Go</span>
+                                <ArrowRight size={16} />
                             </button>
                         </div>
                     </form>

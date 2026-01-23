@@ -66,9 +66,13 @@ body {
         @apply relative px-8 py-4 bg-black text-white rounded-full font-bold transition-all duration-300 hover:scale-105 active:scale-95 overflow-hidden;
     }
 
-    .btn-sentient-fuchsia {
-        @apply bg-[#FF00E5] text-white shadow-[0_0_20px_rgba(255, 0, 229, 0.3)] hover:shadow-[0_0_30px_rgba(255, 0, 229, 0.5)];
-    }
+    @apply bg-[#FF00E5] text-white;
+    box-shadow: 0 0 20px rgba(255, 0, 229, 0.3);
+    transition: box-shadow 0.3s ease;
+}
+
+.btn-sentient-fuchsia:hover {
+    box-shadow: 0 0 30px rgba(255, 0, 229, 0.5);
 
     .glass-card {
         @apply bg-white/40 backdrop-blur-xl border border-white/40 shadow-xl;

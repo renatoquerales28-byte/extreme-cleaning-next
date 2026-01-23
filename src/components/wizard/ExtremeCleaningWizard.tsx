@@ -208,11 +208,11 @@ export default function ExtremeCleaningWizard() {
 
     return (
         <FormProvider {...methods}>
-            {/* Main Card Container - Flat Brand Design */}
-            <div className="w-full max-w-6xl h-auto min-h-[500px] lg:h-[680px] lg:max-h-[95vh] bg-cream rounded-3xl shadow-xl flex flex-col lg:flex-row overflow-hidden relative z-10 border border-brand-dark/5">
+            {/* Main Full-Screen Split Layout */}
+            <div className="w-full min-h-screen flex flex-col lg:flex-row bg-[#F9F8F2] relative overflow-hidden">
 
                 {/* Left Panel - Hidden on Mobile, Fixed Width on Desktop */}
-                <div className="hidden lg:flex w-[40%] bg-brand-dark relative flex-col justify-between p-10 text-white overflow-hidden shrink-0">
+                <div className="hidden lg:flex w-[40%] bg-brand-dark relative flex-col justify-between p-16 text-white overflow-hidden shrink-0 border-r border-white/5">
                     <div className="absolute inset-0 bg-black/5 pointer-events-none" />
 
                     <AnimatePresence mode="wait">
@@ -313,7 +313,7 @@ export default function ExtremeCleaningWizard() {
                 </a>
 
                 {/* Right Panel - Wizard Form */}
-                <div className="flex-1 w-full lg:w-[60%] bg-transparent relative flex flex-col p-6 md:p-10 min-h-[500px] lg:min-h-0">
+                <div className="flex-1 w-full lg:w-[60%] bg-[#F9F8F2] relative flex flex-col p-6 md:p-12 lg:p-24 min-h-screen overflow-y-auto">
                     <AnimatePresence mode="wait">
                         <motion.div
                             key={step}

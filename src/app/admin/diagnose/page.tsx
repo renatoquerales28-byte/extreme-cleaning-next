@@ -5,12 +5,14 @@ import { sql } from "drizzle-orm";
 
 export default async function DiagnosePage() {
     const checks = {
+        buildTime: new Date().toISOString(),
+        nodeEnv: process.env.NODE_ENV,
         hasPostgresUrl: !!process.env.POSTGRES_URL,
         hasAdminUser: !!process.env.ADMIN_USERNAME,
         hasAdminPass: !!process.env.ADMIN_PASSWORD,
         hasNextAuthSecret: !!process.env.NEXTAUTH_SECRET,
         hasNextAuthUrl: !!process.env.NEXTAUTH_URL,
-        nextAuthUrlValue: process.env.NEXTAUTH_URL, // Safe to show URL
+        nextAuthUrlValue: process.env.NEXTAUTH_URL,
     };
 
     let dbStatus = "Pending";
@@ -33,6 +35,8 @@ export default async function DiagnosePage() {
                 <div className="p-4 border rounded bg-gray-50">
                     <h2 className="font-bold mb-2">Environment Variables</h2>
                     <ul className="space-y-1">
+                        <li>Build Time: {checks.buildTime}</li>
+                        <li>Environment: {checks.nodeEnv}</li>
                         <li>POSTGRES_URL: {checks.hasPostgresUrl ? "✅ Set" : "❌ MISSING"}</li>
                         <li>ADMIN_USERNAME: {checks.hasAdminUser ? "✅ Set" : "❌ MISSING"}</li>
                         <li>ADMIN_PASSWORD: {checks.hasAdminPass ? "✅ Set" : "❌ MISSING"}</li>

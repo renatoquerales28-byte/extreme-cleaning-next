@@ -49,7 +49,7 @@ export default function SocialProofSection() {
                 <div className="flex flex-col items-center text-center mb-16 space-y-4">
                     <span className="text-emerald-500 font-black tracking-[0.2em] text-xs uppercase">Community Trust</span>
                     <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-brand-dark leading-[0.9]">
-                        Don't Just Take <br />
+                        Don&apos;t Just Take <br />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-dark to-brand-light">Our Word For It.</span>
                     </h2>
                 </div>
@@ -72,7 +72,7 @@ export default function SocialProofSection() {
                                 ))}
                             </div>
 
-                            <p className="text-brand-dark font-medium leading-relaxed mb-6">"{review.text}"</p>
+                            <p className="text-brand-dark font-medium leading-relaxed mb-6">&quot;{review.text}&quot;</p>
 
                             <div className="flex items-center gap-4">
                                 <div className="relative w-12 h-12 rounded-full overflow-hidden">

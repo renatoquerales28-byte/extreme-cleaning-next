@@ -18,7 +18,7 @@ export default function ProblemSolutionSection() {
                     <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight">
                         Not All Cleans <br /> Are Created <span className="text-brand-light">Equal.</span>
                     </h2>
-                    <p className="text-brand-light/60 font-medium">Stop settling for "good enough". Experience the peace of mind that comes with perfection.</p>
+                    <p className="text-brand-light/60 font-medium">Stop settling for &quot;good enough&quot;. Experience the peace of mind that comes with perfection.</p>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">

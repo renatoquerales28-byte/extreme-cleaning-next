@@ -48,7 +48,7 @@ export default function FooterSection() {
                         <ul className="space-y-4 text-sm font-medium text-slate-500">
                             <li><Link href="/quote?type=residential" className="hover:text-brand-dark transition-colors">Residential</Link></li>
                             <li><Link href="/quote?type=commercial" className="hover:text-brand-dark transition-colors">Commercial</Link></li>
-                            <li><Link href="/quote?type=property_mgmt" className="hover:text-brand-dark transition-colors">Move In/Out</Link></li>
+                            <li><Link href="/quote?type=residential&intensity=move" className="hover:text-brand-dark transition-colors">Move In/Out</Link></li>
                         </ul>
                     </div>
 

@@ -30,7 +30,7 @@ export default function ServicesSection() {
             icon: Key,
             description: "Ensure every corner is spotless for the next chapter. Deep cleaning for smooth transitions.",
             image: "/brand/service-airbnb.png",
-            link: "/quote?type=residential"
+            link: "/quote?type=residential&intensity=move"
         }
     ];
 

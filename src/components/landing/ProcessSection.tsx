@@ -24,7 +24,7 @@ export default function ProcessSection() {
     ];
 
     return (
-        <section className="py-24 bg-brand-dark text-white relative overflow-hidden">
+        <section className="py-24 bg-brand-dark text-white relative overflow-hidden" id="process">
             {/* Background Line Animation */}
             <div className="absolute top-1/2 left-0 w-full h-px bg-white/10 -translate-y-1/2 hidden md:block" />
 

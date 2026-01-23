@@ -22,20 +22,29 @@ import { useSearchParams } from "next/navigation";
 export default function ExtremeCleaningWizard() {
     const searchParams = useSearchParams();
     const urlZip = searchParams.get("zip");
+    const urlType = searchParams.get("type"); // residential, commercial, property_mgmt
+    const urlIntensity = searchParams.get("intensity"); // regular, deep, move
 
-    // Start at step 1 if zip is provided, else step 0
-    const [step, setStep] = useState(urlZip ? 1 : 0);
+    // Logic to determine initial step
+    const getInitialStep = () => {
+        if (!urlZip) return 0;
+        if (urlType) return 2; // Zip and type provided, go to details
+        return 1; // Only zip provided, go to service selection
+    };
+
+    const [step, setStep] = useState(getInitialStep());
     const [direction, setDirection] = useState(0);
 
     const methods = useForm<WizardData>({
         resolver: zodResolver(wizardSchema),
         defaultValues: {
-            step: urlZip ? 1 : 0,
+            step: getInitialStep(),
             zipCode: urlZip || "",
+            serviceType: (urlType as any) || "",
             bedrooms: 1,
             bathrooms: 1,
             sqFt: 1000,
-            cleaningType: "regular",
+            cleaningType: (urlIntensity as any) || "regular",
             frequency: "biweekly",
             smallPortfolio: [],
         },
@@ -43,7 +52,13 @@ export default function ExtremeCleaningWizard() {
 
     const nextStep = () => {
         setDirection(1);
-        setStep((prev) => prev + 1);
+        setStep((prev) => {
+            // If we just finished zip step and service type is already pre-selected, skip service selection
+            if (prev === 0 && methods.getValues("serviceType")) {
+                return 2;
+            }
+            return prev + 1;
+        });
     };
 
     const prevStep = () => {

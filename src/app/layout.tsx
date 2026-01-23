@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-// import { Outfit } from "next/font/google"; // This requires internet access to download fonts!
+import { Outfit } from "next/font/google"; // This requires internet access to download fonts!
 import "./globals.css";
 
-// const outfit = Outfit({
-//     subsets: ["latin"],
-//     variable: "--font-outfit",
-// });
+const outfit = Outfit({
+    subsets: ["latin"],
+    variable: "--font-outfit",
+});
 
 export const metadata: Metadata = {
     title: "Extreme Cleaning | Spokane's Premium Cleaning Service",
@@ -19,8 +19,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            {/* <body className={`${outfit.variable} font-outfit antialiased`}> */}
-            <body className={`font-sans antialiased`}>
+            <body className={`${outfit.variable} font-outfit antialiased`}>
                 <div className="sentient-vignette" />
                 <div className="sentient-grain" />
                 <main className="relative z-10 min-h-screen">

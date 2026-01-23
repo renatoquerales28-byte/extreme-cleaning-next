@@ -30,6 +30,9 @@ export default function ExtremeCleaningWizard() {
 
     // Logic to determine initial step
     const getInitialStep = () => {
+        const mode = searchParams.get("mode");
+        if (mode === "returning") return "returning_lookup";
+
         if (!urlZip) return 0;
         if (urlType) return 2; // Zip and type provided, go to details
         return 1; // Only zip provided, go to service selection

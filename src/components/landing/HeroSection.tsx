@@ -78,6 +78,17 @@ export default function HeroSection() {
                         </div>
                     </form>
 
+                    {/* Returning Client Link */}
+                    <div className="pl-6">
+                        <button
+                            onClick={() => router.push("/quote?mode=returning")}
+                            className="text-xs font-bold text-slate-400 hover:text-brand-dark transition-colors flex items-center gap-2"
+                        >
+                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            Already an ECS Client? <span className="underline decoration-slate-300 underline-offset-4 cursor-pointer">Log in here</span>
+                        </button>
+                    </div>
+
                     {/* Trust Anchors */}
                     <div className="flex items-center gap-8 pt-8 border-t border-brand-dark/5 mt-4">
                         <div className="flex items-center gap-2">

@@ -28,9 +28,9 @@ export default function AdminLayout({
             {/* Sidebar */}
             <aside className="w-64 bg-white border-r border-[#D1D5DB] flex flex-col">
                 <div className="p-6 border-b border-[#D1D5DB] flex justify-center">
-                    <div className="relative w-24 h-24">
+                    <div className="relative w-40 h-16">
                         <Image
-                            src="/images/logo_ecs.png"
+                            src="/brand/logo-full.png"
                             alt="ECS Logo"
                             fill
                             className="object-contain"
@@ -46,8 +46,8 @@ export default function AdminLayout({
                                 key={item.href}
                                 href={item.href}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive
-                                        ? "bg-[#1C1C1C] text-white shadow-md"
-                                        : "text-[#4B5563] hover:bg-gray-100"
+                                    ? "bg-[#1C1C1C] text-white shadow-md"
+                                    : "text-[#4B5563] hover:bg-gray-100"
                                     }`}
                             >
                                 <span className="text-xl">{item.icon}</span>

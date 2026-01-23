@@ -119,23 +119,23 @@ export default function ExtremeCleaningWizard() {
 
     return (
         <FormProvider {...methods}>
-            {/* Main Card Container - Fixed Dimensions for "Window" feel */}
-            <div className="w-full max-w-6xl h-[680px] max-h-[95vh] bg-white/85 backdrop-blur-2xl rounded-[2.5rem] shadow-[0_25px_50px_-12px_rgba(0,0,0,0.25)] flex overflow-hidden relative z-10 border border-white/40">
+            {/* Main Card Container - Ultra Glassmorphism */}
+            <div className="w-full max-w-6xl h-[680px] max-h-[95vh] bg-white/40 backdrop-blur-[40px] rounded-[2.5rem] shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] flex overflow-hidden relative z-10 border border-white/60">
 
-                {/* Left Panel - Dynamic Content */}
-                <div className="hidden lg:flex w-[40%] bg-brand-dark/95 relative flex-col justify-between p-10 text-white overflow-hidden transition-all duration-500 backdrop-blur-sm">
-                    <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581578731117-104f2a41272c?q=80&w=1974&auto=format&fit=crop')] bg-cover bg-center opacity-30 mix-blend-overlay" />
-                    <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/80 via-brand-dark/40 to-brand-dark/90" />
+                {/* Left Panel - Glassy Dark */}
+                <div className="hidden lg:flex w-[40%] bg-brand-dark/60 relative flex-col justify-between p-10 text-white overflow-hidden border-r border-white/10">
+                    <div className="absolute inset-0 bg-gradient-to-b from-black/10 to-black/30 pointer-events-none" />
 
                     <AnimatePresence mode="wait">
                         {step === 4 ? (
                             // QUOTE SUMMARY CARD VIEW (Step 4)
                             <motion.div
                                 key="summary"
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: 20 }}
-                                className="relative z-10 flex flex-col h-full duration-500"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                                className="relative z-10 flex flex-col h-full"
                             >
                                 <div className="flex items-center gap-2 mb-6 opacity-80">
                                     <Image src="/brand/logo.png" alt="Logo" width={24} height={24} className="object-contain" />
@@ -187,10 +187,10 @@ export default function ExtremeCleaningWizard() {
                             // DYNAMIC MARKETING VIEW (Steps 0-3)
                             <motion.div
                                 key={step + (data.serviceType || "")}
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: 20 }}
-                                transition={{ duration: 0.4 }}
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.2 }}
                                 className="relative z-10 flex flex-col h-full justify-between"
                             >
                                 <div>
@@ -201,7 +201,7 @@ export default function ExtremeCleaningWizard() {
                                         {lp?.title} <br />
                                         <span className="text-brand-light">{lp?.accent}</span>
                                     </h2>
-                                    <p className="text-slate-300 font-medium text-sm leading-relaxed max-w-xs">
+                                    <p className="text-slate-200 font-medium text-sm leading-relaxed max-w-xs shadow-black drop-shadow-md">
                                         {lp?.description}
                                     </p>
                                 </div>
@@ -218,7 +218,7 @@ export default function ExtremeCleaningWizard() {
                 </div>
 
                 {/* Close Button */}
-                <a href="/" className="absolute top-6 right-6 z-50 p-2 rounded-full bg-slate-100 text-slate-400 hover:bg-slate-200 hover:text-slate-600 transition-colors" title="Exit Wizard">
+                <a href="/" className="absolute top-6 right-6 z-50 p-2 rounded-full bg-white/50 hover:bg-white text-slate-500 transition-colors backdrop-blur-md" title="Exit Wizard">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M18 6 6 18" />
                         <path d="m6 6 12 12" />
@@ -227,14 +227,13 @@ export default function ExtremeCleaningWizard() {
 
                 {/* Right Panel - Wizard Form */}
                 <div className="flex-1 w-full lg:w-[60%] bg-transparent relative flex flex-col p-6 md:p-10">
-                    <AnimatePresence mode="wait" custom={direction}>
+                    <AnimatePresence mode="wait">
                         <motion.div
                             key={step}
-                            custom={direction}
-                            initial={{ opacity: 0, x: direction > 0 ? 30 : -30, filter: "blur(4px)", scale: 0.98 }}
-                            animate={{ opacity: 1, x: 0, filter: "blur(0px)", scale: 1 }}
-                            exit={{ opacity: 0, x: direction > 0 ? -30 : 30, filter: "blur(4px)", scale: 0.98 }}
-                            transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            transition={{ duration: 0.2 }}
                             className="flex-1 flex flex-col justify-center min-h-0"
                         >
                             {renderStep()}

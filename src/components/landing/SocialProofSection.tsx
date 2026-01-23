@@ -1,77 +1,97 @@
 "use client";
 
 import React from "react";
-import { Star, CheckCircle2 } from "lucide-react";
+import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function SocialProofSection() {
-    const features = [
-        "Kitchen Deep Clean",
-        "Bedroom Sanitization",
-        "Specialized Floor Care",
-        "Bathroom Descaling",
-        "Living Areas & Dusting",
-        "ClubECS Membership"
+    const reviews = [
+        {
+            id: 1,
+            author: "Sarah Jenkins",
+            role: "Homeowner, South Hill",
+            text: "I didn't realize how dirty my carpets were until ECS came. It literally feels like a new house. The team was punctual, polite, and thorough.",
+            rating: 5,
+            image: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1888&auto=format&fit=crop"
+        },
+        {
+            id: 2,
+            author: "Marcus Chen",
+            role: "Office Manager",
+            text: "We've gone through 3 cleaning companies in 2 years. ECS is the first one that actually does what they say. Our office has never looked better.",
+            rating: 5,
+            image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop"
+        },
+        {
+            id: 3,
+            author: "Emily & David",
+            role: "Airbnb Hosts",
+            text: "Reliability is everything for us. ECS has never missed a turnover, and our guests constantly mention how clean the place is in their 5-star reviews.",
+            rating: 5,
+            image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=2070&auto=format&fit=crop"
+        },
+        {
+            id: 4,
+            author: "Jessica R.",
+            role: "Busy Mom of 3",
+            text: "The best investment for my sanity. Coming home to a sparkling clean house on Fridays is the highlight of my week.",
+            rating: 5,
+            image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop"
+        }
     ];
 
     return (
-        <section className="py-20 px-4 w-full max-w-7xl mx-auto space-y-16">
+        <section className="py-24 bg-white relative overflow-hidden">
+            {/* Decor */}
+            <div className="absolute right-0 top-0 w-1/3 h-full bg-slate-50 -skew-x-12 z-0" />
 
-            {/* Validation Social */}
-            <div className="bg-white/40 backdrop-blur-md border border-white/60 rounded-[3rem] p-12 text-center shadow-xl">
-                <div className="flex flex-col items-center gap-4">
-                    <div className="flex items-center gap-1">
-                        {[1, 2, 3, 4, 5].map((i) => (
-                            <Star key={i} className="text-emerald-500 fill-emerald-500" size={24} />
-                        ))}
-                    </div>
-                    <h2 className="text-3xl md:text-4xl font-black tracking-tighter text-brand-dark">
-                        Trusted by 500+ Spokane Families
+            <div className="container px-4 mx-auto relative z-10">
+                <div className="flex flex-col items-center text-center mb-16 space-y-4">
+                    <span className="text-emerald-500 font-black tracking-[0.2em] text-xs uppercase">Community Trust</span>
+                    <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-brand-dark leading-[0.9]">
+                        Don't Just Take <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-dark to-brand-light">Our Word For It.</span>
                     </h2>
-                    <p className="text-lg text-slate-500 font-medium max-w-2xl mx-auto">
-                        &quot;Extreme Cleaning transformed my home. The detail is unmatched.&quot;
-                        <span className="block mt-2 text-sm font-bold text-brand-dark">- Sarah J., South Hill</span>
-                    </p>
-                </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-                {/* What Includes */}
-                <div className="glass-panel p-10 rounded-[3rem] h-full flex flex-col justify-center">
-                    <h3 className="text-2xl font-black tracking-tighter text-brand-dark mb-8 pl-4 border-l-4 border-accent">
-                        What&apos;s Included?
-                    </h3>
-                    <ul className="space-y-4">
-                        {features.map((item, idx) => (
-                            <li key={idx} className="flex items-center gap-4 text-lg font-bold text-slate-600">
-                                <div className="w-8 h-8 rounded-full bg-brand-light/10 text-brand-light flex items-center justify-center shrink-0">
-                                    <CheckCircle2 size={16} />
-                                </div>
-                                {item}
-                            </li>
-                        ))}
-                    </ul>
                 </div>
 
-                {/* Call to Action & Service Selection */}
-                <div className="space-y-6">
-                    <div className="glass-card p-12 rounded-[3rem] flex flex-col items-center justify-center text-center gap-4 hover:scale-[1.02] transition-transform duration-300">
-                        <h3 className="text-2xl font-black tracking-tighter text-brand-dark">Ready to shine?</h3>
-                        <button className="btn-sentient bg-brand-dark text-white w-full max-w-sm">
-                            Get Your Quote
-                        </button>
-                    </div>
-
-                    <div className="space-y-4">
-                        {["Deep Cleaning Service", "Move-In / Move-Out", "Post-Party Recovery"].map((service, i) => (
-                            <div key={i} className="px-8 py-6 rounded-[2rem] bg-slate-50 border border-slate-200 flex items-center gap-4 cursor-pointer hover:border-brand-light transition-colors group">
-                                <div className="w-6 h-6 rounded-full border-2 border-slate-300 group-hover:border-brand-light group-hover:bg-brand-light/10 transition-all" />
-                                <span className="font-bold text-slate-600 group-hover:text-brand-dark transition-colors">{service}</span>
+                <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
+                    {reviews.map((review, i) => (
+                        <motion.div
+                            key={review.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: i * 0.1, duration: 0.5 }}
+                            viewport={{ once: true }}
+                            className="break-inside-avoid bg-slate-50 p-8 rounded-3xl border border-slate-100 hover:shadow-xl transition-all duration-300"
+                        >
+                            <div className="flex text-amber-400 gap-1 mb-6">
+                                {[...Array(review.rating)].map((_, i) => (
+                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                                        <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
+                                    </svg>
+                                ))}
                             </div>
-                        ))}
-                    </div>
+
+                            <p className="text-brand-dark font-medium leading-relaxed mb-6">"{review.text}"</p>
+
+                            <div className="flex items-center gap-4">
+                                <div className="relative w-12 h-12 rounded-full overflow-hidden">
+                                    <Image
+                                        src={review.image}
+                                        alt={review.author}
+                                        fill
+                                        className="object-cover"
+                                    />
+                                </div>
+                                <div>
+                                    <h4 className="font-bold text-brand-dark text-sm">{review.author}</h4>
+                                    <p className="text-slate-400 text-xs font-bold uppercase tracking-wide">{review.role}</p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    ))}
                 </div>
             </div>
-
         </section>
     );
 }

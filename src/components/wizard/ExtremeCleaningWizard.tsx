@@ -9,6 +9,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import ZipStep from "./steps/ZipStep";
 import ServiceStep from "./steps/ServiceStep";
 import ResidentialStep from "./steps/ResidentialStep";
+import CommercialStep from "./steps/CommercialStep";
+import PMSelectionStep from "./steps/PMSelectionStep";
 import FrequencyStep from "./steps/FrequencyStep";
 import QuoteStep from "./steps/QuoteStep";
 
@@ -49,13 +51,15 @@ export default function ExtremeCleaningWizard() {
             case 2:
                 const serviceType = methods.watch("serviceType");
                 if (serviceType === "residential") return <ResidentialStep onNext={nextStep} onBack={prevStep} />;
-                return <div className="text-center py-20 font-black text-2xl uppercase tracking-widest opacity-20 italic">Step Coming Soon...</div>;
+                if (serviceType === "commercial") return <CommercialStep onNext={nextStep} onBack={prevStep} />;
+                if (serviceType === "property_mgmt") return <PMSelectionStep onNext={nextStep} onBack={prevStep} />;
+                return null;
             case 3:
                 return <FrequencyStep onNext={nextStep} onBack={prevStep} />;
             case 4:
                 return <QuoteStep onBack={prevStep} />;
             default:
-                return <div className="text-center py-20 font-black text-2xl uppercase tracking-widest opacity-20 italic">Step {step} coming soon...</div>;
+                return null;
         }
     };
 

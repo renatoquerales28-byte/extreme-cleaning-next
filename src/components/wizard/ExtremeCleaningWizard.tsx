@@ -65,7 +65,7 @@ export default function ExtremeCleaningWizard() {
 
     return (
         <FormProvider {...methods}>
-            <div className="w-full h-full flex flex-col relative px-8 py-8 md:px-12 md:py-12">
+            <div className="w-full h-full flex flex-col relative p-4 md:p-6">
                 <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
                         key={step}

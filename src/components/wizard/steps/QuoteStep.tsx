@@ -42,102 +42,101 @@ export default function QuoteStep({ onBack }: QuoteStepProps) {
     }
 
     return (
-        <div className="grid md:grid-cols-2 gap-6 w-full max-w-5xl mx-auto py-4">
-            {/* Left: Summary */}
-            <div className="space-y-4 order-2 md:order-1">
-                <div className="flex items-center justify-between">
-                    <button onClick={onBack} className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-black transition-colors">
-                        <ChevronLeft size={16} /> Back
+        <div className="flex flex-col md:flex-row gap-4 w-full h-full max-w-5xl mx-auto">
+            {/* Left: Summary - Makes it fill height but compact */}
+            <div className="w-full md:w-5/12 flex flex-col gap-2 order-2 md:order-1 h-full">
+                <div className="flex items-center justify-between shrink-0">
+                    <button onClick={onBack} className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-black transition-colors">
+                        <ChevronLeft size={14} /> Back
                     </button>
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-light">Instant Estimate</span>
+                    <span className="text-[9px] font-black uppercase tracking-[0.3em] text-brand-light">Estimate</span>
                 </div>
 
-                <div className="glass-card p-6 rounded-[2rem] space-y-6 bg-brand-dark text-white relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-3xl -mr-16 -mt-16" />
+                <div className="glass-card flex-1 p-4 rounded-3xl bg-brand-dark text-white relative overflow-hidden flex flex-col justify-between min-h-0">
+                    <div className="absolute top-0 right-0 w-24 h-24 bg-accent/20 rounded-full blur-2xl -mr-10 -mt-10" />
 
-                    <div className="space-y-1">
-                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 flex items-center gap-2">
-                            <Star size={12} className="text-brand-light fill-brand-light" /> Your Personalized Clean
+                    <div className="space-y-1 shrink-0">
+                        <p className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-400 flex items-center gap-1">
+                            <Star size={10} className="text-brand-light fill-brand-light" /> Quote
                         </p>
-                        <div className="flex items-baseline gap-2">
-                            <span className="text-5xl font-black tracking-tighter">${totalPrice}</span>
-                            <span className="text-slate-400 font-bold">/service</span>
+                        <div className="flex items-baseline gap-1">
+                            <span className="text-4xl font-black tracking-tighter">${totalPrice}</span>
+                            <span className="text-slate-400 font-bold text-xs">/service</span>
                         </div>
                     </div>
 
-                    <div className="space-y-3 pt-6 border-t border-white/10">
-                        <div className="flex justify-between items-center text-xs">
-                            <span className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Frequency</span>
-                            <span className="font-black px-3 py-1 bg-white/10 rounded-full">{selectedFreq?.label}</span>
+                    <div className="space-y-2 py-3 border-t border-white/10 shrink-0">
+                        <div className="flex justify-between items-center text-[10px]">
+                            <span className="text-slate-400 font-bold uppercase tracking-widest">Frequency</span>
+                            <span className="font-black px-2 py-0.5 bg-white/10 rounded-full">{selectedFreq?.label}</span>
                         </div>
-                        <div className="flex justify-between items-center text-xs">
-                            <span className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Plan Type</span>
+                        <div className="flex justify-between items-center text-[10px]">
+                            <span className="text-slate-400 font-bold uppercase tracking-widest">Plan</span>
                             <span className="font-black capitalize">{data.cleaningType}</span>
                         </div>
-                        <div className="flex justify-between items-center text-xs">
-                            <span className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Space Size</span>
-                            <span className="font-black">{data.sqFt} SQ FT</span>
+                        <div className="flex justify-between items-center text-[10px]">
+                            <span className="text-slate-400 font-bold uppercase tracking-widest">Size</span>
+                            <span className="font-black">{data.sqFt} sq ft</span>
                         </div>
-                        <div className="flex justify-between items-center text-xs">
-                            <span className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Zip Code</span>
+                        <div className="flex justify-between items-center text-[10px]">
+                            <span className="text-slate-400 font-bold uppercase tracking-widest">Zip</span>
                             <span className="font-black text-brand-light">{data.zipCode}</span>
                         </div>
                     </div>
 
-                    <div className="pt-6 flex items-center gap-3 border-t border-white/10">
-                        <div className="p-2 bg-white/5 rounded-xl"><Shield size={20} className="text-emerald-500" /></div>
+                    <div className="pt-3 flex items-center gap-2 border-t border-white/10 shrink-0">
+                        <div className="p-1.5 bg-white/5 rounded-lg"><Shield size={16} className="text-emerald-500" /></div>
                         <div>
-                            <p className="font-black text-[10px] uppercase tracking-widest">Extreme Guarantee</p>
-                            <p className="text-[10px] text-slate-400 font-medium">Not 100% happy? We&apos;ll re-clean for free.</p>
+                            <p className="font-black text-[9px] uppercase tracking-widest">Guarantee</p>
+                            <p className="text-[8px] text-slate-400 font-medium leading-tight">100% Satisfaction or free re-clean.</p>
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Right: Contact Form */}
-            <div className="space-y-6 order-1 md:order-2">
-                <div className="space-y-2">
-                    <h3 className="text-3xl font-black tracking-tighter">Final <span className="text-accent">Details</span></h3>
-                    <p className="text-sm text-slate-500 font-medium">Almost there! We just need your contact info to secure your spot.</p>
+            <div className="flex-1 w-full md:w-7/12 flex flex-col gap-3 order-1 md:order-2 h-full justify-center">
+                <div className="shrink-0 mb-1">
+                    <h3 className="text-2xl font-black tracking-tighter leading-none">Final <span className="text-accent">Details</span></h3>
                 </div>
 
-                <div className="space-y-4">
-                    <div className="grid grid-cols-2 gap-3">
-                        <div className="space-y-1">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">First Name</label>
+                <div className="space-y-2 w-full">
+                    <div className="grid grid-cols-2 gap-2">
+                        <div className="space-y-0.5">
+                            <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 ml-1">First Name</label>
                             <div className="relative flex items-center">
-                                <User size={16} className="absolute left-4 text-slate-300" />
-                                <input {...register("firstName")} className="w-full pl-10 pr-4 py-3 bg-white border-2 border-transparent focus:border-brand-light focus:bg-white rounded-xl outline-none transition-all font-bold text-sm" />
+                                <User size={14} className="absolute left-3 text-slate-300" />
+                                <input {...register("firstName")} className="w-full pl-9 pr-3 py-2 bg-white border border-slate-200 focus:border-brand-light focus:bg-white rounded-xl outline-none transition-all font-bold text-xs" placeholder="John" />
                             </div>
                         </div>
-                        <div className="space-y-1">
-                            <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Last Name</label>
-                            <input {...register("lastName")} className="w-full px-4 py-3 bg-white border-2 border-transparent focus:border-brand-light focus:bg-white rounded-xl outline-none transition-all font-bold text-sm" />
+                        <div className="space-y-0.5">
+                            <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 ml-1">Last Name</label>
+                            <input {...register("lastName")} className="w-full px-3 py-2 bg-white border border-slate-200 focus:border-brand-light focus:bg-white rounded-xl outline-none transition-all font-bold text-xs" placeholder="Doe" />
                         </div>
                     </div>
 
-                    <div className="space-y-1">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Email Identity</label>
+                    <div className="space-y-0.5">
+                        <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 ml-1">Email</label>
                         <div className="relative flex items-center">
-                            <Mail size={16} className="absolute left-4 text-slate-300" />
-                            <input {...register("email")} type="email" placeholder="example@email.com" className="w-full pl-10 pr-4 py-3 bg-white border-2 border-transparent focus:border-brand-light focus:bg-white rounded-xl outline-none transition-all font-bold text-sm" />
+                            <Mail size={14} className="absolute left-3 text-slate-300" />
+                            <input {...register("email")} type="email" placeholder="john@example.com" className="w-full pl-9 pr-3 py-2 bg-white border border-slate-200 focus:border-brand-light focus:bg-white rounded-xl outline-none transition-all font-bold text-xs" />
                         </div>
                     </div>
 
-                    <div className="space-y-1">
-                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Phone Primary</label>
+                    <div className="space-y-0.5">
+                        <label className="text-[9px] font-black uppercase tracking-widest text-slate-400 ml-1">Phone</label>
                         <div className="relative flex items-center">
-                            <Phone size={16} className="absolute left-4 text-slate-300" />
-                            <input {...register("phone")} type="tel" placeholder="(509) 000-0000" className="w-full pl-10 pr-4 py-3 bg-white border-2 border-transparent focus:border-brand-light focus:bg-white rounded-xl outline-none transition-all font-bold text-sm" />
+                            <Phone size={14} className="absolute left-3 text-slate-300" />
+                            <input {...register("phone")} type="tel" placeholder="(509) 555-0123" className="w-full pl-9 pr-3 py-2 bg-white border border-slate-200 focus:border-brand-light focus:bg-white rounded-xl outline-none transition-all font-bold text-xs" />
                         </div>
                     </div>
 
-                    <button onClick={handleSubmit} className="btn-sentient btn-sentient-fuchsia w-full py-4 text-lg flex items-center justify-center gap-3">
-                        Secure Booking Now <CreditCard size={20} />
+                    <button onClick={handleSubmit} className="btn-sentient btn-sentient-fuchsia w-full py-3 text-base flex items-center justify-center gap-2 mt-2 shadow-lg hover:shadow-xl">
+                        Secure Booking <CreditCard size={18} />
                     </button>
 
-                    <p className="text-[10px] text-center text-slate-400 font-bold uppercase tracking-widest flex items-center justify-center gap-2">
-                        <Shield size={12} className="text-emerald-500" /> Secure Encryption • No upfront payment
+                    <p className="text-[9px] text-center text-slate-400 font-bold uppercase tracking-widest flex items-center justify-center gap-1">
+                        <Shield size={10} className="text-emerald-500" /> SSL Encrypted • No charge today
                     </p>
                 </div>
             </div>

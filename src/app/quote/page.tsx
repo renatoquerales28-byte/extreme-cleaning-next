@@ -20,8 +20,8 @@ export default function QuotePage() {
 
                     {/* Content over image */}
                     <div className="relative z-10">
-                        <div className="w-12 h-12 bg-white/10 backdrop-blur-md rounded-xl flex items-center justify-center mb-6 border border-white/20">
-                            <Image src="/brand/logo.png" alt="Logo" width={32} height={32} className="object-contain" />
+                        <div className="w-48 mb-8">
+                            <Image src="/brand/logo-full.png" alt="Extreme Cleaning Logo" width={200} height={60} className="object-contain brightness-0 invert" />
                         </div>
                         <h2 className="text-4xl font-black tracking-tighter leading-tight mb-4">
                             Expert Cleaning, <br />

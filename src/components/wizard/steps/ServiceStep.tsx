@@ -14,6 +14,14 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
     const { setValue, watch } = useFormContext<WizardData>();
     const selectedService = watch("serviceType");
 
+    const handleSelect = (id: string) => {
+        setValue("serviceType", id as any);
+        // UX: Auto-advance after small delay for visual feedback
+        setTimeout(() => {
+            onNext();
+        }, 300);
+    };
+
     const services = [
         { id: "residential", label: "Residential", icon: Home, desc: "Homes, apartments, and studios.", color: "text-brand-dark", bg: "bg-brand-light/10" },
         { id: "commercial", label: "Commercial", icon: Building2, desc: "Offices, retail, and business spaces.", color: "text-accent", bg: "bg-accent/10" },
@@ -43,9 +51,7 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                     <button
                         key={service.id}
                         type="button"
-                        onClick={() => {
-                            setValue("serviceType", service.id as any);
-                        }}
+                        onClick={() => handleSelect(service.id)}
                         className={`group p-4 md:p-5 glass-card rounded-3xl text-left relative overflow-hidden transition-all duration-300 border-2 ${selectedService === service.id
                             ? "border-brand-dark bg-white shadow-md scale-[1.02] z-10"
                             : "border-transparent bg-white/50 hover:border-slate-100 hover:scale-[1.01]"

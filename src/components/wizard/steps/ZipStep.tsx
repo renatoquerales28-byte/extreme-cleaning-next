@@ -36,6 +36,7 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                         {...register("zipCode")}
                         type="text"
                         placeholder="99201"
+                        autoFocus={true}
                         className="w-full pl-12 md:pl-16 pr-6 md:pr-8 py-4 md:py-5 bg-white border-2 border-slate-100 rounded-[2.5rem] text-xl md:text-2xl font-black tracking-[0.2em] focus:border-brand-light focus:ring-0 transition-all outline-none"
                         maxLength={5}
                     />

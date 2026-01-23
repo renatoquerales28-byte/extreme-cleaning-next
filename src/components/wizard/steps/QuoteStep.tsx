@@ -5,6 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { calculateTotal, FREQUENCIES } from "@/lib/utils/pricing";
 import { ChevronLeft, Check, CreditCard, Shield, Star, Mail, Phone, User } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 interface QuoteStepProps {
     onBack: () => void;
@@ -16,6 +17,7 @@ export default function QuoteStep({ onBack }: QuoteStepProps) {
     const totalPrice = calculateTotal(data);
     const selectedFreq = FREQUENCIES.find(f => f.id === data.frequency);
     const [submitted, setSubmitted] = useState(false);
+    const router = useRouter();
 
     const handleSubmit = () => {
         setSubmitted(true);
@@ -34,7 +36,7 @@ export default function QuoteStep({ onBack }: QuoteStepProps) {
                         We&apos;ve received your request. One of our cleaning experts will contact you within 15 minutes to confirm your booking.
                     </p>
                 </div>
-                <button onClick={() => window.location.href = "/"} className="btn-sentient bg-brand-dark text-white">
+                <button onClick={() => router.push("/")} className="btn-sentient bg-brand-dark text-white">
                     Back to Home
                 </button>
             </div>
@@ -75,7 +77,7 @@ export default function QuoteStep({ onBack }: QuoteStepProps) {
                         <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 ml-1">First Name</label>
                         <div className="relative flex items-center">
                             <User size={18} className="absolute left-4 text-slate-300" />
-                            <input {...register("firstName")} className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-slate-100 focus:border-brand-light rounded-2xl outline-none transition-all font-bold text-sm" placeholder="John" />
+                            <input {...register("firstName")} autoFocus={true} className="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-slate-100 focus:border-brand-light rounded-2xl outline-none transition-all font-bold text-sm" placeholder="John" />
                         </div>
                     </div>
                     <div className="space-y-2">

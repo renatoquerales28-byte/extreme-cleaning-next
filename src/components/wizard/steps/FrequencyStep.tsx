@@ -15,6 +15,14 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
     const { setValue, watch } = useFormContext<WizardData>();
     const selectedFreq = watch("frequency");
 
+    const handleSelect = (id: string) => {
+        setValue("frequency", id as any);
+        // UX: Auto-advance after small delay
+        setTimeout(() => {
+            onNext();
+        }, 300);
+    };
+
     return (
         <div className="flex flex-col h-full justify-start md:justify-center gap-6 w-full max-w-xl mx-auto py-2 antialiased">
             <div className="flex items-center justify-between w-full shrink-0">
@@ -38,9 +46,7 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
                     <button
                         key={freq.id}
                         type="button"
-                        onClick={() => {
-                            setValue("frequency", freq.id as any);
-                        }}
+                        onClick={() => handleSelect(freq.id)}
                         className={`group relative flex items-center justify-between px-4 py-3.5 rounded-2xl border-2 transition-all overflow-hidden ${selectedFreq === freq.id
                             ? "bg-brand-dark border-brand-dark text-white shadow-md scale-[1.01]"
                             : "border-slate-100 bg-white hover:border-brand-dark/20"

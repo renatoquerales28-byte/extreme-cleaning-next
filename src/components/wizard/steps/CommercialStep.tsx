@@ -26,49 +26,49 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
     ];
 
     return (
-        <div className="flex flex-col gap-6 w-full py-4">
-            <div className="flex items-center justify-between w-full">
-                <button onClick={onBack} className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-black transition-colors">
-                    <ChevronLeft size={16} /> Back
+        <div className="flex flex-col h-full justify-center gap-3 w-full py-2">
+            <div className="flex items-center justify-between w-full shrink-0">
+                <button onClick={onBack} className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-black transition-colors">
+                    <ChevronLeft size={14} /> Back
                 </button>
-                <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-300">Step 03 / 05</span>
+                <span className="text-[9px] font-black uppercase tracking-[0.3em] text-slate-300">Step 03 / 05</span>
             </div>
 
-            <div className="space-y-2">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-brand-dark">
+            <div className="space-y-1 shrink-0">
+                <h2 className="text-3xl md:text-4xl font-black tracking-tighter text-brand-dark">
                     Commercial <span className="text-accent">Details</span>
                 </h2>
-                <p className="text-base text-slate-500 font-medium">Tell us about your business space.</p>
+                <p className="text-xs text-slate-500 font-medium">Tell us about your business space.</p>
             </div>
 
-            <div className="grid gap-4">
+            <div className="grid gap-3 w-full shrink-0">
                 <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Business Type</label>
+                    <label className="block text-[9px] font-bold text-slate-700 uppercase tracking-wider mb-1">Business Type</label>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
                         {businessTypes.map((type) => (
                             <button
                                 key={type.id}
                                 type="button"
                                 onClick={() => setValue("businessType", type.id)}
-                                className={`p-3 rounded-xl border-2 transition-all flex flex-col items-center gap-1 ${businessType === type.id
+                                className={`p-2 rounded-lg border transition-all flex flex-col items-center gap-1 ${businessType === type.id
                                     ? "border-black bg-black text-white"
                                     : "border-slate-100 bg-white text-slate-500 hover:border-slate-300"
                                     }`}
                             >
-                                <type.icon size={18} />
-                                <span className="text-[10px] font-bold uppercase tracking-wide">{type.label}</span>
+                                <type.icon size={16} />
+                                <span className="text-[9px] font-bold uppercase tracking-wide">{type.label}</span>
                             </button>
                         ))}
                     </div>
                 </div>
 
                 <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Approx Sq. Footage {commSqFt && <span className="text-accent">({commSqFt} sqft)</span>}</label>
+                    <label className="block text-[9px] font-bold text-slate-700 uppercase tracking-wider mb-1">Approx Sq. Footage {commSqFt && <span className="text-accent">({commSqFt} sqft)</span>}</label>
                     <input
                         type="number"
                         placeholder="e.g. 2500"
                         {...register("commSqFt")}
-                        className="w-full text-2xl font-black bg-transparent border-b-2 border-slate-200 focus:border-brand-dark outline-none py-2 placeholder:text-slate-200 transition-colors"
+                        className="w-full text-xl font-black bg-transparent border-b border-slate-200 focus:border-brand-dark outline-none py-1 placeholder:text-slate-200 transition-colors"
                     />
                 </div>
             </div>
@@ -76,8 +76,8 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
             <button
                 onClick={onNext}
                 disabled={!isValid}
-                className={`mt-4 w-full py-4 rounded-full font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all duration-300 ${isValid
-                    ? "bg-black text-white shadow-xl hover:scale-[1.02]"
+                className={`mt-2 w-full py-3 rounded-full font-black uppercase tracking-widest text-[10px] flex items-center justify-center gap-2 transition-all duration-300 shrink-0 ${isValid
+                    ? "bg-black text-white shadow-lg hover:scale-[1.01]"
                     : "bg-slate-100 text-slate-300 cursor-not-allowed"
                     }`}
             >

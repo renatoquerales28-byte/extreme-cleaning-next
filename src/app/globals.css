@@ -3,10 +3,14 @@
 @tailwind utilities;
 
 :root {
-    --background: #ffffff;
-    --foreground: #000000;
-    --fuchsia: 293 100% 50%;
-    --cyan: 191 100% 50%;
+    --background: #F9F8F2;
+    /* Brand Cream */
+    --foreground: #024653;
+    /* Brand Dark Teal */
+    --fuchsia: 145 76% 44%;
+    /* Mapped to Green #05D16E roughly for existing vars */
+    --cyan: 191 100% 16%;
+    /* Mapped to Dark Teal */
 }
 
 * {
@@ -29,7 +33,7 @@ body {
     position: fixed;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(circle at center, transparent 0%, rgba(0, 224, 255, 0.03) 70%, rgba(0, 224, 255, 0.08) 100%);
+    background: radial-gradient(circle at center, transparent 0%, rgba(2, 70, 83, 0.03) 70%, rgba(2, 70, 83, 0.08) 100%);
     z-index: 50;
 }
 

@@ -18,108 +18,119 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
     const cleaningType = watch("cleaningType");
 
     const cleaningOptions = [
-        { id: "regular", label: "Standard", desc: "For maintained homes." },
-        { id: "deep", label: "Deep Clean", desc: "For homes needing extra love." },
-        { id: "move", label: "Move-In/Out", desc: "Empty home perfection." },
+        { id: "regular", label: "Standard", desc: "Maintenance clean", icon: Sparkles, color: "text-cyan-400", bg: "bg-cyan-950/20" },
+        { id: "deep", label: "Deep Clean", desc: "Thorough scrub", icon: Sparkles, color: "text-fuchsia-400", bg: "bg-fuchsia-950/20" },
+        { id: "move", label: "Move-In/Out", desc: "Empty home", icon: Sparkles, color: "text-emerald-400", bg: "bg-emerald-950/20" },
     ];
 
     return (
-        <div className="flex flex-col h-full justify-start md:justify-center gap-5 w-full max-w-xl mx-auto py-2 antialiased">
-            {/* Nav removed in favor of parent wizard layout */}
-
-            <div className="text-center space-y-2 shrink-0">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
-                    Tell us about your <span className="text-brand-light">Space</span>
+        <div className="flex flex-col h-full w-full max-w-2xl mx-auto py-2 antialiased">
+            {/* Header */}
+            <div className="text-center space-y-3 mb-8 shrink-0">
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-brand-dark leading-[0.85]">
+                    Tell us about <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-light to-accent">Your Space.</span>
                 </h2>
-                <p className="text-sm text-slate-500 font-medium tracking-tight italic">&quot;A clean home is a clean mind.&quot;</p>
+                <p className="text-sm text-slate-400 font-bold tracking-widest uppercase">Customize your cleaning plan</p>
             </div>
 
-            <div className="w-full space-y-5 shrink-0">
-                {/* Beds / Baths */}
-                <div className="grid grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                        <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">Bedrooms</label>
-                        <div className="flex items-center gap-3">
+            <div className="w-full space-y-8 shrink-0">
+
+                {/* Room Counters */}
+                <div className="flex gap-4">
+                    {/* Bedrooms */}
+                    <div className="flex-1 bg-white p-4 rounded-3xl border-2 border-slate-100 shadow-sm flex flex-col items-center justify-between gap-2">
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Bedrooms</span>
+                        <div className="flex items-center gap-6 w-full justify-between px-2">
                             <button
                                 type="button"
                                 onClick={() => setValue("bedrooms", Math.max(1, bedrooms - 1))}
-                                className="w-10 h-10 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-all font-bold text-lg active:scale-90"
+                                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-brand-dark hover:text-white transition-all active:scale-90"
                             >-</button>
-                            <span className="text-2xl font-black w-8 text-center text-brand-dark">{bedrooms}</span>
+                            <span className="text-3xl font-black text-brand-dark">{bedrooms}</span>
                             <button
                                 type="button"
                                 onClick={() => setValue("bedrooms", Math.min(10, bedrooms + 1))}
-                                className="w-10 h-10 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-all font-bold text-lg active:scale-90"
+                                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-brand-dark hover:text-white transition-all active:scale-90"
                             >+</button>
                         </div>
                     </div>
-                    <div className="space-y-2">
-                        <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">Bathrooms</label>
-                        <div className="flex items-center gap-3">
+
+                    {/* Bathrooms */}
+                    <div className="flex-1 bg-white p-4 rounded-3xl border-2 border-slate-100 shadow-sm flex flex-col items-center justify-between gap-2">
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Bathrooms</span>
+                        <div className="flex items-center gap-6 w-full justify-between px-2">
                             <button
                                 type="button"
                                 onClick={() => setValue("bathrooms", Math.max(1, bathrooms - 1))}
-                                className="w-10 h-10 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-all font-bold text-lg active:scale-90"
+                                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-brand-dark hover:text-white transition-all active:scale-90"
                             >-</button>
-                            <span className="text-2xl font-black w-8 text-center text-brand-dark">{bathrooms}</span>
+                            <span className="text-3xl font-black text-brand-dark">{bathrooms}</span>
                             <button
                                 type="button"
                                 onClick={() => setValue("bathrooms", Math.min(10, bathrooms + 1))}
-                                className="w-10 h-10 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-all font-bold text-lg active:scale-90"
+                                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-brand-dark hover:text-white transition-all active:scale-90"
                             >+</button>
                         </div>
                     </div>
                 </div>
 
                 {/* SqFt Slider */}
-                <div className="space-y-2">
-                    <div className="flex justify-between items-center mb-1">
-                        <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">Approx. Square Feet</label>
-                        <span className="px-3 py-1 bg-brand-light/10 text-brand-light rounded-full text-[11px] font-black tracking-tight">{sqFt} SQ FT</span>
+                <div className="bg-white p-6 rounded-3xl border-2 border-slate-100 shadow-sm space-y-4">
+                    <div className="flex justify-between items-end">
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Approx. Size</label>
+                        <div className="text-right">
+                            <span className="text-2xl font-black text-brand-dark">{sqFt}</span>
+                            <span className="text-[10px] font-bold text-slate-400 ml-1 uppercase">Sq Ft</span>
+                        </div>
                     </div>
                     <input
                         type="range" min="500" max="6000" step="100"
                         value={sqFt}
                         onChange={(e) => setValue("sqFt", parseInt(e.target.value))}
-                        className="w-full h-1.5 bg-slate-100 rounded-lg appearance-none cursor-pointer accent-brand-light outline-none transition-all focus:ring-2 focus:ring-brand-light/20"
+                        className="w-full h-2 bg-slate-100 rounded-full appearance-none cursor-pointer accent-brand-dark outline-none focus:ring-0"
                     />
+                    <div className="flex justify-between text-[9px] font-bold text-slate-300 uppercase tracking-wider">
+                        <span>500 sqft</span>
+                        <span>6000+ sqft</span>
+                    </div>
                 </div>
 
-                {/* Cleaning Type */}
-                <div className="space-y-2">
-                    <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-400">Choose Cleaning Intensity</label>
+                {/* Cleaning Intensity Cards */}
+                <div className="space-y-3">
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-2">Cleaning Intensity</label>
                     <div className="grid grid-cols-3 gap-3">
                         {cleaningOptions.map((opt) => (
                             <button
                                 key={opt.id}
                                 type="button"
                                 onClick={() => setValue("cleaningType", opt.id as any)}
-                                className={`py-3 px-2 rounded-xl border-2 transition-all font-black text-[11px] uppercase tracking-wider ${cleaningType === opt.id
-                                    ? "bg-brand-dark border-brand-dark text-white shadow-sm scale-[1.02]"
-                                    : "border-slate-100 text-slate-400 hover:border-brand-light/30 bg-white"
+                                className={`relative group p-3 pt-8 pb-4 rounded-3xl border-2 transition-all duration-300 flex flex-col items-center justify-center gap-2 overflow-hidden ${cleaningType === opt.id
+                                    ? "bg-brand-dark border-brand-dark text-white shadow-lg scale-[1.02]"
+                                    : "bg-white border-white hover:border-slate-200"
                                     }`}
                             >
-                                {opt.label}
+                                <div className={`absolute top-0 inset-x-0 h-1 ${cleaningType === opt.id ? "bg-gradient-to-r from-brand-light to-accent" : "bg-transparent"}`} />
+
+                                <span className={`text-sm font-black tracking-tighter uppercase ${cleaningType === opt.id ? "text-white" : "text-brand-dark"}`}>
+                                    {opt.label}
+                                </span>
+                                <span className={`text-[9px] font-bold leading-none ${cleaningType === opt.id ? "text-slate-400" : "text-slate-400"}`}>
+                                    {opt.desc}
+                                </span>
                             </button>
                         ))}
                     </div>
                 </div>
             </div>
 
-            <div className="mt-2 shrink-0 space-y-4">
+            {/* Footer Action */}
+            <div className="mt-8 shrink-0">
                 <button
                     onClick={onNext}
-                    className="btn-sentient bg-accent text-brand-dark shadow-md hover:scale-[1.01] transition-all flex items-center justify-center gap-3 w-full py-4 md:py-5 text-[11px] font-black uppercase tracking-[0.2em] active:scale-95"
+                    className="btn-sentient bg-brand-dark text-white shadow-xl hover:shadow-2xl hover:scale-[1.01] transition-all flex items-center justify-center gap-3 w-full py-6 rounded-[2rem] text-xs font-black uppercase tracking-[0.25em] active:scale-95 group"
                 >
-                    Select Frequency <ArrowRight size={18} strokeWidth={3} />
+                    Select Frequency <ArrowRight size={16} strokeWidth={3} className="text-brand-light group-hover:translate-x-1 transition-transform" />
                 </button>
-
-                <div className="bg-slate-50 p-4 rounded-2xl border border-slate-100 flex items-center gap-4">
-                    <div className="p-2 bg-white text-brand-light rounded-xl shadow-sm"><Sparkles size={16} strokeWidth={2.5} /></div>
-                    <p className="text-[11px] text-slate-500 font-bold leading-normal text-left tracking-tight">
-                        <strong>Pro Tip:</strong> Deep Cleaning is recommended if your home hasn&apos;t been professionally cleaned in over 30 days.
-                    </p>
-                </div>
             </div>
         </div>
     );

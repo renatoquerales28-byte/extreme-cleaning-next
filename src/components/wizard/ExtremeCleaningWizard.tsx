@@ -321,22 +321,25 @@ export default function ExtremeCleaningWizard() {
                 <div className="flex-1 w-full lg:w-[60%] bg-[#F9F8F2] relative flex flex-col min-h-screen overflow-y-auto">
 
                     {/* Unified Navigation Header */}
-                    <div className="sticky top-0 z-20 w-full p-6 md:p-8 flex items-center justify-between bg-[#F9F8F2]/80 backdrop-blur-sm">
-                        {step !== 0 && step !== "returning_lookup" && (
-                            <button
-                                onClick={prevStep}
-                                className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-brand-dark transition-colors group"
-                            >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform">
-                                    <path d="m15 18-6-6 6-6" />
-                                </svg>
-                                Back
-                            </button>
-                        )}
-                        {step === 0 && <div></div>} {/* Spacer */}
+                    <div className="sticky top-0 z-20 w-full p-6 md:p-8 grid grid-cols-3 items-center bg-[#F9F8F2]/80 backdrop-blur-sm">
 
-                        {/* Progress Bar */}
-                        <div className="flex flex-col items-end gap-1.5 min-w-[120px]">
+                        {/* Left: Back Button */}
+                        <div className="flex justify-start">
+                            {step !== 0 && step !== "returning_lookup" && (
+                                <button
+                                    onClick={prevStep}
+                                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-brand-dark transition-colors group"
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform">
+                                        <path d="m15 18-6-6 6-6" />
+                                    </svg>
+                                    Back
+                                </button>
+                            )}
+                        </div>
+
+                        {/* Center: Progress Bar */}
+                        <div className="flex flex-col items-center gap-1.5 w-full max-w-[200px] mx-auto">
                             <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-300">
                                 Step {typeof step === 'number' ? Math.min(step + 1, 5) : 1} of 5
                             </span>
@@ -353,6 +356,9 @@ export default function ExtremeCleaningWizard() {
                                 />
                             </div>
                         </div>
+
+                        {/* Right: Spacer (to balance Back button) */}
+                        <div className="flex justify-end"></div>
                     </div>
 
                     <div className="flex-1 flex flex-col p-6 md:p-10 lg:p-16 pt-0">

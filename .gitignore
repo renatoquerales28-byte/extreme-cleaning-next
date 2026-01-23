@@ -27,3 +27,8 @@ ts-debug.log*
 
 # vercel
 .vercel
+
+# project specific
+build.log
+debug.log
+*.tsbuildinfo

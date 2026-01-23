@@ -51,7 +51,7 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
                                 type="button"
                                 onClick={() => setValue("businessType", type.id)}
                                 className={`p-4 rounded-2xl border-2 transition-all flex flex-col items-center gap-2 ${businessType === type.id
-                                    ? "border-brand-dark bg-brand-dark text-white shadow-xl scale-[1.02]"
+                                    ? "border-brand-dark bg-brand-dark text-white shadow-sm scale-[1.02]"
                                     : "border-slate-100 bg-white text-slate-500 hover:border-slate-300"
                                     }`}
                             >
@@ -69,7 +69,7 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
                             type="number"
                             placeholder="e.g. 2500"
                             {...register("commSqFt")}
-                            className="w-full text-3xl font-black bg-slate-50/50 border-2 border-slate-100 rounded-2xl px-6 py-4 focus:border-brand-dark focus:bg-white outline-none placeholder:text-slate-200 transition-all"
+                            className="w-full text-3xl font-black bg-white border-2 border-slate-100 rounded-2xl px-6 py-4 focus:border-brand-dark outline-none placeholder:text-slate-200 transition-all"
                         />
                         <span className="absolute right-6 top-1/2 -translate-y-1/2 font-black text-slate-300 tracking-tighter uppercase text-xs">SQ FT</span>
                     </div>
@@ -81,7 +81,7 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
                     onClick={onNext}
                     disabled={!isValid}
                     className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 shrink-0 ${isValid
-                        ? "bg-brand-dark text-white shadow-[0_10px_30px_rgba(2,70,83,0.3)] hover:bg-black hover:scale-[1.01] active:scale-95"
+                        ? "bg-brand-dark text-white shadow-md hover:bg-black hover:scale-[1.01] active:scale-95"
                         : "bg-slate-100 text-slate-300 cursor-not-allowed"
                         }`}
                 >

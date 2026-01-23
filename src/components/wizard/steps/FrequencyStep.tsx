@@ -41,9 +41,9 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
                         onClick={() => {
                             setValue("frequency", freq.id as any);
                         }}
-                        className={`group relative flex items-center justify-between px-4 py-3.5 rounded-2xl glass-card transition-all overflow-hidden border-2 ${selectedFreq === freq.id
-                            ? "bg-brand-dark border-brand-dark text-white shadow-2xl scale-[1.01]"
-                            : "border-transparent hover:border-slate-100 bg-white"
+                        className={`group relative flex items-center justify-between px-4 py-3.5 rounded-2xl border-2 transition-all overflow-hidden ${selectedFreq === freq.id
+                            ? "bg-brand-dark border-brand-dark text-white shadow-md scale-[1.01]"
+                            : "border-slate-100 bg-white hover:border-brand-dark/20"
                             }`}
                     >
                         <div className="flex items-center gap-4">
@@ -66,7 +66,7 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
                         </div>
 
                         {freq.id === "biweekly" && selectedFreq !== freq.id && (
-                            <div className="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border border-brand-light/20 flex items-center gap-2 animate-pulse">
+                            <div className="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border border-brand-light/20 flex items-center gap-2">
                                 <Star size={10} className="fill-brand-light" /> Popular
                             </div>
                         )}
@@ -81,7 +81,7 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
                     onClick={onNext}
                     disabled={!selectedFreq}
                     className={`btn-sentient w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 ${selectedFreq
-                        ? "bg-accent text-brand-dark shadow-[0_10px_30px_rgba(5,209,110,0.2)] hover:scale-[1.01] active:scale-95"
+                        ? "bg-accent text-brand-dark shadow-md hover:scale-[1.01] active:scale-95"
                         : "bg-slate-100 text-slate-300 cursor-not-allowed"
                         }`}
                 >

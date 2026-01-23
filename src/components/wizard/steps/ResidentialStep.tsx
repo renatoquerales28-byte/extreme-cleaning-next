@@ -100,7 +100,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                                 type="button"
                                 onClick={() => setValue("cleaningType", opt.id as any)}
                                 className={`py-3 px-2 rounded-xl border-2 transition-all font-black text-[11px] uppercase tracking-wider ${cleaningType === opt.id
-                                    ? "bg-brand-dark border-brand-dark text-white shadow-xl scale-[1.02]"
+                                    ? "bg-brand-dark border-brand-dark text-white shadow-sm scale-[1.02]"
                                     : "border-slate-100 text-slate-400 hover:border-brand-light/30 bg-white"
                                     }`}
                             >
@@ -114,7 +114,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
             <div className="mt-2 shrink-0 space-y-4">
                 <button
                     onClick={onNext}
-                    className="btn-sentient bg-accent text-brand-dark shadow-[0_10px_30px_rgba(5,209,110,0.2)] hover:shadow-[0_15px_40px_rgba(5,209,110,0.3)] hover:scale-[1.01] transition-all flex items-center justify-center gap-3 w-full py-4 md:py-5 text-[11px] font-black uppercase tracking-[0.2em] active:scale-95"
+                    className="btn-sentient bg-accent text-brand-dark shadow-md hover:scale-[1.01] transition-all flex items-center justify-center gap-3 w-full py-4 md:py-5 text-[11px] font-black uppercase tracking-[0.2em] active:scale-95"
                 >
                     Select Frequency <ArrowRight size={18} strokeWidth={3} />
                 </button>

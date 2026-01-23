@@ -28,6 +28,8 @@ export const calculateTotal = (data: WizardData) => {
     } else if (data.serviceType === "commercial") {
         const sq = parseInt(data.commSqFt || "0");
         total = Math.max(150, Math.round(sq * 0.12));
+    } else if (data.serviceType === "property_mgmt") {
+        total = 120; // Default flat rate estimate for property turnovers
     }
 
     return Math.round(total);

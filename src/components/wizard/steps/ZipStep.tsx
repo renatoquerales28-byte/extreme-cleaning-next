@@ -7,9 +7,10 @@ import { ArrowRight, MapPin, User } from "lucide-react";
 
 interface ZipStepProps {
     onNext: () => void;
+    onReturning: () => void;
 }
 
-export default function ZipStep({ onNext }: ZipStepProps) {
+export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     const { register, watch, formState: { errors } } = useFormContext<WizardData>();
     const zipCode = watch("zipCode");
 
@@ -28,14 +29,14 @@ export default function ZipStep({ onNext }: ZipStepProps) {
             </div>
 
             <div className="w-full max-w-sm relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-brand-light to-accent rounded-[2.5rem] blur opacity-10 group-focus-within:opacity-25 transition duration-1000"></div>
+                <div className="absolute -inset-1 border-2 border-brand-light/20 rounded-[2.5rem] opacity-0 group-focus-within:opacity-100 transition duration-300"></div>
                 <div className="relative flex items-center">
                     <MapPin className="absolute left-6 text-slate-400 group-focus-within:text-brand-light transition-colors" size={24} strokeWidth={2.5} />
                     <input
                         {...register("zipCode")}
                         type="text"
                         placeholder="99201"
-                        className="w-full pl-12 md:pl-16 pr-6 md:pr-8 py-4 md:py-5 bg-white border-2 border-slate-100 rounded-[2.5rem] text-xl md:text-2xl font-black tracking-[0.2em] focus:border-brand-light focus:ring-0 transition-all outline-none shadow-sm"
+                        className="w-full pl-12 md:pl-16 pr-6 md:pr-8 py-4 md:py-5 bg-white border-2 border-slate-100 rounded-[2.5rem] text-xl md:text-2xl font-black tracking-[0.2em] focus:border-brand-light focus:ring-0 transition-all outline-none"
                         maxLength={5}
                     />
                 </div>
@@ -46,7 +47,7 @@ export default function ZipStep({ onNext }: ZipStepProps) {
                 <button
                     onClick={onNext}
                     disabled={!isValidZip}
-                    className="btn-sentient btn-sentient-fuchsia w-full disabled:opacity-20 disabled:grayscale disabled:scale-100 flex items-center justify-center gap-4 py-5 px-10 text-[11px] font-black uppercase tracking-[0.2em] shadow-[0_20px_40px_rgba(5,209,110,0.3)] hover:scale-[1.02] active:scale-95 transition-all"
+                    className="btn-sentient btn-sentient-fuchsia w-full disabled:opacity-20 disabled:grayscale disabled:scale-100 flex items-center justify-center gap-4 py-5 px-10 text-[11px] font-black uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-95 transition-all shadow-sm"
                 >
                     Check Availability <ArrowRight size={20} strokeWidth={3} />
                 </button>
@@ -55,7 +56,10 @@ export default function ZipStep({ onNext }: ZipStepProps) {
             {/* Existing Clients Section */}
             <div className="pt-8 border-t border-slate-100 w-full max-w-sm">
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Already an ECS Client?</p>
-                <div className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-light/30 transition-all group cursor-pointer shadow-sm">
+                <div
+                    onClick={onReturning}
+                    className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-light/30 transition-all group cursor-pointer shadow-sm"
+                >
                     <div className="flex items-center gap-3">
                         <div className="p-2 bg-white rounded-xl shadow-sm"><User size={16} className="text-brand-dark" strokeWidth={3} /></div>
                         <div className="text-left">

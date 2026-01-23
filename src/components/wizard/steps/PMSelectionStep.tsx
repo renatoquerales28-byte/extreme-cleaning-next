@@ -43,9 +43,9 @@ export default function PMSelectionStep({ onNext, onBack }: PMSelectionStepProps
                         onClick={() => {
                             setValue("propertyCount", option.id as any);
                         }}
-                        className={`group p-6 glass-card rounded-3xl text-left relative overflow-hidden transition-all duration-300 border-2 ${propertyCount === option.id
-                            ? "border-brand-dark bg-slate-50/50 shadow-2xl scale-[1.03] z-10"
-                            : "border-transparent hover:border-slate-100 hover:scale-[1.01]"
+                        className={`group p-6 bg-white rounded-3xl text-left relative overflow-hidden transition-all duration-300 border-2 ${propertyCount === option.id
+                            ? "border-brand-dark bg-white shadow-md scale-[1.02] z-10"
+                            : "border-transparent bg-white/50 hover:border-slate-100 hover:scale-[1.01]"
                             }`}
                     >
                         <div className={`p-3 rounded-2xl bg-emerald-500/10 text-emerald-500 w-fit mb-4 transition-transform group-hover:scale-110`}>
@@ -62,7 +62,7 @@ export default function PMSelectionStep({ onNext, onBack }: PMSelectionStepProps
                     onClick={() => propertyCount && onNext()}
                     disabled={!propertyCount}
                     className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 shrink-0 ${propertyCount
-                        ? "bg-brand-dark text-white shadow-[0_10px_30px_rgba(2,70,83,0.3)] hover:bg-black hover:scale-[1.01] active:scale-95"
+                        ? "bg-brand-dark text-white shadow-md hover:bg-black hover:scale-[1.01] active:scale-95"
                         : "bg-slate-100 text-slate-300 cursor-not-allowed"
                         }`}
                 >

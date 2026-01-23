@@ -78,7 +78,7 @@ body {
     }
 
     .btn-sentient-fuchsia {
-        @apply bg-accent text-white backdrop-blur-md;
+        @apply bg-accent text-white;
         box-shadow: 0 4px 20px rgba(5, 209, 110, 0.3);
         transition: all 0.3s ease;
     }
@@ -89,10 +89,10 @@ body {
     }
 
     .glass-card {
-        @apply bg-white/60 backdrop-blur-xl border border-white/60 shadow-xl;
+        @apply bg-white border border-slate-100 shadow-sm transition-all;
     }
 
     .glass-panel {
-        @apply bg-white/40 backdrop-blur-2xl border border-white/50 shadow-2xl;
+        @apply bg-cream border border-brand-dark/10 shadow-sm transition-all;
     }
 }

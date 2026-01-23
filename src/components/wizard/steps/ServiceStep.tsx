@@ -21,7 +21,7 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
     ];
 
     return (
-        <div className="flex flex-col h-full justify-center gap-3 w-full py-2">
+        <div className="flex flex-col h-full justify-start md:justify-center gap-4 w-full py-2">
             <div className="flex items-center justify-between w-full shrink-0">
                 <button onClick={onBack} className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-black transition-colors">
                     <ChevronLeft size={14} /> Back
@@ -42,24 +42,32 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                 {services.map((service) => (
                     <button
                         key={service.id}
+                        type="button"
                         onClick={() => {
                             setValue("serviceType", service.id as any);
-                            onNext();
                         }}
-                        className={`group p-4 glass-card rounded-2xl text-left relative overflow-hidden transition-all duration-300 ${selectedService === service.id ? "ring-2 ring-black scale-[1.01]" : "hover:scale-[1.01]"
+                        className={`group p-3 md:p-4 glass-card rounded-2xl text-left relative overflow-hidden transition-all duration-300 border-2 ${selectedService === service.id ? "border-brand-dark bg-slate-50 shadow-md scale-[1.02]" : "border-transparent hover:border-slate-100"
                             }`}
                     >
-                        <div className={`p-2.5 rounded-xl ${service.bg} ${service.color} w-fit mb-3 group-hover:scale-110 transition-transform`}>
-                            <service.icon size={20} />
+                        <div className={`p-2 rounded-lg ${service.bg} ${service.color} w-fit mb-2 transition-transform`}>
+                            <service.icon size={18} />
                         </div>
-                        <h3 className="text-lg font-black tracking-tighter mb-1">{service.label}</h3>
-                        <p className="text-[10px] text-slate-500 font-medium leading-relaxed">{service.desc}</p>
-                        <div className="absolute bottom-3 right-4 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all">
-                            <ArrowRight className={service.color} size={16} />
-                        </div>
+                        <h3 className="text-base font-black tracking-tighter mb-0.5">{service.label}</h3>
+                        <p className="text-[9px] text-slate-500 font-medium leading-tight">{service.desc}</p>
                     </button>
                 ))}
             </div>
+
+            <button
+                onClick={() => selectedService && onNext()}
+                disabled={!selectedService}
+                className={`w-full py-3 rounded-xl font-black uppercase tracking-widest text-xs flex items-center justify-center gap-2 transition-all duration-300 shrink-0 ${selectedService
+                    ? "bg-brand-dark text-white shadow-lg hover:bg-black"
+                    : "bg-slate-100 text-slate-300 cursor-not-allowed"
+                    }`}
+            >
+                Confirm Service <ArrowRight size={14} />
+            </button>
         </div>
     );
 }

@@ -24,7 +24,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
     ];
 
     return (
-        <div className="flex flex-col h-full justify-center gap-3 w-full max-w-xl mx-auto py-2">
+        <div className="flex flex-col h-full justify-start md:justify-center gap-2 w-full max-w-xl mx-auto py-2">
             <div className="flex items-center justify-between w-full shrink-0">
                 <button onClick={onBack} className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-black transition-colors">
                     <ChevronLeft size={14} /> Back

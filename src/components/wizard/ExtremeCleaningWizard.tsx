@@ -65,7 +65,7 @@ export default function ExtremeCleaningWizard() {
 
     return (
         <FormProvider {...methods}>
-            <div className="w-full max-w-5xl mx-auto min-h-[700px] flex flex-col relative py-12 px-4 md:px-0">
+            <div className="w-full h-full mx-auto flex flex-col relative py-4 px-4 md:px-0">
                 <AnimatePresence mode="wait" custom={direction}>
                     <motion.div
                         key={step}
@@ -74,7 +74,7 @@ export default function ExtremeCleaningWizard() {
                         animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
                         exit={{ opacity: 0, x: direction > 0 ? -30 : 30, filter: "blur(10px)" }}
                         transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
-                        className="flex-1"
+                        className="flex-1 flex flex-col justify-center overflow-y-auto"
                     >
                         {renderStep()}
                     </motion.div>

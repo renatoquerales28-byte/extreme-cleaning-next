@@ -4,6 +4,8 @@ import { getPromotions, createPromotion, togglePromotion, deletePromotion } from
 import { useState, useEffect } from "react";
 import { Trash2, Plus, Tag } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
+
 export default function PromotionsPage() {
     const [promotions, setPromotions] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);

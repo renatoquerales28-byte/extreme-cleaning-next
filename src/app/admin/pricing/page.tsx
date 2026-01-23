@@ -3,6 +3,8 @@
 import { getPricingConfig, updatePricingConfig } from "@/app/actions/admin";
 import { useState, useEffect } from "react";
 
+export const dynamic = 'force-dynamic';
+
 export default function PricingPage() {
     const [configs, setConfigs] = useState<any[]>([]);
     const [loading, setLoading] = useState(true);

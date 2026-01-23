@@ -1,5 +1,7 @@
 import { getRecentLeads } from "@/app/actions/admin";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboardPage() {
     const { data: leads, error } = await getRecentLeads();
 
@@ -44,8 +46,8 @@ export default async function AdminDashboardPage() {
                                             </td>
                                             <td className="px-6 py-4">
                                                 <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${lead.status === 'new' ? 'bg-blue-100 text-blue-700' :
-                                                        lead.status === 'contacted' ? 'bg-yellow-100 text-yellow-700' :
-                                                            'bg-green-100 text-green-700'
+                                                    lead.status === 'contacted' ? 'bg-yellow-100 text-yellow-700' :
+                                                        'bg-green-100 text-green-700'
                                                     }`}>
                                                     {lead.status.toUpperCase()}
                                                 </span>

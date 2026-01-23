@@ -355,7 +355,7 @@ export default function ExtremeCleaningWizard() {
                         </div>
                     </div>
 
-                    <div className="flex-1 flex flex-col p-6 md:p-12 lg:p-24 pt-0">
+                    <div className="flex-1 flex flex-col p-6 md:p-10 lg:p-16 pt-0">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={step}

@@ -16,10 +16,6 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
 
     const handleSelect = (id: string) => {
         setValue("serviceType", id as any);
-        // UX: Auto-advance after small delay for visual feedback
-        setTimeout(() => {
-            onNext();
-        }, 300);
     };
 
     const services = [

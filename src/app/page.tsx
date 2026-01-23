@@ -31,9 +31,9 @@ export default function Home() {
     return (
         <main className="min-h-screen bg-[#F9F8F2] selection:bg-accent selection:text-white">
             {/* Sticky Navigation */}
-            <nav className="fixed top-6 left-1/2 -translate-x-1/2 px-6 py-3 glass-card rounded-full z-50 flex items-center gap-8 bg-white/70 backdrop-blur-xl border border-white/40 shadow-xl shadow-black/5 w-fit max-w-[90vw] transition-all duration-300">
-                <Link href="/" className="flex items-center gap-2 group">
-                    <div className="relative h-10 w-32 overflow-hidden transition-transform group-hover:scale-105">
+            <nav className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 px-4 md:px-6 py-2.5 md:py-3 glass-card rounded-full z-50 flex items-center gap-4 md:gap-8 bg-white/80 backdrop-blur-xl border border-white/40 shadow-xl shadow-black/5 w-fit max-w-[95vw] md:max-w-[90vw] transition-all duration-200">
+                <Link href="/" className="flex items-center gap-2 group shrink-0">
+                    <div className="relative h-8 md:h-10 w-24 md:w-32 overflow-hidden transition-transform group-hover:scale-105">
                         <Image
                             src="/brand/logo-full.png"
                             alt="ECS Logo"
@@ -55,9 +55,10 @@ export default function Home() {
                                 initial={{ width: 0, opacity: 0, paddingLeft: 0 }}
                                 animate={{ width: "auto", opacity: 1, paddingLeft: "1rem" }}
                                 exit={{ width: 0, opacity: 0, paddingLeft: 0 }}
+                                transition={{ duration: 0.2 }}
                                 className="overflow-hidden flex items-center border-l border-slate-200"
                             >
-                                <Link href="/quote" className="px-6 py-2.5 bg-brand-dark text-white rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-lg hover:bg-black whitespace-nowrap">
+                                <Link href="/quote" className="px-4 md:px-6 py-2 md:py-2.5 bg-brand-dark text-white rounded-full text-[9px] md:text-[10px] font-black uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-lg hover:bg-black whitespace-nowrap">
                                     Get Quote
                                 </Link>
                             </motion.div>
@@ -77,19 +78,20 @@ export default function Home() {
                     </button>
                 </div>
 
-                {/* Mobile Menu Overlay */}
+                {/* Mobile Menu Overlay - Move outside the main nav container for better positioning */}
                 <AnimatePresence>
                     {mobileMenuOpen && (
                         <motion.div
-                            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+                            initial={{ opacity: 0, y: -10, scale: 0.98 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
-                            exit={{ opacity: 0, y: -20, scale: 0.95 }}
-                            className="absolute top-20 left-0 right-0 bg-white/95 backdrop-blur-2xl border border-white/20 rounded-[2rem] p-8 shadow-2xl flex flex-col gap-6 md:hidden z-40"
+                            exit={{ opacity: 0, y: -10, scale: 0.98 }}
+                            transition={{ duration: 0.2 }}
+                            className="fixed top-20 left-4 right-4 bg-white/95 backdrop-blur-2xl border border-white/20 rounded-[2rem] p-6 shadow-2xl flex flex-col gap-4 md:hidden z-40 origin-top"
                         >
-                            <Link href="#services" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-black tracking-tighter text-brand-dark border-b border-slate-100 pb-4">Services</Link>
-                            <Link href="#process" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-black tracking-tighter text-brand-dark border-b border-slate-100 pb-4">Process</Link>
-                            <Link href="#reviews" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-black tracking-tighter text-brand-dark border-b border-slate-100 pb-4">Reviews</Link>
-                            <Link href="/quote" onClick={() => setMobileMenuOpen(false)} className="w-full py-5 bg-accent text-brand-dark rounded-2xl font-black uppercase tracking-widest text-center shadow-xl shadow-accent/20">Get My Quote</Link>
+                            <Link href="#services" onClick={() => setMobileMenuOpen(false)} className="text-xl font-black tracking-tighter text-brand-dark border-b border-slate-100 pb-3">Services</Link>
+                            <Link href="#process" onClick={() => setMobileMenuOpen(false)} className="text-xl font-black tracking-tighter text-brand-dark border-b border-slate-100 pb-3">Process</Link>
+                            <Link href="#reviews" onClick={() => setMobileMenuOpen(false)} className="text-xl font-black tracking-tighter text-brand-dark border-b border-slate-100 pb-3">Reviews</Link>
+                            <Link href="/quote" onClick={() => setMobileMenuOpen(false)} className="w-full py-4 bg-accent text-brand-dark rounded-2xl font-black uppercase tracking-widest text-center shadow-xl shadow-accent/20 text-sm">Get My Quote</Link>
                         </motion.div>
                     )}
                 </AnimatePresence>

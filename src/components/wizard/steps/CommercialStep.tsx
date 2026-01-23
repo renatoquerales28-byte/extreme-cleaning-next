@@ -63,12 +63,12 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
                 </div>
 
                 <div>
-                    <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-3">Approx Sq. Footage {commSqFt && <span className="text-fuchsia-500">({commSqFt} sqft)</span>}</label>
+                    <label className="block text-sm font-bold text-slate-700 uppercase tracking-wider mb-3">Approx Sq. Footage {commSqFt && <span className="text-accent">({commSqFt} sqft)</span>}</label>
                     <input
                         type="number"
                         placeholder="e.g. 2500"
                         {...register("commSqFt")}
-                        className="w-full text-3xl font-black bg-transparent border-b-2 border-slate-200 focus:border-black outline-none py-2 placeholder:text-slate-200 transition-colors"
+                        className="w-full text-3xl font-black bg-transparent border-b-2 border-slate-200 focus:border-brand-dark outline-none py-2 placeholder:text-slate-200 transition-colors"
                     />
                 </div>
             </div>

@@ -71,16 +71,21 @@ body {
     }
 
     .btn-sentient-fuchsia {
-        @apply bg-[#FF00E5] text-white;
-        box-shadow: 0 0 20px rgba(255, 0, 229, 0.3);
-        transition: box-shadow 0.3s ease;
+        @apply bg-accent text-white backdrop-blur-md;
+        box-shadow: 0 4px 20px rgba(5, 209, 110, 0.3);
+        transition: all 0.3s ease;
     }
 
     .btn-sentient-fuchsia:hover {
-        box-shadow: 0 0 30px rgba(255, 0, 229, 0.5);
+        @apply bg-accent/90 scale-105;
+        box-shadow: 0 6px 30px rgba(5, 209, 110, 0.5);
     }
 
     .glass-card {
-        @apply bg-white/40 backdrop-blur-xl border border-white/40 shadow-xl;
+        @apply bg-white/60 backdrop-blur-xl border border-white/60 shadow-xl;
+    }
+
+    .glass-panel {
+        @apply bg-white/40 backdrop-blur-2xl border border-white/50 shadow-2xl;
     }
 }

@@ -19,7 +19,7 @@ export default function ZipStep({ onNext }: ZipStepProps) {
         <div className="flex flex-col items-center gap-12 text-center">
             <div className="space-y-4">
                 <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-slate-900">
-                    Where is the <span className="text-cyan-500">Sparkle</span> needed?
+                    Where is the <span className="text-brand-light">Sparkle</span> needed?
                 </h2>
                 <p className="text-lg text-slate-500 font-medium">
                     Enter your zip code to check availability in the Spokane area.
@@ -27,14 +27,14 @@ export default function ZipStep({ onNext }: ZipStepProps) {
             </div>
 
             <div className="w-full max-w-md relative group">
-                <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-fuchsia-500 rounded-[2.5rem] blur opacity-10 group-focus-within:opacity-20 transition duration-1000"></div>
+                <div className="absolute -inset-1 bg-gradient-to-r from-brand-light to-accent rounded-[2.5rem] blur opacity-10 group-focus-within:opacity-20 transition duration-1000"></div>
                 <div className="relative flex items-center">
-                    <MapPin className="absolute left-6 text-slate-400 group-focus-within:text-cyan-500 transition-colors" size={24} />
+                    <MapPin className="absolute left-6 text-slate-400 group-focus-within:text-brand-light transition-colors" size={24} />
                     <input
                         {...register("zipCode")}
                         type="text"
                         placeholder="99201"
-                        className="w-full pl-16 pr-6 py-6 bg-white border-2 border-slate-100 rounded-[2.5rem] text-2xl font-bold tracking-widest focus:border-cyan-500 focus:ring-0 transition-all outline-none"
+                        className="w-full pl-16 pr-6 py-6 bg-white border-2 border-slate-100 rounded-[2.5rem] text-2xl font-bold tracking-widest focus:border-brand-light focus:ring-0 transition-all outline-none"
                         maxLength={5}
                     />
                 </div>

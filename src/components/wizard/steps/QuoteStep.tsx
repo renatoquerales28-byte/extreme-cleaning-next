@@ -25,7 +25,7 @@ export default function QuoteStep({ onBack }: QuoteStepProps) {
     if (submitted) {
         return (
             <div className="flex flex-col items-center justify-center gap-8 py-20 text-center animate-in fade-in zoom-in duration-700">
-                <div className="w-24 h-24 bg-cyan-50 text-cyan-500 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(0,224,255,0.2)]">
+                <div className="w-24 h-24 bg-brand-light/10 text-brand-light rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(2,70,83,0.2)]">
                     <Check size={48} strokeWidth={3} />
                 </div>
                 <div className="space-y-4">
@@ -49,15 +49,15 @@ export default function QuoteStep({ onBack }: QuoteStepProps) {
                     <button onClick={onBack} className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-black transition-colors">
                         <ChevronLeft size={16} /> Back
                     </button>
-                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-cyan-500">Instant Estimate</span>
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-light">Instant Estimate</span>
                 </div>
 
-                <div className="glass-card p-10 rounded-[3rem] space-y-8 bg-black text-white relative overflow-hidden">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-fuchsia-500/20 rounded-full blur-3xl -mr-16 -mt-16" />
+                <div className="glass-card p-10 rounded-[3rem] space-y-8 bg-brand-dark text-white relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-accent/20 rounded-full blur-3xl -mr-16 -mt-16" />
 
                     <div className="space-y-2">
                         <p className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-400 flex items-center gap-2">
-                            <Star size={12} className="text-cyan-500 fill-cyan-500" /> Your Personalized Clean
+                            <Star size={12} className="text-brand-light fill-brand-light" /> Your Personalized Clean
                         </p>
                         <div className="flex items-baseline gap-2">
                             <span className="text-7xl font-black tracking-tighter">${totalPrice}</span>
@@ -80,7 +80,7 @@ export default function QuoteStep({ onBack }: QuoteStepProps) {
                         </div>
                         <div className="flex justify-between items-center text-sm">
                             <span className="text-slate-400 font-bold uppercase tracking-widest text-[10px]">Zip Code</span>
-                            <span className="font-black text-cyan-400">{data.zipCode}</span>
+                            <span className="font-black text-brand-light">{data.zipCode}</span>
                         </div>
                     </div>
 
@@ -97,7 +97,7 @@ export default function QuoteStep({ onBack }: QuoteStepProps) {
             {/* Right: Contact Form */}
             <div className="space-y-10 order-1 md:order-2">
                 <div className="space-y-4">
-                    <h3 className="text-4xl font-black tracking-tighter">Final <span className="text-fuchsia-500">Details</span></h3>
+                    <h3 className="text-4xl font-black tracking-tighter">Final <span className="text-accent">Details</span></h3>
                     <p className="text-slate-500 font-medium">Almost there! We just need your contact info to secure your spot.</p>
                 </div>
 
@@ -107,12 +107,12 @@ export default function QuoteStep({ onBack }: QuoteStepProps) {
                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">First Name</label>
                             <div className="relative flex items-center">
                                 <User size={18} className="absolute left-5 text-slate-300" />
-                                <input {...register("firstName")} className="w-full pl-14 pr-6 py-4 bg-slate-50 border-2 border-transparent focus:border-cyan-500 focus:bg-white rounded-2xl outline-none transition-all font-bold" />
+                                <input {...register("firstName")} className="w-full pl-14 pr-6 py-4 bg-white border-2 border-transparent focus:border-brand-light focus:bg-white rounded-2xl outline-none transition-all font-bold" />
                             </div>
                         </div>
                         <div className="space-y-2">
                             <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Last Name</label>
-                            <input {...register("lastName")} className="w-full px-6 py-4 bg-slate-50 border-2 border-transparent focus:border-cyan-500 focus:bg-white rounded-2xl outline-none transition-all font-bold" />
+                            <input {...register("lastName")} className="w-full px-6 py-4 bg-white border-2 border-transparent focus:border-brand-light focus:bg-white rounded-2xl outline-none transition-all font-bold" />
                         </div>
                     </div>
 
@@ -120,7 +120,7 @@ export default function QuoteStep({ onBack }: QuoteStepProps) {
                         <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Email Identity</label>
                         <div className="relative flex items-center">
                             <Mail size={18} className="absolute left-5 text-slate-300" />
-                            <input {...register("email")} type="email" placeholder="example@email.com" className="w-full pl-14 pr-6 py-4 bg-slate-50 border-2 border-transparent focus:border-cyan-500 focus:bg-white rounded-2xl outline-none transition-all font-bold" />
+                            <input {...register("email")} type="email" placeholder="example@email.com" className="w-full pl-14 pr-6 py-4 bg-white border-2 border-transparent focus:border-brand-light focus:bg-white rounded-2xl outline-none transition-all font-bold" />
                         </div>
                     </div>
 
@@ -128,7 +128,7 @@ export default function QuoteStep({ onBack }: QuoteStepProps) {
                         <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-2">Phone Primary</label>
                         <div className="relative flex items-center">
                             <Phone size={18} className="absolute left-5 text-slate-300" />
-                            <input {...register("phone")} type="tel" placeholder="(509) 000-0000" className="w-full pl-14 pr-6 py-4 bg-slate-50 border-2 border-transparent focus:border-cyan-500 focus:bg-white rounded-2xl outline-none transition-all font-bold" />
+                            <input {...register("phone")} type="tel" placeholder="(509) 000-0000" className="w-full pl-14 pr-6 py-4 bg-white border-2 border-transparent focus:border-brand-light focus:bg-white rounded-2xl outline-none transition-all font-bold" />
                         </div>
                     </div>
 

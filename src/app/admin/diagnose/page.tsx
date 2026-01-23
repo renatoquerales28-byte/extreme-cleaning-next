@@ -53,13 +53,15 @@ export default async function DiagnosePage() {
                             Error: {dbError}
                         </p>
                     )}
-                    <div className="p-4 border rounded bg-gray-50">
-                        <h2 className="font-bold mb-2">Available Env Keys (Debug)</h2>
-                        <p className="text-xs break-all text-gray-500">
-                            {JSON.stringify(Object.keys(process.env).filter(k => !k.startsWith('npm_') && !k.startsWith('__')), null, 2)}
-                        </p>
-                    </div>
+                </div>
+
+                <div className="p-4 border rounded bg-gray-50">
+                    <h2 className="font-bold mb-2">Available Env Keys (Debug)</h2>
+                    <p className="text-xs break-all text-gray-500">
+                        {JSON.stringify(Object.keys(process.env).filter(k => !k.startsWith('npm_') && !k.startsWith('__')), null, 2)}
+                    </p>
                 </div>
             </div>
-            );
+        </div>
+    );
 }

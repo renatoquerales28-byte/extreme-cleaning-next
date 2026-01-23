@@ -7,6 +7,8 @@ import { calculateTotal, FREQUENCIES } from "@/lib/utils/pricing";
 import { ChevronLeft, Check, CreditCard, Shield, Star, Mail, Phone, User } from "lucide-react";
 import { useRouter } from "next/navigation";
 
+import { createLead } from "@/app/actions/admin";
+
 interface QuoteStepProps {
     onBack: () => void;
 }
@@ -17,11 +19,19 @@ export default function QuoteStep({ onBack }: QuoteStepProps) {
     const totalPrice = calculateTotal(data);
     const selectedFreq = FREQUENCIES.find(f => f.id === data.frequency);
     const [submitted, setSubmitted] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
 
-    const handleSubmit = () => {
-        setSubmitted(true);
-        // Real submission logic would go here
+    const handleSubmit = async () => {
+        setIsSubmitting(true);
+        try {
+            await createLead({ ...data, totalPrice });
+            setSubmitted(true);
+        } catch (error) {
+            alert("Something went wrong. Please try again.");
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     if (submitted) {
@@ -98,8 +108,8 @@ export default function QuoteStep({ onBack }: QuoteStepProps) {
                 </div>
 
                 <div className="pt-2">
-                    <button onClick={handleSubmit} className="btn-sentient bg-accent hover:bg-accent-hover text-brand-dark w-full py-5 text-sm font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-md hover:scale-[1.02] active:scale-95 transition-all">
-                        Secure Booking Now <CreditCard size={20} strokeWidth={2.5} />
+                    <button onClick={handleSubmit} disabled={isSubmitting} className="btn-sentient bg-accent hover:bg-accent-hover text-brand-dark w-full py-5 text-sm font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-md hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-70 disabled:cursor-wait">
+                        {isSubmitting ? "Processing..." : "Secure Booking Now"} <CreditCard size={20} strokeWidth={2.5} />
                     </button>
                 </div>
 

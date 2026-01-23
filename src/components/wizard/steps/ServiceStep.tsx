@@ -57,11 +57,11 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                 ))}
             </div>
 
-            <div className="mt-2 shrink-0">
+            <div className="mt-4 shrink-0">
                 <button
                     onClick={() => selectedService && onNext()}
                     disabled={!selectedService}
-                    className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 ${selectedService
+                    className={`w-full py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 ${selectedService
                         ? "bg-brand-dark text-white shadow-md hover:bg-black hover:scale-[1.01] active:scale-95"
                         : "bg-slate-100 text-slate-300 cursor-not-allowed"
                         }`}

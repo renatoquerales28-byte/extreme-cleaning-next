@@ -38,7 +38,7 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
                         key={freq.id}
                         type="button"
                         onClick={() => handleSelect(freq.id)}
-                        className={`group relative flex items-center justify-between px-4 py-3.5 rounded-2xl border-2 transition-all overflow-hidden ${selectedFreq === freq.id
+                        className={`group relative flex items-center justify-between px-4 py-3 rounded-2xl border-2 transition-all overflow-hidden ${selectedFreq === freq.id
                             ? "bg-brand-dark border-brand-dark text-white shadow-md scale-[1.01]"
                             : "border-slate-100 bg-white hover:border-brand-dark/20"
                             }`}

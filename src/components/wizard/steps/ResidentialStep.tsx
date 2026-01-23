@@ -26,14 +26,14 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
     return (
         <div className="flex flex-col h-full w-full max-w-2xl mx-auto py-2 antialiased">
             {/* Header */}
-            <div className="text-center space-y-3 mb-8 shrink-0">
+            <div className="text-center space-y-2 mb-4 shrink-0">
                 <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-brand-dark leading-[0.85]">
                     Tell us about <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-light to-accent">Your Space.</span>
                 </h2>
                 <p className="text-sm text-slate-400 font-bold tracking-widest uppercase">Customize your cleaning plan</p>
             </div>
 
-            <div className="w-full space-y-8 shrink-0">
+            <div className="w-full space-y-4 shrink-0">
 
                 {/* Room Counters */}
                 <div className="flex gap-4">
@@ -124,7 +124,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
             </div>
 
             {/* Footer Action */}
-            <div className="mt-8 shrink-0">
+            <div className="mt-4 shrink-0">
                 <button
                     onClick={onNext}
                     className="btn-sentient bg-brand-dark text-white shadow-xl hover:shadow-2xl hover:scale-[1.01] transition-all flex items-center justify-center gap-3 w-full py-6 rounded-[2rem] text-xs font-black uppercase tracking-[0.25em] active:scale-95 group"

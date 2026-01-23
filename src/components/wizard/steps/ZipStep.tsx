@@ -73,7 +73,7 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
             </div>
 
             <p className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-300">
-                Phase 01 / 05 • Area: Spokane, WA
+                Area: Spokane, WA
             </p>
         </div>
     );

@@ -273,7 +273,7 @@ export default function ExtremeCleaningWizard() {
                             </motion.div>
                         ) : (
                             <motion.div
-                                key={step + (data.serviceType || "")}
+                                key={step}
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
@@ -361,7 +361,7 @@ export default function ExtremeCleaningWizard() {
                         <div className="flex justify-end"></div>
                     </div>
 
-                    <div className="flex-1 flex flex-col p-6 md:p-10 lg:p-16 pt-0">
+                    <div className="flex-1 flex flex-col p-6 lg:p-8 lg:px-12 pt-0 h-full justify-center">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={step}

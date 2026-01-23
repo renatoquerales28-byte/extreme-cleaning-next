@@ -2,8 +2,8 @@ import ExtremeCleaningWizard from "@/components/wizard/ExtremeCleaningWizard";
 
 export default function QuotePage() {
     return (
-        <div className="h-[100dvh] w-full bg-slate-50 flex items-center justify-center p-4 overflow-hidden relative">
-            <div className="w-full h-full max-w-5xl max-h-[90vh] relative flex flex-col justify-center">
+        <div className="h-screen w-full bg-slate-50 flex items-center justify-center overflow-hidden relative">
+            <div className="w-full h-full md:h-auto md:max-h-[90vh] md:aspect-[4/3] relative flex flex-col justify-center">
                 <ExtremeCleaningWizard />
             </div>
             {/* Background elements if needed */}

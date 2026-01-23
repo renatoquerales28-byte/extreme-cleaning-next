@@ -24,7 +24,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
     ];
 
     return (
-        <div className="flex flex-col items-center gap-12 w-full max-w-2xl mx-auto">
+        <div className="flex flex-col items-center gap-6 w-full max-w-2xl mx-auto py-4">
             <div className="flex items-center justify-between w-full">
                 <button onClick={onBack} className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-black transition-colors">
                     <ChevronLeft size={16} /> Back
@@ -32,55 +32,55 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-300">Step 03 / 05</span>
             </div>
 
-            <div className="text-center space-y-4">
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-brand-dark leading-none">
+            <div className="text-center space-y-2">
+                <h2 className="text-3xl md:text-4xl font-black tracking-tighter text-brand-dark leading-none">
                     Tell us about your <span className="text-brand-light">Space</span>
                 </h2>
-                <p className="text-lg text-slate-500 font-medium italic">&quot;A clean home is a clean mind.&quot;</p>
+                <p className="text-sm text-slate-500 font-medium italic">&quot;A clean home is a clean mind.&quot;</p>
             </div>
 
-            <div className="w-full space-y-10">
+            <div className="w-full space-y-6">
                 {/* Beds / Baths */}
-                <div className="grid grid-cols-2 gap-8">
-                    <div className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Bedrooms</label>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3">
                             <button
                                 type="button"
                                 onClick={() => setValue("bedrooms", Math.max(1, bedrooms - 1))}
-                                className="w-12 h-12 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-colors"
+                                className="w-10 h-10 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-colors"
                             >-</button>
-                            <span className="text-3xl font-black w-8 text-center text-brand-dark">{bedrooms}</span>
+                            <span className="text-2xl font-black w-6 text-center text-brand-dark">{bedrooms}</span>
                             <button
                                 type="button"
                                 onClick={() => setValue("bedrooms", Math.min(10, bedrooms + 1))}
-                                className="w-12 h-12 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-colors"
+                                className="w-10 h-10 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-colors"
                             >+</button>
                         </div>
                     </div>
-                    <div className="space-y-4">
+                    <div className="space-y-2">
                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Bathrooms</label>
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3">
                             <button
                                 type="button"
                                 onClick={() => setValue("bathrooms", Math.max(1, bathrooms - 1))}
-                                className="w-12 h-12 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-colors"
+                                className="w-10 h-10 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-colors"
                             >-</button>
-                            <span className="text-3xl font-black w-8 text-center text-brand-dark">{bathrooms}</span>
+                            <span className="text-2xl font-black w-6 text-center text-brand-dark">{bathrooms}</span>
                             <button
                                 type="button"
                                 onClick={() => setValue("bathrooms", Math.min(10, bathrooms + 1))}
-                                className="w-12 h-12 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-colors"
+                                className="w-10 h-10 flex items-center justify-center border-2 border-slate-100 rounded-xl hover:bg-white hover:border-brand-light/30 transition-colors"
                             >+</button>
                         </div>
                     </div>
                 </div>
 
                 {/* SqFt Slider */}
-                <div className="space-y-4">
+                <div className="space-y-2">
                     <div className="flex justify-between items-center">
                         <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Approx. Square Feet</label>
-                        <span className="px-3 py-1 bg-brand-light/10 text-brand-light rounded-full text-xs font-black">{sqFt} SQ FT</span>
+                        <span className="px-2 py-0.5 bg-brand-light/10 text-brand-light rounded-full text-[10px] font-black">{sqFt} SQ FT</span>
                     </div>
                     <input
                         type="range" min="500" max="6000" step="100"
@@ -91,15 +91,15 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                 </div>
 
                 {/* Cleaning Type */}
-                <div className="space-y-4">
+                <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Choose Cleaning Intensity</label>
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 gap-2">
                         {cleaningOptions.map((opt) => (
                             <button
                                 key={opt.id}
                                 type="button"
                                 onClick={() => setValue("cleaningType", opt.id as any)}
-                                className={`py-4 px-2 rounded-2xl border-2 transition-all font-bold text-xs ${cleaningType === opt.id ? "bg-brand-dark border-brand-dark text-white shadow-xl translate-y-[-2px]" : "border-slate-100 text-slate-400 hover:border-brand-light/30"
+                                className={`py-3 px-2 rounded-xl border-2 transition-all font-bold text-[10px] ${cleaningType === opt.id ? "bg-brand-dark border-brand-dark text-white shadow-lg translate-y-[-1px]" : "border-slate-100 text-slate-400 hover:border-brand-light/30"
                                     }`}
                             >
                                 {opt.label}
@@ -111,14 +111,14 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
 
             <button
                 onClick={onNext}
-                className="btn-sentient bg-accent text-brand-dark shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all flex items-center justify-center gap-3 w-full py-6 text-xl"
+                className="btn-sentient bg-accent text-brand-dark shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all flex items-center justify-center gap-2 w-full py-4 text-lg"
             >
-                Select Frequency <ArrowRight size={20} />
+                Select Frequency <ArrowRight size={18} />
             </button>
 
-            <div className="bg-white/50 p-6 rounded-3xl border border-brand-light/20 flex items-start gap-4">
-                <div className="p-3 bg-white text-brand-light rounded-2xl shadow-sm"><Sparkles size={20} /></div>
-                <p className="text-xs text-slate-500 font-medium leading-relaxed">
+            <div className="bg-white/50 p-4 rounded-2xl border border-brand-light/20 flex items-start gap-3">
+                <div className="p-2 bg-white text-brand-light rounded-xl shadow-sm"><Sparkles size={16} /></div>
+                <p className="text-[10px] text-slate-500 font-medium leading-relaxed">
                     <strong>Tip:</strong> Deep Cleaning is highly recommended if your home hasn&apos;t been professionally cleaned in the last 30 days.
                 </p>
             </div>

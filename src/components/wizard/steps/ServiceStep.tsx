@@ -21,7 +21,7 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
     ];
 
     return (
-        <div className="flex flex-col items-center gap-12 w-full">
+        <div className="flex flex-col items-center gap-8 w-full py-4">
             <div className="flex items-center justify-between w-full">
                 <button onClick={onBack} className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-slate-400 hover:text-black transition-colors">
                     <ChevronLeft size={16} /> Back
@@ -29,16 +29,16 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                 <span className="text-[10px] font-black uppercase tracking-[0.3em] text-slate-300">Step 02 / 05</span>
             </div>
 
-            <div className="text-center space-y-4">
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-brand-dark leading-none">
+            <div className="text-center space-y-3">
+                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-brand-dark leading-none">
                     Choose Your <span className="text-accent">Service</span>
                 </h2>
-                <p className="text-lg text-slate-500 font-medium">
+                <p className="text-base text-slate-500 font-medium">
                     Select the type of space we&apos;ll be transforming today.
                 </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-6 w-full">
+            <div className="grid md:grid-cols-3 gap-4 w-full">
                 {services.map((service) => (
                     <button
                         key={service.id}
@@ -46,16 +46,16 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                             setValue("serviceType", service.id as any);
                             onNext();
                         }}
-                        className={`group p-8 glass-card rounded-[3rem] text-left relative overflow-hidden transition-all duration-500 ${selectedService === service.id ? "ring-4 ring-black scale-[1.02]" : "hover:scale-[1.02]"
+                        className={`group p-6 glass-card rounded-[2rem] text-left relative overflow-hidden transition-all duration-500 ${selectedService === service.id ? "ring-4 ring-black scale-[1.02]" : "hover:scale-[1.02]"
                             }`}
                     >
-                        <div className={`p-4 rounded-2xl ${service.bg} ${service.color} w-fit mb-6 group-hover:scale-110 transition-transform`}>
-                            <service.icon size={32} />
+                        <div className={`p-3 rounded-xl ${service.bg} ${service.color} w-fit mb-4 group-hover:scale-110 transition-transform`}>
+                            <service.icon size={24} />
                         </div>
-                        <h3 className="text-2xl font-black tracking-tighter mb-2">{service.label}</h3>
-                        <p className="text-sm text-slate-500 font-medium leading-relaxed">{service.desc}</p>
-                        <div className="absolute bottom-4 right-8 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all">
-                            <ArrowRight className={service.color} />
+                        <h3 className="text-xl font-black tracking-tighter mb-1">{service.label}</h3>
+                        <p className="text-xs text-slate-500 font-medium leading-relaxed">{service.desc}</p>
+                        <div className="absolute bottom-4 right-6 opacity-0 group-hover:opacity-100 translate-x-4 group-hover:translate-x-0 transition-all">
+                            <ArrowRight className={service.color} size={18} />
                         </div>
                     </button>
                 ))}

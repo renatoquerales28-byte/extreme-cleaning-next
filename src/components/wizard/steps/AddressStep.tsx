@@ -6,7 +6,7 @@ import { type WizardData } from "@/lib/schemas/wizard";
 import { calculateTotal } from "@/lib/utils/pricing";
 import { Check, MapPin, Building2, Home, ArrowRight, Shield } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { createLead } from "@/app/actions/admin";
+import { createLead, updateLead } from "@/app/actions/admin";
 
 interface AddressStepProps {
     onBack: () => void;
@@ -23,7 +23,11 @@ export default function AddressStep({ onBack }: AddressStepProps) {
     const handleSubmit = async () => {
         setIsSubmitting(true);
         try {
-            await createLead({ ...data, totalPrice });
+            if (data.leadId) {
+                await updateLead(data.leadId, { ...data, totalPrice });
+            } else {
+                await createLead({ ...data, totalPrice });
+            }
             setSubmitted(true);
         } catch (error) {
             alert("Something went wrong. Please try again.");

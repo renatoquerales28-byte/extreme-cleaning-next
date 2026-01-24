@@ -6,6 +6,7 @@ import { type WizardData } from "@/lib/schemas/wizard";
 import { calculateTotal, FREQUENCIES } from "@/lib/utils/pricing";
 import { ChevronLeft, Check, CreditCard, Shield, Star, Mail, Phone, User, ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { createLead } from "@/app/actions/admin";
 
 interface QuoteStepProps {
     onBack: () => void;
@@ -15,7 +16,7 @@ interface QuoteStepProps {
 }
 
 export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepProps) {
-    const { register, watch, trigger, formState: { errors } } = useFormContext<WizardData>();
+    const { register, watch, trigger, setValue, formState: { errors } } = useFormContext<WizardData>();
     const data = watch();
     const totalPrice = calculateTotal(data);
     const selectedFreq = FREQUENCIES.find(f => f.id === data.frequency);
@@ -28,6 +29,19 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
         const isValid = await trigger(fieldsToValidate);
 
         if (isValid || customerName) {
+            try {
+                // Save lead to database
+                const result = await createLead({
+                    ...data,
+                    totalPrice: calculateTotal(data),
+                });
+
+                if (result.success && result.leadId) {
+                    setValue("leadId", result.leadId);
+                }
+            } catch (error) {
+                console.error("Failed to create lead:", error);
+            }
             onNext();
         } else {
             // Scroll to the first error if it exists

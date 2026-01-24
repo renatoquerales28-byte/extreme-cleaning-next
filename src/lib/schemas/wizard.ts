@@ -46,6 +46,7 @@ export const wizardSchema = z.object({
     // Logic helpers
     referralCode: z.string().optional(),
     promoCode: z.string().optional(),
+    leadId: z.number().optional(),
 });
 
 export type WizardData = z.infer<typeof wizardSchema>;

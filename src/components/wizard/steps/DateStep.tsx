@@ -34,6 +34,7 @@ export default function DateStep({ data, updateData, onNext }: DateStepProps) {
         } else {
             setAvailableSlots([]);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedDate]);
 
     const fetchSlots = async (date: Date) => {
@@ -78,16 +79,18 @@ export default function DateStep({ data, updateData, onNext }: DateStepProps) {
 
             <div className="flex flex-col md:flex-row gap-8 justify-center items-start max-w-4xl mx-auto">
                 {/* Calendar */}
-                <div className="w-full md:w-auto bg-white p-4 rounded-2xl shadow-sm border border-[#D1D5DB] flex justify-center">
+                <div className="calendar-container">
+                    <style>{`
+                            .rdp { --rdp-cell-size: 44px; --rdp-accent-color: #1C1C1C; --rdp-background-color: #F3F4F6; }
+                            .rdp-day_selected:not([disabled]) { background-color: #1C1C1C; color: white; border-radius: 8px; font-weight: bold; }
+                            .rdp-day_today { color: #0891B2; font-weight: bold; }
+                        `}</style>
                     <DayPicker
                         mode="single"
                         selected={selectedDate}
                         onSelect={setSelectedDate}
                         disabled={{ before: new Date() }}
-                        modifiersStyles={{
-                            selected: { backgroundColor: '#1C1C1C', color: 'white' }
-                        }}
-                        className="p-2"
+                        className="p-4 bg-white/50"
                     />
                 </div>
 
@@ -123,9 +126,9 @@ export default function DateStep({ data, updateData, onNext }: DateStepProps) {
                                     <button
                                         key={time}
                                         onClick={() => handleTimeSelect(time)}
-                                        className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${selectedTime === time
-                                            ? "bg-[#1C1C1C] text-white shadow-md transform scale-105"
-                                            : "bg-gray-50 text-gray-700 hover:bg-gray-100 border border-transparent hover:border-gray-200"
+                                        className={`px-4 py-3 rounded-xl text-sm font-bold transition-all border ${selectedTime === time
+                                            ? "bg-[#1C1C1C] text-white border-[#1C1C1C] shadow-lg scale-105"
+                                            : "bg-white text-gray-600 border-gray-100 hover:border-[#0891B2] hover:text-[#0891B2] hover:shadow-sm"
                                             }`}
                                     >
                                         {time}
@@ -149,7 +152,22 @@ export default function DateStep({ data, updateData, onNext }: DateStepProps) {
                     </div>
 
                     <button
-                        onClick={onNext}
+                        onClick={async () => {
+                            if (data.leadId) {
+                                try {
+                                    // Soft save of date/time
+                                    const { updateLead } = await import("@/app/actions/admin");
+                                    await updateLead(data.leadId, {
+                                        ...data,
+                                        serviceDate: selectedDate?.toISOString(),
+                                        serviceTime: selectedTime
+                                    });
+                                } catch (e) {
+                                    console.error("Background save failed", e);
+                                }
+                            }
+                            onNext();
+                        }}
                         className="btn-sentient bg-[#1C1C1C] hover:bg-black text-white w-full max-w-sm mx-auto py-5 text-sm font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-md hover:scale-[1.02] active:scale-95 transition-all"
                     >
                         Continue to Address <CheckCircleIcon />

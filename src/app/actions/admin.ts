@@ -87,7 +87,7 @@ export async function deletePromotion(id: number) {
 
 export async function createLead(data: any) {
     try {
-        await db.insert(leads).values({
+        const result = await db.insert(leads).values({
             firstName: data.firstName,
             lastName: data.lastName,
             email: data.email,
@@ -97,12 +97,37 @@ export async function createLead(data: any) {
             totalPrice: data.totalPrice,
             status: "new",
             details: data,
-        });
+            // Capture date/time if available upfront
+            serviceDate: data.serviceDate ? new Date(data.serviceDate) : null,
+            serviceTime: data.serviceTime,
+        }).returning({ insertedId: leads.id });
+
         revalidatePath("/admin");
-        return { success: true };
+        return { success: true, leadId: result[0].insertedId };
     } catch (error) {
         console.error("Failed to create lead:", error);
         return { success: false, error: "Failed to create lead" };
+    }
+}
+
+export async function updateLead(id: number, data: any) {
+    try {
+        await db.update(leads).set({
+            // Update fields that might change in later steps
+            serviceDate: data.serviceDate ? new Date(data.serviceDate) : undefined,
+            serviceTime: data.serviceTime,
+            details: data, // Update full details JSON
+            // If address is provided in data
+            // Note: Schema 'leads' table doesn't have address columns explicitly usually, 
+            // but we store it in 'details' JSONB. 
+            // If we needed specific columns for address we'd add them, but details JSON is fine.
+        }).where(eq(leads.id, id));
+
+        revalidatePath("/admin");
+        return { success: true };
+    } catch (error) {
+        console.error("Failed to update lead:", error);
+        return { success: false, error: "Failed to update lead" };
     }
 }
 

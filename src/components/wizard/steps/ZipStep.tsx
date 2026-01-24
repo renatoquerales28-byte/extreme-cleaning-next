@@ -23,7 +23,7 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                     Where is the <br />
                     <span className="text-brand-light">Sparkle</span> needed?
                 </h2>
-                <p className="text-sm text-slate-500 font-medium tracking-tight">
+                <p className="text-sm text-slate-700 font-medium tracking-tight">
                     Enter your zip code to check availability in the Spokane area.
                 </p>
             </div>
@@ -31,7 +31,7 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
             <div className="w-full max-w-sm relative group">
                 <div className="absolute -inset-1 border-2 border-brand-light/20 rounded-[2.5rem] opacity-0 group-focus-within:opacity-100 transition duration-300"></div>
                 <div className="relative flex items-center">
-                    <MapPin className="absolute left-6 text-slate-400 group-focus-within:text-brand-light transition-colors" size={24} strokeWidth={2.5} />
+                    <MapPin className="absolute left-6 text-slate-500 group-focus-within:text-brand-light transition-colors" size={24} strokeWidth={2.5} />
                     <input
                         {...register("zipCode")}
                         type="text"
@@ -56,23 +56,23 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
 
             {/* Existing Clients Section */}
             <div className="pt-8 border-t border-slate-100 w-full max-w-sm">
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Already an ECS Client?</p>
+                <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-4">Already an ECS Client?</p>
                 <div
                     onClick={onReturning}
-                    className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-light/30 transition-all group cursor-pointer shadow-sm"
+                    className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-light/20 transition-all group cursor-pointer shadow-sm"
                 >
                     <div className="flex items-center gap-3">
                         <div className="p-2 bg-white rounded-xl shadow-sm"><User size={16} className="text-brand-dark" strokeWidth={3} /></div>
                         <div className="text-left">
                             <p className="text-xs font-black text-brand-dark">Customer Login</p>
-                            <p className="text-[10px] text-slate-500 font-bold">Manage your cleanings</p>
+                            <p className="text-[10px] text-slate-600 font-bold">Manage your cleanings</p>
                         </div>
                     </div>
-                    <ArrowRight size={16} className="text-slate-300 group-hover:text-brand-light transition-colors" />
+                    <ArrowRight size={16} className="text-slate-400 group-hover:text-brand-light transition-colors" />
                 </div>
             </div>
 
-            <p className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-300">
+            <p className="text-[11px] font-black uppercase tracking-[0.3em] text-slate-400">
                 Area: Spokane, WA
             </p>
         </div>

@@ -40,7 +40,7 @@ export default function ExtremeCleaningWizard() {
 
     const [step, setStep] = useState<number | string>(getInitialStep());
     const [direction, setDirection] = useState(0);
-    const [customerName, setCustomerName] = useState("Alex");
+    const [customerName, setCustomerName] = useState("");
 
     const methods = useForm<WizardData>({
         resolver: zodResolver(wizardSchema),
@@ -117,7 +117,7 @@ export default function ExtremeCleaningWizard() {
             case 3:
                 return <FrequencyStep onNext={nextStep} onBack={prevStep} />;
             case 4:
-                return <QuoteStep onBack={prevStep} />;
+                return <QuoteStep onBack={prevStep} customerName={customerName} />;
 
             // Returning Flow
             case "returning_lookup":
@@ -234,7 +234,7 @@ export default function ExtremeCleaningWizard() {
                                     <div>
                                         <div className="flex items-baseline gap-2 mb-1">
                                             <h2 className="text-6xl font-black tracking-tighter text-white">${totalPrice}</h2>
-                                            <span className="text-xl font-bold text-slate-400">/service</span>
+                                            <span className="text-xl font-bold text-slate-300">/service</span>
                                         </div>
                                         <p className="text-brand-light font-bold text-sm tracking-wide flex items-center gap-2">
                                             <Star size={14} className="fill-brand-light" /> Your Personalized Quote
@@ -243,30 +243,30 @@ export default function ExtremeCleaningWizard() {
 
                                     <div className="space-y-4 py-6 border-t border-white/10">
                                         <div className="flex justify-between items-center text-sm">
-                                            <span className="text-slate-400 font-bold uppercase tracking-wider text-xs">Frequency</span>
-                                            <span className="font-black bg-white/10 px-3 py-1 rounded-full text-xs">{selectedFreq?.label}</span>
+                                            <span className="text-slate-200 font-bold uppercase tracking-wider text-xs">Frequency</span>
+                                            <span className="font-black bg-white/10 px-3 py-1 rounded-full text-xs text-white">{selectedFreq?.label}</span>
                                         </div>
                                         <div className="flex justify-between items-center text-sm">
-                                            <span className="text-slate-400 font-bold uppercase tracking-wider text-xs">Plan Type</span>
-                                            <span className="font-black capitalize">{data.cleaningType}</span>
+                                            <span className="text-slate-200 font-bold uppercase tracking-wider text-xs">Plan Type</span>
+                                            <span className="font-black capitalize text-white">{data.cleaningType}</span>
                                         </div>
                                         <div className="flex justify-between items-center text-sm">
-                                            <span className="text-slate-400 font-bold uppercase tracking-wider text-xs">Size</span>
-                                            <span className="font-black">{data.sqFt} sq ft</span>
+                                            <span className="text-slate-200 font-bold uppercase tracking-wider text-xs">Size</span>
+                                            <span className="font-black text-white">{data.sqFt} sq ft</span>
                                         </div>
                                         <div className="flex justify-between items-center text-sm">
-                                            <span className="text-slate-400 font-bold uppercase tracking-wider text-xs">Zip Code</span>
+                                            <span className="text-slate-200 font-bold uppercase tracking-wider text-xs">Zip Code</span>
                                             <span className="font-black text-brand-light">{data.zipCode}</span>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div className="pt-6 border-t border-white/10">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-emerald-500/20 rounded-lg"><Shield size={20} className="text-emerald-500" /></div>
-                                        <div>
-                                            <p className="font-black text-xs uppercase tracking-widest">Extreme Guarantee</p>
-                                            <p className="text-[10px] text-slate-400 font-medium">100% Satisfaction or we re-clean for free.</p>
+                                    <div className="pt-6 border-t border-white/10">
+                                        <div className="flex items-center gap-3">
+                                            <div className="p-2 bg-emerald-500/20 rounded-lg"><Shield size={20} className="text-emerald-400" /></div>
+                                            <div>
+                                                <p className="font-black text-xs uppercase tracking-widest text-white">Extreme Guarantee</p>
+                                                <p className="text-[10px] text-slate-100 font-medium">100% Satisfaction or we re-clean for free.</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -284,11 +284,11 @@ export default function ExtremeCleaningWizard() {
                                     <div className="w-40 mb-8">
                                         <Image src="/brand/logo-full.png" alt="Extreme Cleaning Logo" width={200} height={60} className="object-contain brightness-0 invert" />
                                     </div>
-                                    <h2 className="text-4xl font-black tracking-tighter leading-tight mb-4 capitalize">
+                                    <h2 className="text-4xl font-black tracking-tighter leading-tight mb-4 capitalize text-white">
                                         {lp?.title} <br />
                                         <span className="text-brand-light">{lp?.accent}</span>
                                     </h2>
-                                    <p className="text-slate-200 font-medium text-sm leading-relaxed max-w-xs shadow-black drop-shadow-md">
+                                    <p className="text-slate-100 font-medium text-sm leading-relaxed max-w-xs shadow-black drop-shadow-md">
                                         {lp?.description}
                                     </p>
                                 </div>
@@ -299,7 +299,7 @@ export default function ExtremeCleaningWizard() {
                                             <div className="p-1.5 bg-accent/20 rounded-lg"><Star size={14} className="text-accent fill-accent" /></div>
                                             <p className="font-black text-white text-xs uppercase tracking-wider">Emergency Services</p>
                                         </div>
-                                        <p className="text-[11px] text-slate-300 leading-snug font-medium">
+                                        <p className="text-[11px] text-slate-100 leading-snug font-medium">
                                             Need a clean ASAP? We offer <strong>Emergency</strong> and <strong>After-Party</strong> cleanup services. Call us directly for immediate dispatch.
                                         </p>
                                     </div>
@@ -310,7 +310,7 @@ export default function ExtremeCleaningWizard() {
                 </div>
 
                 {/* Close Button */}
-                <a href="/" className="absolute top-4 right-4 md:top-6 md:right-6 z-50 p-2 rounded-full bg-white hover:bg-slate-50 text-slate-500 transition-colors border border-slate-100" title="Exit Wizard">
+                <a href="/" className="absolute top-4 right-4 md:top-6 md:right-6 z-50 p-2 rounded-full bg-white hover:bg-slate-50 text-slate-600 transition-colors border border-slate-100" title="Exit Wizard">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                         <path d="M18 6 6 18" />
                         <path d="m6 6 12 12" />
@@ -328,7 +328,7 @@ export default function ExtremeCleaningWizard() {
                             {step !== 0 && step !== "returning_lookup" && (
                                 <button
                                     onClick={prevStep}
-                                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-brand-dark transition-colors group"
+                                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 hover:text-brand-dark transition-colors group"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform">
                                         <path d="m15 18-6-6 6-6" />
@@ -340,10 +340,10 @@ export default function ExtremeCleaningWizard() {
 
                         {/* Center: Progress Bar */}
                         <div className="flex flex-col items-center gap-1.5 w-full max-w-[200px] mx-auto">
-                            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-300">
+                            <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500">
                                 Step {typeof step === 'number' ? Math.min(step + 1, 5) : 1} of 5
                             </span>
-                            <div className="w-full h-1 bg-slate-100 rounded-full overflow-hidden">
+                            <div className="w-full h-1 bg-slate-200 rounded-full overflow-hidden">
                                 <motion.div
                                     className="h-full bg-brand-light"
                                     initial={{ width: 0 }}

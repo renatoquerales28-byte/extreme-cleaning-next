@@ -27,16 +27,11 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
         const fieldsToValidate: (keyof WizardData)[] = ["firstName", "lastName", "email", "phone"];
         const isValid = await trigger(fieldsToValidate);
 
-        console.log("Validation Result:", isValid, "Errors:", errors);
-
         if (isValid || customerName) {
             onNext();
         } else {
             // Scroll to the first error if it exists
             const errorKeys = Object.keys(errors);
-            if (errorKeys.length > 0) {
-                console.warn("Validation failed, staying on step 4");
-            }
         }
         setIsSubmitting(false);
     };

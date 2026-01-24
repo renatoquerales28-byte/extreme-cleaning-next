@@ -27,7 +27,8 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                                 leads.map((lead: any) => (
                                     <tr key={lead.id} className="hover:bg-gray-50 transition-colors">
                                         <td className="px-6 py-4 text-[#1C1C1C]">
-                                            {new Date(lead.createdAt).toLocaleDateString()}
+                                            <div>{new Date(lead.createdAt).toLocaleDateString()}</div>
+                                            <div className="text-xs text-[#6B7280]">{new Date(lead.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                                         </td>
                                         <td className="px-6 py-4">
                                             <div className="font-medium text-[#1C1C1C]">{lead.firstName} {lead.lastName}</div>

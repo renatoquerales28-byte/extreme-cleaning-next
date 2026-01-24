@@ -2,6 +2,7 @@
 
 import { getPricingConfig, updatePricingConfig } from "@/app/actions/admin";
 import { useState, useEffect } from "react";
+import Loading from "../loading";
 
 export const dynamic = 'force-dynamic';
 
@@ -35,7 +36,7 @@ export default function PricingPage() {
         await updatePricingConfig(key, newValue);
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <Loading />;
 
     return (
         <div>

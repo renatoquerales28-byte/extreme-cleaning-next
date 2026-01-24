@@ -3,6 +3,7 @@
 import { getPromotions, createPromotion, togglePromotion, deletePromotion } from "@/app/actions/admin";
 import { useState, useEffect } from "react";
 import { Trash2, Plus, Tag } from "lucide-react";
+import Loading from "../loading";
 
 export const dynamic = 'force-dynamic';
 
@@ -52,7 +53,7 @@ export default function PromotionsPage() {
         await deletePromotion(id);
     };
 
-    if (loading) return <div>Loading...</div>;
+    if (loading) return <Loading />;
 
     return (
         <div>

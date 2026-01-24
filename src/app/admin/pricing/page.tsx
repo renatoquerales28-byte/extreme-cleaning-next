@@ -11,10 +11,10 @@ export default async function PricingPage() {
     // Default configs if empty
     if (initialConfigs.length === 0) {
         initialConfigs = [
-            { key: 'base_price_residential', value: 150, description: 'Base price for residential cleaning' },
-            { key: 'base_price_deep_clean', value: 250, description: 'Base price for deep cleaning' },
-            { key: 'price_per_sqft', value: 0.15, description: 'Price per square foot' },
-            { key: 'price_per_bedroom', value: 20, description: 'Price per bedroom' },
+            { id: 1, key: 'base_price_residential', value: 150, description: 'Base price for residential cleaning' },
+            { id: 2, key: 'base_price_deep_clean', value: 250, description: 'Base price for deep cleaning' },
+            { id: 3, key: 'price_per_sqft', value: 0.15, description: 'Price per square foot' },
+            { id: 4, key: 'price_per_bedroom', value: 20, description: 'Price per bedroom' },
         ];
     }
 

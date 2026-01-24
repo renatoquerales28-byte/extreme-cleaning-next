@@ -30,9 +30,9 @@ export default function AdminLoginPage() {
         <div className="min-h-screen flex items-center justify-center bg-[#F9F8F2]">
             <div className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md border border-[#D1D5DB]">
                 <div className="flex justify-center mb-6">
-                    <div className="relative w-32 h-32">
+                    <div className="relative w-48 h-20">
                         <Image
-                            src="/images/logo_ecs.png"
+                            src="/brand/logo-full.png"
                             alt="ECS Logo"
                             fill
                             className="object-contain"

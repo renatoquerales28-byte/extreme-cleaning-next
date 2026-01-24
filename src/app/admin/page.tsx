@@ -1,4 +1,5 @@
 import LeadsTable from "@/components/admin/LeadsTable";
+import { getRecentLeads } from "@/app/actions/admin";
 
 export const dynamic = 'force-dynamic';
 

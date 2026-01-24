@@ -39,7 +39,8 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                                             <div className="text-sm text-[#6B7280]">{lead.frequency}</div>
                                         </td>
                                         <td className="px-6 py-4 text-[#1C1C1C]">
-                                            {lead.details?.zipCode || "N/A"}
+                                            <div className="font-medium">{lead.details?.address || "No Address Provided"}</div>
+                                            <div className="text-sm text-[#6B7280]">{lead.details?.zipCode || "N/A"} {lead.details?.city || ""}</div>
                                         </td>
                                         <td className="px-6 py-4 font-semibold text-[#0891B2]">
                                             ${lead.totalPrice}
@@ -106,9 +107,22 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                                 <h3 className="text-sm font-bold uppercase tracking-wider text-gray-400 mb-3">Service Requirements</h3>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <DetailItem label="Service Type" value={selectedLead.serviceType} />
-                                    <DetailItem label="Frequency" value={selectedLead.frequency} />
-                                    <DetailItem label="Zip Code" value={selectedLead.details?.zipCode} />
+                                    <DetailItem label="Frequency" value={selectedLead.frequency} highlight />
                                     <DetailItem label="Estimated Price" value={`$${selectedLead.totalPrice}`} highlight />
+                                </div>
+                            </section>
+
+                            {/* Address Details */}
+                            <section className="bg-brand-light/5 border border-brand-light/10 p-4 rounded-xl">
+                                <h3 className="text-sm font-bold uppercase tracking-wider text-brand-dark mb-4 flex items-center gap-2">
+                                    <span className="w-2 h-2 bg-brand-light rounded-full"></span>
+                                    Service Address
+                                </h3>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-y-4 gap-x-8">
+                                    <DetailItem label="Street Address" value={selectedLead.details?.address} />
+                                    <DetailItem label="Unit / Apt" value={selectedLead.details?.unit || "N/A"} />
+                                    <DetailItem label="City" value={selectedLead.details?.city} />
+                                    <DetailItem label="Zip Code" value={selectedLead.details?.zipCode} />
                                 </div>
                             </section>
 

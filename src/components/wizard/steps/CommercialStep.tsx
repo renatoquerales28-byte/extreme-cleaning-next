@@ -59,11 +59,15 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
                 <div className="space-y-3">
                     <label className="block text-[11px] font-black text-slate-600 uppercase tracking-[0.2em]">Approximate Square Footage</label>
                     <div className="relative">
-                        onInput={(e) => {
-                            const val = (e.target as HTMLInputElement).value;
-                            if (parseInt(val) > 100000) (e.target as HTMLInputElement).value = "100000";
-                        }}
-                        className="w-full text-3xl font-black bg-white border-2 border-slate-100 rounded-2xl px-6 py-4 focus:border-brand-dark outline-none placeholder:text-slate-300 transition-all"
+                        <input
+                            type="number"
+                            placeholder="e.g. 2500"
+                            {...register("commSqFt")}
+                            onInput={(e) => {
+                                const val = (e.target as HTMLInputElement).value;
+                                if (parseInt(val) > 100000) (e.target as HTMLInputElement).value = "100000";
+                            }}
+                            className="w-full text-3xl font-black bg-white border-2 border-slate-100 rounded-2xl px-6 py-4 focus:border-brand-dark outline-none placeholder:text-slate-300 transition-all"
                         />
                         <span className="absolute right-6 top-1/2 -translate-y-1/2 font-black text-slate-500 tracking-tighter uppercase text-xs">SQ FT</span>
                     </div>

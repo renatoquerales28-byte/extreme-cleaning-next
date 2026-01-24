@@ -45,6 +45,7 @@ export default function AdminLayout({
                             <Link
                                 key={item.href}
                                 href={item.href}
+                                prefetch={true}
                                 className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive
                                     ? "bg-[#1C1C1C] text-white shadow-md"
                                     : "text-[#4B5563] hover:bg-gray-100"

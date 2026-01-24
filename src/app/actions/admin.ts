@@ -105,3 +105,41 @@ export async function createLead(data: any) {
         return { success: false, error: "Failed to create lead" };
     }
 }
+
+export async function getClients() {
+    try {
+        const allLeads = await db.select().from(leads).orderBy(desc(leads.createdAt));
+
+        // Aggregate leads by email
+        const clientsMap = new Map();
+
+        allLeads.forEach(lead => {
+            if (!lead.email) return;
+
+            if (!clientsMap.has(lead.email)) {
+                clientsMap.set(lead.email, {
+                    id: lead.id, // Use latest lead ID as pseudo-client ID
+                    firstName: lead.firstName,
+                    lastName: lead.lastName,
+                    email: lead.email,
+                    phone: lead.phone,
+                    totalSpent: 0,
+                    bookingsCount: 0,
+                    lastBooking: lead.createdAt,
+                    leads: []
+                });
+            }
+
+            const client = clientsMap.get(lead.email);
+            client.totalSpent += (lead.totalPrice || 0);
+            client.bookingsCount += 1;
+            client.leads.push(lead);
+        });
+
+        const clients = Array.from(clientsMap.values());
+        return { success: true, data: clients };
+    } catch (error) {
+        console.error("Failed to fetch clients:", error);
+        return { success: false, error: "Failed to fetch clients" };
+    }
+}

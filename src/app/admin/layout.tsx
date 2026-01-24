@@ -33,6 +33,7 @@ export default function AdminLayout({
                             src="/brand/logo-full.png"
                             alt="ECS Logo"
                             fill
+                            priority
                             className="object-contain"
                         />
                     </div>

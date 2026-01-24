@@ -41,7 +41,7 @@ export default function AddressStep({ onBack }: AddressStepProps) {
                 <div className="space-y-4">
                     <h2 className="text-5xl font-black tracking-tighter text-brand-dark">Booking Confirmed!</h2>
                     <p className="text-slate-700 font-medium max-w-md mx-auto">
-                        Thank you! We've received your address. Our team is now preparing for your visit. One of our experts will call you shortly to finalize the details.
+                        Thank you! We&apos;ve received your address. Our team is now preparing for your visit. One of our experts will call you shortly to finalize the details.
                     </p>
                 </div>
                 <button onClick={() => router.push("/")} className="btn-sentient bg-brand-dark text-white">

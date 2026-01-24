@@ -20,6 +20,7 @@ import ReturningLookupStep from "./steps/ReturningLookupStep";
 import PropertySelectionStep from "./steps/PropertySelectionStep";
 import QuickConfigStep from "./steps/QuickConfigStep";
 import AddressStep from "./steps/AddressStep";
+import DateStep from "./steps/DateStep";
 
 import { useSearchParams } from "next/navigation";
 
@@ -67,8 +68,9 @@ export default function ExtremeCleaningWizard() {
             if (prev === 1) return 2;
             if (prev === 2) return 3;
             if (prev === 3) return 4;
-            if (prev === 4) return 5;
-            if (prev === 5) return 5;
+            if (prev === 4) return 5; // Quote -> Date
+            if (prev === 5) return 6; // Date -> Address
+            if (prev === 6) return 6;
 
             // Returning flow transitions
             if (prev === "returning_lookup") return "returning_select";
@@ -92,7 +94,8 @@ export default function ExtremeCleaningWizard() {
             if (prev === 4) {
                 return customerName ? "returning_config" : 3;
             }
-            if (prev === 5) return 4;
+            if (prev === 5) return 4; // Date -> Quote
+            if (prev === 6) return 5; // Address -> Date
             if (prev === "returning_lookup") return 0;
             if (prev === "returning_select") return "returning_lookup";
             if (prev === "returning_config") return "returning_select";
@@ -147,6 +150,14 @@ export default function ExtremeCleaningWizard() {
             case 4:
                 return <QuoteStep onBack={prevStep} customerName={customerName} isFinalStep={false} onNext={nextStep} />;
             case 5:
+                return <DateStep
+                    data={methods.getValues()}
+                    updateData={(d) => {
+                        Object.entries(d).forEach(([k, v]) => methods.setValue(k as any, v));
+                    }}
+                    onNext={nextStep}
+                />;
+            case 6:
                 return <AddressStep onBack={prevStep} />;
 
             // Returning Flow

@@ -42,9 +42,9 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
 
             <div className="text-center space-y-2 shrink-0 mb-6">
                 <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
-                    Final <span className="text-accent">Details</span>
+                    Your <span className="text-accent">Estimate</span>
                 </h2>
-                <p className="text-sm text-slate-700 font-medium tracking-tight">Almost there! We just need your contact info.</p>
+                <p className="text-sm text-slate-700 font-medium tracking-tight">Review your plan before scheduling.</p>
             </div>
 
             {/* Mobile-only Price Summary */}
@@ -72,7 +72,7 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
                             </div>
                         </div>
                         <p className="text-sm text-slate-700 font-medium leading-relaxed">
-                            We have your contact details on file. Simply confirm your booking below.
+                            We have your details. Proceed to schedule your visit.
                         </p>
                     </div>
                 ) : (
@@ -111,7 +111,7 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
 
                 <div className="pt-2">
                     <button onClick={handleNext} disabled={isSubmitting} className="btn-sentient bg-accent hover:bg-accent-hover text-brand-dark w-full py-5 text-sm font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-md hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-70 disabled:cursor-wait">
-                        {isSubmitting ? "Processing..." : "Continue to Address"} <ArrowRight size={20} strokeWidth={2.5} />
+                        {isSubmitting ? "Processing..." : "Select Date & Time"} <ArrowRight size={20} strokeWidth={2.5} />
                     </button>
                 </div>
 

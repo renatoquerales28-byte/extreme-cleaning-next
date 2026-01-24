@@ -19,9 +19,9 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     return (
         <div className="flex flex-col items-center justify-center gap-8 md:gap-10 text-center py-4 antialiased">
             <div className="space-y-4">
-                <h2 className="text-3xl md:text-6xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
+                <h2 className="text-3xl md:text-6xl font-black tracking-tighter text-ecs-brand-dark leading-[0.85] py-1">
                     Where is the <br />
-                    <span className="text-brand-light">Sparkle</span> needed?
+                    <span className="text-ecs-brand-light">Sparkle</span> needed?
                 </h2>
                 <p className="text-sm text-slate-700 font-medium tracking-tight">
                     Enter your zip code to check availability in the Spokane area.
@@ -29,15 +29,15 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
             </div>
 
             <div className="w-full max-w-sm relative group">
-                <div className="absolute -inset-1 border-2 border-brand-light/20 rounded-[2.5rem] opacity-0 group-focus-within:opacity-100 transition duration-300"></div>
+                <div className="absolute -inset-1 border-2 border-ecs-brand-light/20 rounded-[2.5rem] opacity-0 group-focus-within:opacity-100 transition duration-300"></div>
                 <div className="relative flex items-center">
-                    <MapPin className="absolute left-6 text-slate-500 group-focus-within:text-brand-light transition-colors" size={24} strokeWidth={2.5} />
+                    <MapPin className="absolute left-6 text-slate-500 group-focus-within:text-ecs-brand-light transition-colors" size={24} strokeWidth={2.5} />
                     <input
                         {...register("zipCode")}
                         type="text"
                         placeholder="99201"
                         autoFocus={true}
-                        className="w-full pl-12 md:pl-16 pr-6 md:pr-8 py-4 md:py-5 bg-white border-2 border-slate-100 rounded-[2.5rem] text-xl md:text-2xl font-black tracking-[0.2em] focus:border-brand-light focus:ring-0 transition-all outline-none"
+                        className="w-full pl-12 md:pl-16 pr-6 md:pr-8 py-4 md:py-5 bg-white border-2 border-slate-100 rounded-[2.5rem] text-xl md:text-2xl font-black tracking-[0.2em] focus:border-ecs-brand-light focus:ring-0 transition-all outline-none"
                         maxLength={5}
                     />
                 </div>
@@ -48,7 +48,7 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                 <button
                     onClick={onNext}
                     disabled={!isValidZip}
-                    className="btn-sentient btn-sentient-fuchsia w-full disabled:opacity-20 disabled:grayscale disabled:scale-100 flex items-center justify-center gap-4 py-5 px-10 text-[11px] font-black uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-95 transition-all shadow-sm"
+                    className="btn-accent w-full disabled:opacity-20 disabled:grayscale disabled:scale-100 flex items-center justify-center gap-4 py-5 px-10 text-[11px] font-black uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-95 transition-all shadow-sm"
                 >
                     Check Availability <ArrowRight size={20} strokeWidth={3} />
                 </button>
@@ -59,16 +59,16 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                 <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 mb-4">Already an ECS Client?</p>
                 <div
                     onClick={onReturning}
-                    className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 hover:border-brand-light/20 transition-all group cursor-pointer shadow-sm"
+                    className="flex items-center justify-between p-4 bg-ecs-secondary rounded-2xl border border-white hover:border-ecs-brand-light/50 transition-all group cursor-pointer shadow-sm"
                 >
                     <div className="flex items-center gap-3">
-                        <div className="p-2 bg-white rounded-xl shadow-sm"><User size={16} className="text-brand-dark" strokeWidth={3} /></div>
+                        <div className="p-2 bg-white rounded-xl shadow-sm"><User size={16} className="text-ecs-brand-dark" strokeWidth={3} /></div>
                         <div className="text-left">
-                            <p className="text-xs font-black text-brand-dark">Customer Login</p>
+                            <p className="text-xs font-black text-ecs-brand-dark">Customer Login</p>
                             <p className="text-[10px] text-slate-600 font-bold">Manage your cleanings</p>
                         </div>
                     </div>
-                    <ArrowRight size={16} className="text-slate-400 group-hover:text-brand-light transition-colors" />
+                    <ArrowRight size={16} className="text-slate-400 group-hover:text-ecs-brand-light transition-colors" />
                 </div>
             </div>
 

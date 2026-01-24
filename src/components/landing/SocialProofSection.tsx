@@ -33,16 +33,16 @@ export default function SocialProofSection() {
     ];
 
     return (
-        <section className="py-24 bg-white relative overflow-hidden" id="reviews">
+        <section className="py-24 bg-ecs-paramount relative overflow-hidden" id="reviews">
             {/* Decor */}
-            <div className="absolute right-0 top-0 w-1/3 h-full bg-slate-50 -skew-x-12 z-0" />
+            <div className="absolute right-0 top-0 w-1/3 h-full bg-ecs-secondary/50 -skew-x-12 z-0" />
 
             <div className="container px-4 mx-auto relative z-10">
                 <div className="flex flex-col items-center text-center mb-16 space-y-4">
-                    <span className="text-emerald-500 font-black tracking-[0.2em] text-xs uppercase">Community Trust</span>
-                    <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-brand-dark leading-[0.9]">
+                    <span className="text-ecs-accent font-black tracking-[0.2em] text-xs uppercase">Community Trust</span>
+                    <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-ecs-brand-dark leading-[0.9]">
                         Don&apos;t Just Take <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-dark to-brand-light">Our Word For It.</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-ecs-brand-dark to-ecs-brand-light">Our Word For It.</span>
                     </h2>
                 </div>
 
@@ -54,7 +54,7 @@ export default function SocialProofSection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.1, duration: 0.5 }}
                             viewport={{ once: true }}
-                            className="break-inside-avoid bg-slate-50 p-8 rounded-3xl border border-slate-100 hover:shadow-xl transition-all duration-300"
+                            className="break-inside-avoid bg-ecs-secondary p-8 rounded-3xl border border-white/50 hover:shadow-xl transition-all duration-300"
                         >
                             <div className="flex text-amber-400 gap-1 mb-6">
                                 {[...Array(review.rating)].map((_, i) => (
@@ -64,10 +64,10 @@ export default function SocialProofSection() {
                                 ))}
                             </div>
 
-                            <p className="text-brand-dark font-medium leading-relaxed mb-6">&quot;{review.text}&quot;</p>
+                            <p className="text-ecs-brand-dark font-medium leading-relaxed mb-6">&quot;{review.text}&quot;</p>
 
                             <div className="flex items-center gap-4">
-                                <div className="relative w-12 h-12 rounded-full overflow-hidden">
+                                <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white">
                                     <Image
                                         src={review.image}
                                         alt={review.author}
@@ -76,7 +76,7 @@ export default function SocialProofSection() {
                                     />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-brand-dark text-sm">{review.author}</h4>
+                                    <h4 className="font-bold text-ecs-brand-dark text-sm">{review.author}</h4>
                                     <p className="text-slate-400 text-xs font-bold uppercase tracking-wide">{review.role}</p>
                                 </div>
                             </div>

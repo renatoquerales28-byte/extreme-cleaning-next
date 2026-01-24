@@ -24,17 +24,17 @@ export default function ProcessSection() {
     ];
 
     return (
-        <section className="py-24 bg-brand-dark text-white relative overflow-hidden" id="process">
+        <section className="py-24 bg-ecs-brand-dark text-white relative overflow-hidden" id="process">
             {/* Background Line Animation */}
             <div className="absolute top-1/2 left-0 w-full h-px bg-white/10 -translate-y-1/2 hidden md:block" />
 
             <div className="container px-4 mx-auto relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8">
                     <div className="space-y-4 max-w-lg container">
-                        <span className="text-emerald-500 font-black tracking-[0.2em] text-xs uppercase">Simplicity First</span>
+                        <span className="text-ecs-accent font-black tracking-[0.2em] text-xs uppercase">Simplicity First</span>
                         <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-white leading-[0.9]">
                             From Chaos to <br />
-                            <span className="text-brand-light">Calm in 3 Steps.</span>
+                            <span className="text-ecs-brand-light">Calm in 3 Steps.</span>
                         </h2>
                     </div>
                 </div>
@@ -48,7 +48,7 @@ export default function ProcessSection() {
                             </span>
 
                             <div className="relative z-10 pt-12 md:pt-16">
-                                <div className="w-4 h-4 rounded-full bg-emerald-500 border-4 border-brand-dark mb-8 relative md:absolute md:-top-2 md:left-0 md:transform md:-translate-y-1/2" />
+                                <div className="w-4 h-4 rounded-full bg-ecs-accent border-4 border-ecs-brand-dark mb-8 relative md:absolute md:-top-2 md:left-0 md:transform md:-translate-y-1/2" />
 
                                 <h3 className="text-2xl font-black tracking-tight mb-4">{step.title}</h3>
                                 <p className="text-white/60 font-medium leading-relaxed mb-6 max-w-xs">
@@ -60,7 +60,7 @@ export default function ProcessSection() {
                 </div>
 
                 <div className="mt-20 flex justify-center">
-                    <Link href="/quote" className="btn-sentient bg-white text-brand-dark hover:bg-brand-light transition-all flex items-center gap-3">
+                    <Link href="/quote" className="inline-flex h-14 items-center justify-center gap-2 rounded-2xl bg-white px-8 text-sm font-bold uppercase tracking-wide text-ecs-brand-dark transition-all hover:bg-ecs-secondary hover:scale-105">
                         Start Your Quote <ArrowRight size={20} />
                     </Link>
                 </div>

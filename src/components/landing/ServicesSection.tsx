@@ -35,14 +35,14 @@ export default function ServicesSection() {
     ];
 
     return (
-        <section className="py-24 bg-[#F9F8F2] relative overflow-hidden" id="services">
+        <section className="py-24 bg-ecs-paramount relative overflow-hidden" id="services">
             <div className="container px-4 mx-auto">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                     <div className="max-w-xl space-y-4">
-                        <span className="text-brand-dark/50 font-black tracking-[0.2em] text-xs uppercase">Our Expertise</span>
-                        <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-brand-dark leading-[0.9]">
+                        <span className="text-ecs-brand-dark/50 font-black tracking-[0.2em] text-xs uppercase">Our Expertise</span>
+                        <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-ecs-brand-dark leading-[0.9]">
                             Curated Services <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-dark to-brand-light">For Any Space.</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-ecs-brand-dark to-ecs-brand-light">For Any Space.</span>
                         </h2>
                     </div>
                 </div>
@@ -55,39 +55,38 @@ export default function ServicesSection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: index * 0.1, duration: 0.5 }}
                             viewport={{ once: true }}
-                            className="group relative h-[500px] rounded-[2.5rem] overflow-hidden cursor-pointer"
+                            className="group relative flex flex-col h-full rounded-3xl overflow-hidden cursor-pointer bg-ecs-secondary transition-transform duration-300 hover:-translate-y-2 hover:shadow-lg"
                         >
-                            {/* Background Image */}
-                            <Image
-                                src={service.image}
-                                alt={service.title}
-                                fill
-                                className="object-cover transition-transform duration-700 group-hover:scale-110"
-                            />
-
-                            {/* Gradient Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/90 via-brand-dark/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-500" />
-
-                            {/* Content */}
-                            <div className="absolute inset-0 p-8 flex flex-col justify-end text-white">
-                                <div className="mb-auto opacity-0 group-hover:opacity-100 transition-all duration-500 -translate-y-4 group-hover:translate-y-0">
-                                    <div className="w-12 h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center">
-                                        <ArrowRight className="text-white" size={20} />
-                                    </div>
-                                </div>
-
-                                <div className="space-y-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                                    <div className="flex items-center gap-3">
-                                        <div className="p-2 bg-white/10 backdrop-blur-md rounded-xl">
-                                            <service.icon size={24} className="text-accent" />
-                                        </div>
-                                        <h3 className="text-3xl font-black tracking-tighter">{service.title}</h3>
-                                    </div>
-                                    <p className="text-white/80 font-medium leading-relaxed max-w-xs">{service.description}</p>
-                                </div>
+                            {/* Image Area - Top Half */}
+                            <div className="relative h-64 w-full overflow-hidden">
+                                <Image
+                                    src={service.image}
+                                    alt={service.title}
+                                    fill
+                                    className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                />
                             </div>
 
-                            <Link href={service.link} className="absolute inset-0 z-20" aria-label={`View ${service.title} services`} />
+                            {/* Content Area - Bottom Half */}
+                            <div className="p-8 flex flex-col flex-grow relative">
+                                <div className="flex items-center gap-3 mb-4">
+                                    <div className="p-2 bg-white rounded-xl shadow-sm text-ecs-brand-dark">
+                                        <service.icon size={24} />
+                                    </div>
+                                    <h3 className="text-2xl font-black tracking-tight text-ecs-brand-dark">{service.title}</h3>
+                                </div>
+
+                                <p className="text-ecs-brand-dark/70 font-medium leading-relaxed mb-6">
+                                    {service.description}
+                                </p>
+
+                                <div className="mt-auto flex items-center gap-2 text-ecs-accent font-bold uppercase tracking-wider text-sm group-hover:gap-3 transition-all">
+                                    <span>Learn More</span>
+                                    <ArrowRight size={16} />
+                                </div>
+
+                                <Link href={service.link} className="absolute inset-0 z-20" aria-label={`View ${service.title} services`} />
+                            </div>
                         </motion.div>
                     ))}
                 </div>

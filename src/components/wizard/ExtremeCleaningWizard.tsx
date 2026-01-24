@@ -250,10 +250,10 @@ export default function ExtremeCleaningWizard() {
     return (
         <FormProvider {...methods}>
             {/* Main Full-Screen Split Layout */}
-            <div className="w-full min-h-screen flex flex-col lg:flex-row bg-[#F9F8F2] relative overflow-hidden">
+            <div className="w-full min-h-screen flex flex-col lg:flex-row bg-ecs-paramount relative overflow-hidden">
 
                 {/* Left Panel - Hidden on Mobile, Fixed Width on Desktop */}
-                <div className="hidden lg:flex w-[40%] bg-brand-dark relative flex-col justify-between p-16 text-white overflow-hidden shrink-0 border-r border-white/5">
+                <div className="hidden lg:flex w-[40%] bg-ecs-brand-dark relative flex-col justify-between p-16 text-white overflow-hidden shrink-0 border-r border-white/5">
                     <div className="absolute inset-0 bg-black/5 pointer-events-none" />
 
                     <AnimatePresence mode="wait">
@@ -277,8 +277,8 @@ export default function ExtremeCleaningWizard() {
                                             <h2 className="text-6xl font-black tracking-tighter text-white">${totalPrice}</h2>
                                             <span className="text-xl font-bold text-slate-300">/service</span>
                                         </div>
-                                        <p className="text-brand-light font-bold text-sm tracking-wide flex items-center gap-2">
-                                            <Star size={14} className="fill-brand-light" /> Your Personalized Quote
+                                        <p className="text-ecs-brand-light font-bold text-sm tracking-wide flex items-center gap-2">
+                                            <Star size={14} className="fill-ecs-brand-light" /> Your Personalized Quote
                                         </p>
                                     </div>
 
@@ -297,13 +297,13 @@ export default function ExtremeCleaningWizard() {
                                         </div>
                                         <div className="flex justify-between items-center text-sm">
                                             <span className="text-slate-200 font-bold uppercase tracking-wider text-xs">Zip Code</span>
-                                            <span className="font-black text-brand-light">{data.zipCode}</span>
+                                            <span className="font-black text-ecs-brand-light">{data.zipCode}</span>
                                         </div>
                                     </div>
 
                                     <div className="pt-6 border-t border-white/10">
                                         <div className="flex items-center gap-3">
-                                            <div className="p-2 bg-emerald-500/20 rounded-lg"><Shield size={20} className="text-emerald-400" /></div>
+                                            <div className="p-2 bg-ecs-accent/20 rounded-lg"><Shield size={20} className="text-ecs-accent" /></div>
                                             <div>
                                                 <p className="font-black text-xs uppercase tracking-widest text-white">Extreme Guarantee</p>
                                                 <p className="text-[10px] text-slate-100 font-medium">100% Satisfaction or we re-clean for free.</p>
@@ -327,7 +327,7 @@ export default function ExtremeCleaningWizard() {
                                     </div>
                                     <h2 className="text-4xl font-black tracking-tighter leading-tight mb-4 capitalize text-white">
                                         {lp?.title} <br />
-                                        <span className="text-brand-light">{lp?.accent}</span>
+                                        <span className="text-ecs-brand-light">{lp?.accent}</span>
                                     </h2>
                                     <p className="text-slate-100 font-medium text-sm leading-relaxed max-w-xs shadow-black drop-shadow-md">
                                         {lp?.description}
@@ -337,7 +337,7 @@ export default function ExtremeCleaningWizard() {
                                 <div className="space-y-4 pt-12">
                                     <div className="p-4 bg-white/5 backdrop-blur-md rounded-2xl border border-white/10">
                                         <div className="flex items-center gap-3 mb-2">
-                                            <div className="p-1.5 bg-accent/20 rounded-lg"><Star size={14} className="text-accent fill-accent" /></div>
+                                            <div className="p-1.5 bg-ecs-accent/20 rounded-lg"><Star size={14} className="text-ecs-accent fill-ecs-accent" /></div>
                                             <p className="font-black text-white text-xs uppercase tracking-wider">Emergency Services</p>
                                         </div>
                                         <p className="text-[11px] text-slate-100 leading-snug font-medium">
@@ -359,17 +359,17 @@ export default function ExtremeCleaningWizard() {
                 </a>
 
                 {/* Right Panel - Wizard Form */}
-                <div className="flex-1 w-full lg:w-[60%] bg-[#F9F8F2] relative flex flex-col min-h-screen overflow-y-auto">
+                <div className="flex-1 w-full lg:w-[60%] bg-ecs-paramount relative flex flex-col min-h-screen overflow-y-auto">
 
                     {/* Unified Navigation Header */}
-                    <div className="sticky top-0 z-20 w-full p-6 md:p-8 grid grid-cols-3 items-center bg-[#F9F8F2]/80 backdrop-blur-sm">
+                    <div className="sticky top-0 z-20 w-full p-6 md:p-8 grid grid-cols-3 items-center bg-ecs-paramount/80 backdrop-blur-sm">
 
                         {/* Left: Back Button */}
                         <div className="flex justify-start">
                             {step !== 0 && step !== "returning_lookup" && (
                                 <button
                                     onClick={prevStep}
-                                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 hover:text-brand-dark transition-colors group"
+                                    className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 hover:text-ecs-brand-dark transition-colors group"
                                 >
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform">
                                         <path d="m15 18-6-6 6-6" />
@@ -386,7 +386,7 @@ export default function ExtremeCleaningWizard() {
                             </span>
                             <div className="w-full h-1 bg-slate-200 rounded-full overflow-hidden">
                                 <motion.div
-                                    className="h-full bg-brand-light"
+                                    className="h-full bg-ecs-brand-light"
                                     initial={{ width: 0 }}
                                     animate={{
                                         width: typeof step === 'number'

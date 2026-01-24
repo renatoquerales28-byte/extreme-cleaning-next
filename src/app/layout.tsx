@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google"; // This requires internet access to download fonts!
+import { Open_Sans } from "next/font/google"; // Using Open Sans as requested
 import "./globals.css";
 
-const outfit = Outfit({
+const openSans = Open_Sans({
     subsets: ["latin"],
-    variable: "--font-outfit",
+    variable: "--font-opensans",
 });
 
 export const metadata: Metadata = {
@@ -19,9 +19,7 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
-            <body className={`${outfit.variable} font-outfit antialiased`}>
-                <div className="sentient-vignette" />
-                <div className="sentient-grain" />
+            <body className={`${openSans.variable} font-opensans antialiased`}>
                 <main className="relative z-10 min-h-screen">
                     {children}
                 </main>

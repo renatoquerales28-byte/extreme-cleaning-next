@@ -29,8 +29,8 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
         <div className="flex flex-col h-full justify-start md:justify-center gap-6 w-full max-w-xl mx-auto py-2 antialiased">
             {/* Header */}
             <div className="text-center space-y-4 mb-4 shrink-0">
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
-                    Commercial <span className="text-accent">Details</span>
+                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-ecs-brand-dark leading-[0.85] py-1">
+                    Commercial <span className="text-ecs-accent">Details</span>
                 </h2>
                 <p className="text-sm text-slate-700 font-medium tracking-tight">Tell us about your business space.</p>
             </div>
@@ -45,7 +45,7 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
                                 type="button"
                                 onClick={() => setValue("businessType", type.id)}
                                 className={`p-4 rounded-2xl border-2 transition-all flex flex-col items-center gap-2 ${businessType === type.id
-                                    ? "border-brand-dark bg-brand-dark text-white shadow-sm scale-[1.02]"
+                                    ? "border-ecs-brand-dark bg-ecs-brand-dark text-white shadow-sm scale-[1.02]"
                                     : "border-slate-100 bg-white text-slate-700 hover:border-slate-300"
                                     }`}
                             >
@@ -67,7 +67,7 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
                                 const val = (e.target as HTMLInputElement).value;
                                 if (parseInt(val) > 100000) (e.target as HTMLInputElement).value = "100000";
                             }}
-                            className="w-full text-3xl font-black bg-white border-2 border-slate-100 rounded-2xl px-6 py-4 focus:border-brand-dark outline-none placeholder:text-slate-300 transition-all"
+                            className="w-full text-3xl font-black bg-white border-2 border-slate-100 rounded-2xl px-6 py-4 focus:border-ecs-brand-dark outline-none placeholder:text-slate-300 transition-all"
                         />
                         <span className="absolute right-6 top-1/2 -translate-y-1/2 font-black text-slate-500 tracking-tighter uppercase text-xs">SQ FT</span>
                     </div>
@@ -79,7 +79,7 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
                     onClick={onNext}
                     disabled={!isValid}
                     className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 shrink-0 ${isValid
-                        ? "bg-brand-dark text-white shadow-md hover:bg-black hover:scale-[1.01] active:scale-95"
+                        ? "bg-ecs-brand-dark text-white shadow-md hover:bg-black hover:scale-[1.01] active:scale-95"
                         : "bg-slate-100 text-slate-300 cursor-not-allowed"
                         }`}
                 >

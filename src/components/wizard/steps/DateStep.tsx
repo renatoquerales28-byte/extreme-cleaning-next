@@ -70,10 +70,10 @@ export default function DateStep({ data, updateData, onNext }: DateStepProps) {
 
     return (
         <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <h2 className="text-2xl md:text-3xl font-serif text-[#1C1C1C] mb-2 text-center">
+            <h2 className="text-2xl md:text-3xl font-serif text-ecs-brand-dark mb-2 text-center">
                 When should we come?
             </h2>
-            <p className="text-gray-500 text-center mb-8">
+            <p className="text-slate-500 text-center mb-8">
                 Select a date and time that works best for you.
             </p>
 
@@ -81,9 +81,9 @@ export default function DateStep({ data, updateData, onNext }: DateStepProps) {
                 {/* Calendar */}
                 <div className="calendar-container">
                     <style>{`
-                            .rdp { --rdp-cell-size: 44px; --rdp-accent-color: #1C1C1C; --rdp-background-color: #F3F4F6; }
-                            .rdp-day_selected:not([disabled]) { background-color: #1C1C1C; color: white; border-radius: 8px; font-weight: bold; }
-                            .rdp-day_today { color: #0891B2; font-weight: bold; }
+                            .rdp { --rdp-cell-size: 44px; --rdp-accent-color: #024653; --rdp-background-color: #EAE8DF; }
+                            .rdp-day_selected:not([disabled]) { background-color: #024653; color: white; border-radius: 8px; font-weight: bold; }
+                            .rdp-day_today { color: #1D7F7F; font-weight: bold; }
                         `}</style>
                     <DayPicker
                         mode="single"
@@ -96,29 +96,29 @@ export default function DateStep({ data, updateData, onNext }: DateStepProps) {
 
                 {/* Slots */}
                 <div className="w-full md:flex-1">
-                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-[#D1D5DB] min-h-[350px]">
-                        <h3 className="font-bold text-[#1C1C1C] mb-4 flex items-center gap-2">
-                            <Clock size={20} className="text-[#0891B2]" />
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 min-h-[350px]">
+                        <h3 className="font-bold text-ecs-brand-dark mb-4 flex items-center gap-2">
+                            <Clock size={20} className="text-ecs-brand-light" />
                             Available Times
-                            {selectedDate && <span className="font-normal text-gray-500 text-sm">for {format(selectedDate, "MMMM do")}</span>}
+                            {selectedDate && <span className="font-normal text-slate-500 text-sm">for {format(selectedDate, "MMMM do")}</span>}
                         </h3>
 
                         {!selectedDate ? (
-                            <div className="h-full flex flex-col items-center justify-center text-gray-400 py-12">
+                            <div className="h-full flex flex-col items-center justify-center text-slate-400 py-12">
                                 <Calendar size={48} className="mb-4 opacity-50" />
                                 <p>Please select a date first</p>
                             </div>
                         ) : loading ? (
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 animate-pulse">
                                 {[...Array(6)].map((_, i) => (
-                                    <div key={i} className="h-10 bg-gray-100 rounded-lg"></div>
+                                    <div key={i} className="h-10 bg-slate-100 rounded-lg"></div>
                                 ))}
                             </div>
                         ) : error ? (
-                            <div className="h-full flex flex-col items-center justify-center text-gray-500 py-8">
-                                <AlertCircle size={32} className="mb-2 text-orange-400" />
+                            <div className="h-full flex flex-col items-center justify-center text-slate-500 py-8">
+                                <AlertCircle size={32} className="mb-2 text-rose-400" />
                                 <p>{error}</p>
-                                <p className="text-xs text-gray-400 mt-1">Please try another date.</p>
+                                <p className="text-xs text-slate-400 mt-1">Please try another date.</p>
                             </div>
                         ) : availableSlots.length > 0 ? (
                             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -127,8 +127,8 @@ export default function DateStep({ data, updateData, onNext }: DateStepProps) {
                                         key={time}
                                         onClick={() => handleTimeSelect(time)}
                                         className={`px-4 py-3 rounded-xl text-sm font-bold transition-all border ${selectedTime === time
-                                            ? "bg-[#1C1C1C] text-white border-[#1C1C1C] shadow-lg scale-105"
-                                            : "bg-white text-gray-600 border-gray-100 hover:border-[#0891B2] hover:text-[#0891B2] hover:shadow-sm"
+                                            ? "bg-ecs-brand-dark text-white border-ecs-brand-dark shadow-lg scale-105"
+                                            : "bg-white text-slate-600 border-slate-100 hover:border-ecs-brand-light hover:text-ecs-brand-light hover:shadow-sm"
                                             }`}
                                     >
                                         {time}
@@ -136,7 +136,7 @@ export default function DateStep({ data, updateData, onNext }: DateStepProps) {
                                 ))}
                             </div>
                         ) : (
-                            <div className="text-center py-8 text-gray-500">
+                            <div className="text-center py-8 text-slate-500">
                                 No slots available for this date.
                             </div>
                         )}
@@ -147,7 +147,7 @@ export default function DateStep({ data, updateData, onNext }: DateStepProps) {
             {/* Summary Preview & Next Button */}
             {selectedDate && selectedTime && (
                 <div className="mt-8 text-center animate-in fade-in zoom-in duration-300 space-y-6">
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-green-50 text-green-700 rounded-full text-sm font-medium border border-green-100">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-ecs-secondary text-ecs-brand-dark rounded-full text-sm font-medium border border-ecs-brand-light/20">
                         <CheckCircleIcon /> Scheduled for {format(selectedDate, "MMMM do")} at {selectedTime}
                     </div>
 
@@ -168,7 +168,7 @@ export default function DateStep({ data, updateData, onNext }: DateStepProps) {
                             }
                             onNext();
                         }}
-                        className="btn-sentient bg-[#1C1C1C] hover:bg-black text-white w-full max-w-sm mx-auto py-5 text-sm font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-md hover:scale-[1.02] active:scale-95 transition-all"
+                        className="btn-primary w-full max-w-sm mx-auto py-5 text-sm font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-md hover:scale-[1.02] active:scale-95 transition-all"
                     >
                         Continue to Address <CheckCircleIcon />
                     </button>

@@ -18,7 +18,7 @@ export default function HeroSection() {
     };
 
     return (
-        <section className="relative w-full h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-[#F9F8F2]">
+        <section className="relative w-full h-screen min-h-[700px] flex items-center justify-center overflow-hidden bg-ecs-paramount">
             {/* Background Image with Parallax-like feel */}
             <div className="absolute top-0 right-0 w-full md:w-[60%] h-full z-0">
                 <Image
@@ -28,7 +28,8 @@ export default function HeroSection() {
                     className="object-cover object-center brightness-[0.95]"
                     priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-[#F9F8F2]/50 to-[#F9F8F2] z-10" />
+                {/* Subtle fade to blend image with porcelain background */}
+                <div className="absolute inset-0 bg-gradient-to-l from-transparent via-ecs-paramount/50 to-ecs-paramount z-10" />
             </div>
 
             <div className="container relative z-20 px-4 mx-auto grid md:grid-cols-2 gap-12 items-center h-full pt-20">
@@ -39,14 +40,14 @@ export default function HeroSection() {
                     transition={{ duration: 0.8, ease: "easeOut" }}
                     className="flex flex-col gap-8 text-left max-w-xl"
                 >
-                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md border border-brand-dark/10 rounded-full w-fit">
-                        <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse" />
-                        <span className="text-[10px] font-black tracking-[0.2em] text-brand-dark uppercase">Serving Spokane & Surrounding Areas</span>
+                    <div className="inline-flex items-center gap-2 px-4 py-2 bg-white border border-slate-100 rounded-full w-fit shadow-sm">
+                        <span className="w-2 h-2 bg-ecs-accent rounded-full animate-pulse" />
+                        <span className="text-[10px] font-black tracking-[0.2em] text-ecs-brand-dark uppercase">Serving Spokane & Surrounding Areas</span>
                     </div>
 
-                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-brand-dark leading-[0.9]">
+                    <h1 className="text-5xl md:text-7xl font-black tracking-tighter text-ecs-brand-dark leading-[0.9]">
                         Clean Spaces, <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-light to-accent">Clear Minds.</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-ecs-brand-light to-ecs-accent">Clear Minds.</span>
                     </h1>
 
                     <p className="text-lg text-slate-500 font-medium leading-relaxed max-w-md">
@@ -55,8 +56,8 @@ export default function HeroSection() {
 
                     {/* Zip Code CTA */}
                     <form onSubmit={handleStart} className="w-full max-w-sm relative group mt-2">
-                        <div className="absolute -inset-1 bg-gradient-to-r from-brand-light to-accent rounded-full blur opacity-20 group-hover:opacity-30 transition duration-500"></div>
-                        <div className="relative flex items-center bg-white rounded-full shadow-xl border border-slate-100 p-1.5 pl-6 w-full h-16">
+                        {/* Removed fuzzy glow for cleaner look */}
+                        <div className="relative flex items-center bg-white rounded-2xl shadow-lg border border-slate-100 p-1.5 pl-6 w-full h-16 transition-shadow hover:shadow-xl">
                             <MapPin className="text-slate-400 shrink-0" size={20} />
                             <input
                                 type="text"
@@ -64,12 +65,12 @@ export default function HeroSection() {
                                 onChange={(e) => setZip(e.target.value)}
                                 placeholder="Enter Zip Code"
                                 maxLength={5}
-                                className="flex-1 bg-transparent border-none outline-none px-4 text-brand-dark font-bold placeholder:text-slate-300 h-full w-full min-w-0"
+                                className="flex-1 bg-transparent border-none outline-none px-4 text-ecs-brand-dark font-bold placeholder:text-slate-300 h-full w-full min-w-0"
                             />
                             <button
                                 type="submit"
                                 disabled={zip.length !== 5}
-                                className="bg-brand-dark text-white h-full px-6 rounded-full font-bold text-xs md:text-sm tracking-wide uppercase hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shrink-0"
+                                className="bg-ecs-brand-dark text-white h-full px-6 rounded-xl font-bold text-xs md:text-sm tracking-wide uppercase hover:bg-black transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 shrink-0"
                             >
                                 <span className="hidden md:inline">Get Estimate</span>
                                 <span className="md:hidden">Go</span>
@@ -82,15 +83,15 @@ export default function HeroSection() {
                     <div className="pl-6">
                         <button
                             onClick={() => router.push("/quote?mode=returning")}
-                            className="text-xs font-bold text-slate-400 hover:text-brand-dark transition-colors flex items-center gap-2"
+                            className="text-xs font-bold text-slate-400 hover:text-ecs-brand-dark transition-colors flex items-center gap-2"
                         >
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                            <span className="w-1.5 h-1.5 rounded-full bg-ecs-accent"></span>
                             Already an ECS Client? <span className="underline decoration-slate-300 underline-offset-4 cursor-pointer">Log in here</span>
                         </button>
                     </div>
 
                     {/* Trust Anchors */}
-                    <div className="flex items-center gap-8 pt-8 border-t border-brand-dark/5 mt-4">
+                    <div className="flex items-center gap-8 pt-8 border-t border-ecs-brand-dark/5 mt-4">
                         <div className="flex items-center gap-2">
                             <div className="flex -space-x-2">
                                 {[1, 2, 3, 4].map(i => (
@@ -106,7 +107,7 @@ export default function HeroSection() {
                         </div>
                         <div className="h-8 w-px bg-slate-200" />
                         <div className="flex items-center gap-3 opacity-60 grayscale hover:grayscale-0 transition-all duration-300">
-                            <ShieldCheck size={24} className="text-brand-dark" />
+                            <ShieldCheck size={24} className="text-ecs-brand-dark" />
                             <span className="text-[10px] font-black uppercase tracking-wider text-slate-400 leading-tight">Licensed & <br /> Insured</span>
                         </div>
                     </div>

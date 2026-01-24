@@ -19,9 +19,9 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
     };
 
     const services = [
-        { id: "residential", label: "Residential", icon: Home, desc: "Homes, apartments, and studios.", color: "text-brand-dark", bg: "bg-brand-light/10" },
-        { id: "commercial", label: "Commercial", icon: Building2, desc: "Offices, retail, and business spaces.", color: "text-accent", bg: "bg-accent/10" },
-        { id: "property_mgmt", label: "Airbnb / PM", icon: Key, desc: "Portfolio management & turnovers.", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+        { id: "residential", label: "Residential", icon: Home, desc: "Homes, apartments, and studios.", color: "text-ecs-brand-dark", bg: "bg-ecs-brand-light/10" },
+        { id: "commercial", label: "Commercial", icon: Building2, desc: "Offices, retail, and business spaces.", color: "text-ecs-accent", bg: "bg-ecs-accent/10" },
+        { id: "property_mgmt", label: "Airbnb / PM", icon: Key, desc: "Portfolio management & turnovers.", color: "text-ecs-brand-default", bg: "bg-ecs-brand-default/10" },
     ];
 
     return (
@@ -29,8 +29,8 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
             {/* Nav removed in favor of parent wizard layout */}
 
             <div className="text-center space-y-2 shrink-0">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
-                    Choose Your <span className="text-accent">Service</span>
+                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-ecs-brand-dark leading-[0.85] py-1">
+                    Choose Your <span className="text-ecs-accent">Service</span>
                 </h2>
                 <p className="text-sm text-slate-500 font-medium tracking-tight">
                     Select the type of space we&apos;ll be transforming today.
@@ -44,7 +44,7 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                         type="button"
                         onClick={() => handleSelect(service.id)}
                         className={`group p-4 md:p-5 glass-card rounded-3xl text-left relative overflow-hidden transition-all duration-300 border-2 ${selectedService === service.id
-                            ? "border-brand-dark bg-white shadow-md scale-[1.02] z-10"
+                            ? "border-ecs-brand-dark bg-white shadow-md scale-[1.02] z-10"
                             : "border-transparent bg-white/50 hover:border-slate-100 hover:scale-[1.01]"
                             }`}
                     >
@@ -62,7 +62,7 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                     onClick={() => selectedService && onNext()}
                     disabled={!selectedService}
                     className={`w-full py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 ${selectedService
-                        ? "bg-brand-dark text-white shadow-md hover:bg-black hover:scale-[1.01] active:scale-95"
+                        ? "bg-ecs-brand-dark text-white shadow-md hover:bg-black hover:scale-[1.01] active:scale-95"
                         : "bg-slate-100 text-slate-300 cursor-not-allowed"
                         }`}
                 >

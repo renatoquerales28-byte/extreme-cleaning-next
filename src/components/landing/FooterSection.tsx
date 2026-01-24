@@ -11,14 +11,14 @@ export default function FooterSection() {
             <div className="container px-4 mx-auto">
                 <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
                     <div className="space-y-6 max-w-xl">
-                        <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-brand-dark leading-[0.85]">
+                        <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-ecs-brand-dark leading-[0.85]">
                             Ready for the <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-500 to-teal-600">Upgrade?</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-ecs-accent to-ecs-brand-light">Upgrade?</span>
                         </h2>
                         <p className="text-lg text-slate-500 font-medium">Join happy customers in Spokane who have reclaimed their time.</p>
                     </div>
                     <div className="flex justify-start md:justify-end">
-                        <Link href="/quote" className="btn-sentient btn-sentient-fuchsia px-10 py-6 text-xl shadow-2xl shadow-emerald-500/30 flex items-center gap-4">
+                        <Link href="/quote" className="inline-flex h-20 items-center justify-center gap-4 rounded-full bg-ecs-accent px-10 text-xl font-bold text-white shadow-lg shadow-ecs-accent/30 transition-all hover:bg-ecs-accent-hover hover:scale-105">
                             Book Now <ArrowRight size={24} strokeWidth={3} />
                         </Link>
                     </div>
@@ -35,30 +35,30 @@ export default function FooterSection() {
                     </div>
 
                     <div>
-                        <h4 className="font-black text-brand-dark uppercase tracking-widest text-xs mb-6">Company</h4>
+                        <h4 className="font-black text-ecs-brand-dark uppercase tracking-widest text-xs mb-6">Company</h4>
                         <ul className="space-y-4 text-sm font-medium text-slate-500">
-                            <li><Link href="#" className="hover:text-brand-dark transition-colors">About Us</Link></li>
-                            <li><Link href="#" className="hover:text-brand-dark transition-colors">Careers</Link></li>
-                            <li><Link href="#" className="hover:text-brand-dark transition-colors">Privacy Policy</Link></li>
+                            <li><Link href="#" className="hover:text-ecs-brand-dark transition-colors">About Us</Link></li>
+                            <li><Link href="#" className="hover:text-ecs-brand-dark transition-colors">Careers</Link></li>
+                            <li><Link href="#" className="hover:text-ecs-brand-dark transition-colors">Privacy Policy</Link></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 className="font-black text-brand-dark uppercase tracking-widest text-xs mb-6">Services</h4>
+                        <h4 className="font-black text-ecs-brand-dark uppercase tracking-widest text-xs mb-6">Services</h4>
                         <ul className="space-y-4 text-sm font-medium text-slate-500">
-                            <li><Link href="/quote?type=residential" className="hover:text-brand-dark transition-colors">Residential</Link></li>
-                            <li><Link href="/quote?type=commercial" className="hover:text-brand-dark transition-colors">Commercial</Link></li>
-                            <li><Link href="/quote?type=residential&intensity=move" className="hover:text-brand-dark transition-colors">Move In/Out</Link></li>
+                            <li><Link href="/quote?type=residential" className="hover:text-ecs-brand-dark transition-colors">Residential</Link></li>
+                            <li><Link href="/quote?type=commercial" className="hover:text-ecs-brand-dark transition-colors">Commercial</Link></li>
+                            <li><Link href="/quote?type=residential&intensity=move" className="hover:text-ecs-brand-dark transition-colors">Move In/Out</Link></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 className="font-black text-brand-dark uppercase tracking-widest text-xs mb-6">Connect</h4>
+                        <h4 className="font-black text-ecs-brand-dark uppercase tracking-widest text-xs mb-6">Connect</h4>
                         <div className="flex gap-4">
-                            <a href="#" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:text-brand-dark hover:border-brand-dark transition-all">
+                            <a href="#" className="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-slate-400 hover:text-ecs-brand-dark hover:border-ecs-brand-dark transition-all">
                                 <Instagram size={18} />
                             </a>
-                            <a href="#" className="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-400 hover:text-brand-dark hover:border-brand-dark transition-all">
+                            <a href="#" className="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-slate-400 hover:text-ecs-brand-dark hover:border-ecs-brand-dark transition-all">
                                 <Facebook size={18} />
                             </a>
                         </div>

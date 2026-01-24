@@ -24,8 +24,8 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
             {/* Nav removed in favor of parent wizard layout */}
 
             <div className="text-center space-y-2 shrink-0">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
-                    How <span className="text-accent">Often</span>?
+                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-ecs-brand-dark leading-[0.85] py-1">
+                    How <span className="text-ecs-accent">Often</span>?
                 </h2>
                 <p className="text-sm text-slate-500 font-medium tracking-tight">
                     Choose a plan that fits your lifestyle. Save up to 20%.
@@ -39,20 +39,20 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
                         type="button"
                         onClick={() => handleSelect(freq.id)}
                         className={`group relative flex items-center justify-between px-4 py-3 rounded-2xl border-2 transition-all overflow-hidden ${selectedFreq === freq.id
-                            ? "bg-brand-dark border-brand-dark text-white shadow-md scale-[1.01]"
-                            : "border-slate-100 bg-white hover:border-brand-dark/20"
+                            ? "bg-ecs-brand-dark border-ecs-brand-dark text-white shadow-md scale-[1.01]"
+                            : "border-slate-100 bg-white hover:border-ecs-brand-dark/20"
                             }`}
                     >
                         <div className="flex items-center gap-4">
-                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${selectedFreq === freq.id ? "border-brand-light" : "border-slate-200"
+                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${selectedFreq === freq.id ? "border-ecs-brand-light" : "border-slate-200"
                                 }`}>
-                                <div className={`w-3 h-3 rounded-full bg-brand-light transition-transform duration-300 ${selectedFreq === freq.id ? "scale-100" : "scale-0"
+                                <div className={`w-3 h-3 rounded-full bg-ecs-brand-light transition-transform duration-300 ${selectedFreq === freq.id ? "scale-100" : "scale-0"
                                     }`} />
                             </div>
                             <div className="text-left">
-                                <span className={`block text-lg font-black tracking-tighter leading-none mb-1 transition-colors ${selectedFreq === freq.id ? "text-white" : "text-brand-dark"}`}>{freq.label}</span>
+                                <span className={`block text-lg font-black tracking-tighter leading-none mb-1 transition-colors ${selectedFreq === freq.id ? "text-white" : "text-ecs-brand-dark"}`}>{freq.label}</span>
                                 {freq.discount > 0 ? (
-                                    <span className={`text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5 ${selectedFreq === freq.id ? "text-accent" : "text-emerald-500"
+                                    <span className={`text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5 ${selectedFreq === freq.id ? "text-ecs-accent" : "text-ecs-accent"
                                         }`}>
                                         <TrendingDown size={10} strokeWidth={3} /> Save {freq.labelDiscount}
                                     </span>
@@ -63,8 +63,8 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
                         </div>
 
                         {freq.id === "biweekly" && selectedFreq !== freq.id && (
-                            <div className="bg-brand-light/10 text-brand-light px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border border-brand-light/20 flex items-center gap-2">
-                                <Star size={10} className="fill-brand-light" /> Popular
+                            <div className="bg-ecs-brand-light/10 text-ecs-brand-light px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border border-ecs-brand-light/20 flex items-center gap-2">
+                                <Star size={10} className="fill-ecs-brand-light" /> Popular
                             </div>
                         )}
                     </button>
@@ -75,8 +75,8 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
                 <button
                     onClick={onNext}
                     disabled={!selectedFreq}
-                    className={`btn-sentient w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 ${selectedFreq
-                        ? "bg-accent text-brand-dark shadow-md hover:scale-[1.01] active:scale-95"
+                    className={`btn-accent w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 ${selectedFreq
+                        ? "bg-ecs-accent text-ecs-brand-dark shadow-md hover:scale-[1.01] active:scale-95"
                         : "bg-slate-100 text-slate-300 cursor-not-allowed"
                         }`}
                 >

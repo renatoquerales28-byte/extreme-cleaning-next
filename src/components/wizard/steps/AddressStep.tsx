@@ -39,16 +39,16 @@ export default function AddressStep({ onBack }: AddressStepProps) {
     if (submitted) {
         return (
             <div className="flex flex-col items-center justify-center gap-8 py-20 text-center animate-in fade-in zoom-in duration-700">
-                <div className="w-24 h-24 bg-brand-light text-white rounded-full flex items-center justify-center shadow-lg">
+                <div className="w-24 h-24 bg-ecs-brand-light text-white rounded-full flex items-center justify-center shadow-lg">
                     <Check size={48} strokeWidth={3} />
                 </div>
                 <div className="space-y-4">
-                    <h2 className="text-5xl font-black tracking-tighter text-brand-dark">Booking Confirmed!</h2>
+                    <h2 className="text-5xl font-black tracking-tighter text-ecs-brand-dark">Booking Confirmed!</h2>
                     <p className="text-slate-700 font-medium max-w-md mx-auto">
                         Thank you! We&apos;ve received your address. Our team is now preparing for your visit. One of our experts will call you shortly to finalize the details.
                     </p>
                 </div>
-                <button onClick={() => router.push("/")} className="btn-sentient bg-brand-dark text-white">
+                <button onClick={() => router.push("/")} className="btn-primary">
                     Back to Home
                 </button>
             </div>
@@ -58,8 +58,8 @@ export default function AddressStep({ onBack }: AddressStepProps) {
     return (
         <div className="flex flex-col h-full justify-start md:justify-center w-full max-w-lg mx-auto py-4 antialiased">
             <div className="text-center space-y-2 shrink-0 mb-8">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
-                    Last <span className="text-accent">Step</span>
+                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-ecs-brand-dark leading-[0.85] py-1">
+                    Last <span className="text-ecs-accent">Step</span>
                 </h2>
                 <p className="text-sm text-slate-700 font-medium tracking-tight">Where should we go to make everything sparkle?</p>
             </div>
@@ -72,7 +72,7 @@ export default function AddressStep({ onBack }: AddressStepProps) {
                         <input
                             {...register("address")}
                             autoFocus={true}
-                            className={`w-full pl-12 pr-4 py-4 bg-white border-2 rounded-2xl outline-none transition-all font-bold text-sm ${errors.address ? 'border-rose-400' : 'border-slate-100 focus:border-brand-light'}`}
+                            className={`w-full pl-12 pr-4 py-4 bg-white border-2 rounded-2xl outline-none transition-all font-bold text-sm ${errors.address ? 'border-rose-400' : 'border-slate-100 focus:border-ecs-brand-light'}`}
                             placeholder="1234 N Shine Ave"
                         />
                     </div>
@@ -84,7 +84,7 @@ export default function AddressStep({ onBack }: AddressStepProps) {
                         <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-600 ml-1">Unit / Apt (Optional)</label>
                         <div className="relative flex items-center">
                             <Building2 size={18} className="absolute left-4 text-slate-400" />
-                            <input {...register("unit")} className="w-full pl-12 pr-4 py-4 bg-white border-2 border-slate-100 focus:border-brand-light rounded-2xl outline-none transition-all font-bold text-sm" placeholder="Suite 101" />
+                            <input {...register("unit")} className="w-full pl-12 pr-4 py-4 bg-white border-2 border-slate-100 focus:border-ecs-brand-light rounded-2xl outline-none transition-all font-bold text-sm" placeholder="Suite 101" />
                         </div>
                     </div>
                     <div className="space-y-2">
@@ -100,14 +100,14 @@ export default function AddressStep({ onBack }: AddressStepProps) {
                     <button
                         onClick={handleSubmit}
                         disabled={isSubmitting || !data.address}
-                        className="btn-sentient bg-brand-dark hover:bg-black text-white w-full py-5 text-sm font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-md hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-70 disabled:grayscale disabled:cursor-not-allowed"
+                        className="btn-primary w-full py-5 text-sm font-black uppercase tracking-[0.2em] flex items-center justify-center gap-3 shadow-md hover:scale-[1.02] active:scale-95 transition-all disabled:opacity-70 disabled:grayscale disabled:cursor-not-allowed"
                     >
                         {isSubmitting ? "Processing..." : "Finish Booking"} <ArrowRight size={20} strokeWidth={2.5} />
                     </button>
                 </div>
 
                 <p className="text-[10px] text-center text-slate-500 font-black uppercase tracking-[0.2em] flex items-center justify-center gap-2 mt-4">
-                    <Shield size={12} className="text-emerald-500" strokeWidth={3} /> We respect your privacy.
+                    <Shield size={12} className="text-ecs-accent" strokeWidth={3} /> We respect your privacy.
                 </p>
             </div>
         </div>

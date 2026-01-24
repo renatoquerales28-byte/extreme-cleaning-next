@@ -30,7 +30,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                 <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-brand-dark leading-[0.85]">
                     Tell us about <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-light to-accent">Your Space.</span>
                 </h2>
-                <p className="text-sm text-slate-400 font-bold tracking-widest uppercase">Customize your cleaning plan</p>
+                <p className="text-sm text-slate-700 font-bold tracking-widest uppercase">Customize your cleaning plan</p>
             </div>
 
             <div className="w-full space-y-4 shrink-0">
@@ -39,36 +39,36 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                 <div className="flex gap-4">
                     {/* Bedrooms */}
                     <div className="flex-1 bg-white p-4 rounded-3xl border-2 border-slate-100 shadow-sm flex flex-col items-center justify-between gap-2">
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Bedrooms</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">Bedrooms</span>
                         <div className="flex items-center gap-6 w-full justify-between px-2">
                             <button
                                 type="button"
                                 onClick={() => setValue("bedrooms", Math.max(1, bedrooms - 1))}
-                                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-brand-dark hover:text-white transition-all active:scale-90"
+                                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-brand-dark hover:text-white transition-all active:scale-90"
                             >-</button>
                             <span className="text-3xl font-black text-brand-dark">{bedrooms}</span>
                             <button
                                 type="button"
                                 onClick={() => setValue("bedrooms", Math.min(10, bedrooms + 1))}
-                                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-brand-dark hover:text-white transition-all active:scale-90"
+                                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-brand-dark hover:text-white transition-all active:scale-90"
                             >+</button>
                         </div>
                     </div>
 
                     {/* Bathrooms */}
                     <div className="flex-1 bg-white p-4 rounded-3xl border-2 border-slate-100 shadow-sm flex flex-col items-center justify-between gap-2">
-                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Bathrooms</span>
+                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">Bathrooms</span>
                         <div className="flex items-center gap-6 w-full justify-between px-2">
                             <button
                                 type="button"
                                 onClick={() => setValue("bathrooms", Math.max(1, bathrooms - 1))}
-                                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-brand-dark hover:text-white transition-all active:scale-90"
+                                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-brand-dark hover:text-white transition-all active:scale-90"
                             >-</button>
                             <span className="text-3xl font-black text-brand-dark">{bathrooms}</span>
                             <button
                                 type="button"
                                 onClick={() => setValue("bathrooms", Math.min(10, bathrooms + 1))}
-                                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-400 hover:bg-brand-dark hover:text-white transition-all active:scale-90"
+                                className="w-8 h-8 flex items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-brand-dark hover:text-white transition-all active:scale-90"
                             >+</button>
                         </div>
                     </div>
@@ -77,10 +77,10 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                 {/* SqFt Slider */}
                 <div className="bg-white p-6 rounded-3xl border-2 border-slate-100 shadow-sm space-y-4">
                     <div className="flex justify-between items-end">
-                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Approx. Size</label>
+                        <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600">Approx. Size</label>
                         <div className="text-right">
                             <span className="text-2xl font-black text-brand-dark">{sqFt}</span>
-                            <span className="text-[10px] font-bold text-slate-400 ml-1 uppercase">Sq Ft</span>
+                            <span className="text-[10px] font-bold text-slate-500 ml-1 uppercase">Sq Ft</span>
                         </div>
                     </div>
                     <input
@@ -89,7 +89,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                         onChange={(e) => setValue("sqFt", parseInt(e.target.value))}
                         className="w-full h-2 bg-slate-100 rounded-full appearance-none cursor-pointer accent-brand-dark outline-none focus:ring-0"
                     />
-                    <div className="flex justify-between text-[9px] font-bold text-slate-300 uppercase tracking-wider">
+                    <div className="flex justify-between text-[9px] font-bold text-slate-400 uppercase tracking-wider">
                         <span>500 sqft</span>
                         <span>6000+ sqft</span>
                     </div>
@@ -97,7 +97,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
 
                 {/* Cleaning Intensity Cards */}
                 <div className="space-y-3">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 pl-2">Cleaning Intensity</label>
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 pl-2">Cleaning Intensity</label>
                     <div className="grid grid-cols-3 gap-3">
                         {cleaningOptions.map((opt) => (
                             <button
@@ -114,7 +114,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                                 <span className={`text-sm font-black tracking-tighter uppercase ${cleaningType === opt.id ? "text-white" : "text-brand-dark"}`}>
                                     {opt.label}
                                 </span>
-                                <span className={`text-[9px] font-bold leading-none ${cleaningType === opt.id ? "text-slate-400" : "text-slate-400"}`}>
+                                <span className={`text-[9px] font-bold leading-none ${cleaningType === opt.id ? "text-slate-300" : "text-slate-500"}`}>
                                     {opt.desc}
                                 </span>
                             </button>

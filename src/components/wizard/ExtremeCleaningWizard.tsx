@@ -80,15 +80,12 @@ export default function ExtremeCleaningWizard() {
         setStep((prev) => {
             if (prev === 1) return 0;
             if (prev === 2) {
-                if (urlType) return 0; // Skip service selection if it was pre-selected
+                if (urlType) return 0;
                 return 1;
             }
             if (prev === 3) return 2;
             if (prev === 4) {
-                // Determine if we came from returning flow or normal flow
-                // For now, if we have a name, maybe we were returning? 
-                // Better to have a explicit state, but let's just go to frequency if in doubt
-                return 3;
+                return customerName ? "returning_config" : 3;
             }
             if (prev === "returning_lookup") return 0;
             if (prev === "returning_select") return "returning_lookup";
@@ -96,6 +93,31 @@ export default function ExtremeCleaningWizard() {
             return 0;
         });
     };
+
+    // Clean up fields when service type changes to avoid cross-contamination of data
+    React.useEffect(() => {
+        const subscription = methods.watch((value, { name }) => {
+            if (name === "serviceType") {
+                const newType = value.serviceType;
+                // Reset fields not relevant to the new type
+                if (newType === "residential") {
+                    methods.setValue("smallPortfolio", []);
+                    methods.setValue("commSqFt", "");
+                } else if (newType === "commercial") {
+                    methods.setValue("bedrooms", 1);
+                    methods.setValue("bathrooms", 1);
+                    methods.setValue("sqFt", 1000);
+                    methods.setValue("smallPortfolio", []);
+                } else if (newType === "property_mgmt") {
+                    methods.setValue("bedrooms", 1);
+                    methods.setValue("bathrooms", 1);
+                    methods.setValue("sqFt", 1000);
+                    methods.setValue("commSqFt", "");
+                }
+            }
+        });
+        return () => subscription.unsubscribe();
+    }, [methods]);
 
     const goToReturning = () => {
         setDirection(1);

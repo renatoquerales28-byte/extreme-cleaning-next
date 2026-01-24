@@ -32,12 +32,12 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
                 <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-brand-dark leading-[0.85] py-1">
                     Commercial <span className="text-accent">Details</span>
                 </h2>
-                <p className="text-sm text-slate-500 font-medium tracking-tight">Tell us about your business space.</p>
+                <p className="text-sm text-slate-700 font-medium tracking-tight">Tell us about your business space.</p>
             </div>
 
             <div className="grid gap-6 w-full shrink-0">
                 <div>
-                    <label className="block text-[11px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Business Categorization</label>
+                    <label className="block text-[11px] font-black text-slate-600 uppercase tracking-[0.2em] mb-3">Business Categorization</label>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                         {businessTypes.map((type) => (
                             <button
@@ -46,7 +46,7 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
                                 onClick={() => setValue("businessType", type.id)}
                                 className={`p-4 rounded-2xl border-2 transition-all flex flex-col items-center gap-2 ${businessType === type.id
                                     ? "border-brand-dark bg-brand-dark text-white shadow-sm scale-[1.02]"
-                                    : "border-slate-100 bg-white text-slate-500 hover:border-slate-300"
+                                    : "border-slate-100 bg-white text-slate-700 hover:border-slate-300"
                                     }`}
                             >
                                 <type.icon size={20} strokeWidth={2.5} />
@@ -57,15 +57,15 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
                 </div>
 
                 <div className="space-y-3">
-                    <label className="block text-[11px] font-black text-slate-400 uppercase tracking-[0.2em]">Approximate Square Footage</label>
+                    <label className="block text-[11px] font-black text-slate-600 uppercase tracking-[0.2em]">Approximate Square Footage</label>
                     <div className="relative">
-                        <input
-                            type="number"
-                            placeholder="e.g. 2500"
-                            {...register("commSqFt")}
-                            className="w-full text-3xl font-black bg-white border-2 border-slate-100 rounded-2xl px-6 py-4 focus:border-brand-dark outline-none placeholder:text-slate-200 transition-all"
+                        onInput={(e) => {
+                            const val = (e.target as HTMLInputElement).value;
+                            if (parseInt(val) > 100000) (e.target as HTMLInputElement).value = "100000";
+                        }}
+                        className="w-full text-3xl font-black bg-white border-2 border-slate-100 rounded-2xl px-6 py-4 focus:border-brand-dark outline-none placeholder:text-slate-300 transition-all"
                         />
-                        <span className="absolute right-6 top-1/2 -translate-y-1/2 font-black text-slate-300 tracking-tighter uppercase text-xs">SQ FT</span>
+                        <span className="absolute right-6 top-1/2 -translate-y-1/2 font-black text-slate-500 tracking-tighter uppercase text-xs">SQ FT</span>
                     </div>
                 </div>
             </div>

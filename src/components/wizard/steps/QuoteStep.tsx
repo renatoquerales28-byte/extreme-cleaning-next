@@ -4,13 +4,14 @@ import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { calculateTotal, FREQUENCIES } from "@/lib/utils/pricing";
-import { ChevronLeft, Check, CreditCard, Shield, Star, Mail, Phone, User } from "lucide-react";
+import { ChevronLeft, Check, CreditCard, Shield, Star, Mail, Phone, User, ArrowRight } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 interface QuoteStepProps {
     onBack: () => void;
     onNext: () => void;
     customerName?: string;
+    isFinalStep?: boolean;
 }
 
 export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepProps) {
@@ -81,7 +82,7 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
                     </div>
                 ) : (
                     <>
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-600 ml-1">First Name</label>
                                 <div className="relative flex items-center">

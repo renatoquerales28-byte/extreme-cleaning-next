@@ -75,7 +75,7 @@ export default function AddressStep({ onBack }: AddressStepProps) {
                     {errors.address && <p className="text-[10px] text-rose-500 font-bold ml-1 uppercase tracking-wider">{errors.address.message}</p>}
                 </div>
 
-                <div className="grid grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                         <label className="text-[11px] font-black uppercase tracking-[0.2em] text-slate-600 ml-1">Unit / Apt (Optional)</label>
                         <div className="relative flex items-center">

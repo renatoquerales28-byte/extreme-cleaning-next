@@ -60,6 +60,7 @@ export default function ExtremeCleaningWizard() {
 
     const nextStep = () => {
         setDirection(1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         setStep((prev) => {
             if (prev === 0 && methods.getValues("serviceType")) return 2;
             if (prev === 0) return 1;
@@ -80,6 +81,7 @@ export default function ExtremeCleaningWizard() {
 
     const prevStep = () => {
         setDirection(-1);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         setStep((prev) => {
             if (prev === 1) return 0;
             if (prev === 2) {

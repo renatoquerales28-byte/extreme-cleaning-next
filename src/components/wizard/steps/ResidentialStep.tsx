@@ -98,7 +98,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                 {/* Cleaning Intensity Cards */}
                 <div className="space-y-3">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-600 pl-2">Cleaning Intensity</label>
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
                         {cleaningOptions.map((opt) => (
                             <button
                                 key={opt.id}

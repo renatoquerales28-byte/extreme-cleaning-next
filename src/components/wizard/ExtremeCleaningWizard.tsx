@@ -19,6 +19,7 @@ import QuoteStep from "./steps/QuoteStep";
 import ReturningLookupStep from "./steps/ReturningLookupStep";
 import PropertySelectionStep from "./steps/PropertySelectionStep";
 import QuickConfigStep from "./steps/QuickConfigStep";
+import AddressStep from "./steps/AddressStep";
 
 import { useSearchParams } from "next/navigation";
 
@@ -65,6 +66,8 @@ export default function ExtremeCleaningWizard() {
             if (prev === 1) return 2;
             if (prev === 2) return 3;
             if (prev === 3) return 4;
+            if (prev === 4) return 5;
+            if (prev === 5) return 5;
 
             // Returning flow transitions
             if (prev === "returning_lookup") return "returning_select";
@@ -87,6 +90,7 @@ export default function ExtremeCleaningWizard() {
             if (prev === 4) {
                 return customerName ? "returning_config" : 3;
             }
+            if (prev === 5) return 4;
             if (prev === "returning_lookup") return 0;
             if (prev === "returning_select") return "returning_lookup";
             if (prev === "returning_config") return "returning_select";
@@ -139,7 +143,9 @@ export default function ExtremeCleaningWizard() {
             case 3:
                 return <FrequencyStep onNext={nextStep} onBack={prevStep} />;
             case 4:
-                return <QuoteStep onBack={prevStep} customerName={customerName} />;
+                return <QuoteStep onBack={prevStep} customerName={customerName} isFinalStep={false} onNext={nextStep} />;
+            case 5:
+                return <AddressStep onBack={prevStep} />;
 
             // Returning Flow
             case "returning_lookup":
@@ -171,7 +177,7 @@ export default function ExtremeCleaningWizard() {
     const getLeftPanelContent = () => {
         const serviceType = data.serviceType;
 
-        if (step === 4) return null; // Handled by summary view
+        if (step === 4 || step === 5) return null; // Handled by summary view or final steps
 
         interface PanelContent {
             title: string;
@@ -238,7 +244,7 @@ export default function ExtremeCleaningWizard() {
                     <div className="absolute inset-0 bg-black/5 pointer-events-none" />
 
                     <AnimatePresence mode="wait">
-                        {step === 4 ? (
+                        {step === 4 || step === 5 ? (
                             <motion.div
                                 key="summary"
                                 initial={{ opacity: 0 }}
@@ -363,7 +369,7 @@ export default function ExtremeCleaningWizard() {
                         {/* Center: Progress Bar */}
                         <div className="flex flex-col items-center gap-1.5 w-full max-w-[200px] mx-auto">
                             <span className="text-[9px] font-black uppercase tracking-[0.2em] text-slate-500">
-                                Step {typeof step === 'number' ? Math.min(step + 1, 5) : 1} of 5
+                                Step {typeof step === 'number' ? Math.min(step + 1, 6) : 1} of 6
                             </span>
                             <div className="w-full h-1 bg-slate-200 rounded-full overflow-hidden">
                                 <motion.div
@@ -371,8 +377,8 @@ export default function ExtremeCleaningWizard() {
                                     initial={{ width: 0 }}
                                     animate={{
                                         width: typeof step === 'number'
-                                            ? `${((Math.max(step, 0) + 1) / 5) * 100}%`
-                                            : "20%"
+                                            ? `${((Math.max(step, 0) + 1) / 6) * 100}%`
+                                            : "16%"
                                     }}
                                     transition={{ duration: 0.5, ease: "anticipate" }}
                                 />

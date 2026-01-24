@@ -38,6 +38,11 @@ export const wizardSchema = z.object({
     phone: z.string().min(10, "Invalid phone").optional(),
     notes: z.string().optional(),
 
+    // Address (New Step)
+    address: z.string().min(5, "Full address required").optional(),
+    unit: z.string().optional(),
+    city: z.string().default("Spokane"),
+
     // Logic helpers
     referralCode: z.string().optional(),
     promoCode: z.string().optional(),

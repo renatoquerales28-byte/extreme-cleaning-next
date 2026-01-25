@@ -28,7 +28,7 @@ export default function ReturningLookupStep({ onNext, onBack, setCustomerName }:
         <div className="h-full flex flex-col relative">
             {/* Bloque 1: Área de Contenido (Scrollable) */}
             <div className="flex-1 overflow-y-auto px-1">
-                <div className="flex flex-col justify-center items-center w-full space-y-8 min-h-full py-4">
+                <div className="flex flex-col items-center w-full space-y-8 py-4">
                     <div className="w-16 h-16 bg-[#05D16E]/10 text-[#024653] border-2 border-[#05D16E]/20 rounded-full flex items-center justify-center">
                         <User size={32} strokeWidth={2.5} />
                     </div>

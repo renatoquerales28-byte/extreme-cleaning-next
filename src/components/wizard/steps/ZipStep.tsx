@@ -20,7 +20,7 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
         <div className="h-full flex flex-col relative">
             {/* Bloque 1: Área de Contenido (Scrollable) */}
             <div className="flex-1 overflow-y-auto px-1">
-                <div className="flex flex-col justify-center min-h-full space-y-10 py-4">
+                <div className="space-y-10 py-4">
                     <div className="w-full relative group">
                         <div className="relative flex items-center">
                             <MapPin className="absolute left-6 text-[#024653] pointer-events-none" size={24} strokeWidth={2.5} />

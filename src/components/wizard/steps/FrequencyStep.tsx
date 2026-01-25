@@ -23,7 +23,7 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
         <div className="h-full flex flex-col relative">
             {/* Bloque 1: Área de Contenido (Scrollable) */}
             <div className="flex-1 overflow-y-auto px-1">
-                <div className="min-h-full flex flex-col justify-center space-y-4 w-full py-4">
+                <div className="space-y-4 w-full py-4">
                     <div className="space-y-3 w-full">
                         {FREQUENCIES.map((freq) => (
                             <button

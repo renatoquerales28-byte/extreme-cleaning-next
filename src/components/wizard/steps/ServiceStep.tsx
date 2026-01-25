@@ -28,7 +28,7 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
         <div className="h-full flex flex-col relative">
             {/* Bloque 1: Área de Contenido (Scrollable) */}
             <div className="flex-1 overflow-y-auto px-1">
-                <div className="flex flex-col justify-center min-h-full space-y-6 py-4">
+                <div className="space-y-6 py-4">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
                         {services.map((service) => (
                             <button

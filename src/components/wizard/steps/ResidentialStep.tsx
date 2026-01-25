@@ -38,7 +38,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                 {/* Room Counters */}
                 <div className="grid grid-cols-2 gap-3">
                     {/* Bedrooms */}
-                    <div className="bg-white p-3 rounded-[2rem] border-2 border-slate-50 shadow-sm flex flex-col items-center justify-between gap-2 transition-all hover:shadow-xl group">
+                    <div className="bg-white p-3 rounded-[2rem] border-2 border-slate-50 flex flex-col items-center justify-between gap-2 transition-all hover:border-[#05D16E]/50 group">
                         <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#024653]/40 group-hover:text-[#024653] transition-colors">Bedrooms</span>
                         <div className="flex items-center gap-2 w-full justify-between px-1">
                             <button
@@ -56,7 +56,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                     </div>
 
                     {/* Bathrooms */}
-                    <div className="bg-white p-3 rounded-[2rem] border-2 border-slate-50 shadow-sm flex flex-col items-center justify-between gap-2 transition-all hover:shadow-xl group">
+                    <div className="bg-white p-3 rounded-[2rem] border-2 border-slate-50 flex flex-col items-center justify-between gap-2 transition-all hover:border-[#05D16E]/50 group">
                         <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#024653]/40 group-hover:text-[#024653] transition-colors">Bathrooms</span>
                         <div className="flex items-center gap-2 w-full justify-between px-1">
                             <button
@@ -95,7 +95,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                                 [&::-webkit-slider-thumb]:shadow-lg [&::-webkit-slider-thumb]:transition-transform [&::-webkit-slider-thumb]:hover:scale-110"
                         />
                         <div
-                            className="absolute left-0 top-0 h-full bg-gradient-to-r from-[#024653] to-[#05D16E] rounded-full"
+                            className="absolute left-0 top-0 h-full bg-[#05D16E] rounded-full"
                             style={{ width: `${((sqFt - 500) / 5500) * 100}%` }}
                         />
                     </div>
@@ -115,8 +115,8 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                                 type="button"
                                 onClick={() => setValue("cleaningType", opt.id as any)}
                                 className={`relative p-3 pt-6 pb-4 rounded-[1.5rem] border-2 transition-all duration-300 flex flex-col items-center justify-center gap-2 overflow-hidden ${cleaningType === opt.id
-                                    ? "bg-[#024653] border-[#024653] text-white shadow-xl shadow-[#024653]/20 scale-[1.02]"
-                                    : "bg-white border-slate-50 hover:border-[#024653]/10 hover:shadow-lg"
+                                    ? "bg-[#024653] border-[#024653] text-white"
+                                    : "bg-white border-slate-50 hover:border-[#024653]/20"
                                     }`}
                             >
                                 <div className={`absolute top-0 inset-x-0 h-1.5 ${cleaningType === opt.id ? "bg-[#05D16E]" : "bg-transparent transition-colors duration-500"}`} />
@@ -137,7 +137,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
             <div className="mt-6 shrink-0">
                 <button
                     onClick={onNext}
-                    className="btn-accent shadow-xl shadow-[#05D16E]/10 flex items-center justify-center gap-3 w-full py-4 rounded-[2rem] group"
+                    className="btn-accent flex items-center justify-center gap-3 w-full py-4 rounded-[2rem] group bg-[#024653] text-white hover:bg-[#0E6168]"
                 >
                     <span className="text-[10px] font-black uppercase tracking-[0.3em]">Select Frequency</span>
                     <ArrowRight size={18} strokeWidth={3} className="transition-transform group-hover:translate-x-1" />

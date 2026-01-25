@@ -35,8 +35,8 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
                         type="button"
                         onClick={() => setValue("frequency", freq.id as any)}
                         className={`group relative p-5 rounded-[2rem] border-2 text-left transition-all duration-500 overflow-hidden ${selectedFreq === freq.id
-                            ? "bg-[#024653] border-[#024653] text-white shadow-2xl shadow-[#024653]/20 scale-[1.02]"
-                            : "bg-white border-slate-50 hover:border-[#024653]/10 hover:shadow-xl hover:-translate-y-1"
+                            ? "bg-[#024653] border-[#024653] text-white"
+                            : "bg-white border-slate-50 hover:border-[#024653]/20"
                             }`}
                     >
                         {/* Discount Badge */}
@@ -64,7 +64,7 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
             <div className="mt-4 shrink-0">
                 <button
                     onClick={onNext}
-                    className="btn-accent shadow-2xl shadow-[#05D16E]/10 flex items-center justify-center gap-4 w-full py-4 rounded-[2rem] group"
+                    className="btn-accent flex items-center justify-center gap-4 w-full py-4 rounded-[2rem] group bg-[#024653] text-white hover:bg-[#0E6168]"
                 >
                     <span className="text-[10px] font-black uppercase tracking-[0.3em]">View Your Quote</span>
                     <ArrowRight size={18} strokeWidth={3} className="transition-transform group-hover:translate-x-2" />

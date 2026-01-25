@@ -112,7 +112,7 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
             <div className="flex flex-col lg:flex-row gap-4 w-full shrink-0">
                 {/* Calendar */}
                 <div className="flex-1">
-                    <div className="bg-white p-4 rounded-[2rem] border-2 border-slate-50 shadow-xl w-full max-w-sm mx-auto">
+                    <div className="bg-white p-4 rounded-[2rem] border-2 border-slate-50 w-full max-w-sm mx-auto">
                         <style>{`
                             .rdp { 
                                 --rdp-cell-size: 36px; 
@@ -149,7 +149,7 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
 
                 {/* Time Slots */}
                 <div className="flex-1">
-                    <div className="bg-white p-4 rounded-[2rem] border-2 border-slate-50 shadow-xl min-h-[300px] flex flex-col w-full max-w-sm mx-auto">
+                    <div className="bg-white p-4 rounded-[2rem] border-2 border-slate-50 min-h-[300px] flex flex-col w-full max-w-sm mx-auto">
                         <div className="flex items-center gap-2 mb-4">
                             <Clock size={16} className="text-[#024653]" />
                             <h3 className="font-black text-[#024653] text-[10px] uppercase tracking-widest">
@@ -170,7 +170,7 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
                                     <p className="text-xs font-bold uppercase tracking-wider">Select a date first</p>
                                 </div>
                             ) : loading ? (
-                                <div className="grid grid-cols-2 gap-2 animate-pulse">
+                                <div className="grid grid-cols-2 gap-2 opacity-50">
                                     {[...Array(6)].map((_, i) => (
                                         <div key={i} className="h-8 bg-slate-100 rounded-xl"></div>
                                     ))}
@@ -189,8 +189,8 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
                                             type="button"
                                             onClick={() => handleTimeSelect(time)}
                                             className={`px-3 py-2 rounded-xl text-xs font-black transition-all border-2 ${selectedTime === time
-                                                ? "bg-[#024653] text-white border-[#024653] shadow-lg scale-105"
-                                                : "bg-white text-[#024653]/60 border-slate-100 hover:border-[#05D16E] hover:text-[#024653] hover:shadow-sm"
+                                                ? "bg-[#024653] text-white border-[#024653]"
+                                                : "bg-white text-[#024653]/60 border-slate-100 hover:border-[#05D16E] hover:text-[#024653]"
                                                 }`}
                                         >
                                             {time}
@@ -220,7 +220,7 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
                     <button
                         onClick={handleContinue}
                         disabled={isSubmitting}
-                        className="btn-accent shadow-2xl shadow-[#05D16E]/20 flex items-center justify-center gap-4 w-full py-4 text-sm rounded-[2rem] group disabled:opacity-50"
+                        className="btn-accent flex items-center justify-center gap-4 w-full py-4 text-sm rounded-[2rem] group disabled:opacity-50 bg-[#024653] text-white hover:bg-[#0E6168]"
                     >
                         <span className="text-[10px] font-black uppercase tracking-[0.4em]">
                             {isSubmitting ? "Saving..." : "Continue to Address"}

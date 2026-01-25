@@ -133,7 +133,7 @@ export default function AddressStep({ onBack }: AddressStepProps) {
                 {/* Booking Summary Card */}
                 <div className="p-4 bg-[#F9F8F2] rounded-[2rem] border-2 border-[#024653]/5 relative overflow-hidden group">
                     <div className="flex items-center gap-4">
-                        <div className="hidden xs:block p-3 bg-[#024653] rounded-2xl text-[#05D16E] shadow-xl shadow-[#024653]/10 shrink-0">
+                        <div className="hidden xs:block p-3 bg-[#024653] rounded-2xl text-[#05D16E] shrink-0">
                             <Calendar size={20} strokeWidth={3} />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -162,7 +162,7 @@ export default function AddressStep({ onBack }: AddressStepProps) {
                 <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="btn-accent shadow-2xl shadow-[#05D16E]/20 flex items-center justify-center gap-3 w-full py-4 text-sm rounded-[2rem] group disabled:opacity-50"
+                    className="btn-accent flex items-center justify-center gap-3 w-full py-4 text-sm rounded-[2rem] group disabled:opacity-50 bg-[#024653] text-white hover:bg-[#0E6168]"
                 >
                     <span className="text-[10px] font-black uppercase tracking-[0.4em]">{isSubmitting ? "Processing..." : "Confirm My Booking"}</span>
                     {!isSubmitting && <CheckCircle size={20} strokeWidth={3} className="transition-transform group-hover:scale-110" />}

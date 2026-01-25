@@ -29,7 +29,6 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
             </div>
 
             <div className="w-full max-w-sm relative group">
-                <div className="absolute -inset-1 border-2 border-[#05D16E]/20 rounded-[2rem] opacity-0 group-focus-within:opacity-100 transition duration-300"></div>
                 <div className="relative flex items-center">
                     <MapPin className="absolute left-6 text-[#024653]/40 group-focus-within:text-[#05D16E] transition-colors" size={20} strokeWidth={2.5} />
                     <input
@@ -48,18 +47,18 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                 <button
                     onClick={onNext}
                     disabled={!isValidZip}
-                    className="btn-accent w-full disabled:opacity-20 disabled:grayscale disabled:scale-100 flex items-center justify-center gap-4 py-4 px-8 text-[10px] font-black uppercase tracking-[0.2em] hover:scale-[1.02] transition-all shadow-xl shadow-[#05D16E]/10 rounded-3xl"
+                    className="btn-accent w-full disabled:opacity-20 disabled:grayscale disabled:scale-100 flex items-center justify-center gap-4 py-4 px-8 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#0E6168] transition-all bg-[#024653] text-white rounded-3xl"
                 >
                     Check Availability <ArrowRight size={18} strokeWidth={3} />
                 </button>
             </div>
 
             {/* Existing Clients Section */}
-            <div className="pt-6 border-t border-[#024653]/5 w-full max-w-sm">
+            <div className="pt-6 border-t border-[#024653]/10 w-full max-w-sm">
                 <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[#024653]/30 mb-3">Already an ECS Client?</p>
                 <div
                     onClick={onReturning}
-                    className="flex items-center justify-between p-4 bg-white rounded-3xl border border-slate-100 hover:border-[#05D16E]/20 transition-all group cursor-pointer shadow-sm hover:shadow-xl hover:-translate-y-1"
+                    className="flex items-center justify-between p-4 bg-white rounded-3xl border-2 border-slate-100 hover:border-[#05D16E] transition-all group cursor-pointer"
                 >
                     <div className="flex items-center gap-3">
                         <div className="p-2 bg-[#F9F8F2] rounded-2xl shadow-sm group-hover:bg-[#05D16E]/10 transition-colors"><User size={16} className="text-[#024653]" strokeWidth={3} /></div>

@@ -41,12 +41,12 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                         key={service.id}
                         type="button"
                         onClick={() => handleSelect(service.id)}
-                        className={`group p-4 bg-white rounded-[2rem] text-left relative overflow-hidden transition-all duration-500 border-2 flex flex-col justify-between h-full ${selectedService === service.id
-                            ? "border-[#05D16E] shadow-2xl shadow-[#05D16E]/10 scale-[1.02] z-10"
-                            : "border-slate-50 hover:border-[#024653]/10 hover:shadow-xl hover:-translate-y-1"
+                        className={`group p-4 bg-white rounded-[2rem] text-left relative overflow-hidden transition-all duration-300 border-2 flex flex-col justify-between h-full ${selectedService === service.id
+                            ? "border-[#05D16E] bg-[#05D16E]/5"
+                            : "border-slate-50 hover:border-[#024653]/20"
                             }`}
                     >
-                        <div className={`p-3 rounded-2xl ${selectedService === service.id ? "bg-[#05D16E] text-[#024653]" : "bg-[#F9F8F2] text-[#024653]/60"} w-fit mb-4 transition-all duration-500 group-hover:scale-110 shadow-sm`}>
+                        <div className={`p-3 rounded-2xl ${selectedService === service.id ? "bg-[#05D16E] text-[#024653]" : "bg-[#F9F8F2] text-[#024653]/60"} w-fit mb-4 transition-all duration-500 group-hover:bg-[#024653] group-hover:text-white`}>
                             <service.icon size={20} strokeWidth={2.5} />
                         </div>
                         <h3 className="text-lg md:text-xl font-black tracking-tight mb-1 leading-tight text-[#024653] uppercase">{service.label}</h3>
@@ -59,9 +59,9 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                 <button
                     onClick={() => selectedService && onNext()}
                     disabled={!selectedService}
-                    className={`w-full py-4 rounded-3xl font-black uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-3 transition-all duration-500 shadow-xl ${selectedService
-                        ? "bg-[#024653] text-white hover:bg-[#0E6168] hover:scale-[1.01] active:scale-95 shadow-[#024653]/20"
-                        : "bg-slate-100 text-[#024653]/20 cursor-not-allowed shadow-none"
+                    className={`w-full py-4 rounded-3xl font-black uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-3 transition-all duration-500 ${selectedService
+                        ? "bg-[#024653] text-white hover:bg-[#0E6168]"
+                        : "bg-slate-100 text-[#024653]/20 cursor-not-allowed"
                         }`}
                 >
                     Confirm & Continue <ArrowRight size={16} strokeWidth={3} />

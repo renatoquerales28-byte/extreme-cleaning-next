@@ -189,9 +189,8 @@ export default function ExtremeCleaningWizard() {
         <FormProvider {...methods}>
             <div className="w-full h-screen fixed inset-0 flex flex-col lg:flex-row bg-[#F9F8F2] overflow-hidden">
                 {/* Left Panel */}
-                <div className="hidden lg:flex w-[40%] bg-[#024653] relative flex-col justify-between p-12 text-white overflow-hidden shrink-0 border-r border-white/5 shadow-2xl">
-                    <div className="absolute top-[-10%] left-[-10%] w-96 h-96 bg-[#05D16E]/10 blur-[120px] rounded-full animate-pulse" />
-                    <div className="absolute bottom-[-10%] right-[-10%] w-96 h-96 bg-[#0E6168]/20 blur-[120px] rounded-full animate-pulse delay-700" />
+                <div className="hidden lg:flex w-[40%] bg-[#024653] relative flex-col justify-between p-12 text-white overflow-hidden shrink-0 border-r-4 border-[#05D16E]">
+                    {/* Removed animated blobs for flat design */}
 
                     <AnimatePresence mode="wait">
                         {step === 4 || step === 5 || step === 6 ? (
@@ -203,12 +202,12 @@ export default function ExtremeCleaningWizard() {
                                 <div className="flex-1 flex flex-col justify-center space-y-8">
                                     <div>
                                         <div className="flex items-baseline gap-3 mb-2">
-                                            <h2 className="text-7xl font-black tracking-tighter text-white drop-shadow-2xl shadow-[#05D16E]/10">${totalPrice}</h2>
+                                            <h2 className="text-7xl font-black tracking-tighter text-white">${totalPrice}</h2>
                                             <span className="text-xl font-bold text-white/40 font-outfit">/service</span>
                                         </div>
                                     </div>
-                                    <div className="space-y-4 py-8 border-y border-white/5">
-                                        <div className="flex justify-between items-center text-sm"><span className="text-white/40 font-black uppercase text-[10px]">Frequency</span><span className="font-black bg-white/5 px-4 py-1.5 rounded-2xl text-[10px] uppercase text-white">{selectedFreq?.label}</span></div>
+                                    <div className="space-y-4 py-8 border-y border-white/10">
+                                        <div className="flex justify-between items-center text-sm"><span className="text-white/40 font-black uppercase text-[10px]">Frequency</span><span className="font-black bg-white/10 px-4 py-1.5 rounded-2xl text-[10px] uppercase text-white">{selectedFreq?.label}</span></div>
                                         <div className="flex justify-between items-center text-sm"><span className="text-white/40 font-black uppercase text-[10px]">Type</span><span className="font-black capitalize text-[#05D16E] text-sm">{data.cleaningType}</span></div>
                                     </div>
                                 </div>
@@ -231,11 +230,11 @@ export default function ExtremeCleaningWizard() {
 
                 {/* Right Panel */}
                 <div className="flex-1 w-full lg:w-[60%] bg-[#F9F8F2] relative flex flex-col h-full overflow-y-auto lg:overflow-hidden">
-                    <a href="/" className="absolute top-6 right-6 z-50 p-2.5 rounded-2xl bg-white hover:bg-[#024653] hover:text-white transition-all border border-slate-100 shadow-xl" title="Exit">
+                    <a href="/" className="absolute top-6 right-6 z-50 p-2.5 rounded-2xl bg-white hover:bg-[#024653] hover:text-white transition-all border-2 border-slate-100" title="Exit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                     </a>
 
-                    <div className="sticky top-0 z-20 w-full px-6 py-6 md:px-10 grid grid-cols-3 items-center bg-[#F9F8F2]/95 backdrop-blur-md">
+                    <div className="sticky top-0 z-20 w-full px-6 py-6 md:px-10 grid grid-cols-3 items-center bg-[#F9F8F2]">
                         <div className="flex justify-start">
                             {step !== 0 && step !== "returning_lookup" && (
                                 <button onClick={prevStep} className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#024653]/40 hover:text-[#05D16E] transition-all group">

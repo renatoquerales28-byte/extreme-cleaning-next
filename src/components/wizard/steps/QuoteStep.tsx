@@ -79,8 +79,8 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
 
             <div className="w-full space-y-4 shrink-0">
                 {/* Main Estimate Display */}
-                <div className="relative p-6 bg-white rounded-[2rem] border-2 border-slate-50 shadow-xl shadow-[#024653]/5 overflow-hidden group">
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#05D16E]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+                <div className="relative p-6 bg-white rounded-[2rem] border-2 border-slate-50 overflow-hidden group">
+                    {/* Removed decorative blob */}
 
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
                         <div className="text-center md:text-left">
@@ -141,7 +141,7 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
                 </div>
 
                 {/* Trust Footer */}
-                <div className="p-4 bg-[#024653] rounded-[2rem] border border-white/5 shadow-xl flex items-center justify-between gap-4 group overflow-hidden relative">
+                <div className="p-4 bg-[#024653] rounded-[2rem] border border-white/5 flex items-center justify-between gap-4 group overflow-hidden relative">
                     <div className="flex items-center gap-3 relative z-10">
                         <div className="p-2 bg-[#05D16E]/20 rounded-xl"><ShieldCheck size={20} className="text-[#05D16E]" strokeWidth={2.5} /></div>
                         <div>
@@ -157,7 +157,7 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
                 <button
                     onClick={handleNext}
                     disabled={isSubmitting}
-                    className="btn-accent shadow-2xl shadow-[#05D16E]/20 flex items-center justify-center gap-3 w-full py-4 text-sm rounded-[2rem] group disabled:opacity-50"
+                    className="btn-accent flex items-center justify-center gap-3 w-full py-4 text-sm rounded-[2rem] group disabled:opacity-50 bg-[#024653] text-white hover:bg-[#0E6168]"
                 >
                     <span className="text-[10px] font-black uppercase tracking-[0.4em]">{isSubmitting ? "Processing..." : "Finalize Appointment"}</span>
                     {!isSubmitting && <ArrowRight size={18} strokeWidth={3} className="transition-transform group-hover:translate-x-2" />}

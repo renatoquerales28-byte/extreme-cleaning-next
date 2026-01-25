@@ -26,38 +26,38 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
     ];
 
     return (
-        <div className="flex flex-col h-full justify-start md:justify-center gap-6 w-full max-w-xl mx-auto py-2 antialiased">
+        <div className="flex flex-col h-full justify-start md:justify-center gap-8 w-full max-w-2xl mx-auto py-2 antialiased">
             {/* Header */}
-            <div className="text-center space-y-4 mb-4 shrink-0">
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-ecs-brand-dark leading-[0.85] py-1">
-                    Commercial <span className="text-ecs-accent">Details</span>
+            <div className="text-center space-y-2 mb-4 shrink-0">
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-[#024653] leading-[0.85]">
+                    Business <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#024653] via-[#0E6168] to-[#05D16E]">Spaces.</span>
                 </h2>
-                <p className="text-sm text-slate-700 font-medium tracking-tight">Tell us about your business space.</p>
+                <p className="text-[10px] text-[#024653]/40 font-black tracking-[0.3em] uppercase">Professional Grade Solutions</p>
             </div>
 
-            <div className="grid gap-6 w-full shrink-0">
-                <div>
-                    <label className="block text-[11px] font-black text-slate-600 uppercase tracking-[0.2em] mb-3">Business Categorization</label>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="grid gap-8 w-full shrink-0">
+                <div className="space-y-4">
+                    <label className="block text-[10px] font-black text-[#024653]/40 uppercase tracking-[0.2em] ml-2">Business Categorization</label>
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
                         {businessTypes.map((type) => (
                             <button
                                 key={type.id}
                                 type="button"
                                 onClick={() => setValue("businessType", type.id)}
-                                className={`p-4 rounded-2xl border-2 transition-all flex flex-col items-center gap-2 ${businessType === type.id
-                                    ? "border-ecs-brand-dark bg-ecs-brand-dark text-white shadow-sm scale-[1.02]"
-                                    : "border-slate-100 bg-white text-slate-700 hover:border-slate-300"
+                                className={`p-5 rounded-[2rem] border-2 transition-all duration-500 flex flex-col items-center gap-3 ${businessType === type.id
+                                    ? "border-[#024653] bg-[#024653] text-white shadow-xl scale-[1.05] z-10"
+                                    : "border-slate-50 bg-white text-[#024653]/60 hover:border-[#024653]/10 hover:shadow-lg"
                                     }`}
                             >
-                                <type.icon size={20} strokeWidth={2.5} />
-                                <span className="text-[10px] font-black uppercase tracking-wider">{type.label}</span>
+                                <type.icon size={24} strokeWidth={2.5} className={businessType === type.id ? "text-[#05D16E]" : "text-[#024653]/30"} />
+                                <span className="text-[9px] font-black uppercase tracking-widest text-center leading-tight">{type.label}</span>
                             </button>
                         ))}
                     </div>
                 </div>
 
-                <div className="space-y-3">
-                    <label className="block text-[11px] font-black text-slate-600 uppercase tracking-[0.2em]">Approximate Square Footage</label>
+                <div className="space-y-4 bg-white p-8 rounded-[3rem] border-2 border-slate-50 shadow-sm transition-all hover:shadow-xl group">
+                    <label className="block text-[10px] font-black text-[#024653]/40 uppercase tracking-[0.2em] group-hover:text-[#024653] transition-colors">Approximate Square Footage</label>
                     <div className="relative">
                         <input
                             type="number"
@@ -67,23 +67,24 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
                                 const val = (e.target as HTMLInputElement).value;
                                 if (parseInt(val) > 100000) (e.target as HTMLInputElement).value = "100000";
                             }}
-                            className="w-full text-3xl font-black bg-white border-2 border-slate-100 rounded-2xl px-6 py-4 focus:border-ecs-brand-dark outline-none placeholder:text-slate-300 transition-all"
+                            className="w-full text-5xl font-black bg-white border-none p-0 focus:ring-0 outline-none placeholder:text-[#024653]/10 text-[#024653] tracking-tighter"
                         />
-                        <span className="absolute right-6 top-1/2 -translate-y-1/2 font-black text-slate-500 tracking-tighter uppercase text-xs">SQ FT</span>
+                        <span className="absolute right-0 bottom-2 font-black text-[#05D16E] tracking-[0.2em] uppercase text-[10px]">SQ FT</span>
+                    </div>
+                    <div className="h-1 bg-[#F9F8F2] w-full rounded-full overflow-hidden">
+                        <div className="h-full bg-[#05D16E] transition-all duration-1000" style={{ width: commSqFt ? `${Math.min(100, (parseInt(commSqFt) / 10000) * 100)}%` : '0%' }} />
                     </div>
                 </div>
             </div>
 
-            <div className="mt-2 shrink-0">
+            <div className="mt-4 shrink-0">
                 <button
                     onClick={onNext}
                     disabled={!isValid}
-                    className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 shrink-0 ${isValid
-                        ? "bg-ecs-brand-dark text-white shadow-md hover:bg-black hover:scale-[1.01] active:scale-95"
-                        : "bg-slate-100 text-slate-300 cursor-not-allowed"
-                        }`}
+                    className="btn-accent shadow-2xl shadow-[#05D16E]/10 flex items-center justify-center gap-4 w-full py-8 text-base rounded-[2.5rem] group disabled:opacity-50"
                 >
-                    Confirm & Continue <ArrowRight size={18} strokeWidth={3} />
+                    <span className="text-[12px] font-black uppercase tracking-[0.4em]">Review Estimate</span>
+                    <ArrowRight size={24} strokeWidth={3} className="transition-transform group-hover:translate-x-2" />
                 </button>
             </div>
         </div>

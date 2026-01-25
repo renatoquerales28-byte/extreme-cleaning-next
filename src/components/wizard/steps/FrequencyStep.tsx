@@ -4,7 +4,7 @@ import React from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { FREQUENCIES } from "@/lib/utils/pricing";
-import { ChevronLeft, ArrowRight, TrendingDown, Star } from "lucide-react";
+import { ChevronLeft, ArrowRight, TrendingDown, Star, Calendar } from "lucide-react";
 
 interface FrequencyStepProps {
     onNext: () => void;
@@ -20,67 +20,54 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
     };
 
     return (
-        <div className="flex flex-col h-full justify-start md:justify-center gap-6 w-full max-w-xl mx-auto py-2 antialiased">
-            {/* Nav removed in favor of parent wizard layout */}
-
-            <div className="text-center space-y-2 shrink-0">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-ecs-brand-dark leading-[0.85] py-1">
-                    How <span className="text-ecs-accent">Often</span>?
+        <div className="flex flex-col h-full w-full max-w-2xl mx-auto py-2 antialiased">
+            <div className="text-center space-y-2 mb-8 shrink-0">
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-[#024653] leading-[0.85]">
+                    Select Your <br /><span className="text-[#05D16E]">Frequency.</span>
                 </h2>
-                <p className="text-sm text-slate-500 font-medium tracking-tight">
-                    Choose a plan that fits your lifestyle. Save up to 20%.
-                </p>
+                <p className="text-[10px] text-[#024653]/40 font-black tracking-[0.3em] uppercase">Save more with recurring care</p>
             </div>
 
-            <div className="grid gap-2 w-full shrink-0">
+            <div className="grid grid-cols-1 gap-4 w-full shrink-0">
                 {FREQUENCIES.map((freq) => (
                     <button
                         key={freq.id}
                         type="button"
-                        onClick={() => handleSelect(freq.id)}
-                        className={`group relative flex items-center justify-between px-4 py-3 rounded-2xl border-2 transition-all overflow-hidden ${selectedFreq === freq.id
-                            ? "bg-ecs-brand-dark border-ecs-brand-dark text-white shadow-md scale-[1.01]"
-                            : "border-slate-100 bg-white hover:border-ecs-brand-dark/20"
+                        onClick={() => setValue("frequency", freq.id as any)}
+                        className={`group relative p-6 md:p-8 rounded-[2.5rem] border-2 text-left transition-all duration-500 overflow-hidden ${selectedFreq === freq.id
+                            ? "bg-[#024653] border-[#024653] text-white shadow-2xl shadow-[#024653]/20 scale-[1.02]"
+                            : "bg-white border-slate-50 hover:border-[#024653]/10 hover:shadow-xl hover:-translate-y-1"
                             }`}
                     >
-                        <div className="flex items-center gap-4">
-                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-colors ${selectedFreq === freq.id ? "border-ecs-brand-light" : "border-slate-200"
-                                }`}>
-                                <div className={`w-3 h-3 rounded-full bg-ecs-brand-light transition-transform duration-300 ${selectedFreq === freq.id ? "scale-100" : "scale-0"
-                                    }`} />
-                            </div>
-                            <div className="text-left">
-                                <span className={`block text-lg font-black tracking-tighter leading-none mb-1 transition-colors ${selectedFreq === freq.id ? "text-white" : "text-ecs-brand-dark"}`}>{freq.label}</span>
-                                {freq.discount > 0 ? (
-                                    <span className={`text-[10px] font-black uppercase tracking-[0.2em] flex items-center gap-1.5 ${selectedFreq === freq.id ? "text-ecs-accent" : "text-ecs-accent"
-                                        }`}>
-                                        <TrendingDown size={10} strokeWidth={3} /> Save {freq.labelDiscount}
-                                    </span>
-                                ) : (
-                                    <span className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">Regular Price</span>
-                                )}
-                            </div>
-                        </div>
-
-                        {freq.id === "biweekly" && selectedFreq !== freq.id && (
-                            <div className="bg-ecs-brand-light/10 text-ecs-brand-light px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-[0.2em] border border-ecs-brand-light/20 flex items-center gap-2">
-                                <Star size={10} className="fill-ecs-brand-light" /> Popular
+                        {/* Discount Badge */}
+                        {freq.discount > 0 && (
+                            <div className={`absolute top-6 right-6 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${selectedFreq === freq.id ? "bg-[#05D16E] text-[#024653]" : "bg-[#05D16E]/10 text-[#05D16E]"}`}>
+                                Save {Math.round(freq.discount * 100)}%
                             </div>
                         )}
+
+                        <div className="flex items-center gap-6">
+                            <div className={`p-4 rounded-2xl transition-all duration-500 ${selectedFreq === freq.id ? "bg-white/10 text-[#05D16E] scale-110" : "bg-[#F9F8F2] text-[#024653]/40 group-hover:scale-110"}`}>
+                                <Calendar size={24} strokeWidth={3} />
+                            </div>
+                            <div>
+                                <h3 className="text-xl md:text-2xl font-black tracking-tight uppercase mb-1">{freq.label}</h3>
+                                <p className={`text-[11px] font-bold uppercase tracking-widest ${selectedFreq === freq.id ? "text-white/40" : "text-[#024653]/40"}`}>
+                                    {freq.id === "onetime" ? "Perfect for occasional needs" : `The preferred choice for ${freq.label.toLowerCase()} maintenance`}
+                                </p>
+                            </div>
+                        </div>
                     </button>
                 ))}
             </div>
 
-            <div className="mt-2 shrink-0">
+            <div className="mt-8 shrink-0">
                 <button
                     onClick={onNext}
-                    disabled={!selectedFreq}
-                    className={`btn-accent w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 ${selectedFreq
-                        ? "bg-ecs-accent text-ecs-brand-dark shadow-md hover:scale-[1.01] active:scale-95"
-                        : "bg-slate-100 text-slate-300 cursor-not-allowed"
-                        }`}
+                    className="btn-accent shadow-2xl shadow-[#05D16E]/10 flex items-center justify-center gap-4 w-full py-6 rounded-[2.5rem] group"
                 >
-                    View My Estimate <ArrowRight size={18} strokeWidth={3} />
+                    <span className="text-[11px] font-black uppercase tracking-[0.3em]">View Your Quote</span>
+                    <ArrowRight size={20} strokeWidth={3} className="transition-transform group-hover:translate-x-2" />
                 </button>
             </div>
         </div>

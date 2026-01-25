@@ -11,15 +11,15 @@ export default function FooterSection() {
             <div className="container px-4 mx-auto">
                 <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
                     <div className="space-y-6 max-w-xl">
-                        <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-ecs-brand-dark leading-[0.85]">
+                        <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-[#024653] leading-[0.85]">
                             Ready for the <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-ecs-accent to-ecs-brand-light">Upgrade?</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#024653] via-[#0E6168] to-[#05D16E]">Upgrade?</span>
                         </h2>
-                        <p className="text-lg text-slate-500 font-medium">Join happy customers in Spokane who have reclaimed their time.</p>
+                        <p className="text-lg text-[#024653]/60 font-medium leading-relaxed">Join happy customers in Spokane who have reclaimed their time.</p>
                     </div>
                     <div className="flex justify-start md:justify-end">
-                        <Link href="/quote" className="inline-flex h-20 items-center justify-center gap-4 rounded-full bg-ecs-accent px-10 text-xl font-bold text-white shadow-lg shadow-ecs-accent/30 transition-all hover:bg-ecs-accent-hover hover:scale-105">
-                            Book Now <ArrowRight size={24} strokeWidth={3} />
+                        <Link href="/quote" className="btn-accent px-12 py-6 text-xl shadow-2xl shadow-[#05D16E]/20 flex items-center gap-4 group">
+                            Book Now <ArrowRight size={24} strokeWidth={3} className="transition-transform group-hover:translate-x-2" />
                         </Link>
                     </div>
                 </div>
@@ -35,39 +35,42 @@ export default function FooterSection() {
                     </div>
 
                     <div>
-                        <h4 className="font-black text-ecs-brand-dark uppercase tracking-widest text-xs mb-6">Company</h4>
-                        <ul className="space-y-4 text-sm font-medium text-slate-500">
-                            <li><Link href="#" className="hover:text-ecs-brand-dark transition-colors">About Us</Link></li>
-                            <li><Link href="#" className="hover:text-ecs-brand-dark transition-colors">Careers</Link></li>
-                            <li><Link href="#" className="hover:text-ecs-brand-dark transition-colors">Privacy Policy</Link></li>
+                        <h4 className="font-black text-[#024653] uppercase tracking-widest text-[10px] mb-8 opacity-40">Company</h4>
+                        <ul className="space-y-5 text-sm font-black text-[#024653]/60 uppercase tracking-widest">
+                            <li><Link href="#" className="hover:text-[#05D16E] transition-all">About Us</Link></li>
+                            <li><Link href="#" className="hover:text-[#05D16E] transition-all">Careers</Link></li>
+                            <li><Link href="#" className="hover:text-[#05D16E] transition-all">Privacy Policy</Link></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 className="font-black text-ecs-brand-dark uppercase tracking-widest text-xs mb-6">Services</h4>
-                        <ul className="space-y-4 text-sm font-medium text-slate-500">
-                            <li><Link href="/quote?type=residential" className="hover:text-ecs-brand-dark transition-colors">Residential</Link></li>
-                            <li><Link href="/quote?type=commercial" className="hover:text-ecs-brand-dark transition-colors">Commercial</Link></li>
-                            <li><Link href="/quote?type=residential&intensity=move" className="hover:text-ecs-brand-dark transition-colors">Move In/Out</Link></li>
+                        <h4 className="font-black text-[#024653] uppercase tracking-widest text-[10px] mb-8 opacity-40">Services</h4>
+                        <ul className="space-y-5 text-sm font-black text-[#024653]/60 uppercase tracking-widest">
+                            <li><Link href="/quote?type=residential" className="hover:text-[#05D16E] transition-all">Residential</Link></li>
+                            <li><Link href="/quote?type=commercial" className="hover:text-[#05D16E] transition-all">Commercial</Link></li>
+                            <li><Link href="/quote?type=residential&intensity=move" className="hover:text-[#05D16E] transition-all">Move In/Out</Link></li>
                         </ul>
                     </div>
 
                     <div>
-                        <h4 className="font-black text-ecs-brand-dark uppercase tracking-widest text-xs mb-6">Connect</h4>
+                        <h4 className="font-black text-[#024653] uppercase tracking-widest text-[10px] mb-8 opacity-40">Connect</h4>
                         <div className="flex gap-4">
-                            <a href="#" className="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-slate-400 hover:text-ecs-brand-dark hover:border-ecs-brand-dark transition-all">
-                                <Instagram size={18} />
+                            <a href="#" className="w-12 h-12 rounded-2xl bg-[#024653]/5 border border-[#024653]/5 flex items-center justify-center text-[#024653]/40 hover:text-white hover:bg-[#024653] transition-all shadow-sm">
+                                <Instagram size={20} />
                             </a>
-                            <a href="#" className="w-10 h-10 rounded-full bg-white border border-slate-100 flex items-center justify-center text-slate-400 hover:text-ecs-brand-dark hover:border-ecs-brand-dark transition-all">
-                                <Facebook size={18} />
+                            <a href="#" className="w-12 h-12 rounded-2xl bg-[#024653]/5 border border-[#024653]/5 flex items-center justify-center text-[#024653]/40 hover:text-white hover:bg-[#024653] transition-all shadow-sm">
+                                <Facebook size={20} />
                             </a>
                         </div>
                     </div>
                 </div>
 
                 <div className="py-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">© 2025 Extreme Cleaning 509 LLC. All rights reserved.</p>
-                    <p className="text-[10px] font-bold text-slate-300 uppercase tracking-widest">Designed in Spokane, WA</p>
+                    <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">© 2025 Extreme Cleaning 509 LLC. All rights reserved.</p>
+                    <div className="flex items-center gap-1.5 grayscale opacity-30">
+                        <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Designed by</span>
+                        <Image src="/brand/logo.png" alt="ECS" width={20} height={20} className="object-contain" />
+                    </div>
                 </div>
             </div>
         </footer>

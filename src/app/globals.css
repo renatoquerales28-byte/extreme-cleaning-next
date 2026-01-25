@@ -3,23 +3,25 @@
 @tailwind utilities;
 
 :root {
-    /* Brand Foundation */
+    /* Botanical Brand Foundation */
     --background: #F9F8F2;
-    /* Porcelain */
     --foreground: #024653;
-    /* Dark Teal */
 
-    /* Brand Colors (Mapped for backward compatibility) */
-    --brand-dark: #024653;
+    /* Brand Colors */
+    --brand-teal: #024653;
+    --brand-green: #05D16E;
+    --brand-cream: #F9F8F2;
+    --brand-cream-dark: #EAE8DF;
+
+    /* Semantic Mappings */
+    --brand-dark: var(--brand-teal);
     --brand-default: #0E6168;
     --brand-light: #1D7F7F;
 
-    --accent-default: #08BF5F;
-    /* Natural Green */
-    --accent-hover: #05D16E;
+    --accent-default: var(--brand-green);
+    --accent-hover: #08BF5F;
 
-    --card-bg: #EAE8DF;
-    /* Secondary darkened porcelain */
+    --card-bg: rgba(255, 255, 255, 0.6);
 }
 
 * {
@@ -44,7 +46,26 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-/* Custom Scrollbar - kept soft */
+/* Sentient Vignette Effect */
+.sentient-vignette {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at center, transparent 0%, rgba(2, 70, 83, 0.03) 70%, rgba(2, 70, 83, 0.08) 100%);
+    z-index: 50;
+}
+
+/* Sentient Grain Effect */
+.sentient-grain {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.02;
+    z-index: 51;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -54,32 +75,40 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(2, 70, 83, 0.1);
-    /* Teal tint */
+    background: rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: rgba(2, 70, 83, 0.2);
+    background: rgba(0, 0, 0, 0.2);
 }
 
 @layer components {
 
-    /* Updated Button Styles */
+    /* Botanical Glassmorphism */
+    .glass-card {
+        @apply bg-white/60 backdrop-blur-xl border border-white/40 shadow-xl;
+    }
+
+    .glass-teal {
+        @apply bg-[#024653]/10 backdrop-blur-xl border border-white/10 shadow-xl;
+    }
+
+    /* Botanical Premium Buttons */
     .btn-primary {
-        @apply relative px-8 py-4 bg-ecs-brand-dark text-white rounded-2xl font-bold transition-all duration-300 hover:scale-105 active:scale-95 shadow-sm hover:shadow-md;
+        @apply relative px-8 py-4 bg-[#024653] text-white rounded-[1.5rem] font-black uppercase tracking-widest transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-lg hover:shadow-[#024653]/20;
     }
 
     .btn-accent {
-        @apply bg-ecs-accent text-white rounded-2xl font-bold px-8 py-4 transition-all duration-300 hover:scale-105 hover:bg-ecs-accent-hover shadow-sm hover:shadow-md;
+        @apply bg-[#05D16E] text-[#024653] rounded-[1.5rem] font-black uppercase tracking-widest px-8 py-4 transition-all duration-300 hover:scale-[1.02] hover:bg-[#08BF5F] shadow-lg hover:shadow-[#05D16E]/20 active:scale-95;
     }
 
-    /* Clean Card Styles */
+    /* Premium Card Systems */
     .card-clean {
-        @apply bg-white border border-slate-100 rounded-3xl shadow-sm transition-all;
+        @apply bg-white border border-slate-100 rounded-[2.5rem] shadow-sm transition-all hover:shadow-xl hover:-translate-y-1;
     }
 
-    .card-secondary {
-        @apply bg-ecs-secondary rounded-3xl transition-all;
+    .card-luxury {
+        @apply glass-card rounded-[3rem] transition-all hover:shadow-2xl hover:-translate-y-1.5;
     }
 }

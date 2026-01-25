@@ -19,20 +19,18 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
     };
 
     const services = [
-        { id: "residential", label: "Residential", icon: Home, desc: "Homes, apartments, and studios.", color: "text-ecs-brand-dark", bg: "bg-ecs-brand-light/10" },
-        { id: "commercial", label: "Commercial", icon: Building2, desc: "Offices, retail, and business spaces.", color: "text-ecs-accent", bg: "bg-ecs-accent/10" },
-        { id: "property_mgmt", label: "Airbnb / PM", icon: Key, desc: "Portfolio management & turnovers.", color: "text-ecs-brand-default", bg: "bg-ecs-brand-default/10" },
+        { id: "residential", label: "Residential", icon: Home, desc: "Homes, apartments, and studios.", color: "text-brand-dark", bg: "bg-brand-light/10" },
+        { id: "commercial", label: "Commercial", icon: Building2, desc: "Offices, retail, and business spaces.", color: "text-accent", bg: "bg-accent/10" },
+        { id: "property_mgmt", label: "Airbnb / PM", icon: Key, desc: "Portfolio management & turnovers.", color: "text-emerald-500", bg: "bg-emerald-500/10" },
     ];
 
     return (
         <div className="flex flex-col h-full justify-start md:justify-center gap-6 w-full py-2 antialiased">
-            {/* Nav removed in favor of parent wizard layout */}
-
             <div className="text-center space-y-2 shrink-0">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-ecs-brand-dark leading-[0.85] py-1">
-                    Choose Your <span className="text-ecs-accent">Service</span>
+                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-[0.85] py-1">
+                    Choose Your <span className="text-[#05D16E]">Service</span>
                 </h2>
-                <p className="text-sm text-slate-500 font-medium tracking-tight">
+                <p className="text-sm text-[#024653]/60 font-medium tracking-tight">
                     Select the type of space we&apos;ll be transforming today.
                 </p>
             </div>
@@ -43,16 +41,16 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                         key={service.id}
                         type="button"
                         onClick={() => handleSelect(service.id)}
-                        className={`group p-4 md:p-5 glass-card rounded-3xl text-left relative overflow-hidden transition-all duration-300 border-2 ${selectedService === service.id
-                            ? "border-ecs-brand-dark bg-white shadow-md scale-[1.02] z-10"
-                            : "border-transparent bg-white/50 hover:border-slate-100 hover:scale-[1.01]"
+                        className={`group p-5 md:p-6 bg-white rounded-[2.5rem] text-left relative overflow-hidden transition-all duration-500 border-2 ${selectedService === service.id
+                            ? "border-[#05D16E] shadow-2xl shadow-[#05D16E]/10 scale-[1.02] z-10"
+                            : "border-slate-50 hover:border-[#024653]/10 hover:shadow-xl hover:-translate-y-1"
                             }`}
                     >
-                        <div className={`p-2.5 md:p-3 rounded-2xl ${service.bg} ${service.color} w-fit mb-3 md:mb-4 transition-transform group-hover:scale-110`}>
-                            <service.icon size={22} strokeWidth={2.5} />
+                        <div className={`p-4 rounded-[1.5rem] ${selectedService === service.id ? "bg-[#05D16E] text-[#024653]" : "bg-[#F9F8F2] text-[#024653]/60"} w-fit mb-6 transition-all duration-500 group-hover:scale-110 shadow-sm`}>
+                            <service.icon size={24} strokeWidth={2.5} />
                         </div>
-                        <h3 className="text-lg md:text-xl font-black tracking-tighter mb-0.5 md:mb-1 leading-tight">{service.label}</h3>
-                        <p className="text-[10px] md:text-[11px] text-slate-500 font-bold leading-snug tracking-tight">{service.desc}</p>
+                        <h3 className="text-xl md:text-2xl font-black tracking-tight mb-2 leading-tight text-[#024653] uppercase">{service.label}</h3>
+                        <p className="text-[10px] md:text-[11px] text-[#024653]/40 font-bold leading-relaxed tracking-widest uppercase">{service.desc}</p>
                     </button>
                 ))}
             </div>
@@ -61,12 +59,12 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                 <button
                     onClick={() => selectedService && onNext()}
                     disabled={!selectedService}
-                    className={`w-full py-4 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 ${selectedService
-                        ? "bg-ecs-brand-dark text-white shadow-md hover:bg-black hover:scale-[1.01] active:scale-95"
-                        : "bg-slate-100 text-slate-300 cursor-not-allowed"
+                    className={`w-full py-6 rounded-3xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 shadow-xl ${selectedService
+                        ? "bg-[#024653] text-white hover:bg-[#0E6168] hover:scale-[1.01] active:scale-95 shadow-[#024653]/20"
+                        : "bg-slate-100 text-[#024653]/20 cursor-not-allowed shadow-none"
                         }`}
                 >
-                    Confirm & Continue <ArrowRight size={16} strokeWidth={3} />
+                    Confirm & Continue <ArrowRight size={18} strokeWidth={3} />
                 </button>
             </div>
         </div>

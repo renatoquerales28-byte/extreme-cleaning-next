@@ -20,17 +20,15 @@ export default function PMSelectionStep({ onNext, onBack }: PMSelectionStepProps
     ];
 
     return (
-        <div className="flex flex-col h-full justify-start md:justify-center gap-6 w-full max-w-xl mx-auto py-2 antialiased">
-
-
+        <div className="flex flex-col h-full justify-start md:justify-center gap-8 w-full max-w-2xl mx-auto py-2 antialiased">
             <div className="text-center space-y-2 shrink-0">
-                <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-ecs-brand-dark leading-[0.85] py-1">
-                    Property <span className="text-ecs-accent">Portfolio</span>
+                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-[#024653] leading-[0.85]">
+                    Property <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#024653] via-[#0E6168] to-[#05D16E]">Portfolio.</span>
                 </h2>
-                <p className="text-sm text-slate-500 font-medium tracking-tight">How many units do you manage?</p>
+                <p className="text-[10px] text-[#024653]/40 font-black tracking-[0.3em] uppercase">Tailored Management Solutions</p>
             </div>
 
-            <div className="grid md:grid-cols-2 gap-4 w-full shrink-0">
+            <div className="grid md:grid-cols-2 gap-6 w-full shrink-0">
                 {options.map((option) => (
                     <button
                         key={option.id}
@@ -38,30 +36,28 @@ export default function PMSelectionStep({ onNext, onBack }: PMSelectionStepProps
                         onClick={() => {
                             setValue("propertyCount", option.id as any);
                         }}
-                        className={`group p-6 bg-white rounded-3xl text-left relative overflow-hidden transition-all duration-300 border-2 ${propertyCount === option.id
-                            ? "border-ecs-brand-dark bg-white shadow-md scale-[1.02] z-10"
-                            : "border-transparent bg-white/50 hover:border-slate-100 hover:scale-[1.01]"
+                        className={`group p-8 bg-white rounded-[3rem] text-left relative overflow-hidden transition-all duration-500 border-2 ${propertyCount === option.id
+                            ? "border-[#05D16E] shadow-2xl shadow-[#05D16E]/10 scale-[1.02] z-10"
+                            : "border-slate-50 hover:border-[#024653]/10 hover:shadow-xl hover:-translate-y-1"
                             }`}
                     >
-                        <div className={`p-3 rounded-2xl bg-ecs-accent/10 text-ecs-accent w-fit mb-4 transition-transform group-hover:scale-110`}>
-                            <option.icon size={22} strokeWidth={2.5} />
+                        <div className={`p-4 rounded-2xl ${propertyCount === option.id ? "bg-[#05D16E] text-[#024653]" : "bg-[#F9F8F2] text-[#024653]/40"} w-fit mb-6 transition-all duration-500 group-hover:scale-110 shadow-sm`}>
+                            <option.icon size={24} strokeWidth={2.5} />
                         </div>
-                        <h3 className="text-xl font-black tracking-tighter mb-1 leading-tight">{option.label}</h3>
-                        <p className="text-[11px] text-slate-500 font-bold leading-snug tracking-tight">{option.desc}</p>
+                        <h3 className="text-xl md:text-2xl font-black tracking-tight mb-2 leading-tight text-[#024653] uppercase">{option.label}</h3>
+                        <p className="text-[10px] md:text-[11px] text-[#024653]/40 font-bold leading-relaxed tracking-widest uppercase">{option.desc}</p>
                     </button>
                 ))}
             </div>
 
-            <div className="mt-2 shrink-0">
+            <div className="mt-4 shrink-0">
                 <button
                     onClick={() => propertyCount && onNext()}
                     disabled={!propertyCount}
-                    className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.2em] text-[11px] flex items-center justify-center gap-3 transition-all duration-500 shrink-0 ${propertyCount
-                        ? "bg-ecs-brand-dark text-white shadow-md hover:bg-black hover:scale-[1.01] active:scale-95"
-                        : "bg-slate-100 text-slate-300 cursor-not-allowed"
-                        }`}
+                    className="btn-accent shadow-2xl shadow-[#05D16E]/10 flex items-center justify-center gap-4 w-full py-8 text-base rounded-[2.5rem] group disabled:opacity-50"
                 >
-                    Confirm & Continue <ArrowRight size={18} strokeWidth={3} />
+                    <span className="text-[12px] font-black uppercase tracking-[0.4em]">Initialize Setup</span>
+                    <ArrowRight size={24} strokeWidth={3} className="transition-transform group-hover:translate-x-2" />
                 </button>
             </div>
         </div>

@@ -33,16 +33,16 @@ export default function SocialProofSection() {
     ];
 
     return (
-        <section className="py-24 bg-ecs-paramount relative overflow-hidden" id="reviews">
-            {/* Decor */}
-            <div className="absolute right-0 top-0 w-1/3 h-full bg-ecs-secondary/50 -skew-x-12 z-0" />
+        <section className="py-24 bg-white relative overflow-hidden" id="reviews">
+            {/* Decor - Soft Cream Contrast */}
+            <div className="absolute right-0 top-0 w-1/3 h-full bg-[#F9F8F2] -skew-x-12 z-0" />
 
             <div className="container px-4 mx-auto relative z-10">
                 <div className="flex flex-col items-center text-center mb-16 space-y-4">
-                    <span className="text-ecs-accent font-black tracking-[0.2em] text-xs uppercase">Community Trust</span>
-                    <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-ecs-brand-dark leading-[0.9]">
+                    <span className="text-[#05D16E] font-black tracking-[0.2em] text-xs uppercase">Community Trust</span>
+                    <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-[#024653] leading-[0.9]">
                         Don&apos;t Just Take <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-ecs-brand-dark to-ecs-brand-light">Our Word For It.</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#024653] to-[#0E6168]">Our Word For It.</span>
                     </h2>
                 </div>
 
@@ -54,20 +54,20 @@ export default function SocialProofSection() {
                             whileInView={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.1, duration: 0.5 }}
                             viewport={{ once: true }}
-                            className="break-inside-avoid bg-ecs-secondary p-8 rounded-3xl border border-white/50 hover:shadow-xl transition-all duration-300"
+                            className="break-inside-avoid bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-xl shadow-[#024653]/5 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 block"
                         >
-                            <div className="flex text-amber-400 gap-1 mb-6">
+                            <div className="flex text-[#05D16E] gap-1 mb-6">
                                 {[...Array(review.rating)].map((_, i) => (
-                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
+                                    <svg key={i} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 shadow-sm">
                                         <path fillRule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clipRule="evenodd" />
                                     </svg>
                                 ))}
                             </div>
 
-                            <p className="text-ecs-brand-dark font-medium leading-relaxed mb-6">&quot;{review.text}&quot;</p>
+                            <p className="text-[#024653]/80 font-medium leading-relaxed mb-8 font-opensans">&quot;{review.text}&quot;</p>
 
                             <div className="flex items-center gap-4">
-                                <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-white">
+                                <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-[#05D16E]/20">
                                     <Image
                                         src={review.image}
                                         alt={review.author}
@@ -76,8 +76,8 @@ export default function SocialProofSection() {
                                     />
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-ecs-brand-dark text-sm">{review.author}</h4>
-                                    <p className="text-slate-400 text-xs font-bold uppercase tracking-wide">{review.role}</p>
+                                    <h4 className="font-black text-[#024653] text-sm uppercase tracking-tight">{review.author}</h4>
+                                    <p className="text-[#0E6168]/40 text-[10px] font-black uppercase tracking-widest">{review.role}</p>
                                 </div>
                             </div>
                         </motion.div>

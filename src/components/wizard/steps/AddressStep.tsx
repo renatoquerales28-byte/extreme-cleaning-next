@@ -158,7 +158,7 @@ export default function AddressStep({ onBack }: AddressStepProps) {
             </div>
 
             {/* DOCKED FOOTER */}
-            <div className="absolute bottom-0 left-0 w-full z-50 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+            <div className="absolute bottom-0 left-0 w-full z-20 bg-white border-t border-gray-100">
                 <div className="w-full max-w-xl mx-auto p-6 flex flex-col items-center justify-center">
                     <p className="text-[7px] text-center text-[#024653]/40 font-black uppercase tracking-[0.2em] max-w-sm mx-auto leading-relaxed mb-4">
                         By confirming, you agree to our <Link href="#" className="text-[#05D16E] hover:underline">Terms</Link> & <Link href="#" className="text-[#05D16E] hover:underline">Privacy</Link>.

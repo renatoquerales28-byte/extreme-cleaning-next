@@ -58,7 +58,7 @@ export default function ReturningLookupStep({ onNext, onBack, setCustomerName }:
             </div>
 
             {/* DOCKED FOOTER */}
-            <div className="absolute bottom-0 left-0 w-full z-50 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+            <div className="absolute bottom-0 left-0 w-full z-20 bg-white border-t border-gray-100">
                 <div className="w-full max-w-xl mx-auto p-6 flex flex-col items-center justify-center">
                     <button onClick={onBack} className="w-full text-[10px] font-black uppercase tracking-widest text-[#024653]/40 hover:text-[#024653] transition-colors py-2 mb-4">
                         I&apos;m a new customer

@@ -56,7 +56,7 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
             </div>
 
             {/* DOCKED FOOTER */}
-            <div className="absolute bottom-0 left-0 w-full z-50 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+            <div className="absolute bottom-0 left-0 w-full z-20 bg-white border-t border-gray-100">
                 <div className="w-full max-w-xl mx-auto p-6">
                     <button
                         onClick={() => selectedService && onNext()}

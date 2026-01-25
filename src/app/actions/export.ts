@@ -3,34 +3,39 @@
 import { db } from "@/lib/db";
 import { leads } from "@/lib/db/schema";
 import { format } from "date-fns";
+import { type WizardData } from "@/lib/schemas/wizard";
 
 export async function getLeadsForExport() {
     try {
         const allLeads = await db.select().from(leads);
 
         // Format data for Excel with Spanish column names
-        const formattedData = allLeads.map(lead => ({
-            "ID": lead.id,
-            "Nombre": `${lead.firstName || ''} ${lead.lastName || ''}`.trim(),
-            "Email": lead.email || '',
-            "Teléfono": lead.phone || '',
-            "Código Postal": lead.zipCode || '',
-            "Tipo de Servicio": lead.serviceType || '',
-            "Tipo de Limpieza": lead.cleaningType || '',
-            "Frecuencia": lead.frequency || '',
-            "Habitaciones": lead.bedrooms || '',
-            "Baños": lead.bathrooms || '',
-            "Pies Cuadrados": lead.sqFt || '',
-            "Fecha de Servicio": lead.serviceDate ? format(new Date(lead.serviceDate), "dd/MM/yyyy") : '',
-            "Hora de Servicio": lead.serviceTime || '',
-            "Dirección": lead.address || '',
-            "Ciudad": lead.city || '',
-            "Estado": lead.state || '',
-            "Precio Total": lead.totalPrice ? `$${lead.totalPrice}` : '',
-            "Estado del Lead": lead.status || '',
-            "Notas": lead.notes || '',
-            "Fecha de Creación": lead.createdAt ? format(new Date(lead.createdAt), "dd/MM/yyyy HH:mm") : '',
-        }));
+        const formattedData = allLeads.map(lead => {
+            const details = (lead.details as WizardData) || {};
+
+            return {
+                "ID": lead.id,
+                "Nombre": `${lead.firstName || ''} ${lead.lastName || ''}`.trim(),
+                "Email": lead.email || '',
+                "Teléfono": lead.phone || '',
+                "Código Postal": details.zipCode || '',
+                "Tipo de Servicio": lead.serviceType || '',
+                "Tipo de Limpieza": details.cleaningType || '',
+                "Frecuencia": lead.frequency || '',
+                "Habitaciones": details.bedrooms || '',
+                "Baños": details.bathrooms || '',
+                "Pies Cuadrados": details.sqFt || '',
+                "Fecha de Servicio": lead.serviceDate ? format(new Date(lead.serviceDate), "dd/MM/yyyy") : '',
+                "Hora de Servicio": lead.serviceTime || '',
+                "Dirección": details.address || '',
+                "Ciudad": details.city || '',
+                "Estado": details.state || '',
+                "Precio Total": lead.totalPrice ? `$${lead.totalPrice}` : '',
+                "Estado del Lead": lead.status || '',
+                "Notas": details.notes || '',
+                "Fecha de Creación": lead.createdAt ? format(new Date(lead.createdAt), "dd/MM/yyyy HH:mm") : '',
+            };
+        });
 
         return { success: true, data: formattedData };
     } catch (error) {
@@ -76,28 +81,32 @@ export async function getLeadsForExportFiltered(filters?: {
         }
 
         // Format data
-        const formattedData = filteredLeads.map(lead => ({
-            "ID": lead.id,
-            "Nombre": `${lead.firstName || ''} ${lead.lastName || ''}`.trim(),
-            "Email": lead.email || '',
-            "Teléfono": lead.phone || '',
-            "Código Postal": lead.zipCode || '',
-            "Tipo de Servicio": lead.serviceType || '',
-            "Tipo de Limpieza": lead.cleaningType || '',
-            "Frecuencia": lead.frequency || '',
-            "Habitaciones": lead.bedrooms || '',
-            "Baños": lead.bathrooms || '',
-            "Pies Cuadrados": lead.sqFt || '',
-            "Fecha de Servicio": lead.serviceDate ? format(new Date(lead.serviceDate), "dd/MM/yyyy") : '',
-            "Hora de Servicio": lead.serviceTime || '',
-            "Dirección": lead.address || '',
-            "Ciudad": lead.city || '',
-            "Estado": lead.state || '',
-            "Precio Total": lead.totalPrice ? `$${lead.totalPrice}` : '',
-            "Estado del Lead": lead.status || '',
-            "Notas": lead.notes || '',
-            "Fecha de Creación": lead.createdAt ? format(new Date(lead.createdAt), "dd/MM/yyyy HH:mm") : '',
-        }));
+        const formattedData = filteredLeads.map(lead => {
+            const details = (lead.details as WizardData) || {};
+
+            return {
+                "ID": lead.id,
+                "Nombre": `${lead.firstName || ''} ${lead.lastName || ''}`.trim(),
+                "Email": lead.email || '',
+                "Teléfono": lead.phone || '',
+                "Código Postal": details.zipCode || '',
+                "Tipo de Servicio": lead.serviceType || '',
+                "Tipo de Limpieza": details.cleaningType || '',
+                "Frecuencia": lead.frequency || '',
+                "Habitaciones": details.bedrooms || '',
+                "Baños": details.bathrooms || '',
+                "Pies Cuadrados": details.sqFt || '',
+                "Fecha de Servicio": lead.serviceDate ? format(new Date(lead.serviceDate), "dd/MM/yyyy") : '',
+                "Hora de Servicio": lead.serviceTime || '',
+                "Dirección": details.address || '',
+                "Ciudad": details.city || '',
+                "Estado": details.state || '',
+                "Precio Total": lead.totalPrice ? `$${lead.totalPrice}` : '',
+                "Estado del Lead": lead.status || '',
+                "Notas": details.notes || '',
+                "Fecha de Creación": lead.createdAt ? format(new Date(lead.createdAt), "dd/MM/yyyy HH:mm") : '',
+            };
+        });
 
         return { success: true, data: formattedData };
     } catch (error) {

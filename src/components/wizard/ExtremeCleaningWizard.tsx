@@ -248,10 +248,6 @@ export default function ExtremeCleaningWizard() {
 
                 {/* Right Panel */}
                 <div className="flex-1 w-full lg:w-[60%] h-screen bg-[#F9F8F2] relative flex flex-col overflow-hidden">
-                    <a href="/" className="absolute top-6 right-6 z-50 p-3 rounded-full bg-white hover:bg-[#024653] hover:text-white transition-colors border-2 border-slate-100" title="Exit">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                    </a>
-
                     {/* Header with Progress */}
                     <div className="shrink-0 w-full px-6 py-6 md:px-12 grid grid-cols-[1fr_auto_1fr] items-center bg-[#F9F8F2] z-40">
                         <div className="flex justify-start">
@@ -269,7 +265,11 @@ export default function ExtremeCleaningWizard() {
                             </div>
                         </div>
 
-                        <div className="flex justify-end"></div>
+                        <div className="flex justify-end">
+                            <a href="/" className="p-2 md:p-3 rounded-full bg-white hover:bg-[#024653] hover:text-white transition-colors border-2 border-slate-100" title="Exit">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                            </a>
+                        </div>
                     </div>
 
                     {/* Stage - Full Viewport Height without Card UI */}

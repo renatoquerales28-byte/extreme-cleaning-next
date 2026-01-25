@@ -102,7 +102,7 @@ export default function HeroSection() {
 
                         {/* 2. Text Card Teal (Top Center) */}
                         <div className="col-span-4 row-span-3 bg-[#024653] rounded-[3rem] p-10 flex flex-col justify-end gap-2 text-white shadow-xl">
-                            <p className="text-2xl font-bold leading-tight">A tidy workspace increases your team's <span className="text-[#05D16E] italic">productivity.</span></p>
+                            <p className="text-2xl font-bold leading-tight">A tidy workspace increases your team&apos;s <span className="text-[#05D16E] italic">productivity.</span></p>
                         </div>
 
                         {/* 3. Small Square (Top Right) */}
@@ -132,7 +132,7 @@ export default function HeroSection() {
 
                         {/* 6. Text Card Bottom Right */}
                         <div className="col-span-4 row-span-1 bg-[#024653] rounded-[3rem] p-8 flex flex-col justify-center text-white shadow-xl">
-                            <p className="text-lg font-bold leading-tight"><span className="text-[#05D16E]">Ensure</span> your company's regulatory compliance.</p>
+                            <p className="text-lg font-bold leading-tight"><span className="text-[#05D16E]">Ensure</span> your company&apos;s regulatory compliance.</p>
                         </div>
                     </div>
                 </div>

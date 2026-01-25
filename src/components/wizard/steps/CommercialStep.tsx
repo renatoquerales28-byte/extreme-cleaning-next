@@ -83,15 +83,14 @@ export default function CommercialStep({ onNext, onBack }: CommercialStepProps) 
             </div>
 
             {/* DOCKED FOOTER */}
-            <div className="absolute bottom-0 left-0 w-full z-20 bg-white border-t border-gray-100">
-                <div className="w-full max-w-xl mx-auto p-6">
+            <div className="fixed bottom-0 right-0 w-full lg:w-[60%] z-50 px-6 pb-6 pt-12 bg-gradient-to-t from-[#F9F8F2] via-[#F9F8F2] to-transparent pointer-events-none">
+                <div className="w-full max-w-xl mx-auto pointer-events-auto">
                     <button
                         onClick={onNext}
-                        disabled={!isValid}
-                        className="w-full py-6 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
+                        disabled={!businessType || !commSqFt}
+                        className="w-full py-6 bg-[#024653] text-white rounded-2xl shadow-xl text-xs font-black uppercase tracking-[0.25em] hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3"
                     >
-                        <span className="text-xs font-black uppercase tracking-[0.25em]">Review Estimate</span>
-                        <ArrowRight size={18} strokeWidth={2.5} />
+                        Review Estimate <ArrowRight size={18} strokeWidth={2.5} />
                     </button>
                 </div>
             </div>

@@ -58,8 +58,8 @@ export default function PropertySelectionStep({ onSelectSaved, onStartNew, onBac
             </div>
 
             {/* DOCKED FOOTER */}
-            <div className="absolute bottom-0 left-0 w-full z-20 bg-white border-t border-gray-100">
-                <div className="w-full max-w-xl mx-auto p-6 flex flex-col items-center justify-center">
+            <div className="fixed bottom-0 right-0 w-full lg:w-[60%] z-50 px-6 pb-6 pt-12 bg-gradient-to-t from-[#F9F8F2] via-[#F9F8F2] to-transparent pointer-events-none">
+                <div className="w-full max-w-xl mx-auto pointer-events-auto flex flex-col items-center justify-center">
                     <button onClick={onBack} className="text-[10px] font-black uppercase tracking-widest text-[#024653]/40 hover:text-[#024653] transition-colors py-2">
                         Not {customerName}? Switch account
                     </button>

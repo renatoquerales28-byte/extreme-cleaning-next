@@ -158,8 +158,8 @@ export default function AddressStep({ onBack }: AddressStepProps) {
             </div>
 
             {/* DOCKED FOOTER */}
-            <div className="absolute bottom-0 left-0 w-full z-20 bg-white border-t border-gray-100">
-                <div className="w-full max-w-xl mx-auto p-6 flex flex-col items-center justify-center">
+            <div className="fixed bottom-0 right-0 w-full lg:w-[60%] z-50 px-6 pb-6 pt-12 bg-gradient-to-t from-[#F9F8F2] via-[#F9F8F2] to-transparent pointer-events-none">
+                <div className="w-full max-w-xl mx-auto pointer-events-auto flex flex-col items-center justify-center">
                     <p className="text-[7px] text-center text-[#024653]/40 font-black uppercase tracking-[0.2em] max-w-sm mx-auto leading-relaxed mb-4">
                         By confirming, you agree to our <Link href="#" className="text-[#05D16E] hover:underline">Terms</Link> & <Link href="#" className="text-[#05D16E] hover:underline">Privacy</Link>.
                     </p>
@@ -167,7 +167,7 @@ export default function AddressStep({ onBack }: AddressStepProps) {
                     <button
                         onClick={handleSubmit(onSubmit)}
                         disabled={isSubmitting}
-                        className="w-full max-w-md py-6 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
+                        className="w-full max-w-md py-6 bg-[#024653] text-white rounded-2xl shadow-xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
                     >
                         <span className="text-xs font-black uppercase tracking-[0.25em]">{isSubmitting ? "Processing..." : "Confirm My Booking"}</span>
                         {!isSubmitting && <CheckCircle size={18} strokeWidth={2.5} />}

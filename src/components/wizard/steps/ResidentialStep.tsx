@@ -24,10 +24,10 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
     ];
 
     return (
-        <div className="h-full flex flex-col">
-            {/* 🥓 Relleno: Área de Scroll */}
-            <div className="flex-1 overflow-y-auto px-6 py-4">
-                <div className="space-y-4 w-full py-4">
+        <div className="h-full w-full relative flex flex-col">
+            {/* SCROLLABLE CONTENT AREA */}
+            <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
+                <div className="max-w-xl mx-auto space-y-4">
                     {/* Room Counters */}
                     <div className="grid grid-cols-2 gap-3 shrink-0">
                         {/* Bedrooms */}
@@ -123,15 +123,17 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                 </div>
             </div>
 
-            {/* 🍞 Capa Inferior: Botón Sticky */}
-            <div className="shrink-0 w-full p-6 bg-white border-t border-gray-100 z-10">
-                <button
-                    onClick={onNext}
-                    className="w-full py-6 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all"
-                >
-                    <span className="text-xs font-black uppercase tracking-[0.25em]">Select Frequency</span>
-                    <ArrowRight size={18} strokeWidth={2.5} />
-                </button>
+            {/* DOCKED FOOTER */}
+            <div className="absolute bottom-0 left-0 w-full z-50 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                <div className="w-full max-w-xl mx-auto p-6">
+                    <button
+                        onClick={onNext}
+                        className="w-full py-6 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all"
+                    >
+                        <span className="text-xs font-black uppercase tracking-[0.25em]">Select Frequency</span>
+                        <ArrowRight size={18} strokeWidth={2.5} />
+                    </button>
+                </div>
             </div>
         </div>
     );

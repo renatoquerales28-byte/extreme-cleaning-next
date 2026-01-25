@@ -272,23 +272,20 @@ export default function ExtremeCleaningWizard() {
                         <div className="flex justify-end"></div>
                     </div>
 
-                    {/* Stage - Contenedor que centra la Wizard Card */}
-                    <div className="flex-1 w-full flex items-center justify-center p-4 bg-[#F9F8F2]">
-                        {/* Wizard Card - Dimensiones fijas para evitar layout shift */}
-                        <div className="w-[550px] h-[700px] bg-white shadow-xl rounded-2xl relative flex flex-col overflow-hidden">
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={step}
-                                    initial={{ opacity: 0, scale: 0.98, y: 10 }}
-                                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                                    exit={{ opacity: 0, scale: 1.02, y: -10 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="w-full h-full flex flex-col"
-                                >
-                                    {renderStep()}
-                                </motion.div>
-                            </AnimatePresence>
-                        </div>
+                    {/* Stage - Full Viewport Height without Card UI */}
+                    <div className="w-full h-full relative overflow-hidden">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={step}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                transition={{ duration: 0.3, ease: "easeInOut" }}
+                                className="w-full h-full"
+                            >
+                                {renderStep()}
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                 </div>
             </div>

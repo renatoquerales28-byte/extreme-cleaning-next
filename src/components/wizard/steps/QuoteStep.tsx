@@ -68,9 +68,10 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
     };
 
     return (
-        <div className="flex flex-col h-full w-full max-w-xl mx-auto antialiased">
-            <div className="flex-1 overflow-y-auto pr-2 -mr-2">
-                <div className="min-h-full flex flex-col justify-center space-y-4 w-full py-4">
+        <div className="h-full w-full relative flex flex-col">
+            {/* SCROLLABLE CONTENT AREA */}
+            <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
+                <div className="max-w-xl mx-auto space-y-4">
                     {/* Main Estimate Display */}
                     <div className="relative p-5 bg-white rounded-xl border-2 border-slate-50 overflow-hidden group shrink-0">
                         <div className="flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
@@ -144,16 +145,18 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
                 </div>
             </div>
 
-            {/* Final Action */}
-            <div className="mt-auto pt-10 w-full flex justify-center">
-                <button
-                    onClick={handleNext}
-                    disabled={isSubmitting}
-                    className="w-full max-w-md py-6 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
-                >
-                    <span className="text-xs font-black uppercase tracking-[0.25em]">{isSubmitting ? "Processing..." : "Select Schedule"}</span>
-                    {!isSubmitting && <ArrowRight size={18} strokeWidth={2.5} />}
-                </button>
+            {/* DOCKED FOOTER */}
+            <div className="absolute bottom-0 left-0 w-full z-50 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                <div className="w-full max-w-xl mx-auto p-6">
+                    <button
+                        onClick={handleNext}
+                        disabled={isSubmitting}
+                        className="w-full py-6 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
+                    >
+                        <span className="text-xs font-black uppercase tracking-[0.25em]">{isSubmitting ? "Processing..." : "Select Schedule"}</span>
+                        {!isSubmitting && <ArrowRight size={18} strokeWidth={2.5} />}
+                    </button>
+                </div>
             </div>
         </div>
     );

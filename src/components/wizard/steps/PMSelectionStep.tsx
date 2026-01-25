@@ -20,9 +20,10 @@ export default function PMSelectionStep({ onNext, onBack }: PMSelectionStepProps
     ];
 
     return (
-        <div className="flex flex-col h-full w-full max-w-2xl mx-auto antialiased">
-            <div className="flex-1 overflow-y-auto pr-2 -mr-2">
-                <div className="min-h-full flex flex-col justify-center space-y-6 w-full py-4">
+        <div className="h-full w-full relative flex flex-col">
+            {/* SCROLLABLE CONTENT AREA */}
+            <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
+                <div className="max-w-xl mx-auto space-y-6">
                     <div className="text-center space-y-1 mb-2 shrink-0">
                         <h2 className="text-4xl md:text-5xl font-black tracking-tighter text-[#024653] leading-tight">
                             Property <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#024653] via-[#0E6168] to-[#05D16E]">Portfolio.</span>
@@ -54,15 +55,18 @@ export default function PMSelectionStep({ onNext, onBack }: PMSelectionStepProps
                 </div>
             </div>
 
-            <div className="mt-auto pt-10 w-full flex justify-center">
-                <button
-                    onClick={() => propertyCount && onNext()}
-                    disabled={!propertyCount}
-                    className="w-full max-w-md py-6 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
-                >
-                    <span className="text-xs font-black uppercase tracking-[0.25em]">Initialize Setup</span>
-                    <ArrowRight size={18} strokeWidth={2.5} />
-                </button>
+            {/* DOCKED FOOTER */}
+            <div className="absolute bottom-0 left-0 w-full z-50 bg-white border-t border-gray-200 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+                <div className="w-full max-w-xl mx-auto p-6">
+                    <button
+                        onClick={() => propertyCount && onNext()}
+                        disabled={!propertyCount}
+                        className="w-full py-6 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
+                    >
+                        <span className="text-xs font-black uppercase tracking-[0.25em]">Initialize Setup</span>
+                        <ArrowRight size={18} strokeWidth={2.5} />
+                    </button>
+                </div>
             </div>
         </div>
     );

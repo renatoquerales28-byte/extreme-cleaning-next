@@ -3,7 +3,7 @@
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { useWizardAction } from "../WizardActionContext";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { format } from "date-fns";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
@@ -19,13 +19,13 @@ export default function DateStep({ onNext }: DateStepProps) {
     const selectedTime = watch("time");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleContinue = () => {
+    const handleContinue = useCallback(() => {
         setIsSubmitting(true);
         setTimeout(() => {
             setIsSubmitting(false);
             onNext();
         }, 500);
-    };
+    }, [onNext]);
 
     useEffect(() => {
         setAction({
@@ -75,8 +75,8 @@ export default function DateStep({ onNext }: DateStepProps) {
                                     key={time}
                                     onClick={() => setValue("time", time)}
                                     className={`p-3 rounded-xl border-2 text-xs font-bold uppercase tracking-wider transition-all ${selectedTime === time
-                                            ? "bg-[#024653] border-[#024653] text-white"
-                                            : "bg-white border-slate-50 text-[#024653]/60 hover:border-[#05D16E]"
+                                        ? "bg-[#024653] border-[#024653] text-white"
+                                        : "bg-white border-slate-50 text-[#024653]/60 hover:border-[#05D16E]"
                                         }`}
                                 >
                                     {time}

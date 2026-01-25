@@ -3,7 +3,7 @@
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { useWizardAction } from "../WizardActionContext";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { ArrowRight } from "lucide-react";
 
 interface QuoteStepProps {
@@ -16,14 +16,14 @@ export default function QuoteStep({ onNext }: QuoteStepProps) {
     const data = watch();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleNext = async () => {
+    const handleNext = useCallback(async () => {
         setIsSubmitting(true);
         // Simulate submit
         setTimeout(() => {
             setIsSubmitting(false);
             onNext();
         }, 1000);
-    };
+    }, [onNext]);
 
     useEffect(() => {
         const isValid = data.firstName && data.lastName && data.email && data.phone;
@@ -33,7 +33,7 @@ export default function QuoteStep({ onNext }: QuoteStepProps) {
             isLoading: isSubmitting,
             onClick: handleNext
         });
-    }, [data.firstName, data.lastName, data.email, data.phone, isSubmitting, setAction]);
+    }, [data.firstName, data.lastName, data.email, data.phone, isSubmitting, setAction, handleNext]);
 
     return (
         <div className="h-full w-full relative flex flex-col">

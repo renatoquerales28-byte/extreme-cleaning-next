@@ -3,7 +3,7 @@
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { Search, User } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useWizardAction } from "../WizardActionContext";
 
 interface ReturningLookupStepProps {
@@ -17,14 +17,14 @@ export default function ReturningLookupStep({ onBack, onFound }: ReturningLookup
     const phone = watch("phone") || "";
     const [loading, setLoading] = useState(false);
 
-    const handleSearch = async () => {
+    const handleSearch = useCallback(async () => {
         setLoading(true);
         // Simulate API
         setTimeout(() => {
             setLoading(false);
             onFound({ name: "John Doe", properties: [1, 2] });
         }, 1500);
-    };
+    }, [onFound]);
 
     useEffect(() => {
         setAction({
@@ -40,7 +40,7 @@ export default function ReturningLookupStep({ onBack, onFound }: ReturningLookup
                 </button>
             )
         });
-    }, [phone, loading, onBack, setAction]); // Re-run when phone or loading changes
+    }, [phone, loading, onBack, setAction, handleSearch]); // Re-run when phone or loading changes
 
     return (
         <div className="h-full w-full relative flex flex-col">

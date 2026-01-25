@@ -15,8 +15,8 @@ interface DateStepProps {
 export default function DateStep({ onNext }: DateStepProps) {
     const { setValue, watch } = useFormContext<WizardData>();
     const { setAction } = useWizardAction();
-    const selectedDate = watch("date");
-    const selectedTime = watch("time");
+    const selectedDate = watch("serviceDate");
+    const selectedTime = watch("serviceTime");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleContinue = useCallback(() => {
@@ -41,7 +41,7 @@ export default function DateStep({ onNext }: DateStepProps) {
                 </div>
             )
         });
-    }, [selectedDate, selectedTime, isSubmitting, onNext, setAction]);
+    }, [selectedDate, selectedTime, isSubmitting, setAction, handleContinue]);
 
     const timeSlots = ["08:00 AM", "10:00 AM", "12:00 PM", "02:00 PM", "04:00 PM"];
 
@@ -63,7 +63,7 @@ export default function DateStep({ onNext }: DateStepProps) {
                             <Calendar
                                 mode="single"
                                 selected={selectedDate ? new Date(selectedDate) : undefined}
-                                onSelect={(date) => setValue("date", date?.toISOString() || "")}
+                                onSelect={(date) => setValue("serviceDate", date?.toISOString() || "")}
                                 className="rounded-md border-none"
                             />
                         </div>
@@ -73,7 +73,7 @@ export default function DateStep({ onNext }: DateStepProps) {
                             {timeSlots.map((time) => (
                                 <button
                                     key={time}
-                                    onClick={() => setValue("time", time)}
+                                    onClick={() => setValue("serviceTime", time)}
                                     className={`p-3 rounded-xl border-2 text-xs font-bold uppercase tracking-wider transition-all ${selectedTime === time
                                         ? "bg-[#024653] border-[#024653] text-white"
                                         : "bg-white border-slate-50 text-[#024653]/60 hover:border-[#05D16E]"

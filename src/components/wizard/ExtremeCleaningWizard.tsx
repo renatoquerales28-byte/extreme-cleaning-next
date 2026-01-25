@@ -112,7 +112,7 @@ export default function ExtremeCleaningWizard() {
                 const newType = value.serviceType;
                 if (newType === "residential") {
                     methods.setValue("smallPortfolio", []);
-                    methods.setValue("commSqFt", "");
+                    methods.setValue("commSqFt", undefined);
                 } else if (newType === "commercial") {
                     methods.setValue("bedrooms", 1);
                     methods.setValue("bathrooms", 1);
@@ -122,7 +122,7 @@ export default function ExtremeCleaningWizard() {
                     methods.setValue("bedrooms", 1);
                     methods.setValue("bathrooms", 1);
                     methods.setValue("sqFt", 1000);
-                    methods.setValue("commSqFt", "");
+                    methods.setValue("commSqFt", undefined);
                 }
             }
         });

@@ -24,7 +24,7 @@ export default function FrequencyStep({ onNext }: FrequencyStepProps) {
     }, [selectedFreq, onNext, setAction]);
 
     const options = [
-        { id: "one_time", label: "Just Once", discount: null },
+        { id: "onetime", label: "Just Once", discount: null },
         { id: "weekly", label: "Weekly", discount: "20% OFF" },
         { id: "biweekly", label: "Bi-Weekly", discount: "15% OFF" },
         { id: "monthly", label: "Monthly", discount: "10% OFF" },
@@ -48,8 +48,8 @@ export default function FrequencyStep({ onNext }: FrequencyStepProps) {
                                 key={opt.id}
                                 onClick={() => setValue("frequency", opt.id as any)}
                                 className={`p-6 rounded-[2rem] border-2 transition-all flex items-center justify-between group ${selectedFreq === opt.id
-                                        ? "bg-[#024653] border-[#024653] shadow-lg scale-[1.02]"
-                                        : "bg-white border-slate-100 hover:border-[#05D16E]"
+                                    ? "bg-[#024653] border-[#024653] shadow-lg scale-[1.02]"
+                                    : "bg-white border-slate-100 hover:border-[#05D16E]"
                                     }`}
                             >
                                 <span className={`text-lg font-black tracking-tight uppercase ${selectedFreq === opt.id ? "text-white" : "text-[#024653]"

@@ -4,7 +4,7 @@ import { db } from "@/lib/db";
 import { leads, calendarSettings, blockedDates } from "@/lib/db/schema";
 import { eq, and, gte, lte, inArray } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
-import { addDays, format, startOfMonth, endOfMonth, getDay, parse, isSameDay } from "date-fns";
+import { addHours, format, startOfMonth, endOfMonth, getDay, parse, isSameDay } from "date-fns";
 
 export async function getCalendarSettings() {
     try {
@@ -108,8 +108,7 @@ export async function getAvailableSlots(date: Date) {
                 slots.push(timeString);
             }
             // Increment by 1 hour (customize duration here)
-            current = addDays(current, 0); // No op
-            current.setHours(current.getHours() + 1);
+            current = addHours(current, 1);
         }
 
         return { success: true, slots };

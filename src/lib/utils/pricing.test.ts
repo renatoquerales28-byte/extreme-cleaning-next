@@ -33,6 +33,8 @@ describe('Pricing Logic', () => {
                 cleaningType: 'regular',
                 frequency: 'weekly',
                 zipCode: '99201',
+                city: 'Spokane',
+                state: 'WA',
                 step: 4,
                 smallPortfolio: []
             };
@@ -49,6 +51,8 @@ describe('Pricing Logic', () => {
                 cleaningType: 'regular',
                 frequency: 'monthly',
                 zipCode: '99201',
+                city: 'Spokane',
+                state: 'WA',
                 step: 4,
                 smallPortfolio: []
             };

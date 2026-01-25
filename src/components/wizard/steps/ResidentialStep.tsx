@@ -36,17 +36,17 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
             <div className="w-full space-y-4 shrink-0">
 
                 {/* Room Counters */}
-                <div className="flex gap-4">
+                <div className="grid grid-cols-2 gap-3">
                     {/* Bedrooms */}
-                    <div className="flex-1 bg-white p-4 rounded-[2rem] border-2 border-slate-50 shadow-sm flex flex-col items-center justify-between gap-2 transition-all hover:shadow-xl group">
+                    <div className="bg-white p-3 rounded-[2rem] border-2 border-slate-50 shadow-sm flex flex-col items-center justify-between gap-2 transition-all hover:shadow-xl group">
                         <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#024653]/40 group-hover:text-[#024653] transition-colors">Bedrooms</span>
-                        <div className="flex items-center gap-4 w-full justify-between px-2">
+                        <div className="flex items-center gap-2 w-full justify-between px-1">
                             <button
                                 type="button"
                                 onClick={() => setValue("bedrooms", Math.max(1, bedrooms - 1))}
                                 className="w-8 h-8 flex items-center justify-center rounded-xl bg-[#F9F8F2] text-[#024653] hover:bg-[#024653] hover:text-white transition-all active:scale-90 shadow-sm font-black"
                             >-</button>
-                            <span className="text-3xl font-black text-[#024653]">{bedrooms}</span>
+                            <span className="text-2xl font-black text-[#024653]">{bedrooms}</span>
                             <button
                                 type="button"
                                 onClick={() => setValue("bedrooms", Math.min(10, bedrooms + 1))}
@@ -56,15 +56,15 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                     </div>
 
                     {/* Bathrooms */}
-                    <div className="flex-1 bg-white p-4 rounded-[2rem] border-2 border-slate-50 shadow-sm flex flex-col items-center justify-between gap-2 transition-all hover:shadow-xl group">
+                    <div className="bg-white p-3 rounded-[2rem] border-2 border-slate-50 shadow-sm flex flex-col items-center justify-between gap-2 transition-all hover:shadow-xl group">
                         <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#024653]/40 group-hover:text-[#024653] transition-colors">Bathrooms</span>
-                        <div className="flex items-center gap-4 w-full justify-between px-2">
+                        <div className="flex items-center gap-2 w-full justify-between px-1">
                             <button
                                 type="button"
                                 onClick={() => setValue("bathrooms", Math.max(1, bathrooms - 1))}
                                 className="w-8 h-8 flex items-center justify-center rounded-xl bg-[#F9F8F2] text-[#024653] hover:bg-[#024653] hover:text-white transition-all active:scale-90 shadow-sm font-black"
                             >-</button>
-                            <span className="text-3xl font-black text-[#024653]">{bathrooms}</span>
+                            <span className="text-2xl font-black text-[#024653]">{bathrooms}</span>
                             <button
                                 type="button"
                                 onClick={() => setValue("bathrooms", Math.min(10, bathrooms + 1))}

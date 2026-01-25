@@ -41,7 +41,7 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                         key={service.id}
                         type="button"
                         onClick={() => handleSelect(service.id)}
-                        className={`group p-4 bg-white rounded-[2rem] text-left relative overflow-hidden transition-all duration-500 border-2 ${selectedService === service.id
+                        className={`group p-4 bg-white rounded-[2rem] text-left relative overflow-hidden transition-all duration-500 border-2 flex flex-col justify-between h-full ${selectedService === service.id
                             ? "border-[#05D16E] shadow-2xl shadow-[#05D16E]/10 scale-[1.02] z-10"
                             : "border-slate-50 hover:border-[#024653]/10 hover:shadow-xl hover:-translate-y-1"
                             }`}

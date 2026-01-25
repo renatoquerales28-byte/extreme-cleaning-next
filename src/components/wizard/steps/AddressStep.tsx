@@ -133,16 +133,16 @@ export default function AddressStep({ onBack }: AddressStepProps) {
                 {/* Booking Summary Card */}
                 <div className="p-4 bg-[#F9F8F2] rounded-[2rem] border-2 border-[#024653]/5 relative overflow-hidden group">
                     <div className="flex items-center gap-4">
-                        <div className="p-3 bg-[#024653] rounded-2xl text-[#05D16E] shadow-xl shadow-[#024653]/10">
+                        <div className="hidden xs:block p-3 bg-[#024653] rounded-2xl text-[#05D16E] shadow-xl shadow-[#024653]/10 shrink-0">
                             <Calendar size={20} strokeWidth={3} />
                         </div>
-                        <div className="flex-1">
-                            <p className="text-[9px] font-black text-[#024653]/40 uppercase tracking-widest mb-0.5">Your Selected Plan</p>
-                            <div className="flex items-center justify-between">
-                                <h3 className="text-lg font-black text-[#024653] uppercase tracking-tight">{data.frequency} {data.cleaningType}</h3>
-                                <div className="text-right">
-                                    <span className="text-xl font-black text-[#024653]">${totalPrice}</span>
-                                    <span className="text-[9px] font-black text-[#024653]/30 ml-1 uppercase">Total</span>
+                        <div className="flex-1 min-w-0">
+                            <p className="text-[9px] font-black text-[#024653]/40 uppercase tracking-widest mb-0.5 truncate">Your Selected Plan</p>
+                            <div className="flex items-center justify-between gap-2">
+                                <h3 className="text-base md:text-lg font-black text-[#024653] uppercase tracking-tight truncate">{data.frequency} {data.cleaningType}</h3>
+                                <div className="text-right shrink-0">
+                                    <span className="text-lg md:text-xl font-black text-[#024653]">${totalPrice}</span>
+                                    <span className="text-[9px] font-black text-[#024653]/30 ml-1 uppercase hidden sm:inline">Total</span>
                                 </div>
                             </div>
                         </div>

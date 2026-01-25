@@ -25,10 +25,8 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
     ];
 
     return (
-        <div className="flex flex-col h-full w-full max-w-[800px] mx-auto py-2 antialiased overflow-hidden">
-
-
-            <div className="flex-1 flex flex-col justify-center w-full min-h-0">
+        <div className="flex flex-col h-full w-full max-w-[800px] mx-auto py-2 antialiased overflow-hidden justify-center">
+            <div className="flex flex-col justify-center w-full min-h-0 shrink">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
                     {services.map((service) => (
                         <button
@@ -54,7 +52,7 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                 </div>
             </div>
 
-            <div className="mt-4 pb-2 flex justify-center shrink-0">
+            <div className="mt-6 flex justify-center shrink-0">
                 <button
                     onClick={() => selectedService && onNext()}
                     disabled={!selectedService}

@@ -68,11 +68,9 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
     };
 
     return (
-        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased overflow-hidden">
-            {/* Header */}
+        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased overflow-hidden justify-center">
 
-
-            <div className="flex-1 flex flex-col justify-center w-full min-h-0 space-y-3">
+            <div className="flex flex-col justify-center w-full min-h-0 space-y-3 shrink">
                 {/* Main Estimate Display */}
                 <div className="relative p-5 bg-white rounded-xl border-2 border-slate-50 overflow-hidden group shrink-0">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
@@ -146,7 +144,7 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
             </div>
 
             {/* Final Action */}
-            <div className="mt-4 pb-2 shrink-0">
+            <div className="mt-4 shrink-0">
                 <button
                     onClick={handleNext}
                     disabled={isSubmitting}

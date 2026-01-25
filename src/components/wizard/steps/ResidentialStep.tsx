@@ -24,11 +24,9 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
     ];
 
     return (
-        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased overflow-hidden">
-            {/* Header */}
+        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased overflow-hidden justify-center">
 
-
-            <div className="flex-1 flex flex-col justify-center space-y-3 min-h-0 w-full">
+            <div className="flex flex-col justify-center space-y-3 min-h-0 w-full shrink">
                 {/* Room Counters */}
                 <div className="grid grid-cols-2 gap-3 shrink-0">
                     {/* Bedrooms */}
@@ -124,7 +122,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
             </div>
 
             {/* Footer Action */}
-            <div className="mt-4 pb-2 shrink-0">
+            <div className="mt-4 shrink-0">
                 <button
                     onClick={onNext}
                     className="w-full py-4 bg-[#024653] text-white rounded-xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-colors"

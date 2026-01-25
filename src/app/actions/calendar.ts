@@ -38,6 +38,35 @@ export async function updateCalendarSettings(data: any[]) {
     }
 }
 
+// Initialize default calendar settings if they don't exist
+export async function initializeDefaultSettings() {
+    try {
+        const existing = await db.select().from(calendarSettings);
+
+        if (existing.length === 0) {
+            // Default: Monday-Friday 9AM-5PM, Saturday 10AM-3PM, Sunday closed
+            const defaultSettings = [
+                { dayOfWeek: 0, isOpen: false, startTime: "09:00", endTime: "17:00" }, // Sunday - Closed
+                { dayOfWeek: 1, isOpen: true, startTime: "09:00", endTime: "17:00" },  // Monday
+                { dayOfWeek: 2, isOpen: true, startTime: "09:00", endTime: "17:00" },  // Tuesday
+                { dayOfWeek: 3, isOpen: true, startTime: "09:00", endTime: "17:00" },  // Wednesday
+                { dayOfWeek: 4, isOpen: true, startTime: "09:00", endTime: "17:00" },  // Thursday
+                { dayOfWeek: 5, isOpen: true, startTime: "09:00", endTime: "17:00" },  // Friday
+                { dayOfWeek: 6, isOpen: true, startTime: "10:00", endTime: "15:00" },  // Saturday
+            ];
+
+            await db.insert(calendarSettings).values(defaultSettings);
+            console.log("Default calendar settings initialized");
+            return { success: true, message: "Default settings created" };
+        }
+
+        return { success: true, message: "Settings already exist" };
+    } catch (error) {
+        console.error("Failed to initialize default settings", error);
+        return { success: false, error: "Failed to initialize settings" };
+    }
+}
+
 export async function blockDate(date: Date, reason: string = "Closed") {
     try {
         await db.insert(blockedDates).values({ date, reason });
@@ -83,7 +112,14 @@ export async function getAvailableSlots(date: Date) {
 
         // 2. Check working hours for this day of week
         const dayOfWeek = getDay(date);
-        const settings = await db.select().from(calendarSettings).where(eq(calendarSettings.dayOfWeek, dayOfWeek));
+        let settings = await db.select().from(calendarSettings).where(eq(calendarSettings.dayOfWeek, dayOfWeek));
+
+        // Initialize default settings if none exist
+        if (settings.length === 0) {
+            console.log("No calendar settings found, initializing defaults...");
+            await initializeDefaultSettings();
+            settings = await db.select().from(calendarSettings).where(eq(calendarSettings.dayOfWeek, dayOfWeek));
+        }
 
         if (settings.length === 0 || !settings[0].isOpen) {
             return { success: true, slots: [], reason: "Closed" };

@@ -26,7 +26,7 @@ export const calculateTotal = (data: WizardData) => {
         const base = calculateBasePrice(data.bedrooms, data.bathrooms, data.sqFt, data.cleaningType);
         total = base * (1 - discount);
     } else if (data.serviceType === "commercial") {
-        const sq = parseInt(data.commSqFt || "0");
+        const sq = data.commSqFt || 0;
         total = Math.max(150, Math.round(sq * 0.12));
     } else if (data.serviceType === "property_mgmt") {
         total = 120; // Default flat rate estimate for property turnovers

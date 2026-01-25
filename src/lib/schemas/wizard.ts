@@ -42,6 +42,7 @@ export const wizardSchema = z.object({
     address: z.string().min(5, "Full address required").optional(),
     unit: z.string().optional(),
     city: z.string().default("Spokane"),
+    state: z.string().default("WA"),
 
     // Logic helpers
     referralCode: z.string().optional(),

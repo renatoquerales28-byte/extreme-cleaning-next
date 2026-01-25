@@ -85,64 +85,64 @@ export default function AddressStep({ onBack }: AddressStepProps) {
     }
 
     return (
-        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased">
+        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased overflow-hidden">
             {/* Header */}
-            <div className="text-center space-y-1 mb-4 shrink-0">
+            <div className="text-center space-y-1 mb-2 shrink-0 pt-2">
                 <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-[0.85]">
                     Where should we <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#024653] via-[#0E6168] to-[#05D16E]">Sparkle?</span>
                 </h2>
                 <p className="text-[9px] text-[#024653]/40 font-black tracking-[0.3em] uppercase">Finalize your cleaning schedule</p>
             </div>
 
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full space-y-4 shrink-0">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex-1 flex flex-col justify-center min-h-0 w-full space-y-3">
                 {/* Address Form Section */}
-                <div className="space-y-3">
+                <div className="space-y-2">
                     <div className="space-y-1">
-                        <label className="text-[9px] font-black uppercase tracking-[0.2em] text-[#024653]/40 ml-2">Service Address</label>
+                        <label className="text-[8px] font-black uppercase tracking-[0.2em] text-[#024653]/40 ml-2">Service Address</label>
                         <div className="relative flex items-center">
-                            <MapPin size={16} className="absolute left-4 text-[#024653]/20" />
+                            <MapPin size={14} className="absolute left-3 text-[#024653]/20" />
                             <input
                                 {...register("address")}
                                 placeholder="123 Sparkling Way"
-                                className={`w-full pl-10 pr-4 py-3 bg-white border-2 rounded-[1.5rem] outline-none transition-all font-bold text-sm ${errors.address ? 'border-rose-400' : 'border-slate-50 focus:border-[#05D16E]'}`}
+                                className={`w-full pl-8 pr-4 py-2.5 bg-white border-2 rounded-xl outline-none transition-all font-bold text-xs ${errors.address ? 'border-rose-400' : 'border-slate-50 focus:border-[#05D16E]'}`}
                             />
                         </div>
-                        {errors.address && <p className="text-[9px] text-rose-500 font-bold ml-4 uppercase tracking-widest">{errors.address.message}</p>}
+                        {errors.address && <p className="text-[8px] text-rose-500 font-bold ml-4 uppercase tracking-widest">{errors.address.message}</p>}
                     </div>
 
-                    <div className="flex flex-col md:flex-row gap-4">
+                    <div className="flex flex-col md:flex-row gap-2">
                         <div className="flex-1 space-y-1">
-                            <label className="text-[9px] font-black uppercase tracking-[0.2em] text-[#024653]/40 ml-2">City</label>
+                            <label className="text-[8px] font-black uppercase tracking-[0.2em] text-[#024653]/40 ml-2">City</label>
                             <input
                                 {...register("city")}
                                 placeholder="Spokane"
-                                className={`w-full px-4 py-3 bg-white border-2 rounded-[1.5rem] outline-none transition-all font-bold text-sm ${errors.city ? 'border-rose-400' : 'border-slate-50 focus:border-[#05D16E]'}`}
+                                className={`w-full px-3 py-2.5 bg-white border-2 rounded-xl outline-none transition-all font-bold text-xs ${errors.city ? 'border-rose-400' : 'border-slate-50 focus:border-[#05D16E]'}`}
                             />
                         </div>
                         <div className="flex-1 space-y-1">
-                            <label className="text-[9px] font-black uppercase tracking-[0.2em] text-[#024653]/40 ml-2">State</label>
+                            <label className="text-[8px] font-black uppercase tracking-[0.2em] text-[#024653]/40 ml-2">State</label>
                             <input
                                 {...register("state")}
                                 placeholder="WA"
-                                className={`w-full px-4 py-3 bg-white border-2 rounded-[1.5rem] outline-none transition-all font-bold text-sm ${errors.state ? 'border-rose-400' : 'border-slate-50 focus:border-[#05D16E]'}`}
+                                className={`w-full px-3 py-2.5 bg-white border-2 rounded-xl outline-none transition-all font-bold text-xs ${errors.state ? 'border-rose-400' : 'border-slate-50 focus:border-[#05D16E]'}`}
                             />
                         </div>
                     </div>
                 </div>
 
                 {/* Booking Summary Card */}
-                <div className="p-4 bg-[#F9F8F2] rounded-[2rem] border-2 border-[#024653]/5 relative overflow-hidden group">
-                    <div className="flex items-center gap-4">
-                        <div className="hidden xs:block p-3 bg-[#024653] rounded-2xl text-[#05D16E] shrink-0">
-                            <Calendar size={20} strokeWidth={3} />
+                <div className="p-3 bg-[#F9F8F2] rounded-xl border-2 border-[#024653]/5 relative overflow-hidden group shrink-0">
+                    <div className="flex items-center gap-3">
+                        <div className="hidden xs:block p-2 bg-[#024653] rounded-lg text-[#05D16E] shrink-0">
+                            <Calendar size={16} strokeWidth={3} />
                         </div>
                         <div className="flex-1 min-w-0">
-                            <p className="text-[9px] font-black text-[#024653]/40 uppercase tracking-widest mb-0.5 truncate">Your Selected Plan</p>
+                            <p className="text-[8px] font-black text-[#024653]/40 uppercase tracking-widest mb-0.5 truncate">Your Selected Plan</p>
                             <div className="flex items-center justify-between gap-2">
-                                <h3 className="text-base md:text-lg font-black text-[#024653] uppercase tracking-tight truncate">{data.frequency} {data.cleaningType}</h3>
+                                <h3 className="text-sm md:text-base font-black text-[#024653] uppercase tracking-tight truncate">{data.frequency} {data.cleaningType}</h3>
                                 <div className="text-right shrink-0">
-                                    <span className="text-lg md:text-xl font-black text-[#024653]">${totalPrice}</span>
-                                    <span className="text-[9px] font-black text-[#024653]/30 ml-1 uppercase hidden sm:inline">Total</span>
+                                    <span className="text-base md:text-lg font-black text-[#024653]">${totalPrice}</span>
+                                    <span className="text-[8px] font-black text-[#024653]/30 ml-1 uppercase hidden sm:inline">Total</span>
                                 </div>
                             </div>
                         </div>
@@ -150,28 +150,30 @@ export default function AddressStep({ onBack }: AddressStepProps) {
                 </div>
 
                 {/* Final Trust Note */}
-                <div className="flex items-center justify-center gap-4 text-[#024653]/30 my-2">
+                <div className="flex items-center justify-center gap-4 text-[#024653]/30 my-1">
                     <div className="h-px flex-1 bg-slate-100" />
                     <div className="flex items-center gap-2">
-                        <Lock size={10} strokeWidth={3} />
-                        <span className="text-[8px] font-black uppercase tracking-[0.2em]">Secure Booking</span>
+                        <Lock size={8} strokeWidth={3} />
+                        <span className="text-[7px] font-black uppercase tracking-[0.2em]">Secure Booking</span>
                     </div>
                     <div className="h-px flex-1 bg-slate-100" />
                 </div>
+            </form>
 
+            <div className="mt-4 pb-2 shrink-0 space-y-2">
                 <button
-                    type="submit"
+                    onClick={handleSubmit(onSubmit)}
                     disabled={isSubmitting}
-                    className="btn-accent flex items-center justify-center gap-3 w-full py-4 text-sm rounded-[2rem] group disabled:opacity-50 bg-[#024653] text-white hover:bg-[#0E6168]"
+                    className="btn-accent flex items-center justify-center gap-3 w-full py-4 text-xs rounded-xl group disabled:opacity-50 bg-[#024653] text-white hover:bg-[#0E6168]"
                 >
                     <span className="text-[10px] font-black uppercase tracking-[0.4em]">{isSubmitting ? "Processing..." : "Confirm My Booking"}</span>
-                    {!isSubmitting && <CheckCircle size={20} strokeWidth={3} className="transition-transform group-hover:scale-110" />}
+                    {!isSubmitting && <CheckCircle size={16} strokeWidth={3} className="transition-transform group-hover:scale-110" />}
                 </button>
 
-                <p className="text-[8px] text-center text-[#024653]/40 font-black uppercase tracking-[0.2em] max-w-sm mx-auto leading-relaxed">
-                    By clicking confirm, you agree to our <Link href="#" className="text-[#05D16E] hover:underline">Terms of Service</Link> & <Link href="#" className="text-[#05D16E] hover:underline">Privacy Policy</Link>.
+                <p className="text-[7px] text-center text-[#024653]/40 font-black uppercase tracking-[0.2em] max-w-sm mx-auto leading-relaxed">
+                    By confirming, you agree to our <Link href="#" className="text-[#05D16E] hover:underline">Terms</Link> & <Link href="#" className="text-[#05D16E] hover:underline">Privacy</Link>.
                 </p>
-            </form>
+            </div>
         </div>
     );
 }

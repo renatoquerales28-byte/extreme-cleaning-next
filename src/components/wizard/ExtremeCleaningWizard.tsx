@@ -8,7 +8,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Star, Shield } from "lucide-react";
 import { calculateTotal, FREQUENCIES } from "@/lib/utils/pricing";
+import { Inter } from "next/font/google";
 
+const inter = Inter({ subsets: ["latin"] });
 import ZipStep from "./steps/ZipStep";
 import ServiceStep from "./steps/ServiceStep";
 import ResidentialStep from "./steps/ResidentialStep";

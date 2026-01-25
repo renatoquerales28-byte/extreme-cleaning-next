@@ -7,7 +7,7 @@ import { calculateTotal } from "@/lib/utils/pricing";
 import { Check, MapPin, Building2, Home, ArrowRight, Shield, Calendar, Lock, CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { createLead } from "@/app/actions/admin";
+import { createLead, updateLead } from "@/app/actions/admin";
 
 interface AddressStepProps {
     onBack: () => void;
@@ -24,10 +24,42 @@ export default function AddressStep({ onBack }: AddressStepProps) {
     const onSubmit = async (formData: WizardData) => {
         setIsSubmitting(true);
         try {
-            await createLead({ ...formData, totalPrice });
+            const leadId = formData.leadId;
+
+            if (leadId) {
+                // Update existing lead with address and mark as complete
+                console.log("Updating existing lead:", leadId);
+                const result = await updateLead(leadId, {
+                    ...formData,
+                    totalPrice,
+                    status: "new" // Mark as complete now that we have address
+                });
+
+                if (!result.success) {
+                    throw new Error(result.error || "Failed to update lead");
+                }
+
+                console.log("Lead updated successfully");
+            } else {
+                // Fallback: create new lead if somehow we don't have a leadId
+                console.log("No leadId found, creating new lead");
+                const result = await createLead({
+                    ...formData,
+                    totalPrice,
+                    status: "new"
+                });
+
+                if (!result.success) {
+                    throw new Error(result.error || "Failed to create lead");
+                }
+
+                console.log("Lead created successfully");
+            }
+
             setSubmitted(true);
         } catch (error) {
-            alert("Something went wrong. Please try again.");
+            console.error("Error submitting address:", error);
+            alert("Something went wrong. Please try again or contact support at (509) 555-0123.");
         } finally {
             setIsSubmitting(false);
         }

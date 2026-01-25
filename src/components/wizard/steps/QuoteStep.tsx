@@ -5,6 +5,7 @@ import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { calculateTotal, FREQUENCIES } from "@/lib/utils/pricing";
 import { ShieldCheck, Star, Mail, Phone, User, ArrowRight, Calendar, Sparkles } from "lucide-react";
+import { createLead } from "@/app/actions/admin";
 
 interface QuoteStepProps {
     onBack: () => void;
@@ -14,7 +15,7 @@ interface QuoteStepProps {
 }
 
 export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepProps) {
-    const { register, watch, trigger, formState: { errors } } = useFormContext<WizardData>();
+    const { register, watch, trigger, setValue, formState: { errors } } = useFormContext<WizardData>();
     const data = watch();
     const totalPrice = calculateTotal(data);
     const selectedFreq = FREQUENCIES.find(f => f.id === data.frequency);
@@ -23,14 +24,47 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
 
     const handleNext = async () => {
         setIsSubmitting(true);
-        // Validate contact fields before proceeding
-        const fieldsToValidate: (keyof WizardData)[] = ["firstName", "lastName", "email", "phone"];
-        const isValid = await trigger(fieldsToValidate);
 
-        if (isValid || customerName) {
+        try {
+            // Validate contact fields before proceeding
+            const fieldsToValidate: (keyof WizardData)[] = ["firstName", "lastName", "email", "phone"];
+            const isValid = await trigger(fieldsToValidate);
+
+            if (isValid || customerName) {
+                // Create lead with "incomplete" status to capture contact info
+                // even if user abandons before completing address
+                const existingLeadId = data.leadId;
+
+                if (!existingLeadId && !customerName) {
+                    // Only create new lead if we don't have one already and it's not a returning customer
+                    const leadData = {
+                        ...data,
+                        totalPrice,
+                        status: "incomplete" // Mark as incomplete until address is provided
+                    };
+
+                    const result = await createLead(leadData);
+
+                    if (result.success && result.leadId) {
+                        // Save leadId to form for use in AddressStep
+                        setValue("leadId", result.leadId);
+                        console.log("Lead created with ID:", result.leadId);
+                    } else {
+                        console.error("Failed to create lead:", result.error);
+                        // Continue anyway - we'll try again in AddressStep
+                    }
+                }
+
+                onNext();
+            }
+        } catch (error) {
+            console.error("Error in handleNext:", error);
+            // Continue to next step even if lead creation fails
+            // AddressStep will handle it as fallback
             onNext();
+        } finally {
+            setIsSubmitting(false);
         }
-        setIsSubmitting(false);
     };
 
     return (

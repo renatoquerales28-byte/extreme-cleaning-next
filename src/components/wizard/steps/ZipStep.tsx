@@ -17,10 +17,10 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     const isValidZip = zipCode?.length === 5 && /^\d+$/.test(zipCode);
 
     return (
-        <div className="h-full flex flex-col relative px-8">
-            {/* Bloque 1: Área de Contenido (Scrollable) */}
-            <div className="flex-1 overflow-y-auto px-1 pt-8">
-                <div className="space-y-10 py-4">
+        <div className="h-full flex flex-col">
+            {/* 🥓 Relleno: Área de Scroll */}
+            <div className="flex-1 overflow-y-auto px-6 py-4">
+                <div className="space-y-10">
                     <div className="w-full relative group">
                         <div className="relative flex items-center">
                             <MapPin className="absolute left-6 text-[#024653] pointer-events-none" size={24} strokeWidth={2.5} />
@@ -35,30 +35,28 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                         </div>
                         {errors.zipCode && <p className="absolute -bottom-8 left-0 right-0 text-center text-rose-500 font-bold text-xs uppercase tracking-wider">{errors.zipCode.message}</p>}
                     </div>
+
+                    {/* Botón Secundario (Existing Customer) */}
+                    <button
+                        onClick={onReturning}
+                        className="w-full flex items-center justify-between p-4 bg-white border-2 border-slate-50 hover:border-[#05D16E] rounded-2xl group transition-all"
+                    >
+                        <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 bg-[#F9F8F2] rounded-xl flex items-center justify-center text-[#024653] border border-[#024653]/5">
+                                <User size={20} strokeWidth={2.5} />
+                            </div>
+                            <div className="text-left">
+                                <span className="block text-xs font-black uppercase tracking-wider text-[#024653]">Existing Customer?</span>
+                                <span className="block text-[10px] text-[#024653]/50 font-bold uppercase tracking-widest">Log in here</span>
+                            </div>
+                        </div>
+                        <ArrowRight size={16} className="text-[#05D16E] group-hover:translate-x-1 transition-transform" strokeWidth={2.5} />
+                    </button>
                 </div>
             </div>
 
-            {/* Bloque 2: Botón Secundario (Existing Customer) */}
-            <div className="shrink-0 w-full pt-6">
-                <button
-                    onClick={onReturning}
-                    className="w-full flex items-center justify-between p-4 bg-white border-2 border-slate-50 hover:border-[#05D16E] rounded-2xl group transition-all"
-                >
-                    <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 bg-[#F9F8F2] rounded-xl flex items-center justify-center text-[#024653] border border-[#024653]/5">
-                            <User size={20} strokeWidth={2.5} />
-                        </div>
-                        <div className="text-left">
-                            <span className="block text-xs font-black uppercase tracking-wider text-[#024653]">Existing Customer?</span>
-                            <span className="block text-[10px] text-[#024653]/50 font-bold uppercase tracking-widest">Log in here</span>
-                        </div>
-                    </div>
-                    <ArrowRight size={16} className="text-[#05D16E] group-hover:translate-x-1 transition-transform" strokeWidth={2.5} />
-                </button>
-            </div>
-
-            {/* Bloque 3: Botón Principal Fijo */}
-            <div className="shrink-0 pt-6 pb-8 w-full bg-white">
+            {/* 🍞 Capa Inferior: Botón Sticky */}
+            <div className="shrink-0 w-full p-6 bg-white border-t border-gray-100 z-10">
                 <button
                     onClick={onNext}
                     disabled={!isValidZip}

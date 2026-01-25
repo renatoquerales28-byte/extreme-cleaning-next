@@ -25,10 +25,10 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
     ];
 
     return (
-        <div className="h-full flex flex-col relative px-8">
-            {/* Bloque 1: Área de Contenido (Scrollable) */}
-            <div className="flex-1 overflow-y-auto px-1 pt-8">
-                <div className="space-y-6 py-4">
+        <div className="h-full flex flex-col">
+            {/* 🥓 Relleno: Área de Scroll */}
+            <div className="flex-1 overflow-y-auto px-6 py-4">
+                <div className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
                         {services.map((service) => (
                             <button
@@ -55,8 +55,8 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                 </div>
             </div>
 
-            {/* Bloque 2: Botón Principal Fijo */}
-            <div className="shrink-0 pt-6 pb-8 w-full bg-white">
+            {/* 🍞 Capa Inferior: Botón Sticky */}
+            <div className="shrink-0 w-full p-6 bg-white border-t border-gray-100 z-10">
                 <button
                     onClick={() => selectedService && onNext()}
                     disabled={!selectedService}

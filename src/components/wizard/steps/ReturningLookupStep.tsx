@@ -25,10 +25,10 @@ export default function ReturningLookupStep({ onNext, onBack, setCustomerName }:
     };
 
     return (
-        <div className="h-full flex flex-col relative px-8">
-            {/* Bloque 1: Área de Contenido (Scrollable) */}
-            <div className="flex-1 overflow-y-auto px-1 pt-8">
-                <div className="flex flex-col items-center w-full space-y-8 py-4">
+        <div className="h-full flex flex-col">
+            {/* 🥓 Relleno: Área de Scroll */}
+            <div className="flex-1 overflow-y-auto px-6 py-4">
+                <div className="flex flex-col items-center w-full space-y-8">
                     <div className="w-16 h-16 bg-[#05D16E]/10 text-[#024653] border-2 border-[#05D16E]/20 rounded-full flex items-center justify-center">
                         <User size={32} strokeWidth={2.5} />
                     </div>
@@ -55,8 +55,8 @@ export default function ReturningLookupStep({ onNext, onBack, setCustomerName }:
                 </div>
             </div>
 
-            {/* Bloque 2: Botones Fijos */}
-            <div className="shrink-0 pt-6 pb-8 w-full bg-white flex flex-col items-center justify-center">
+            {/* 🍞 Capa Inferior: Botón Sticky */}
+            <div className="shrink-0 w-full p-6 bg-white border-t border-gray-100 z-10 flex flex-col items-center justify-center">
                 <button onClick={onBack} className="w-full text-[10px] font-black uppercase tracking-widest text-[#024653]/40 hover:text-[#024653] transition-colors py-2 mb-4">
                     I&apos;m a new customer
                 </button>

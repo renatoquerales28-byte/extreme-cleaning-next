@@ -247,7 +247,7 @@ export default function ExtremeCleaningWizard() {
                 </div>
 
                 {/* Right Panel */}
-                <div className="flex-1 w-full lg:w-[60%] bg-[#F9F8F2] relative flex flex-col h-full overflow-hidden">
+                <div className="flex-1 w-full lg:w-[60%] h-screen bg-[#F9F8F2] relative flex flex-col overflow-hidden">
                     <a href="/" className="absolute top-6 right-6 z-50 p-3 rounded-full bg-white hover:bg-[#024653] hover:text-white transition-colors border-2 border-slate-100" title="Exit">
                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                     </a>

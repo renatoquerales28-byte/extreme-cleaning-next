@@ -20,8 +20,9 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
     };
 
     return (
-        <div className="flex flex-col h-full w-full max-w-xl mx-auto antialiased">
-            <div className="flex-1 overflow-y-auto pr-2 -mr-2">
+        <div className="h-full flex flex-col relative">
+            {/* Bloque 1: Área de Contenido (Scrollable) */}
+            <div className="flex-1 overflow-y-auto px-1">
                 <div className="min-h-full flex flex-col justify-center space-y-4 w-full py-4">
                     <div className="space-y-3 w-full">
                         {FREQUENCIES.map((freq) => (
@@ -59,10 +60,11 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
                 </div>
             </div>
 
-            <div className="mt-auto pt-10 w-full flex justify-center">
+            {/* Bloque 2: Botón Principal Fijo */}
+            <div className="shrink-0 pt-6 pb-8 w-full bg-white">
                 <button
                     onClick={onNext}
-                    className="w-full max-w-md py-6 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all"
+                    className="w-full py-6 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all"
                 >
                     <span className="text-xs font-black uppercase tracking-[0.25em]">View Your Quote</span>
                     <ArrowRight size={18} strokeWidth={2.5} />

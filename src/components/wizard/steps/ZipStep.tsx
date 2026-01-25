@@ -17,9 +17,10 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     const isValidZip = zipCode?.length === 5 && /^\d+$/.test(zipCode);
 
     return (
-        <div className="flex flex-col h-full w-full max-w-lg mx-auto antialiased">
-            <div className="flex-1 overflow-y-auto pr-2 -mr-2">
-                <div className="min-h-full flex flex-col justify-center w-full space-y-10 py-4">
+        <div className="h-full flex flex-col relative">
+            {/* Bloque 1: Área de Contenido (Scrollable) */}
+            <div className="flex-1 overflow-y-auto px-1">
+                <div className="flex flex-col justify-center min-h-full space-y-10 py-4">
                     <div className="w-full relative group">
                         <div className="relative flex items-center">
                             <MapPin className="absolute left-6 text-[#024653] pointer-events-none" size={24} strokeWidth={2.5} />
@@ -37,8 +38,8 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                 </div>
             </div>
 
-            {/* Existing Clients Link */}
-            <div className="shrink-0 w-full pt-8">
+            {/* Bloque 2: Botón Secundario (Existing Customer) */}
+            <div className="shrink-0 w-full pt-6">
                 <button
                     onClick={onReturning}
                     className="w-full flex items-center justify-between p-4 bg-white border-2 border-slate-50 hover:border-[#05D16E] rounded-2xl group transition-all"
@@ -56,12 +57,12 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                 </button>
             </div>
 
-            {/* Main Action Button */}
-            <div className="mt-auto pt-10 w-full flex justify-center">
+            {/* Bloque 3: Botón Principal Fijo */}
+            <div className="shrink-0 pt-6 pb-8 w-full bg-white">
                 <button
                     onClick={onNext}
                     disabled={!isValidZip}
-                    className="w-full max-w-md py-6 bg-[#024653] text-white rounded-2xl text-xs font-black uppercase tracking-[0.25em] hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3"
+                    className="w-full py-6 bg-[#024653] text-white rounded-2xl text-xs font-black uppercase tracking-[0.25em] hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3"
                 >
                     Check Availability <ArrowRight size={18} strokeWidth={2.5} />
                 </button>

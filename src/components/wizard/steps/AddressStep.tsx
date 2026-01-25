@@ -4,8 +4,9 @@ import React, { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { calculateTotal } from "@/lib/utils/pricing";
-import { Check, MapPin, Building2, Home, ArrowRight, Shield } from "lucide-react";
+import { Check, MapPin, Building2, Home, ArrowRight, Shield, Calendar, Lock, CheckCircle } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { createLead } from "@/app/actions/admin";
 
 interface AddressStepProps {
@@ -13,17 +14,17 @@ interface AddressStepProps {
 }
 
 export default function AddressStep({ onBack }: AddressStepProps) {
-    const { register, watch, formState: { errors } } = useFormContext<WizardData>();
+    const { register, watch, handleSubmit, formState: { errors } } = useFormContext<WizardData>();
     const data = watch();
     const totalPrice = calculateTotal(data);
     const [submitted, setSubmitted] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const router = useRouter();
 
-    const handleSubmit = async () => {
+    const onSubmit = async (formData: WizardData) => {
         setIsSubmitting(true);
         try {
-            await createLead({ ...data, totalPrice });
+            await createLead({ ...formData, totalPrice });
             setSubmitted(true);
         } catch (error) {
             alert("Something went wrong. Please try again.");

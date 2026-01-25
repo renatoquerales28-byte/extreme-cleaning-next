@@ -17,63 +17,60 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     const isValidZip = zipCode?.length === 5 && /^\d+$/.test(zipCode);
 
     return (
-        <div className="flex flex-col items-center justify-center gap-6 md:gap-8 text-center py-4 antialiased h-full">
-            <div className="space-y-2">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-[0.85] py-1">
-                    Where is the <br />
-                    <span className="text-[#05D16E]">Sparkle</span> Needed?
-                </h2>
-                <p className="text-xs text-[#024653]/60 font-medium tracking-tight">
-                    Enter your zip code to check availability in the Spokane area.
-                </p>
-            </div>
-
-            <div className="w-full max-w-sm relative group">
-                <div className="relative flex items-center">
-                    <MapPin className="absolute left-6 text-[#024653]/40 group-focus-within:text-[#05D16E] transition-colors" size={20} strokeWidth={2.5} />
-                    <input
-                        {...register("zipCode")}
-                        type="text"
-                        placeholder="99201"
-                        autoFocus={true}
-                        className="w-full pl-12 md:pl-14 pr-6 py-4 md:py-5 bg-white border-2 border-slate-100 rounded-[2rem] text-xl md:text-2xl font-black tracking-[0.2em] focus:border-[#05D16E] focus:ring-0 transition-all outline-none text-[#024653]"
-                        maxLength={5}
-                    />
+    return (
+        <div className="flex flex-col items-center justify-center h-full w-full max-w-lg mx-auto py-6 antialiased">
+            <div className="flex-1 flex flex-col justify-center w-full space-y-10">
+                <div className="space-y-4 text-center">
+                    <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-[#024653] leading-[0.9]">
+                        Where is the <br /><span className="text-[#05D16E]">Sparkle</span> Needed?
+                    </h2>
+                    <p className="text-sm text-[#024653]/60 font-medium max-w-xs mx-auto">
+                        Enter your zip code to check availability in the Spokane area.
+                    </p>
                 </div>
-                {errors.zipCode && <p className="absolute -bottom-6 left-1/2 -translate-x-1/2 w-full text-rose-500 font-black text-[10px] uppercase tracking-wider">{errors.zipCode.message}</p>}
-            </div>
 
-            <div className="w-full max-w-sm mt-2">
+                <div className="w-full relative group">
+                    <div className="relative flex items-center">
+                        <MapPin className="absolute left-6 text-[#024653] pointer-events-none" size={24} strokeWidth={2.5} />
+                        <input
+                            {...register("zipCode")}
+                            type="text"
+                            placeholder="99201"
+                            autoFocus={true}
+                            className="w-full pl-16 pr-6 py-6 bg-white border-2 border-slate-200 focus:border-[#024653] text-[#024653] rounded-2xl text-3xl font-black tracking-widest outline-none transition-colors placeholder:text-slate-300 text-center"
+                            maxLength={5}
+                        />
+                    </div>
+                    {errors.zipCode && <p className="absolute -bottom-8 left-0 right-0 text-center text-rose-500 font-bold text-xs uppercase tracking-wider">{errors.zipCode.message}</p>}
+                </div>
+
                 <button
                     onClick={onNext}
                     disabled={!isValidZip}
-                    className="btn-accent w-full disabled:opacity-20 disabled:grayscale disabled:scale-100 flex items-center justify-center gap-4 py-4 px-8 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#0E6168] transition-all bg-[#024653] text-white rounded-3xl"
+                    className="w-full py-5 bg-[#024653] text-white rounded-2xl text-xs font-black uppercase tracking-[0.25em] hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3"
                 >
-                    Check Availability <ArrowRight size={18} strokeWidth={3} />
+                    Check Availability <ArrowRight size={18} strokeWidth={2.5} />
                 </button>
             </div>
 
-            {/* Existing Clients Section */}
-            <div className="pt-6 border-t border-[#024653]/10 w-full max-w-sm">
-                <p className="text-[9px] font-black uppercase tracking-[0.2em] text-[#024653]/30 mb-3">Already an ECS Client?</p>
-                <div
+            {/* Existing Clients Link */}
+            <div className="shrink-0 w-full pt-8 border-t border-[#024653]/10">
+                <button
                     onClick={onReturning}
-                    className="flex items-center justify-between p-4 bg-white rounded-3xl border-2 border-slate-100 hover:border-[#05D16E] transition-all group cursor-pointer"
+                    className="w-full flex items-center justify-between p-4 bg-white border-2 border-slate-100 hover:border-[#05D16E] rounded-2xl group transition-all"
                 >
-                    <div className="flex items-center gap-3">
-                        <div className="p-2 bg-[#F9F8F2] rounded-2xl shadow-sm group-hover:bg-[#05D16E]/10 transition-colors"><User size={16} className="text-[#024653]" strokeWidth={3} /></div>
+                    <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 bg-[#F9F8F2] rounded-xl flex items-center justify-center text-[#024653] border border-[#024653]/5">
+                            <User size={20} strokeWidth={2.5} />
+                        </div>
                         <div className="text-left">
-                            <p className="text-xs font-black text-[#024653] uppercase tracking-tight">Customer Login</p>
-                            <p className="text-[9px] text-[#024653]/40 font-bold">Manage your cleanings</p>
+                            <span className="block text-xs font-black uppercase tracking-wider text-[#024653]">Existing Customer?</span>
+                            <span className="block text-[10px] text-[#024653]/50 font-bold uppercase tracking-widest">Log in here</span>
                         </div>
                     </div>
-                    <ArrowRight size={16} className="text-[#024653]/20 group-hover:text-[#05D16E] transition-colors" />
-                </div>
+                    <ArrowRight size={16} className="text-[#05D16E] group-hover:translate-x-1 transition-transform" strokeWidth={2.5} />
+                </button>
             </div>
-
-            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#024653]/20">
-                Area: Spokane, WA
-            </p>
         </div>
     );
 }

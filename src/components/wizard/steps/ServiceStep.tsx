@@ -25,46 +25,50 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
     ];
 
     return (
-        <div className="flex flex-col h-full justify-center gap-4 w-full py-2 antialiased max-w-lg mx-auto">
-            <div className="text-center space-y-1 shrink-0">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-[0.85] py-1">
+        <div className="flex flex-col h-full w-full max-w-[800px] mx-auto py-6 antialiased">
+            <div className="text-center space-y-4 mb-10 shrink-0">
+                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-none">
                     Choose Your <span className="text-[#05D16E]">Service</span>
                 </h2>
-                <p className="text-xs text-[#024653]/60 font-medium tracking-tight">
+                <p className="text-sm text-[#024653]/60 font-medium">
                     Select the type of space we&apos;ll be transforming today.
                 </p>
             </div>
 
-            <div className="grid md:grid-cols-3 gap-3 w-full shrink-0">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
                 {services.map((service) => (
                     <button
                         key={service.id}
                         type="button"
                         onClick={() => handleSelect(service.id)}
-                        className={`group p-4 bg-white rounded-[2rem] text-left relative overflow-hidden transition-all duration-300 border-2 flex flex-col justify-between h-full ${selectedService === service.id
-                            ? "border-[#05D16E] bg-[#05D16E]/5"
-                            : "border-slate-50 hover:border-[#024653]/20"
+                        className={`group p-6 rounded-2xl text-left relative transition-all duration-200 border-2 flex flex-col items-start gap-4 ${selectedService === service.id
+                            ? "bg-[#024653] border-[#024653] text-white"
+                            : "bg-white border-slate-200 hover:border-[#024653]/30 text-[#024653]"
                             }`}
                     >
-                        <div className={`p-3 rounded-2xl ${selectedService === service.id ? "bg-[#05D16E] text-[#024653]" : "bg-[#F9F8F2] text-[#024653]/60"} w-fit mb-4 transition-all duration-500 group-hover:bg-[#024653] group-hover:text-white`}>
-                            <service.icon size={20} strokeWidth={2.5} />
+                        <div className={`p-4 rounded-xl ${selectedService === service.id ? "bg-white/10 text-[#05D16E]" : "bg-[#F9F8F2] text-[#024653]"}`}>
+                            <service.icon size={28} strokeWidth={2} />
                         </div>
-                        <h3 className="text-lg md:text-xl font-black tracking-tight mb-1 leading-tight text-[#024653] uppercase">{service.label}</h3>
-                        <p className="text-[9px] md:text-[10px] text-[#024653]/40 font-bold leading-relaxed tracking-widest uppercase">{service.desc}</p>
+                        <div>
+                            <h3 className="text-lg font-black tracking-tight uppercase mb-2">{service.label}</h3>
+                            <p className={`text-xs font-medium leading-relaxed ${selectedService === service.id ? "text-white/60" : "text-[#024653]/60"}`}>
+                                {service.desc}
+                            </p>
+                        </div>
                     </button>
                 ))}
             </div>
 
-            <div className="mt-2 shrink-0">
+            <div className="mt-8 flex justify-center">
                 <button
                     onClick={() => selectedService && onNext()}
                     disabled={!selectedService}
-                    className={`w-full py-4 rounded-3xl font-black uppercase tracking-[0.2em] text-[10px] flex items-center justify-center gap-3 transition-all duration-500 ${selectedService
-                        ? "bg-[#024653] text-white hover:bg-[#0E6168]"
+                    className={`w-full md:w-auto px-12 py-5 rounded-2xl font-black uppercase tracking-[0.25em] text-xs flex items-center justify-center gap-3 transition-all ${selectedService
+                        ? "bg-[#05D16E] text-[#024653] hover:bg-[#04b861]"
                         : "bg-slate-100 text-[#024653]/20 cursor-not-allowed"
                         }`}
                 >
-                    Confirm & Continue <ArrowRight size={16} strokeWidth={3} />
+                    Continue <ArrowRight size={18} strokeWidth={2.5} />
                 </button>
             </div>
         </div>

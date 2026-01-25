@@ -229,25 +229,28 @@ export default function ExtremeCleaningWizard() {
                 </div>
 
                 {/* Right Panel */}
-                <div className="flex-1 w-full lg:w-[60%] bg-[#F9F8F2] relative flex flex-col h-full overflow-y-auto lg:overflow-hidden">
-                    <a href="/" className="absolute top-6 right-6 z-50 p-2.5 rounded-2xl bg-white hover:bg-[#024653] hover:text-white transition-all border-2 border-slate-100" title="Exit">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+                <div className="flex-1 w-full lg:w-[60%] bg-[#F9F8F2] relative flex flex-col h-full overflow-hidden">
+                    <a href="/" className="absolute top-6 right-6 z-50 p-3 rounded-full bg-white hover:bg-[#024653] hover:text-white transition-colors border-2 border-slate-100" title="Exit">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
                     </a>
 
-                    <div className="sticky top-0 z-20 w-full px-6 py-6 md:px-10 grid grid-cols-3 items-center bg-[#F9F8F2]">
+                    {/* Header with Progress */}
+                    <div className="shrink-0 w-full px-6 py-6 md:px-12 grid grid-cols-[1fr_auto_1fr] items-center bg-[#F9F8F2] z-40">
                         <div className="flex justify-start">
                             {step !== 0 && step !== "returning_lookup" && (
-                                <button onClick={prevStep} className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-[#024653]/40 hover:text-[#05D16E] transition-all group">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform"><path d="m15 18-6-6 6-6" /></svg> Back
+                                <button onClick={prevStep} className="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-[#024653]/60 hover:text-[#024653] transition-colors group py-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform"><path d="m15 18-6-6 6-6" /></svg> Back
                                 </button>
                             )}
                         </div>
-                        <div className="flex flex-col items-center gap-2 w-full max-w-[200px] mx-auto">
-                            <span className="text-[9px] font-black uppercase tracking-[0.3em] text-[#024653]/20">Step {typeof step === 'number' ? Math.min(step + 1, 7) : 1} / 7</span>
-                            <div className="w-full h-1.5 bg-[#024653]/5 rounded-full overflow-hidden p-[1px]">
-                                <motion.div className="h-full bg-[#05D16E] rounded-full" initial={{ width: 0 }} animate={{ width: typeof step === 'number' ? `${((Math.max(step, 0) + 1) / 7) * 100}%` : "14%" }} transition={{ duration: 0.8, ease: "circOut" }} />
+
+                        <div className="flex flex-col items-center gap-3 w-32 md:w-48">
+                            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#024653]/30">Step {typeof step === 'number' ? Math.min(step + 1, 7) : 1} of 7</span>
+                            <div className="w-full h-1 bg-[#024653]/10">
+                                <motion.div className="h-full bg-[#05D16E]" initial={{ width: 0 }} animate={{ width: typeof step === 'number' ? `${((Math.max(step, 0) + 1) / 7) * 100}%` : "14%" }} transition={{ duration: 0.5, ease: "easeInOut" }} />
                             </div>
                         </div>
+
                         <div className="flex justify-end"></div>
                     </div>
 

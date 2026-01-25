@@ -44,6 +44,10 @@ export const wizardSchema = z.object({
     city: z.string().default("Spokane"),
     state: z.string().default("WA"),
 
+    // Date & Time Selection
+    serviceDate: z.string().optional(), // ISO string
+    serviceTime: z.string().optional(), // HH:mm format
+
     // Logic helpers
     referralCode: z.string().optional(),
     promoCode: z.string().optional(),

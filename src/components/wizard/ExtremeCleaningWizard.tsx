@@ -283,7 +283,7 @@ export default function ExtremeCleaningWizard() {
                                     animate={{ opacity: 1, scale: 1, y: 0 }}
                                     exit={{ opacity: 0, scale: 1.02, y: -10 }}
                                     transition={{ duration: 0.3 }}
-                                    className="w-full h-full flex flex-col p-8"
+                                    className="w-full h-full flex flex-col"
                                 >
                                     {renderStep()}
                                 </motion.div>

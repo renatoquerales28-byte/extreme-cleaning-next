@@ -24,9 +24,9 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
     ];
 
     return (
-        <div className="h-full flex flex-col relative">
+        <div className="h-full flex flex-col relative px-8">
             {/* Bloque 1: Área de Contenido (Scrollable) */}
-            <div className="flex-1 overflow-y-auto px-1">
+            <div className="flex-1 overflow-y-auto px-1 pt-8">
                 <div className="space-y-4 w-full py-4">
                     {/* Room Counters */}
                     <div className="grid grid-cols-2 gap-3 shrink-0">

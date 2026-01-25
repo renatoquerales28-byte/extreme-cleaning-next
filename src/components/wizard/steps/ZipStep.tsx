@@ -17,9 +17,9 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     const isValidZip = zipCode?.length === 5 && /^\d+$/.test(zipCode);
 
     return (
-        <div className="h-full flex flex-col relative">
+        <div className="h-full flex flex-col relative px-8">
             {/* Bloque 1: Área de Contenido (Scrollable) */}
-            <div className="flex-1 overflow-y-auto px-1">
+            <div className="flex-1 overflow-y-auto px-1 pt-8">
                 <div className="space-y-10 py-4">
                     <div className="w-full relative group">
                         <div className="relative flex items-center">

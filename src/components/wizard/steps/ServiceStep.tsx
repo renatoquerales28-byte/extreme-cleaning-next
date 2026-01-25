@@ -26,29 +26,31 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
 
     return (
         <div className="flex flex-col h-full w-full max-w-2xl mx-auto py-2 antialiased">
-            <div className="flex-1 flex flex-col justify-center w-full space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
-                    {services.map((service) => (
-                        <button
-                            key={service.id}
-                            type="button"
-                            onClick={() => handleSelect(service.id)}
-                            className={`group p-4 rounded-xl text-left relative transition-all duration-300 border-[3px] flex flex-col items-start gap-3 ${selectedService === service.id
-                                ? "bg-[#024653] border-[#10f081] text-white shadow-xl scale-[1.02] z-10"
-                                : "bg-white border-slate-100 hover:border-[#024653]/10 text-[#024653]"
-                                }`}
-                        >
-                            <div className={`p-3 rounded-lg transition-colors ${selectedService === service.id ? "bg-[#10f081] text-[#024653]" : "bg-[#F9F8F2] text-[#024653]"}`}>
-                                <service.icon size={24} strokeWidth={2.5} />
-                            </div>
-                            <div>
-                                <h3 className="text-base font-black tracking-tight uppercase mb-1">{service.label}</h3>
-                                <p className={`text-[10px] font-medium leading-relaxed ${selectedService === service.id ? "text-white/60" : "text-[#024653]/60"}`}>
-                                    {service.desc}
-                                </p>
-                            </div>
-                        </button>
-                    ))}
+            <div className="flex-1 overflow-y-auto pr-2 -mr-2">
+                <div className="min-h-full flex flex-col justify-center w-full space-y-6 py-4">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
+                        {services.map((service) => (
+                            <button
+                                key={service.id}
+                                type="button"
+                                onClick={() => handleSelect(service.id)}
+                                className={`group p-4 rounded-xl text-left relative transition-all duration-300 border-[3px] flex flex-col items-start gap-3 ${selectedService === service.id
+                                    ? "bg-[#024653] border-[#10f081] text-white shadow-xl scale-[1.02] z-10"
+                                    : "bg-white border-slate-100 hover:border-[#024653]/10 text-[#024653]"
+                                    }`}
+                            >
+                                <div className={`p-3 rounded-lg transition-colors ${selectedService === service.id ? "bg-[#10f081] text-[#024653]" : "bg-[#F9F8F2] text-[#024653]"}`}>
+                                    <service.icon size={24} strokeWidth={2.5} />
+                                </div>
+                                <div>
+                                    <h3 className="text-base font-black tracking-tight uppercase mb-1">{service.label}</h3>
+                                    <p className={`text-[10px] font-medium leading-relaxed ${selectedService === service.id ? "text-white/60" : "text-[#024653]/60"}`}>
+                                        {service.desc}
+                                    </p>
+                                </div>
+                            </button>
+                        ))}
+                    </div>
                 </div>
             </div>
 

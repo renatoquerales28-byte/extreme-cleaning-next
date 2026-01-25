@@ -272,7 +272,7 @@ export default function ExtremeCleaningWizard() {
                         <div className="flex justify-end"></div>
                     </div>
 
-                    <div className="flex-1 flex flex-col p-4 md:p-8 lg:p-12 lg:px-20 h-full overflow-y-auto w-full max-w-4xl mx-auto">
+                    <div className="flex-1 flex flex-col p-4 md:p-8 lg:p-12 lg:px-20 h-full w-full max-w-4xl mx-auto">
                         <AnimatePresence mode="wait">
                             <motion.div
                                 key={step}

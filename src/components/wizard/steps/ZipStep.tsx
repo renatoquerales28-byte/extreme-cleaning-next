@@ -18,20 +18,22 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
 
     return (
         <div className="flex flex-col h-full w-full max-w-lg mx-auto py-6 antialiased">
-            <div className="flex-1 flex flex-col justify-center w-full space-y-10">
-                <div className="w-full relative group">
-                    <div className="relative flex items-center">
-                        <MapPin className="absolute left-6 text-[#024653] pointer-events-none" size={24} strokeWidth={2.5} />
-                        <input
-                            {...register("zipCode")}
-                            type="text"
-                            placeholder="99201"
-                            autoFocus={true}
-                            className="w-full pl-16 pr-6 py-6 bg-white border-2 border-slate-200 focus:border-[#024653] text-[#024653] rounded-2xl text-3xl font-black tracking-widest outline-none transition-colors placeholder:text-slate-300 text-center"
-                            maxLength={5}
-                        />
+            <div className="flex-1 overflow-y-auto pr-2 -mr-2">
+                <div className="min-h-full flex flex-col justify-center w-full space-y-10 py-4">
+                    <div className="w-full relative group">
+                        <div className="relative flex items-center">
+                            <MapPin className="absolute left-6 text-[#024653] pointer-events-none" size={24} strokeWidth={2.5} />
+                            <input
+                                {...register("zipCode")}
+                                type="text"
+                                placeholder="99201"
+                                autoFocus={true}
+                                className="w-full pl-16 pr-6 py-6 bg-white border-2 border-slate-200 focus:border-[#024653] text-[#024653] rounded-2xl text-3xl font-black tracking-widest outline-none transition-colors placeholder:text-slate-300 text-center"
+                                maxLength={5}
+                            />
+                        </div>
+                        {errors.zipCode && <p className="absolute -bottom-8 left-0 right-0 text-center text-rose-500 font-bold text-xs uppercase tracking-wider">{errors.zipCode.message}</p>}
                     </div>
-                    {errors.zipCode && <p className="absolute -bottom-8 left-0 right-0 text-center text-rose-500 font-bold text-xs uppercase tracking-wider">{errors.zipCode.message}</p>}
                 </div>
             </div>
 

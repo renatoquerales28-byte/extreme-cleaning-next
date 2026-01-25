@@ -65,7 +65,7 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
                 <button
                     onClick={onNext}
                     disabled={!selectedFreq}
-                    className="pointer-events-auto w-[380px] h-[56px] bg-[#024653] text-white font-bold rounded-xl shadow-2xl flex items-center justify-center gap-3 uppercase tracking-[0.25em] text-xs hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="pointer-events-auto w-[90%] md:w-[380px] h-[56px] bg-[#024653] text-white font-bold rounded-xl shadow-2xl flex items-center justify-center gap-3 uppercase tracking-[0.25em] text-xs hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                     View Your Quote <ArrowRight size={18} strokeWidth={2.5} />
                 </button>

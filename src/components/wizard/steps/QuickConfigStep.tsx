@@ -91,7 +91,7 @@ export default function QuickConfigStep({ onNext, onBack, address }: QuickConfig
             <div className="fixed bottom-6 right-0 w-full lg:w-[60%] z-50 flex justify-center pointer-events-none bg-transparent border-none shadow-none">
                 <button
                     onClick={onNext}
-                    className="pointer-events-auto w-[380px] h-[56px] bg-[#024653] text-white font-bold rounded-xl shadow-2xl flex items-center justify-center gap-3 uppercase tracking-[0.25em] text-xs hover:bg-[#0E6168] transition-all"
+                    className="pointer-events-auto w-[90%] md:w-[380px] h-[56px] bg-[#024653] text-white font-bold rounded-xl shadow-2xl flex items-center justify-center gap-3 uppercase tracking-[0.25em] text-xs hover:bg-[#0E6168] transition-all"
                 >
                     Calculate New Quote <ArrowRight size={18} strokeWidth={2.5} />
                 </button>

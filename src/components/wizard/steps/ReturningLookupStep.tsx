@@ -66,7 +66,7 @@ export default function ReturningLookupStep({ onNext, onBack, setCustomerName }:
                 <button
                     onClick={handleSearch}
                     disabled={phone.length < 10 || loading}
-                    className="pointer-events-auto w-[380px] h-[56px] bg-[#024653] text-white font-bold rounded-xl shadow-2xl flex items-center justify-center gap-3 uppercase tracking-[0.25em] text-xs hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="pointer-events-auto w-[90%] md:w-[380px] h-[56px] bg-[#024653] text-white font-bold rounded-xl shadow-2xl flex items-center justify-center gap-3 uppercase tracking-[0.25em] text-xs hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                     {loading ? (
                         <div className="w-5 h-5 border-3 border-white/20 border-t-white rounded-full animate-spin" />

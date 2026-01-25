@@ -216,7 +216,7 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
                 <button
                     onClick={handleContinue}
                     disabled={isSubmitting || !selectedDate || !selectedTime}
-                    className="pointer-events-auto w-[380px] h-[56px] bg-[#024653] text-white font-bold rounded-xl shadow-2xl flex items-center justify-center gap-3 uppercase tracking-[0.25em] text-xs hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                    className="pointer-events-auto w-[90%] md:w-[380px] h-[56px] bg-[#024653] text-white font-bold rounded-xl shadow-2xl flex items-center justify-center gap-3 uppercase tracking-[0.25em] text-xs hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
                 >
                     <span className="text-xs font-black uppercase tracking-[0.25em]">
                         {isSubmitting ? "Saving..." : "Continue to Address"}

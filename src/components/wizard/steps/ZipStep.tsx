@@ -17,7 +17,7 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     const isValidZip = zipCode?.length === 5 && /^\d+$/.test(zipCode);
 
     return (
-        <div className="flex flex-col h-full w-full max-w-lg mx-auto py-6 antialiased">
+        <div className="flex flex-col h-full w-full max-w-lg mx-auto antialiased">
             <div className="flex-1 overflow-y-auto pr-2 -mr-2">
                 <div className="min-h-full flex flex-col justify-center w-full space-y-10 py-4">
                     <div className="w-full relative group">
@@ -57,11 +57,11 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
             </div>
 
             {/* Main Action Button */}
-            <div className="mt-auto pt-6 w-full">
+            <div className="mt-auto pt-10 w-full flex justify-center">
                 <button
                     onClick={onNext}
                     disabled={!isValidZip}
-                    className="w-full py-5 bg-[#024653] text-white rounded-2xl text-xs font-black uppercase tracking-[0.25em] hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3"
+                    className="w-full max-w-md py-6 bg-[#024653] text-white rounded-2xl text-xs font-black uppercase tracking-[0.25em] hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3"
                 >
                     Check Availability <ArrowRight size={18} strokeWidth={2.5} />
                 </button>

@@ -12,7 +12,7 @@ interface PropertySelectionStepProps {
 
 export default function PropertySelectionStep({ onSelectSaved, onStartNew, onBack, customerName }: PropertySelectionStepProps) {
     return (
-        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased">
+        <div className="flex flex-col h-full w-full max-w-xl mx-auto antialiased">
             <div className="flex-1 flex flex-col justify-center space-y-6 w-full">
                 <div className="text-center space-y-2">
                     <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-tight">
@@ -54,7 +54,7 @@ export default function PropertySelectionStep({ onSelectSaved, onStartNew, onBac
                 </div>
             </div>
 
-            <div className="mt-auto pt-8 w-full text-center">
+            <div className="mt-auto pt-10 w-full flex justify-center">
                 <button onClick={onBack} className="text-[10px] font-black uppercase tracking-widest text-[#024653]/40 hover:text-[#024653] transition-colors py-2">
                     Not {customerName}? Switch account
                 </button>

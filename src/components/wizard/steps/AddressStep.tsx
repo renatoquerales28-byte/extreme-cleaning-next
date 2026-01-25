@@ -85,7 +85,7 @@ export default function AddressStep({ onBack }: AddressStepProps) {
     }
 
     return (
-        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased">
+        <div className="flex flex-col h-full w-full max-w-xl mx-auto antialiased">
             <div className="flex-1 overflow-y-auto pr-2 -mr-2">
                 <form onSubmit={handleSubmit(onSubmit)} className="min-h-full flex flex-col justify-center min-h-0 w-full space-y-4 py-4">
                     {/* Address Form Section */}
@@ -154,15 +154,15 @@ export default function AddressStep({ onBack }: AddressStepProps) {
                 </form>
             </div>
 
-            <div className="mt-auto pt-8 w-full max-w-xl mx-auto space-y-4">
-                <p className="text-[7px] text-center text-[#024653]/40 font-black uppercase tracking-[0.2em] max-w-sm mx-auto leading-relaxed">
+            <div className="mt-auto pt-10 w-full flex flex-col items-center justify-center">
+                <p className="text-[7px] text-center text-[#024653]/40 font-black uppercase tracking-[0.2em] max-w-sm mx-auto leading-relaxed mb-4">
                     By confirming, you agree to our <Link href="#" className="text-[#05D16E] hover:underline">Terms</Link> & <Link href="#" className="text-[#05D16E] hover:underline">Privacy</Link>.
                 </p>
 
                 <button
                     onClick={handleSubmit(onSubmit)}
                     disabled={isSubmitting}
-                    className="w-full py-5 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
+                    className="w-full max-w-md py-6 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
                 >
                     <span className="text-xs font-black uppercase tracking-[0.25em]">{isSubmitting ? "Processing..." : "Confirm My Booking"}</span>
                     {!isSubmitting && <CheckCircle size={18} strokeWidth={2.5} />}

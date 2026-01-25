@@ -68,7 +68,7 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
     };
 
     return (
-        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased">
+        <div className="flex flex-col h-full w-full max-w-xl mx-auto antialiased">
             <div className="flex-1 overflow-y-auto pr-2 -mr-2">
                 <div className="min-h-full flex flex-col justify-center space-y-4 w-full py-4">
                     {/* Main Estimate Display */}
@@ -145,11 +145,11 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
             </div>
 
             {/* Final Action */}
-            <div className="mt-auto pt-8 w-full">
+            <div className="mt-auto pt-10 w-full flex justify-center">
                 <button
                     onClick={handleNext}
                     disabled={isSubmitting}
-                    className="w-full py-5 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
+                    className="w-full max-w-md py-6 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
                 >
                     <span className="text-xs font-black uppercase tracking-[0.25em]">{isSubmitting ? "Processing..." : "Select Schedule"}</span>
                     {!isSubmitting && <ArrowRight size={18} strokeWidth={2.5} />}

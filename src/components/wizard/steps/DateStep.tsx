@@ -100,7 +100,7 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
     };
 
     return (
-        <div className="flex flex-col h-full w-full max-w-4xl mx-auto py-2 antialiased">
+        <div className="flex flex-col h-full w-full max-w-4xl mx-auto antialiased">
             <div className="flex-1 overflow-y-auto pr-2 -mr-2">
                 <div className="min-h-full flex flex-col lg:flex-row gap-4 w-full justify-center items-stretch lg:items-center py-4">
                     {/* Calendar */}
@@ -201,28 +201,26 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
             </div>
 
             {/* Summary & Action Button */}
-            <div className="mt-auto pt-8 w-full max-w-xl mx-auto">
-                <div className="flex flex-col gap-3">
-                    {selectedDate && selectedTime && (
-                        <div className="flex items-center justify-center gap-2 px-6 py-2 bg-[#05D16E]/10 border-2 border-[#05D16E]/20 rounded-full w-fit mx-auto mb-2">
-                            <CheckCircle2 size={12} className="text-[#05D16E]" />
-                            <span className="text-[#024653] font-black text-[9px] uppercase tracking-widest">
-                                {format(selectedDate, "MMM do")} at {selectedTime}
-                            </span>
-                        </div>
-                    )}
-
-                    <button
-                        onClick={handleContinue}
-                        disabled={isSubmitting || !selectedDate || !selectedTime}
-                        className="w-full py-5 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
-                    >
-                        <span className="text-xs font-black uppercase tracking-[0.25em]">
-                            {isSubmitting ? "Saving..." : "Continue to Address"}
+            <div className="mt-auto pt-10 w-full flex flex-col items-center justify-center">
+                {selectedDate && selectedTime && (
+                    <div className="flex items-center justify-center gap-2 px-6 py-2 bg-[#05D16E]/10 border-2 border-[#05D16E]/20 rounded-full w-fit mx-auto mb-4">
+                        <CheckCircle2 size={12} className="text-[#05D16E]" />
+                        <span className="text-[#024653] font-black text-[9px] uppercase tracking-widest">
+                            {format(selectedDate, "MMM do")} at {selectedTime}
                         </span>
-                        {!isSubmitting && <ArrowRight size={18} strokeWidth={2.5} />}
-                    </button>
-                </div>
+                    </div>
+                )}
+
+                <button
+                    onClick={handleContinue}
+                    disabled={isSubmitting || !selectedDate || !selectedTime}
+                    className="w-full max-w-md py-6 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
+                >
+                    <span className="text-xs font-black uppercase tracking-[0.25em]">
+                        {isSubmitting ? "Saving..." : "Continue to Address"}
+                    </span>
+                    {!isSubmitting && <ArrowRight size={18} strokeWidth={2.5} />}
+                </button>
             </div>
         </div>
     );

@@ -25,7 +25,7 @@ export default function ReturningLookupStep({ onNext, onBack, setCustomerName }:
     };
 
     return (
-        <div className="flex flex-col h-full w-full max-w-sm mx-auto py-2 antialiased">
+        <div className="flex flex-col h-full w-full max-w-sm mx-auto antialiased">
             <div className="flex-1 flex flex-col justify-center items-center w-full space-y-8">
                 <div className="w-16 h-16 bg-[#05D16E]/10 text-[#024653] border-2 border-[#05D16E]/20 rounded-full flex items-center justify-center">
                     <User size={32} strokeWidth={2.5} />
@@ -52,15 +52,15 @@ export default function ReturningLookupStep({ onNext, onBack, setCustomerName }:
                 </div>
             </div>
 
-            <div className="mt-auto pt-8 w-full space-y-4">
-                <button onClick={onBack} className="w-full text-[10px] font-black uppercase tracking-widest text-[#024653]/40 hover:text-[#024653] transition-colors py-2">
+            <div className="mt-auto pt-10 w-full flex flex-col items-center justify-center">
+                <button onClick={onBack} className="w-full text-[10px] font-black uppercase tracking-widest text-[#024653]/40 hover:text-[#024653] transition-colors py-2 mb-4">
                     I&apos;m a new customer
                 </button>
 
                 <button
                     onClick={handleSearch}
                     disabled={phone.length < 10 || loading}
-                    className="w-full py-5 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
+                    className="w-full max-w-md py-6 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
                 >
                     {loading ? (
                         <div className="w-5 h-5 border-3 border-white/20 border-t-white rounded-full animate-spin" />

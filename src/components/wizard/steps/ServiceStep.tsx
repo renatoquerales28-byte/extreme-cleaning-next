@@ -25,7 +25,7 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
     ];
 
     return (
-        <div className="flex flex-col h-full w-full max-w-2xl mx-auto py-2 antialiased">
+        <div className="flex flex-col h-full w-full max-w-2xl mx-auto antialiased">
             <div className="flex-1 overflow-y-auto pr-2 -mr-2">
                 <div className="min-h-full flex flex-col justify-center w-full space-y-6 py-4">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
@@ -54,11 +54,11 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                 </div>
             </div>
 
-            <div className="mt-auto pt-8 w-full">
+            <div className="mt-auto pt-10 w-full flex justify-center">
                 <button
                     onClick={() => selectedService && onNext()}
                     disabled={!selectedService}
-                    className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.25em] text-xs flex items-center justify-center gap-3 transition-all ${selectedService
+                    className={`w-full max-w-md py-6 rounded-2xl font-black uppercase tracking-[0.25em] text-xs flex items-center justify-center gap-3 transition-all ${selectedService
                         ? "bg-[#024653] text-white hover:bg-[#0E6168]"
                         : "bg-slate-100 text-[#024653]/20 cursor-not-allowed"
                         }`}

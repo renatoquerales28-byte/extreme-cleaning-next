@@ -223,10 +223,10 @@ export default function ExtremeCleaningWizard() {
                     <AnimatePresence mode="wait">
                         <motion.div key="lp-content" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="relative z-10 flex flex-col h-full justify-between">
                             <div>
-                                <div className="w-40 mb-12">
+                                <div className="w-32 mb-12">
                                     <Image src="/brand/logo-full.png" alt="Logo" width={200} height={60} className="object-contain brightness-0 invert" />
                                 </div>
-                                <h2 className="text-5xl font-black tracking-tighter leading-[0.9] mb-6 uppercase text-white">
+                                <h2 className="text-5xl font-black tracking-tighter leading-tight mb-6 uppercase text-white">
                                     {lp?.title} <br /> <span className="text-[#05D16E]">{lp?.accent}</span>
                                 </h2>
                                 <p className="text-white/50 font-medium text-base leading-relaxed max-w-xs">{lp?.description}</p>
@@ -234,7 +234,7 @@ export default function ExtremeCleaningWizard() {
 
                             {/* Optional: Show running total in bottom left for steps > 1 */}
                             {typeof step === 'number' && step > 1 && (
-                                <div className="mt-auto pt-6 border-t border-white/10">
+                                <div className="mt-auto pt-6 border-t border-white/20">
                                     <p className="text-[10px] font-black uppercase tracking-widest text-[#05D16E] mb-1">Estimated Total</p>
                                     <div className="flex items-baseline gap-2">
                                         <span className="text-4xl font-black text-white">${totalPrice}</span>

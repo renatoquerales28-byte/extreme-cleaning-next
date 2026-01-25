@@ -18,10 +18,11 @@ export const wizardSchema = z.object({
 
     // Commercial
     businessType: z.string().optional(),
-    commSqFt: z.string().optional(),
+    commSqFt: z.coerce.number().optional(), // Coerce because input might return string
+    floors: z.number().min(1).default(1),
 
     // Portfolio (PM)
-    propertyCount: z.enum(["1-3", "4+"]).optional(),
+    propertyCount: z.number().min(1).default(1),
     smallPortfolio: z.array(z.object({
         id: z.number(),
         name: z.string(),

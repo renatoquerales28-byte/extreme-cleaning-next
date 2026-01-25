@@ -12,7 +12,7 @@ interface PMSelectionStepProps {
 export default function PMSelectionStep({ onNext }: PMSelectionStepProps) {
     const { register, watch, setValue } = useFormContext<WizardData>();
     const { setAction } = useWizardAction();
-    const propertyCount = watch("propertyCount") || 0;
+    const propertyCount = watch("propertyCount") || 1;
 
     useEffect(() => {
         setAction({

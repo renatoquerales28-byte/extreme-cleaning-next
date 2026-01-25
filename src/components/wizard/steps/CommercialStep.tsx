@@ -15,7 +15,7 @@ export default function CommercialStep({ onNext }: CommercialStepProps) {
     const { setAction } = useWizardAction();
     const businessType = watch("businessType") || "";
     const commSqFt = watch("commSqFt") || "";
-    const floors = watch("floors" as any) || 1;
+    const floors = watch("floors") || 1;
 
     useEffect(() => {
         setAction({
@@ -30,7 +30,7 @@ export default function CommercialStep({ onNext }: CommercialStepProps) {
     ];
 
     const handleFloor = (val: number) => {
-        setValue("floors" as any, Math.max(1, val));
+        setValue("floors", Math.max(1, val));
     };
 
     return (
@@ -55,8 +55,8 @@ export default function CommercialStep({ onNext }: CommercialStepProps) {
                                         key={type}
                                         onClick={() => setValue("businessType", type)}
                                         className={`p-3 rounded-xl border-2 text-xs font-bold uppercase tracking-wider transition-all ${businessType === type
-                                                ? "bg-[#024653] border-[#024653] text-white shadow-lg"
-                                                : "bg-slate-50 border-slate-100 text-[#024653]/60 hover:border-[#05D16E]"
+                                            ? "bg-[#024653] border-[#024653] text-white shadow-lg"
+                                            : "bg-slate-50 border-slate-100 text-[#024653]/60 hover:border-[#05D16E]"
                                             }`}
                                     >
                                         {type}

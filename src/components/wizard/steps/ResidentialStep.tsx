@@ -93,25 +93,25 @@ export default function ResidentialStep({ onNext }: ResidentialStepProps) {
                                 </button>
                             </div>
                         </div>
-                    </div>
 
-                    <div className="h-px bg-slate-100 w-full" />
+                        <div className="h-px bg-slate-100 w-full" />
 
-                    {/* Sq Ft */}
-                    <div className="space-y-4">
-                        <div>
-                            <h3 className="text-xl font-black text-[#024653]">Approx Size</h3>
-                            <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest">Square Footage</p>
+                        {/* Sq Ft */}
+                        <div className="space-y-4">
+                            <div>
+                                <h3 className="text-xl font-black text-[#024653]">Approx Size</h3>
+                                <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest">Square Footage</p>
+                            </div>
+                            <input
+                                {...register("sqFt", { valueAsNumber: true })}
+                                type="number"
+                                placeholder="e.g. 1000"
+                                className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-[#024653]/20"
+                            />
                         </div>
-                        <input
-                            {...register("sqFt", { valueAsNumber: true })}
-                            type="number"
-                            placeholder="e.g. 1000"
-                            className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-[#024653]/20"
-                        />
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

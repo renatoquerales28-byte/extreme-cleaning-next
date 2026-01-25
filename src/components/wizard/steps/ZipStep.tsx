@@ -19,14 +19,6 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     return (
         <div className="flex flex-col items-center justify-center h-full w-full max-w-lg mx-auto py-6 antialiased">
             <div className="flex-1 flex flex-col justify-center w-full space-y-10">
-                <div className="space-y-4 text-center">
-                    <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-[#024653] leading-[0.9]">
-                        Where is the <br /><span className="text-[#05D16E]">Sparkle</span> Needed?
-                    </h2>
-                    <p className="text-sm text-[#024653]/60 font-medium max-w-xs mx-auto">
-                        Enter your zip code to check availability in the Spokane area.
-                    </p>
-                </div>
 
                 <div className="w-full relative group">
                     <div className="relative flex items-center">

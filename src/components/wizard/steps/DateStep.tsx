@@ -102,12 +102,7 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
     return (
         <div className="flex flex-col h-full w-full max-w-4xl mx-auto py-2 antialiased overflow-hidden">
             {/* Header */}
-            <div className="text-center space-y-2 mb-2 shrink-0 pt-2">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-[0.85]">
-                    When should we <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#024653] via-[#0E6168] to-[#05D16E]">Clean?</span>
-                </h2>
-                <p className="text-[9px] text-[#024653]/40 font-black tracking-[0.3em] uppercase">Select Your Preferred Date & Time</p>
-            </div>
+
 
             <div className="flex-1 flex flex-col lg:flex-row gap-4 w-full min-h-0 justify-center items-stretch lg:items-center">
                 {/* Calendar */}

@@ -168,13 +168,43 @@ export default function ExtremeCleaningWizard() {
     // Dynamic Left Panel Content Logic
     const getLeftPanelContent = () => {
         const serviceType = data.serviceType;
-        if (step === 4 || step === 5 || step === 6) return null;
 
         const content = {
-            0: { title: "Expert Cleaning,", accent: "Simplified.", description: "Get your personalized quote in under 60 seconds. Premium service for residential and commercial spaces." },
-            1: { title: serviceType === "residential" ? "Home" : serviceType === "commercial" ? "Business" : "Property", accent: "Solutions.", description: serviceType === "residential" ? "Premium house cleaning tailored to your lifestyle." : "Professional cleaning solutions for businesses and portfolios." },
-            2: { title: "Tailored to", accent: "Your Space.", description: "Tell us about your space for an accurate quote." },
-            3: { title: "consistency", accent: "is Key.", description: "Save up to 20% by booking recurring services." },
+            0: {
+                title: "Where is the",
+                accent: "Sparkle Needed?",
+                description: "Enter your zip code to check availability in the Spokane area."
+            },
+            1: {
+                title: "Choose Your",
+                accent: "Service.",
+                description: "Select the type of space we'll be transforming today."
+            },
+            2: {
+                title: "Tell us about",
+                accent: "Your Space.",
+                description: "Customize your cleaning plan for a perfect fit."
+            },
+            3: {
+                title: "Select Your",
+                accent: "Frequency.",
+                description: "Save up to 20% with our recurring care plans."
+            },
+            4: {
+                title: "Your Final",
+                accent: "Estimate.",
+                description: "Premium Care, Guaranteed Quality. No hidden fees."
+            },
+            5: {
+                title: "When should",
+                accent: "we Clean?",
+                description: "Select your preferred date and time for the service."
+            },
+            6: {
+                title: "Where should",
+                accent: "we Sparkle?",
+                description: "Finalize your cleaning schedule and secure your slot."
+            },
             "returning_lookup": { title: "Welcome", accent: "Back.", description: "Access your saved properties and preferences." },
             "returning_select": { title: "Glad you're", accent: "Here.", description: "Select which property needs care today." },
             "returning_config": { title: "Almost", accent: "Done.", description: "Confirm your cleaning intensity and frequency." }
@@ -190,41 +220,29 @@ export default function ExtremeCleaningWizard() {
             <div className="w-full h-screen fixed inset-0 flex flex-col lg:flex-row bg-[#F9F8F2] overflow-hidden">
                 {/* Left Panel */}
                 <div className="hidden lg:flex w-[40%] bg-[#024653] relative flex-col justify-between p-12 text-white overflow-hidden shrink-0 border-r-4 border-[#05D16E]">
-                    {/* Removed animated blobs for flat design */}
-
                     <AnimatePresence mode="wait">
-                        {step === 4 || step === 5 || step === 6 ? (
-                            <motion.div key="summary" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="relative z-10 flex flex-col h-full">
-                                <div className="flex items-center gap-2 mb-6 opacity-80">
-                                    <Image src="/brand/logo.png" alt="Logo" width={24} height={24} className="object-contain brightness-0 invert" />
-                                    <span className="font-black tracking-widest text-[10px] uppercase text-white/60">Estimate Summary</span>
+                        <motion.div key="lp-content" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="relative z-10 flex flex-col h-full justify-between">
+                            <div>
+                                <div className="w-40 mb-12">
+                                    <Image src="/brand/logo-full.png" alt="Logo" width={200} height={60} className="object-contain brightness-0 invert" />
                                 </div>
-                                <div className="flex-1 flex flex-col justify-center space-y-8">
-                                    <div>
-                                        <div className="flex items-baseline gap-3 mb-2">
-                                            <h2 className="text-7xl font-black tracking-tighter text-white">${totalPrice}</h2>
-                                            <span className="text-xl font-bold text-white/40 font-outfit">/service</span>
-                                        </div>
-                                    </div>
-                                    <div className="space-y-4 py-8 border-y border-white/10">
-                                        <div className="flex justify-between items-center text-sm"><span className="text-white/40 font-black uppercase text-[10px]">Frequency</span><span className="font-black bg-white/10 px-4 py-1.5 rounded-2xl text-[10px] uppercase text-white">{selectedFreq?.label}</span></div>
-                                        <div className="flex justify-between items-center text-sm"><span className="text-white/40 font-black uppercase text-[10px]">Type</span><span className="font-black capitalize text-[#05D16E] text-sm">{data.cleaningType}</span></div>
+                                <h2 className="text-5xl font-black tracking-tighter leading-[0.9] mb-6 uppercase text-white">
+                                    {lp?.title} <br /> <span className="text-[#05D16E]">{lp?.accent}</span>
+                                </h2>
+                                <p className="text-white/50 font-medium text-base leading-relaxed max-w-xs">{lp?.description}</p>
+                            </div>
+
+                            {/* Optional: Show running total in bottom left for steps > 1 */}
+                            {typeof step === 'number' && step > 1 && (
+                                <div className="mt-auto pt-6 border-t border-white/10">
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-[#05D16E] mb-1">Estimated Total</p>
+                                    <div className="flex items-baseline gap-2">
+                                        <span className="text-4xl font-black text-white">${totalPrice}</span>
+                                        <span className="text-sm font-bold text-white/40">/service</span>
                                     </div>
                                 </div>
-                            </motion.div>
-                        ) : (
-                            <motion.div key="lp-content" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="relative z-10 flex flex-col h-full justify-between">
-                                <div>
-                                    <div className="w-40 mb-12">
-                                        <Image src="/brand/logo-full.png" alt="Logo" width={200} height={60} className="object-contain brightness-0 invert" />
-                                    </div>
-                                    <h2 className="text-5xl font-black tracking-tighter leading-[0.9] mb-6 uppercase text-white">
-                                        {lp?.title} <br /> <span className="text-[#05D16E]">{lp?.accent}</span>
-                                    </h2>
-                                    <p className="text-white/50 font-medium text-base leading-relaxed max-w-xs">{lp?.description}</p>
-                                </div>
-                            </motion.div>
-                        )}
+                            )}
+                        </motion.div>
                     </AnimatePresence>
                 </div>
 

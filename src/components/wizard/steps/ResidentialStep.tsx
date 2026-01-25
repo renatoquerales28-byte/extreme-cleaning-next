@@ -26,12 +26,7 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
     return (
         <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased overflow-hidden">
             {/* Header */}
-            <div className="text-center space-y-2 shrink-0 pt-2">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-none">
-                    Tell us about <br /><span className="text-[#05D16E]">Your Space.</span>
-                </h2>
-                <p className="text-[10px] text-[#024653]/60 font-bold uppercase tracking-widest">Customize your cleaning plan</p>
-            </div>
+
 
             <div className="flex-1 flex flex-col justify-center space-y-3 min-h-0 w-full">
                 {/* Room Counters */}

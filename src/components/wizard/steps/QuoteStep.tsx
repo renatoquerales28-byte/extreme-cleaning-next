@@ -70,12 +70,7 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
     return (
         <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased overflow-hidden">
             {/* Header */}
-            <div className="text-center space-y-2 mb-2 shrink-0 pt-2">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-[0.85]">
-                    Your Final <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#024653] via-[#0E6168] to-[#05D16E]">Estimate.</span>
-                </h2>
-                <p className="text-[9px] text-[#024653]/40 font-black tracking-[0.3em] uppercase">Premium Care, Guaranteed Quality</p>
-            </div>
+
 
             <div className="flex-1 flex flex-col justify-center w-full min-h-0 space-y-3">
                 {/* Main Estimate Display */}

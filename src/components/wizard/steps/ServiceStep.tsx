@@ -26,14 +26,7 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
 
     return (
         <div className="flex flex-col h-full w-full max-w-[800px] mx-auto py-2 antialiased overflow-hidden">
-            <div className="text-center space-y-2 mb-4 shrink-0 pt-2">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-none">
-                    Choose Your <span className="text-[#05D16E]">Service</span>
-                </h2>
-                <p className="text-sm text-[#024653]/60 font-medium">
-                    Select the type of space we&apos;ll be transforming today.
-                </p>
-            </div>
+
 
             <div className="flex-1 flex flex-col justify-center w-full min-h-0">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">

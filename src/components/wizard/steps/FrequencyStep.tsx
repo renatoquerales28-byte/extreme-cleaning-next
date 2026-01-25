@@ -21,12 +21,7 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
 
     return (
         <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased overflow-hidden">
-            <div className="text-center space-y-2 shrink-0 pt-2 mb-2">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-none">
-                    Select Your <br /><span className="text-[#05D16E]">Frequency.</span>
-                </h2>
-                <p className="text-[10px] text-[#024653]/60 font-bold uppercase tracking-widest">Save more with recurring care</p>
-            </div>
+
 
             <div className="flex-1 flex flex-col justify-center w-full min-h-0">
                 <div className="space-y-3 w-full">

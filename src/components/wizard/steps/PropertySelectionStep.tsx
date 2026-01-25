@@ -1,68 +1,90 @@
 "use client";
 
-import React from "react";
-import { Home, Plus, ChevronLeft, ArrowRight } from "lucide-react";
+import React, { useEffect } from "react";
+import { useFormContext } from "react-hook-form";
+import { type WizardData } from "@/lib/schemas/wizard";
+import { useWizardAction } from "../WizardActionContext";
+import { Building, MapPin } from "lucide-react";
 
 interface PropertySelectionStepProps {
-    onSelectSaved: () => void;
-    onStartNew: () => void;
+    onSelect: (propertyId: number) => void;
     onBack: () => void;
     customerName: string;
 }
 
-export default function PropertySelectionStep({ onSelectSaved, onStartNew, onBack, customerName }: PropertySelectionStepProps) {
+export default function PropertySelectionStep({ onSelect, onBack, customerName }: PropertySelectionStepProps) {
+    const { setAction } = useWizardAction();
+
+    useEffect(() => {
+        setAction({
+            label: "", // Hidden button
+            onClick: () => { },
+            disabled: true,
+            // We use a hack or just standard secondary content
+            // Since we haven't implemented 'hideButton' yet, I will verify if I can just use secondary content
+            // My implementation: 
+            // {action.secondaryContent && (...)}
+            // <button ... className="..."> ... </button>
+            // The button is always rendered if action is present and !hide.
+            // I should update ExtremeCleaningWizard to respect `hideButton` property.
+            // For now, I will use a dummy button or...
+            // Actually, I'll update ExtremeCleaningWizard in the next step to support `hideMainButton`.
+            // Here I'll pass `hideMainButton: true` (which I'll add to the interface).
+            hideMainButton: true,
+            secondaryContent: (
+                <button onClick={onBack} className="pointer-events-auto text-[10px] font-black uppercase tracking-widest text-[#024653]/40 hover:text-[#024653] transition-colors py-2 bg-white/80 px-4 rounded-full shadow-sm backdrop-blur-sm">
+                    Not {customerName}? Switch account
+                </button>
+            )
+        } as any); // Type cast until I update the interface
+    }, [onBack, customerName, setAction]);
+
+    const properties = [
+        { id: 1, address: "123 Ocean Drive", city: "Miami Beach, FL" },
+        { id: 2, address: "450 Brickell Ave", city: "Miami, FL" },
+    ];
+
     return (
         <div className="h-full w-full relative flex flex-col">
             {/* SCROLLABLE CONTENT AREA */}
             <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
-                <div className="max-w-xl mx-auto space-y-6">
+                <div className="max-w-xl mx-auto space-y-8">
                     <div className="text-center space-y-2">
                         <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-tight">
-                            Hello, <span className="text-[#05D16E]">{customerName}</span>
+                            Welcome <br /> <span className="text-[#05D16E]">{customerName}</span>
                         </h2>
-                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">What would you like to clean today?</p>
+                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Select a property to clean</p>
                     </div>
 
-                    <div className="grid gap-3 w-full">
-                        <button
-                            onClick={onSelectSaved}
-                            className="w-full bg-white border-2 border-slate-50 p-6 rounded-2xl text-left hover:border-[#05D16E]/50 transition-all group relative overflow-hidden"
-                        >
-                            <div className="absolute top-0 right-0 p-3">
-                                <span className="bg-[#05D16E] text-[#024653] text-[8px] px-2 py-1 rounded-md font-black uppercase tracking-widest">Saved</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-[#05D16E] font-black mb-1">
-                                <Home size={18} /> <span className="text-[10px] uppercase tracking-widest">Main Residence</span>
-                            </div>
-                            <div className="text-[#024653] font-black text-xl mb-0.5 truncate uppercase tracking-tighter">123 South Hill Dr</div>
-                            <div className="text-[#024653]/30 text-[9px] font-black uppercase tracking-widest">3 Bed • 2 Bath • 1800 SQ FT</div>
-                        </button>
+                    <div className="grid gap-4">
+                        {properties.map((prop) => (
+                            <button
+                                key={prop.id}
+                                onClick={() => onSelect(prop.id)}
+                                className="group p-6 bg-white border-2 border-slate-50 hover:border-[#05D16E] rounded-[2rem] text-left transition-all shadow-sm hover:shadow-md flex items-center justify-between"
+                            >
+                                <div className="flex items-center gap-4">
+                                    <div className="w-12 h-12 bg-[#F9F8F2] rounded-2xl flex items-center justify-center text-[#024653] group-hover:bg-[#05D16E] group-hover:text-white transition-colors">
+                                        <Building size={24} strokeWidth={2.5} />
+                                    </div>
+                                    <div>
+                                        <h3 className="text-lg font-black text-[#024653] group-hover:text-[#05D16E] transition-colors">{prop.address}</h3>
+                                        <div className="flex items-center gap-1 text-[#024653]/40 text-xs font-bold uppercase tracking-wider">
+                                            <MapPin size={10} /> {prop.city}
+                                        </div>
+                                    </div>
+                                </div>
+                            </button>
+                        ))}
 
                         <button
-                            onClick={onStartNew}
-                            className="w-full bg-white border-2 border-slate-50 p-6 rounded-2xl text-left hover:border-[#024653]/10 transition-all group flex items-center justify-between"
+                            onClick={() => onSelect(0)} // 0 = New Property
+                            className="p-6 border-2 border-dashed border-[#024653]/10 hover:border-[#05D16E] rounded-[2rem] text-center text-[#024653]/40 hover:text-[#05D16E] hover:bg-[#05D16E]/5 transition-all font-black uppercase tracking-widest text-xs"
                         >
-                            <div className="flex items-center gap-4">
-                                <div className="w-10 h-10 rounded-xl bg-[#F9F8F2] flex items-center justify-center text-[#024653]/40 group-hover:text-[#024653] transition-colors">
-                                    <Plus size={20} strokeWidth={2.5} />
-                                </div>
-                                <div>
-                                    <h3 className="text-base font-black tracking-tighter text-[#024653] uppercase">New Property</h3>
-                                    <p className="text-[9px] text-[#024653]/30 font-black uppercase tracking-widest">Add a different location</p>
-                                </div>
-                            </div>
-                            <ArrowRight size={18} className="text-[#024653]/20 group-hover:text-[#05D16E] transition-all" />
+                            + Add New Property
                         </button>
                     </div>
                 </div>
-            </div>
-
-            {/* DOCKED FOOTER */}
-            <div className="fixed bottom-6 right-0 w-full lg:w-[60%] z-50 flex justify-center pointer-events-none bg-transparent border-none shadow-none">
-                <button onClick={onBack} className="pointer-events-auto text-[10px] font-black uppercase tracking-widest text-[#024653]/40 hover:text-[#024653] transition-colors py-2 bg-white/80 px-4 rounded-full shadow-sm backdrop-blur-sm">
-                    {/* Added simple background so it's visible if scrolling */}
-                    Not {customerName}? Switch account
-                </button>
             </div>
         </div>
     );

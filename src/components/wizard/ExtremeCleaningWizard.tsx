@@ -216,8 +216,30 @@ export default function ExtremeCleaningWizard() {
     const lp = getLeftPanelContent();
 
     return (
+        <WizardActionProvider>
+            <WizardLayout
+                lp={lp}
+                step={step}
+                totalPrice={totalPrice}
+                prevStep={prevStep}
+                renderStep={renderStep}
+                className={inter.className}
+                methods={methods}
+            />
+        </WizardActionProvider>
+    );
+}
+
+// Inner Component to consume Context
+import { useWizardAction, WizardActionProvider } from './WizardActionContext'; // Assuming WizardActionContext.ts exists
+import { ArrowRight, Loader2 } from 'lucide-react';
+
+function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, methods }: any) {
+    const { action } = useWizardAction();
+
+    return (
         <FormProvider {...methods}>
-            <div className="w-full h-screen fixed inset-0 flex flex-col lg:flex-row bg-[#F9F8F2] overflow-hidden">
+            <div className={`w-full h-screen fixed inset-0 flex flex-col lg:flex-row bg-[#F9F8F2] overflow-hidden ${className}`}>
                 {/* Left Panel */}
                 <div className="hidden lg:flex w-[40%] bg-[#024653] relative flex-col justify-between p-12 text-white overflow-hidden shrink-0 border-r-4 border-[#10f081]">
                     <AnimatePresence mode="wait">
@@ -286,6 +308,36 @@ export default function ExtremeCleaningWizard() {
                                 {renderStep()}
                             </motion.div>
                         </AnimatePresence>
+
+                        {/* GLOBAL RIGID FOOTER */}
+                        {action && !action.hide && (
+                            <div className="fixed bottom-6 right-0 w-full lg:w-[60%] z-50 flex flex-col items-center justify-end pointer-events-none bg-transparent border-none shadow-none">
+                                {action.secondaryContent && (
+                                    <div className="pointer-events-auto mb-4">
+                                        {action.secondaryContent}
+                                    </div>
+                                )}
+                                {!action.hideMainButton && (
+                                    <button
+                                        onClick={action.onClick}
+                                        disabled={action.disabled || action.isLoading}
+                                        className="pointer-events-auto w-[90%] md:w-[380px] h-[56px] bg-[#024653] text-white font-bold rounded-xl shadow-2xl flex items-center justify-center gap-3 uppercase tracking-[0.25em] text-xs hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+                                    >
+                                        {action.isLoading ? (
+                                            <span className="flex items-center gap-2">
+                                                <Loader2 className="animate-spin" size={18} />
+                                                {action.loadingLabel || "Processing..."}
+                                            </span>
+                                        ) : (
+                                            <>
+                                                {action.label}
+                                                {action.icon || <ArrowRight size={18} strokeWidth={2.5} />}
+                                            </>
+                                        )}
+                                    </button>
+                                )}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

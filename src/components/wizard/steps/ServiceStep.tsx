@@ -2,68 +2,94 @@
 
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { type WizardData, serviceTypes } from "@/lib/schemas/wizard";
-import { Home, Building2, Key, ChevronLeft, ArrowRight } from "lucide-react";
+import { type WizardData } from "@/lib/schemas/wizard";
+import { Sparkles, Building2, Home } from "lucide-react";
+import { useWizardAction } from "../WizardActionContext";
+import { useEffect } from "react";
 
 interface ServiceStepProps {
     onNext: () => void;
-    onBack: () => void;
 }
 
-export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
-    const { setValue, watch } = useFormContext<WizardData>();
+export default function ServiceStep({ onNext }: ServiceStepProps) {
+    const { register, watch, setValue } = useFormContext<WizardData>();
+    const { setAction } = useWizardAction();
     const selectedService = watch("serviceType");
 
-    const handleSelect = (id: string) => {
-        setValue("serviceType", id as any);
-    };
+    useEffect(() => {
+        setAction({
+            label: "Continue",
+            disabled: !selectedService,
+            onClick: () => selectedService && onNext()
+        });
+    }, [selectedService, onNext, setAction]);
 
-    const services = [
-        { id: "residential", label: "Residential", icon: Home, desc: "Homes, apartments, and studios.", color: "text-brand-dark", bg: "bg-brand-light/10" },
-        { id: "commercial", label: "Commercial", icon: Building2, desc: "Offices, retail, and business spaces.", color: "text-accent", bg: "bg-accent/10" },
-        { id: "property_mgmt", label: "Airbnb / PM", icon: Key, desc: "Portfolio management & turnovers.", color: "text-emerald-500", bg: "bg-emerald-500/10" },
-    ];
+    const handleSelect = (value: "residential" | "commercial") => {
+        setValue("serviceType", value);
+    };
 
     return (
         <div className="h-full w-full relative flex flex-col">
             {/* SCROLLABLE CONTENT AREA */}
             <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
-                <div className="max-w-xl mx-auto space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
-                        {services.map((service) => (
-                            <button
-                                key={service.id}
-                                type="button"
-                                onClick={() => handleSelect(service.id)}
-                                className={`group p-4 rounded-xl text-left relative transition-all duration-300 border-[3px] flex flex-col items-start gap-3 ${selectedService === service.id
-                                    ? "bg-[#024653] border-[#10f081] text-white shadow-xl scale-[1.02] z-10"
-                                    : "bg-white border-slate-100 hover:border-[#024653]/10 text-[#024653]"
-                                    }`}
-                            >
-                                <div className={`p-3 rounded-lg transition-colors ${selectedService === service.id ? "bg-[#10f081] text-[#024653]" : "bg-[#F9F8F2] text-[#024653]"}`}>
-                                    <service.icon size={24} strokeWidth={2.5} />
+                <div className="max-w-xl mx-auto space-y-8">
+                    <div className="text-center space-y-2">
+                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-tight">
+                            What kind of <br /> <span className="text-[#05D16E]">space is this?</span>
+                        </h2>
+                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Select the service type to proceed</p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button
+                            onClick={() => handleSelect("residential")}
+                            className={`group relative p-6 rounded-[2rem] border-2 transition-all duration-300 flex flex-col items-center gap-4 ${selectedService === "residential"
+                                    ? "bg-[#024653] border-[#024653] shadow-xl scale-[1.02]"
+                                    : "bg-white border-slate-100 hover:border-[#05D16E]/50 hover:bg-slate-50"
+                                }`}
+                        >
+                            <div className={`p-4 rounded-2xl transition-colors ${selectedService === "residential" ? "bg-white/10 text-white" : "bg-[#05D16E]/10 text-[#05D16E]"
+                                }`}>
+                                <Home size={32} strokeWidth={2} />
+                            </div>
+                            <div className="text-center">
+                                <h3 className={`text-lg font-black tracking-tight ${selectedService === "residential" ? "text-white" : "text-[#024653]"
+                                    }`}>Residential</h3>
+                                <p className={`text-[10px] font-bold uppercase tracking-widest mt-1 ${selectedService === "residential" ? "text-white/60" : "text-slate-400"
+                                    }`}>House, Apt, Condo</p>
+                            </div>
+                            {selectedService === "residential" && (
+                                <div className="absolute top-4 right-4 text-[#05D16E] animate-in fade-in zoom-in">
+                                    <Sparkles size={20} fill="currentColor" />
                                 </div>
-                                <div>
-                                    <h3 className="text-base font-black tracking-tight uppercase mb-1">{service.label}</h3>
-                                    <p className={`text-[10px] font-medium leading-relaxed ${selectedService === service.id ? "text-white/60" : "text-[#024653]/60"}`}>
-                                        {service.desc}
-                                    </p>
+                            )}
+                        </button>
+
+                        <button
+                            onClick={() => handleSelect("commercial")}
+                            className={`group relative p-6 rounded-[2rem] border-2 transition-all duration-300 flex flex-col items-center gap-4 ${selectedService === "commercial"
+                                    ? "bg-[#024653] border-[#024653] shadow-xl scale-[1.02]"
+                                    : "bg-white border-slate-100 hover:border-[#05D16E]/50 hover:bg-slate-50"
+                                }`}
+                        >
+                            <div className={`p-4 rounded-2xl transition-colors ${selectedService === "commercial" ? "bg-white/10 text-white" : "bg-[#05D16E]/10 text-[#05D16E]"
+                                }`}>
+                                <Building2 size={32} strokeWidth={2} />
+                            </div>
+                            <div className="text-center">
+                                <h3 className={`text-lg font-black tracking-tight ${selectedService === "commercial" ? "text-white" : "text-[#024653]"
+                                    }`}>Commercial</h3>
+                                <p className={`text-[10px] font-bold uppercase tracking-widest mt-1 ${selectedService === "commercial" ? "text-white/60" : "text-slate-400"
+                                    }`}>Office, Store, Building</p>
+                            </div>
+                            {selectedService === "commercial" && (
+                                <div className="absolute top-4 right-4 text-[#05D16E] animate-in fade-in zoom-in">
+                                    <Sparkles size={20} fill="currentColor" />
                                 </div>
-                            </button>
-                        ))}
+                            )}
+                        </button>
                     </div>
                 </div>
-            </div>
-
-            {/* DOCKED FOOTER */}
-            <div className="fixed bottom-6 right-0 w-full lg:w-[60%] z-50 flex justify-center pointer-events-none bg-transparent border-none shadow-none">
-                <button
-                    onClick={() => selectedService && onNext()}
-                    disabled={!selectedService}
-                    className="pointer-events-auto w-[90%] md:w-[380px] h-[56px] bg-[#024653] text-white font-bold rounded-xl shadow-2xl flex items-center justify-center gap-3 uppercase tracking-[0.25em] text-xs hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                >
-                    Continue <ArrowRight size={18} strokeWidth={2.5} />
-                </button>
             </div>
         </div>
     );

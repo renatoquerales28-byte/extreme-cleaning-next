@@ -1,79 +1,70 @@
 "use client";
 
-import React, { useState } from "react";
-import { Search, User, Phone, ChevronLeft } from "lucide-react";
+import { useFormContext } from "react-hook-form";
+import { type WizardData } from "@/lib/schemas/wizard";
+import { Search, User } from "lucide-react";
+import { useState, useEffect } from "react";
+import { useWizardAction } from "../WizardActionContext";
 
 interface ReturningLookupStepProps {
-    onNext: () => void;
     onBack: () => void;
-    setCustomerName: (name: string) => void;
+    onFound: (data: any) => void; // Mock data
 }
 
-export default function ReturningLookupStep({ onNext, onBack, setCustomerName }: ReturningLookupStepProps) {
-    const [phone, setPhone] = useState("");
+export default function ReturningLookupStep({ onBack, onFound }: ReturningLookupStepProps) {
+    const { register, watch } = useFormContext<WizardData>();
+    const { setAction } = useWizardAction();
+    const phone = watch("phone") || "";
     const [loading, setLoading] = useState(false);
 
-    const handleSearch = (e: React.FormEvent) => {
-        e.preventDefault();
+    const handleSearch = async () => {
         setLoading(true);
-        // Simulate API lookup
+        // Simulate API
         setTimeout(() => {
             setLoading(false);
-            setCustomerName("Alex");
-            onNext();
+            onFound({ name: "John Doe", properties: [1, 2] });
         }, 1500);
     };
+
+    useEffect(() => {
+        setAction({
+            label: "Find My Profile",
+            disabled: phone.length < 10,
+            isLoading: loading,
+            loadingLabel: "Searching...",
+            onClick: handleSearch,
+            icon: <Search size={18} strokeWidth={2.5} />,
+            secondaryContent: (
+                <button onClick={onBack} className="w-full text-[10px] font-black uppercase tracking-widest text-[#024653]/40 hover:text-[#024653] transition-colors py-2 text-center">
+                    I&apos;m a new customer
+                </button>
+            )
+        });
+    }, [phone, loading, onBack, setAction]); // Re-run when phone or loading changes
 
     return (
         <div className="h-full w-full relative flex flex-col">
             {/* SCROLLABLE CONTENT AREA */}
             <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
                 <div className="max-w-xl mx-auto space-y-8">
-                    <div className="flex flex-col items-center w-full space-y-8">
-                        <div className="w-16 h-16 bg-[#05D16E]/10 text-[#024653] border-2 border-[#05D16E]/20 rounded-full flex items-center justify-center">
-                            <User size={32} strokeWidth={2.5} />
-                        </div>
+                    <div className="text-center space-y-2">
+                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-tight">
+                            Welcome <br /> <span className="text-[#05D16E]">Back!</span>
+                        </h2>
+                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Enter your phone number to find your account</p>
+                    </div>
 
-                        <div className="space-y-2">
-                            <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-tight">
-                                Welcome <span className="text-[#05D16E]">Back</span>
-                            </h2>
-                            <p className="text-sm text-[#024653]/40 font-bold uppercase tracking-widest text-[10px]">
-                                Access your profile
-                            </p>
-                        </div>
-
-                        <div className="w-full relative flex items-center">
-                            <Phone className="absolute left-6 text-[#024653]/20" size={20} />
+                    <div className="bg-white border-2 border-slate-50 p-8 rounded-[2rem] shadow-sm space-y-6">
+                        <div className="relative">
                             <input
+                                {...register("phone")}
                                 type="tel"
-                                placeholder="(509) 555-0123"
-                                className="w-full pl-16 pr-8 py-5 bg-white border-2 border-slate-50 rounded-2xl text-xl font-bold tracking-tight focus:border-[#024653] focus:ring-0 transition-all outline-none"
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
+                                placeholder="(555) 123-4567"
+                                className="w-full p-6 text-center text-3xl font-black tracking-[0.1em] text-[#024653] border-b-4 border-slate-100 focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200"
                             />
                         </div>
                     </div>
                 </div>
-            </div>
-
-            {/* DOCKED FOOTER */}
-            <div className="fixed bottom-6 right-0 w-full lg:w-[60%] z-50 flex flex-col items-center justify-end pointer-events-none bg-transparent border-none shadow-none">
-                <button onClick={onBack} className="pointer-events-auto w-full text-[10px] font-black uppercase tracking-widest text-[#024653]/40 hover:text-[#024653] transition-colors py-2 mb-4 text-center">
-                    I&apos;m a new customer
-                </button>
-
-                <button
-                    onClick={handleSearch}
-                    disabled={phone.length < 10 || loading}
-                    className="pointer-events-auto w-[90%] md:w-[380px] h-[56px] bg-[#024653] text-white font-bold rounded-xl shadow-2xl flex items-center justify-center gap-3 uppercase tracking-[0.25em] text-xs hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                >
-                    {loading ? (
-                        <div className="w-5 h-5 border-3 border-white/20 border-t-white rounded-full animate-spin" />
-                    ) : (
-                        <><Search size={18} strokeWidth={2.5} /> Find My Profile</>
-                    )}
-                </button>
             </div>
         </div>
     );

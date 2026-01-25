@@ -24,9 +24,8 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
     ];
 
     return (
-        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased overflow-hidden justify-center">
-
-            <div className="flex flex-col justify-center space-y-3 min-h-0 w-full shrink">
+        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased">
+            <div className="flex-1 flex flex-col justify-center space-y-4 w-full">
                 {/* Room Counters */}
                 <div className="grid grid-cols-2 gap-3 shrink-0">
                     {/* Bedrooms */}
@@ -106,15 +105,15 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
                                 key={opt.id}
                                 type="button"
                                 onClick={() => setValue("cleaningType", opt.id as any)}
-                                className={`p-3 rounded-lg border-2 transition-all duration-200 flex flex-row md:flex-col items-center justify-between md:justify-center gap-2 ${cleaningType === opt.id
-                                    ? "bg-[#024653] border-[#024653] text-white"
-                                    : "bg-white border-slate-100 hover:border-[#024653]/20 text-[#024653]"
+                                className={`p-4 rounded-xl border-[3px] transition-all duration-300 flex flex-row md:flex-col items-center justify-between md:justify-center gap-2 ${cleaningType === opt.id
+                                    ? "bg-[#024653] border-[#10f081] text-white shadow-lg scale-[1.02] z-10"
+                                    : "bg-white border-slate-50 hover:border-[#024653]/10 text-[#024653]"
                                     }`}
                             >
                                 <span className="text-[10px] font-black tracking-widest uppercase text-left md:text-center">
                                     {opt.label}
                                 </span>
-                                {cleaningType === opt.id && <div className="md:hidden w-1.5 h-1.5 rounded-full bg-[#05D16E]" />}
+                                {cleaningType === opt.id && <div className="w-1.5 h-1.5 rounded-full bg-[#10f081] shadow-[0_0_10px_#10f081]" />}
                             </button>
                         ))}
                     </div>
@@ -122,13 +121,13 @@ export default function ResidentialStep({ onNext, onBack }: ResidentialStepProps
             </div>
 
             {/* Footer Action */}
-            <div className="mt-4 shrink-0">
+            <div className="mt-auto pt-8 w-full">
                 <button
                     onClick={onNext}
-                    className="w-full py-4 bg-[#024653] text-white rounded-xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-colors"
+                    className="w-full py-5 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all"
                 >
-                    <span className="text-[10px] font-black uppercase tracking-[0.25em]">Select Frequency</span>
-                    <ArrowRight size={16} strokeWidth={2.5} />
+                    <span className="text-xs font-black uppercase tracking-[0.25em]">Select Frequency</span>
+                    <ArrowRight size={18} strokeWidth={2.5} />
                 </button>
             </div>
         </div>

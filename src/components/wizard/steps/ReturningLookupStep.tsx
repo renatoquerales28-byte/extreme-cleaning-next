@@ -25,43 +25,42 @@ export default function ReturningLookupStep({ onNext, onBack, setCustomerName }:
     };
 
     return (
-        <div className="flex flex-col items-center justify-center gap-8 text-center py-4 antialiased">
-            <button
-                onClick={onBack}
-                className="absolute top-0 left-0 flex items-center gap-1.5 text-[11px] font-black uppercase tracking-[0.2em] text-slate-400 hover:text-ecs-brand-dark transition-all"
-            >
-                <ChevronLeft size={14} strokeWidth={3} /> Back
-            </button>
+        <div className="flex flex-col h-full w-full max-w-sm mx-auto py-2 antialiased">
+            <div className="flex-1 flex flex-col justify-center items-center w-full space-y-8">
+                <div className="w-16 h-16 bg-[#05D16E]/10 text-[#024653] border-2 border-[#05D16E]/20 rounded-full flex items-center justify-center">
+                    <User size={32} strokeWidth={2.5} />
+                </div>
 
-            <div className="w-16 h-16 bg-ecs-brand-light text-white rounded-full flex items-center justify-center mb-2">
-                <User size={32} strokeWidth={2.5} />
-            </div>
+                <div className="space-y-2">
+                    <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-tight">
+                        Welcome <span className="text-[#05D16E]">Back</span>
+                    </h2>
+                    <p className="text-sm text-[#024653]/40 font-bold uppercase tracking-widest text-[10px]">
+                        Access your profile
+                    </p>
+                </div>
 
-            <div className="space-y-4">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-ecs-brand-dark leading-[0.85] py-1">
-                    Welcome <span className="text-ecs-brand-light">Back</span>
-                </h2>
-                <p className="text-sm text-slate-500 font-medium tracking-tight">
-                    Enter your phone number to find your profile.
-                </p>
-            </div>
-
-            <form onSubmit={handleSearch} className="w-full max-w-sm space-y-6">
-                <div className="relative flex items-center">
-                    <Phone className="absolute left-6 text-slate-400" size={20} />
+                <div className="w-full relative flex items-center">
+                    <Phone className="absolute left-6 text-[#024653]/20" size={20} />
                     <input
                         type="tel"
                         placeholder="(509) 555-0123"
-                        className="w-full pl-16 pr-8 py-5 bg-white border-2 border-slate-100 rounded-[2.5rem] text-xl font-bold tracking-tight focus:border-ecs-brand-dark focus:ring-0 transition-all outline-none"
+                        className="w-full pl-16 pr-8 py-5 bg-white border-2 border-slate-50 rounded-2xl text-xl font-bold tracking-tight focus:border-[#024653] focus:ring-0 transition-all outline-none"
                         value={phone}
                         onChange={(e) => setPhone(e.target.value)}
                     />
                 </div>
+            </div>
+
+            <div className="mt-auto pt-8 w-full space-y-4">
+                <button onClick={onBack} className="w-full text-[10px] font-black uppercase tracking-widest text-[#024653]/40 hover:text-[#024653] transition-colors py-2">
+                    I&apos;m a new customer
+                </button>
 
                 <button
-                    type="submit"
+                    onClick={handleSearch}
                     disabled={phone.length < 10 || loading}
-                    className="btn-primary w-full py-5 flex items-center justify-center gap-3 shadow-md disabled:opacity-50 transition-all"
+                    className="w-full py-5 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
                 >
                     {loading ? (
                         <div className="w-5 h-5 border-3 border-white/20 border-t-white rounded-full animate-spin" />
@@ -69,11 +68,7 @@ export default function ReturningLookupStep({ onNext, onBack, setCustomerName }:
                         <><Search size={18} strokeWidth={2.5} /> Find My Profile</>
                     )}
                 </button>
-            </form>
-
-            <button onClick={onBack} className="text-[10px] font-black uppercase tracking-widest text-slate-400 hover:text-ecs-brand-dark transition-colors">
-                I&apos;m a new customer
-            </button>
+            </div>
         </div>
     );
 }

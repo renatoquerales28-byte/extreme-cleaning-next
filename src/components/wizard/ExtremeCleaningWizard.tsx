@@ -219,7 +219,7 @@ export default function ExtremeCleaningWizard() {
         <FormProvider {...methods}>
             <div className="w-full h-screen fixed inset-0 flex flex-col lg:flex-row bg-[#F9F8F2] overflow-hidden">
                 {/* Left Panel */}
-                <div className="hidden lg:flex w-[40%] bg-[#024653] relative flex-col justify-between p-12 text-white overflow-hidden shrink-0 border-r-4 border-[#05D16E]">
+                <div className="hidden lg:flex w-[40%] bg-[#024653] relative flex-col justify-between p-12 text-white overflow-hidden shrink-0 border-r-4 border-[#10f081]">
                     <AnimatePresence mode="wait">
                         <motion.div key="lp-content" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="relative z-10 flex flex-col h-full justify-between">
                             <div>
@@ -227,18 +227,18 @@ export default function ExtremeCleaningWizard() {
                                     <Image src="/brand/logo-full.png" alt="Logo" width={200} height={60} className="object-contain brightness-0 invert" />
                                 </div>
                                 <h2 className="text-5xl font-black tracking-tighter leading-tight mb-6 uppercase text-white">
-                                    {lp?.title} <br /> <span className="text-[#05D16E]">{lp?.accent}</span>
+                                    {lp?.title} <br /> <span className="text-[#10f081]">{lp?.accent}</span>
                                 </h2>
-                                <p className="text-white/50 font-medium text-base leading-relaxed max-w-xs">{lp?.description}</p>
+                                <p className="text-white/80 font-medium text-base leading-relaxed max-w-xs">{lp?.description}</p>
                             </div>
 
                             {/* Optional: Show running total in bottom left for steps > 1 */}
                             {typeof step === 'number' && step > 1 && (
                                 <div className="mt-auto pt-6 border-t border-white/10">
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-[#05D16E] mb-1">Estimated Total</p>
+                                    <p className="text-[10px] font-black uppercase tracking-widest text-[#10f081] mb-1">Estimated Total</p>
                                     <div className="flex items-baseline gap-2">
                                         <span className="text-4xl font-black text-white">${totalPrice}</span>
-                                        <span className="text-sm font-bold text-white/40">/service</span>
+                                        <span className="text-sm font-bold text-white/70">/service</span>
                                     </div>
                                 </div>
                             )}
@@ -265,16 +265,23 @@ export default function ExtremeCleaningWizard() {
                         <div className="flex flex-col items-center gap-3 w-32 md:w-48">
                             <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#024653]/30">Step {typeof step === 'number' ? Math.min(step + 1, 7) : 1} of 7</span>
                             <div className="w-full h-1 bg-[#024653]/10">
-                                <motion.div className="h-full bg-[#05D16E]" initial={{ width: 0 }} animate={{ width: typeof step === 'number' ? `${((Math.max(step, 0) + 1) / 7) * 100}%` : "14%" }} transition={{ duration: 0.5, ease: "easeInOut" }} />
+                                <motion.div className="h-full bg-[#10f081]" initial={{ width: 0 }} animate={{ width: typeof step === 'number' ? `${((Math.max(step, 0) + 1) / 7) * 100}%` : "14%" }} transition={{ duration: 0.5, ease: "easeInOut" }} />
                             </div>
                         </div>
 
                         <div className="flex justify-end"></div>
                     </div>
 
-                    <div className="flex-1 flex flex-col p-4 md:p-8 lg:p-12 lg:px-20 h-full justify-center overflow-y-auto w-full max-w-4xl mx-auto">
+                    <div className="flex-1 flex flex-col p-4 md:p-8 lg:p-12 lg:px-20 h-full overflow-y-auto w-full max-w-4xl mx-auto">
                         <AnimatePresence mode="wait">
-                            <motion.div key={step} initial={{ opacity: 0, scale: 0.98, y: 10 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 1.02, y: -10 }} transition={{ duration: 0.3 }} className="w-full">
+                            <motion.div
+                                key={step}
+                                initial={{ opacity: 0, scale: 0.98, y: 10 }}
+                                animate={{ opacity: 1, scale: 1, y: 0 }}
+                                exit={{ opacity: 0, scale: 1.02, y: -10 }}
+                                transition={{ duration: 0.3 }}
+                                className="w-full h-full flex flex-col"
+                            >
                                 {renderStep()}
                             </motion.div>
                         </AnimatePresence>

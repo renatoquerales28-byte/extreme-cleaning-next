@@ -17,9 +17,8 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     const isValidZip = zipCode?.length === 5 && /^\d+$/.test(zipCode);
 
     return (
-        <div className="flex flex-col items-center justify-center h-full w-full max-w-lg mx-auto py-6 antialiased">
+        <div className="flex flex-col h-full w-full max-w-lg mx-auto py-6 antialiased">
             <div className="flex-1 flex flex-col justify-center w-full space-y-10">
-
                 <div className="w-full relative group">
                     <div className="relative flex items-center">
                         <MapPin className="absolute left-6 text-[#024653] pointer-events-none" size={24} strokeWidth={2.5} />
@@ -34,21 +33,13 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                     </div>
                     {errors.zipCode && <p className="absolute -bottom-8 left-0 right-0 text-center text-rose-500 font-bold text-xs uppercase tracking-wider">{errors.zipCode.message}</p>}
                 </div>
-
-                <button
-                    onClick={onNext}
-                    disabled={!isValidZip}
-                    className="w-full py-5 bg-[#024653] text-white rounded-2xl text-xs font-black uppercase tracking-[0.25em] hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3"
-                >
-                    Check Availability <ArrowRight size={18} strokeWidth={2.5} />
-                </button>
             </div>
 
             {/* Existing Clients Link */}
-            <div className="shrink-0 w-full pt-8 border-t border-[#024653]/10">
+            <div className="shrink-0 w-full pt-8">
                 <button
                     onClick={onReturning}
-                    className="w-full flex items-center justify-between p-4 bg-white border-2 border-slate-100 hover:border-[#05D16E] rounded-2xl group transition-all"
+                    className="w-full flex items-center justify-between p-4 bg-white border-2 border-slate-50 hover:border-[#05D16E] rounded-2xl group transition-all"
                 >
                     <div className="flex items-center gap-4">
                         <div className="w-10 h-10 bg-[#F9F8F2] rounded-xl flex items-center justify-center text-[#024653] border border-[#024653]/5">
@@ -60,6 +51,17 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                         </div>
                     </div>
                     <ArrowRight size={16} className="text-[#05D16E] group-hover:translate-x-1 transition-transform" strokeWidth={2.5} />
+                </button>
+            </div>
+
+            {/* Main Action Button */}
+            <div className="mt-auto pt-6 w-full">
+                <button
+                    onClick={onNext}
+                    disabled={!isValidZip}
+                    className="w-full py-5 bg-[#024653] text-white rounded-2xl text-xs font-black uppercase tracking-[0.25em] hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all flex items-center justify-center gap-3"
+                >
+                    Check Availability <ArrowRight size={18} strokeWidth={2.5} />
                 </button>
             </div>
         </div>

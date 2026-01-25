@@ -68,9 +68,8 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
     };
 
     return (
-        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased overflow-hidden justify-center">
-
-            <div className="flex flex-col justify-center w-full min-h-0 space-y-3 shrink">
+        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased">
+            <div className="flex-1 flex flex-col justify-center space-y-4 w-full">
                 {/* Main Estimate Display */}
                 <div className="relative p-5 bg-white rounded-xl border-2 border-slate-50 overflow-hidden group shrink-0">
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4 relative z-10">
@@ -97,7 +96,7 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
                 </div>
 
                 {/* Contact Form Section */}
-                <div className="space-y-2 w-full">
+                <div className="space-y-3 w-full">
                     <div className="flex flex-col md:flex-row gap-2">
                         <div className="flex-1 space-y-1">
                             <label className="text-[8px] font-black uppercase tracking-[0.2em] text-[#024653]/40 ml-2">First Name</label>
@@ -144,14 +143,14 @@ export default function QuoteStep({ onBack, onNext, customerName }: QuoteStepPro
             </div>
 
             {/* Final Action */}
-            <div className="mt-4 shrink-0">
+            <div className="mt-auto pt-8 w-full">
                 <button
                     onClick={handleNext}
                     disabled={isSubmitting}
-                    className="btn-accent flex items-center justify-center gap-3 w-full py-4 text-xs rounded-xl group disabled:opacity-50 bg-[#024653] text-white hover:bg-[#0E6168]"
+                    className="w-full py-5 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
                 >
-                    <span className="text-[10px] font-black uppercase tracking-[0.4em]">{isSubmitting ? "Processing..." : "Finalize Appointment"}</span>
-                    {!isSubmitting && <ArrowRight size={16} strokeWidth={3} className="transition-transform group-hover:translate-x-2" />}
+                    <span className="text-xs font-black uppercase tracking-[0.25em]">{isSubmitting ? "Processing..." : "Select Schedule"}</span>
+                    {!isSubmitting && <ArrowRight size={18} strokeWidth={2.5} />}
                 </button>
             </div>
         </div>

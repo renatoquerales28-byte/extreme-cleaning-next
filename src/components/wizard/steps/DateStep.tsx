@@ -100,10 +100,7 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
     };
 
     return (
-        <div className="flex flex-col h-full w-full max-w-4xl mx-auto py-2 antialiased overflow-hidden">
-            {/* Header */}
-
-
+        <div className="flex flex-col h-full w-full max-w-4xl mx-auto py-2 antialiased">
             <div className="flex-1 flex flex-col lg:flex-row gap-4 w-full min-h-0 justify-center items-stretch lg:items-center">
                 {/* Calendar */}
                 <div className="flex-1 flex flex-col justify-center">
@@ -202,30 +199,28 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
             </div>
 
             {/* Summary & Action Button */}
-            <div className="mt-4 pb-2 shrink-0 max-w-lg mx-auto w-full">
-                {selectedDate && selectedTime ? (
-                    <>
-                        <div className="flex items-center justify-center gap-2 px-6 py-2 bg-[#05D16E]/10 border-2 border-[#05D16E]/20 rounded-full w-fit mx-auto mb-2 hidden md:flex">
+            <div className="mt-auto pt-8 w-full max-w-xl mx-auto">
+                <div className="flex flex-col gap-3">
+                    {selectedDate && selectedTime && (
+                        <div className="flex items-center justify-center gap-2 px-6 py-2 bg-[#05D16E]/10 border-2 border-[#05D16E]/20 rounded-full w-fit mx-auto mb-2">
                             <CheckCircle2 size={12} className="text-[#05D16E]" />
                             <span className="text-[#024653] font-black text-[9px] uppercase tracking-widest">
                                 {format(selectedDate, "MMM do")} at {selectedTime}
                             </span>
                         </div>
+                    )}
 
-                        <button
-                            onClick={handleContinue}
-                            disabled={isSubmitting}
-                            className="btn-accent flex items-center justify-center gap-4 w-full py-4 text-xs rounded-xl group disabled:opacity-50 bg-[#024653] text-white hover:bg-[#0E6168]"
-                        >
-                            <span className="text-[10px] font-black uppercase tracking-[0.4em]">
-                                {isSubmitting ? "Saving..." : "Continue to Address"}
-                            </span>
-                            {!isSubmitting && <ArrowRight size={16} strokeWidth={3} className="transition-transform group-hover:translate-x-2" />}
-                        </button>
-                    </>
-                ) : (
-                    <div className="h-12"></div> /* Placeholder for spacing stability */
-                )}
+                    <button
+                        onClick={handleContinue}
+                        disabled={isSubmitting || !selectedDate || !selectedTime}
+                        className="w-full py-5 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
+                    >
+                        <span className="text-xs font-black uppercase tracking-[0.25em]">
+                            {isSubmitting ? "Saving..." : "Continue to Address"}
+                        </span>
+                        {!isSubmitting && <ArrowRight size={18} strokeWidth={2.5} />}
+                    </button>
+                </div>
             </div>
         </div>
     );

@@ -85,11 +85,10 @@ export default function AddressStep({ onBack }: AddressStepProps) {
     }
 
     return (
-        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased overflow-hidden">
-            {/* Header */}
-            <form onSubmit={handleSubmit(onSubmit)} className="flex-1 flex flex-col justify-center min-h-0 w-full space-y-3">
+        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased">
+            <form onSubmit={handleSubmit(onSubmit)} className="flex-1 flex flex-col justify-center min-h-0 w-full space-y-4">
                 {/* Address Form Section */}
-                <div className="space-y-2">
+                <div className="space-y-3">
                     <div className="space-y-1">
                         <label className="text-[8px] font-black uppercase tracking-[0.2em] text-[#024653]/40 ml-2">Service Address</label>
                         <div className="relative flex items-center">
@@ -124,9 +123,9 @@ export default function AddressStep({ onBack }: AddressStepProps) {
                 </div>
 
                 {/* Booking Summary Card */}
-                <div className="p-3 bg-[#F9F8F2] rounded-xl border-2 border-[#024653]/5 relative overflow-hidden group shrink-0">
+                <div className="p-3 bg-white rounded-xl border-2 border-slate-50 relative overflow-hidden group shrink-0">
                     <div className="flex items-center gap-3">
-                        <div className="hidden xs:block p-2 bg-[#024653] rounded-lg text-[#05D16E] shrink-0">
+                        <div className="hidden xs:block p-2 bg-[#F9F8F2] rounded-lg text-[#024653] shrink-0">
                             <Calendar size={16} strokeWidth={3} />
                         </div>
                         <div className="flex-1 min-w-0">
@@ -153,19 +152,19 @@ export default function AddressStep({ onBack }: AddressStepProps) {
                 </div>
             </form>
 
-            <div className="mt-4 pb-2 shrink-0 space-y-2">
-                <button
-                    onClick={handleSubmit(onSubmit)}
-                    disabled={isSubmitting}
-                    className="btn-accent flex items-center justify-center gap-3 w-full py-4 text-xs rounded-xl group disabled:opacity-50 bg-[#024653] text-white hover:bg-[#0E6168]"
-                >
-                    <span className="text-[10px] font-black uppercase tracking-[0.4em]">{isSubmitting ? "Processing..." : "Confirm My Booking"}</span>
-                    {!isSubmitting && <CheckCircle size={16} strokeWidth={3} className="transition-transform group-hover:scale-110" />}
-                </button>
-
+            <div className="mt-auto pt-8 w-full max-w-xl mx-auto space-y-4">
                 <p className="text-[7px] text-center text-[#024653]/40 font-black uppercase tracking-[0.2em] max-w-sm mx-auto leading-relaxed">
                     By confirming, you agree to our <Link href="#" className="text-[#05D16E] hover:underline">Terms</Link> & <Link href="#" className="text-[#05D16E] hover:underline">Privacy</Link>.
                 </p>
+
+                <button
+                    onClick={handleSubmit(onSubmit)}
+                    disabled={isSubmitting}
+                    className="w-full py-5 bg-[#024653] text-white rounded-2xl flex items-center justify-center gap-3 hover:bg-[#0E6168] transition-all disabled:opacity-50"
+                >
+                    <span className="text-xs font-black uppercase tracking-[0.25em]">{isSubmitting ? "Processing..." : "Confirm My Booking"}</span>
+                    {!isSubmitting && <CheckCircle size={18} strokeWidth={2.5} />}
+                </button>
             </div>
         </div>
     );

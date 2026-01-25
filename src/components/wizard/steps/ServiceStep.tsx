@@ -25,21 +25,21 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
     ];
 
     return (
-        <div className="flex flex-col h-full w-full max-w-[800px] mx-auto py-2 antialiased overflow-hidden justify-center">
-            <div className="flex flex-col justify-center w-full min-h-0 shrink">
+        <div className="flex flex-col h-full w-full max-w-2xl mx-auto py-2 antialiased">
+            <div className="flex-1 flex flex-col justify-center w-full space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-3 w-full">
                     {services.map((service) => (
                         <button
                             key={service.id}
                             type="button"
                             onClick={() => handleSelect(service.id)}
-                            className={`group p-4 rounded-xl text-left relative transition-all duration-200 border-2 flex flex-col items-start gap-3 ${selectedService === service.id
-                                ? "bg-[#024653] border-[#024653] text-white"
-                                : "bg-white border-slate-200 hover:border-[#024653]/30 text-[#024653]"
+                            className={`group p-4 rounded-xl text-left relative transition-all duration-300 border-[3px] flex flex-col items-start gap-3 ${selectedService === service.id
+                                ? "bg-[#024653] border-[#10f081] text-white shadow-xl scale-[1.02] z-10"
+                                : "bg-white border-slate-100 hover:border-[#024653]/10 text-[#024653]"
                                 }`}
                         >
-                            <div className={`p-3 rounded-lg ${selectedService === service.id ? "bg-white/10 text-[#05D16E]" : "bg-[#F9F8F2] text-[#024653]"}`}>
-                                <service.icon size={24} strokeWidth={2} />
+                            <div className={`p-3 rounded-lg transition-colors ${selectedService === service.id ? "bg-[#10f081] text-[#024653]" : "bg-[#F9F8F2] text-[#024653]"}`}>
+                                <service.icon size={24} strokeWidth={2.5} />
                             </div>
                             <div>
                                 <h3 className="text-base font-black tracking-tight uppercase mb-1">{service.label}</h3>
@@ -52,16 +52,16 @@ export default function ServiceStep({ onNext, onBack }: ServiceStepProps) {
                 </div>
             </div>
 
-            <div className="mt-6 flex justify-center shrink-0">
+            <div className="mt-auto pt-8 w-full">
                 <button
                     onClick={() => selectedService && onNext()}
                     disabled={!selectedService}
-                    className={`w-full md:w-auto px-12 py-4 rounded-xl font-black uppercase tracking-[0.25em] text-[10px] flex items-center justify-center gap-3 transition-all ${selectedService
-                        ? "bg-[#05D16E] text-[#024653] hover:bg-[#04b861]"
+                    className={`w-full py-5 rounded-2xl font-black uppercase tracking-[0.25em] text-xs flex items-center justify-center gap-3 transition-all ${selectedService
+                        ? "bg-[#024653] text-white hover:bg-[#0E6168]"
                         : "bg-slate-100 text-[#024653]/20 cursor-not-allowed"
                         }`}
                 >
-                    Continue <ArrowRight size={16} strokeWidth={2.5} />
+                    Continue <ArrowRight size={18} strokeWidth={2.5} />
                 </button>
             </div>
         </div>

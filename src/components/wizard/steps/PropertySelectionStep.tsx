@@ -12,51 +12,53 @@ interface PropertySelectionStepProps {
 
 export default function PropertySelectionStep({ onSelectSaved, onStartNew, onBack, customerName }: PropertySelectionStepProps) {
     return (
-        <div className="flex flex-col h-full justify-start md:justify-center gap-8 w-full max-w-xl mx-auto py-2 antialiased">
+        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased">
+            <div className="flex-1 flex flex-col justify-center space-y-6 w-full">
+                <div className="text-center space-y-2">
+                    <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-tight">
+                        Hello, <span className="text-[#05D16E]">{customerName}</span>
+                    </h2>
+                    <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">What would you like to clean today?</p>
+                </div>
 
+                <div className="grid gap-3 w-full">
+                    <button
+                        onClick={onSelectSaved}
+                        className="w-full bg-white border-2 border-slate-50 p-6 rounded-2xl text-left hover:border-[#05D16E]/50 transition-all group relative overflow-hidden"
+                    >
+                        <div className="absolute top-0 right-0 p-3">
+                            <span className="bg-[#05D16E] text-[#024653] text-[8px] px-2 py-1 rounded-md font-black uppercase tracking-widest">Saved</span>
+                        </div>
+                        <div className="flex items-center gap-2 text-[#05D16E] font-black mb-1">
+                            <Home size={18} /> <span className="text-[10px] uppercase tracking-widest">Main Residence</span>
+                        </div>
+                        <div className="text-[#024653] font-black text-xl mb-0.5 truncate uppercase tracking-tighter">123 South Hill Dr</div>
+                        <div className="text-[#024653]/30 text-[9px] font-black uppercase tracking-widest">3 Bed • 2 Bath • 1800 SQ FT</div>
+                    </button>
 
-            <div className="text-center space-y-4">
-                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-ecs-brand-dark leading-[0.85] py-1 text-center w-full">
-                    Hello, <span className="text-ecs-brand-light">{customerName}</span>
-                </h2>
-                <p className="text-sm text-slate-500 font-medium tracking-tight">What would you like to clean today?</p>
+                    <button
+                        onClick={onStartNew}
+                        className="w-full bg-white border-2 border-slate-50 p-6 rounded-2xl text-left hover:border-[#024653]/10 transition-all group flex items-center justify-between"
+                    >
+                        <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 rounded-xl bg-[#F9F8F2] flex items-center justify-center text-[#024653]/40 group-hover:text-[#024653] transition-colors">
+                                <Plus size={20} strokeWidth={2.5} />
+                            </div>
+                            <div>
+                                <h3 className="text-base font-black tracking-tighter text-[#024653] uppercase">New Property</h3>
+                                <p className="text-[9px] text-[#024653]/30 font-black uppercase tracking-widest">Add a different location</p>
+                            </div>
+                        </div>
+                        <ArrowRight size={18} className="text-[#024653]/20 group-hover:text-[#05D16E] transition-all" />
+                    </button>
+                </div>
             </div>
 
-            <div className="grid gap-4 w-full">
-                <button
-                    onClick={onSelectSaved}
-                    className="w-full bg-white border-2 border-ecs-brand-light/20 p-6 rounded-3xl text-left hover:border-ecs-brand-light transition-all group relative overflow-hidden shadow-sm"
-                >
-                    <div className="absolute top-0 right-0 p-3">
-                        <span className="bg-ecs-brand-light text-white text-[9px] px-3 py-1 rounded-full font-black uppercase tracking-widest">Saved</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-ecs-brand-light font-black mb-2">
-                        <Home size={22} /> <span className="text-sm uppercase tracking-widest">Main Residence</span>
-                    </div>
-                    <div className="text-ecs-brand-dark font-black text-xl mb-1 truncate">123 South Hill Dr</div>
-                    <div className="text-slate-400 text-xs font-black uppercase tracking-wider">3 Bed • 2 Bath • 1800 SQ FT</div>
-                </button>
-
-                <button
-                    onClick={onStartNew}
-                    className="w-full bg-white border-2 border-slate-100 p-6 rounded-3xl text-left hover:border-ecs-brand-light/50 transition-all group flex items-center justify-between shadow-sm"
-                >
-                    <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-slate-50 flex items-center justify-center text-slate-400 group-hover:text-ecs-brand-light transition-colors">
-                            <Plus size={24} strokeWidth={2.5} />
-                        </div>
-                        <div>
-                            <h3 className="text-lg font-black tracking-tighter text-ecs-brand-dark">New Property</h3>
-                            <p className="text-xs text-slate-400 font-black uppercase tracking-wider">Add a different location</p>
-                        </div>
-                    </div>
-                    <ArrowRight size={20} className="text-slate-300 group-hover:text-ecs-brand-light transition-all" />
+            <div className="mt-auto pt-8 w-full text-center">
+                <button onClick={onBack} className="text-[10px] font-black uppercase tracking-widest text-[#024653]/40 hover:text-[#024653] transition-colors py-2">
+                    Not {customerName}? Switch account
                 </button>
             </div>
-
-            <button onClick={onBack} className="text-[10px] text-center font-black uppercase tracking-widest text-slate-300 hover:text-slate-500 transition-colors">
-                Not {customerName}? Switch account
-            </button>
         </div>
     );
 }

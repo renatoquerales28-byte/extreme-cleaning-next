@@ -135,27 +135,36 @@ export default function ExtremeCleaningWizard() {
     const renderStep = () => {
         switch (step) {
             case 0: return <ZipStep onNext={nextStep} onReturning={goToReturning} />;
-            case 1: return <ServiceStep onNext={nextStep} onBack={prevStep} />;
+            case 1: return <ServiceStep onNext={nextStep} />;
             case 2:
                 const serviceType = methods.watch("serviceType");
-                if (serviceType === "residential") return <ResidentialStep onNext={nextStep} onBack={prevStep} />;
-                if (serviceType === "commercial") return <CommercialStep onNext={nextStep} onBack={prevStep} />;
-                if (serviceType === "property_mgmt") return <PMSelectionStep onNext={nextStep} onBack={prevStep} />;
+                if (serviceType === "residential") return <ResidentialStep onNext={nextStep} />;
+                if (serviceType === "commercial") return <CommercialStep onNext={nextStep} />;
+                if (serviceType === "property_mgmt") return <PMSelectionStep onNext={nextStep} />;
                 return null;
-            case 3: return <FrequencyStep onNext={nextStep} onBack={prevStep} />;
-            case 4: return <QuoteStep onBack={prevStep} customerName={customerName} isFinalStep={false} onNext={nextStep} />;
-            case 5: return <DateStep onNext={nextStep} onBack={prevStep} />;
-            case 6: return <AddressStep onBack={prevStep} />;
+            case 3: return <FrequencyStep onNext={nextStep} />;
+            case 4: return <QuoteStep onNext={nextStep} />;
+            case 5: return <DateStep onNext={nextStep} />;
+            case 6: return <AddressStep onSubmit={(data) => console.log("Final Submit", data)} />;
 
             // Returning Flow
-            case "returning_lookup": return <ReturningLookupStep onNext={nextStep} onBack={prevStep} setCustomerName={setCustomerName} />;
+            case "returning_lookup": return <ReturningLookupStep
+                onBack={prevStep}
+                onFound={(data: any) => { setCustomerName(data.name); nextStep(); }}
+            />;
             case "returning_select": return <PropertySelectionStep
-                onSelectSaved={nextStep}
-                onStartNew={() => { methods.setValue("serviceType", "residential"); setStep(2); }}
+                onSelect={(id) => {
+                    if (id === 0) {
+                        methods.setValue("serviceType", "residential");
+                        setStep(2);
+                    } else {
+                        nextStep();
+                    }
+                }}
                 onBack={prevStep}
                 customerName={customerName}
             />;
-            case "returning_config": return <QuickConfigStep onNext={nextStep} onBack={prevStep} address="123 South Hill Dr" />;
+            case "returning_config": return <QuickConfigStep onNext={nextStep} />;
             default: return null;
         }
     };

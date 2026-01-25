@@ -20,39 +20,39 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
     };
 
     return (
-        <div className="flex flex-col h-full w-full max-w-2xl mx-auto py-2 antialiased">
-            <div className="text-center space-y-2 mb-8 shrink-0">
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-[#024653] leading-[0.85]">
+        <div className="flex flex-col h-full w-full max-w-xl mx-auto py-2 antialiased">
+            <div className="text-center space-y-2 mb-4 shrink-0">
+                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-[0.85]">
                     Select Your <br /><span className="text-[#05D16E]">Frequency.</span>
                 </h2>
-                <p className="text-[10px] text-[#024653]/40 font-black tracking-[0.3em] uppercase">Save more with recurring care</p>
+                <p className="text-[9px] text-[#024653]/40 font-black tracking-[0.3em] uppercase">Save more with recurring care</p>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 w-full shrink-0">
+            <div className="grid grid-cols-1 gap-3 w-full shrink-0">
                 {FREQUENCIES.map((freq) => (
                     <button
                         key={freq.id}
                         type="button"
                         onClick={() => setValue("frequency", freq.id as any)}
-                        className={`group relative p-6 md:p-8 rounded-[2.5rem] border-2 text-left transition-all duration-500 overflow-hidden ${selectedFreq === freq.id
+                        className={`group relative p-5 rounded-[2rem] border-2 text-left transition-all duration-500 overflow-hidden ${selectedFreq === freq.id
                             ? "bg-[#024653] border-[#024653] text-white shadow-2xl shadow-[#024653]/20 scale-[1.02]"
                             : "bg-white border-slate-50 hover:border-[#024653]/10 hover:shadow-xl hover:-translate-y-1"
                             }`}
                     >
                         {/* Discount Badge */}
                         {freq.discount > 0 && (
-                            <div className={`absolute top-6 right-6 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${selectedFreq === freq.id ? "bg-[#05D16E] text-[#024653]" : "bg-[#05D16E]/10 text-[#05D16E]"}`}>
+                            <div className={`absolute top-5 right-5 px-2 py-1 rounded-full text-[9px] font-black uppercase tracking-widest ${selectedFreq === freq.id ? "bg-[#05D16E] text-[#024653]" : "bg-[#05D16E]/10 text-[#05D16E]"}`}>
                                 Save {Math.round(freq.discount * 100)}%
                             </div>
                         )}
 
-                        <div className="flex items-center gap-6">
-                            <div className={`p-4 rounded-2xl transition-all duration-500 ${selectedFreq === freq.id ? "bg-white/10 text-[#05D16E] scale-110" : "bg-[#F9F8F2] text-[#024653]/40 group-hover:scale-110"}`}>
-                                <Calendar size={24} strokeWidth={3} />
+                        <div className="flex items-center gap-4">
+                            <div className={`p-3 rounded-2xl transition-all duration-500 ${selectedFreq === freq.id ? "bg-white/10 text-[#05D16E] scale-110" : "bg-[#F9F8F2] text-[#024653]/40 group-hover:scale-110"}`}>
+                                <Calendar size={20} strokeWidth={3} />
                             </div>
                             <div>
-                                <h3 className="text-xl md:text-2xl font-black tracking-tight uppercase mb-1">{freq.label}</h3>
-                                <p className={`text-[11px] font-bold uppercase tracking-widest ${selectedFreq === freq.id ? "text-white/40" : "text-[#024653]/40"}`}>
+                                <h3 className="text-lg md:text-xl font-black tracking-tight uppercase mb-0.5">{freq.label}</h3>
+                                <p className={`text-[10px] font-bold uppercase tracking-widest ${selectedFreq === freq.id ? "text-white/40" : "text-[#024653]/40"}`}>
                                     {freq.id === "onetime" ? "Perfect for occasional needs" : `The preferred choice for ${freq.label.toLowerCase()} maintenance`}
                                 </p>
                             </div>
@@ -61,13 +61,13 @@ export default function FrequencyStep({ onNext, onBack }: FrequencyStepProps) {
                 ))}
             </div>
 
-            <div className="mt-8 shrink-0">
+            <div className="mt-4 shrink-0">
                 <button
                     onClick={onNext}
-                    className="btn-accent shadow-2xl shadow-[#05D16E]/10 flex items-center justify-center gap-4 w-full py-6 rounded-[2.5rem] group"
+                    className="btn-accent shadow-2xl shadow-[#05D16E]/10 flex items-center justify-center gap-4 w-full py-4 rounded-[2rem] group"
                 >
-                    <span className="text-[11px] font-black uppercase tracking-[0.3em]">View Your Quote</span>
-                    <ArrowRight size={20} strokeWidth={3} className="transition-transform group-hover:translate-x-2" />
+                    <span className="text-[10px] font-black uppercase tracking-[0.3em]">View Your Quote</span>
+                    <ArrowRight size={18} strokeWidth={3} className="transition-transform group-hover:translate-x-2" />
                 </button>
             </div>
         </div>

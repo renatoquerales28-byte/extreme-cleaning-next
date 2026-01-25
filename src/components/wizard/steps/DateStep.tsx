@@ -48,7 +48,7 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
             if (result.success && result.slots) {
                 setAvailableSlots(result.slots);
                 if (result.slots.length === 0) {
-                    setError(result.reason || "No available slots for this day.");
+                    setError(result.reason || "No available slots.");
                 }
             } else {
                 setError(result.error || "Failed to load slots.");
@@ -102,20 +102,20 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
     return (
         <div className="flex flex-col h-full w-full max-w-4xl mx-auto py-2 antialiased">
             {/* Header */}
-            <div className="text-center space-y-2 mb-10 shrink-0">
-                <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-[#024653] leading-[0.85]">
+            <div className="text-center space-y-2 mb-4 shrink-0">
+                <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-[0.85]">
                     When should we <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-[#024653] via-[#0E6168] to-[#05D16E]">Clean?</span>
                 </h2>
-                <p className="text-[10px] text-[#024653]/40 font-black tracking-[0.3em] uppercase">Select Your Preferred Date & Time</p>
+                <p className="text-[9px] text-[#024653]/40 font-black tracking-[0.3em] uppercase">Select Your Preferred Date & Time</p>
             </div>
 
-            <div className="flex flex-col lg:flex-row gap-8 w-full shrink-0">
+            <div className="flex flex-col lg:flex-row gap-4 w-full shrink-0">
                 {/* Calendar */}
                 <div className="flex-1">
-                    <div className="bg-white p-6 rounded-[3rem] border-2 border-slate-50 shadow-xl">
+                    <div className="bg-white p-4 rounded-[2rem] border-2 border-slate-50 shadow-xl w-full max-w-sm mx-auto">
                         <style>{`
                             .rdp { 
-                                --rdp-cell-size: 48px; 
+                                --rdp-cell-size: 36px; 
                                 --rdp-accent-color: #024653; 
                                 --rdp-background-color: #05D16E; 
                                 margin: 0 auto;
@@ -123,7 +123,7 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
                             .rdp-day_selected:not([disabled]) { 
                                 background-color: #024653; 
                                 color: white; 
-                                border-radius: 12px; 
+                                border-radius: 8px; 
                                 font-weight: bold; 
                             }
                             .rdp-day_today { 
@@ -132,8 +132,10 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
                             }
                             .rdp-day:hover:not([disabled]):not(.rdp-day_selected) {
                                 background-color: #05D16E20;
-                                border-radius: 12px;
+                                border-radius: 8px;
                             }
+                            .rdp-caption_label { font-size: 0.9rem; font-weight: 800; color: #024653; }
+                            .rdp-nav_button { width: 24px; height: 24px; }
                         `}</style>
                         <DayPicker
                             mode="single"
@@ -147,48 +149,48 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
 
                 {/* Time Slots */}
                 <div className="flex-1">
-                    <div className="bg-white p-6 rounded-[3rem] border-2 border-slate-50 shadow-xl min-h-[400px] flex flex-col">
-                        <div className="flex items-center gap-2 mb-6">
-                            <Clock size={20} className="text-[#024653]" />
-                            <h3 className="font-black text-[#024653] text-sm uppercase tracking-widest">
+                    <div className="bg-white p-4 rounded-[2rem] border-2 border-slate-50 shadow-xl min-h-[300px] flex flex-col w-full max-w-sm mx-auto">
+                        <div className="flex items-center gap-2 mb-4">
+                            <Clock size={16} className="text-[#024653]" />
+                            <h3 className="font-black text-[#024653] text-[10px] uppercase tracking-widest">
                                 Available Times
                             </h3>
                         </div>
 
                         {selectedDate && (
-                            <p className="text-[10px] text-[#024653]/40 font-black uppercase tracking-wider mb-4">
+                            <p className="text-[9px] text-[#024653]/40 font-black uppercase tracking-wider mb-2">
                                 {format(selectedDate, "EEEE, MMMM do")}
                             </p>
                         )}
 
-                        <div className="flex-1">
+                        <div className="flex-1 overflow-y-auto max-h-[220px]">
                             {!selectedDate ? (
-                                <div className="h-full flex flex-col items-center justify-center text-[#024653]/20 py-12">
-                                    <Calendar size={48} className="mb-4" />
-                                    <p className="text-sm font-bold uppercase tracking-wider">Select a date first</p>
+                                <div className="h-full flex flex-col items-center justify-center text-[#024653]/20 py-8">
+                                    <Calendar size={32} className="mb-2" />
+                                    <p className="text-xs font-bold uppercase tracking-wider">Select a date first</p>
                                 </div>
                             ) : loading ? (
-                                <div className="grid grid-cols-2 gap-3 animate-pulse">
+                                <div className="grid grid-cols-2 gap-2 animate-pulse">
                                     {[...Array(6)].map((_, i) => (
-                                        <div key={i} className="h-12 bg-slate-100 rounded-2xl"></div>
+                                        <div key={i} className="h-8 bg-slate-100 rounded-xl"></div>
                                     ))}
                                 </div>
                             ) : error ? (
-                                <div className="h-full flex flex-col items-center justify-center text-rose-500 py-8">
-                                    <AlertCircle size={32} className="mb-2" />
-                                    <p className="font-bold text-sm">{error}</p>
-                                    <p className="text-xs text-slate-400 mt-1">Please try another date.</p>
+                                <div className="h-full flex flex-col items-center justify-center text-rose-500 py-4">
+                                    <AlertCircle size={24} className="mb-2" />
+                                    <p className="font-bold text-xs">{error}</p>
+                                    <p className="text-[10px] text-slate-400 mt-1">Please try another date.</p>
                                 </div>
                             ) : availableSlots.length > 0 ? (
-                                <div className="grid grid-cols-2 gap-3">
+                                <div className="grid grid-cols-2 gap-2">
                                     {availableSlots.map((time) => (
                                         <button
                                             key={time}
                                             type="button"
                                             onClick={() => handleTimeSelect(time)}
-                                            className={`px-4 py-3 rounded-2xl text-sm font-black transition-all border-2 ${selectedTime === time
-                                                    ? "bg-[#024653] text-white border-[#024653] shadow-lg scale-105"
-                                                    : "bg-white text-[#024653]/60 border-slate-100 hover:border-[#05D16E] hover:text-[#024653] hover:shadow-sm"
+                                            className={`px-3 py-2 rounded-xl text-xs font-black transition-all border-2 ${selectedTime === time
+                                                ? "bg-[#024653] text-white border-[#024653] shadow-lg scale-105"
+                                                : "bg-white text-[#024653]/60 border-slate-100 hover:border-[#05D16E] hover:text-[#024653] hover:shadow-sm"
                                                 }`}
                                         >
                                             {time}
@@ -197,7 +199,7 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
                                 </div>
                             ) : (
                                 <div className="text-center py-8 text-slate-400">
-                                    <p className="text-sm font-bold">No slots available</p>
+                                    <p className="text-xs font-bold">No slots available</p>
                                 </div>
                             )}
                         </div>
@@ -207,10 +209,10 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
 
             {/* Summary & Action Button */}
             {selectedDate && selectedTime && (
-                <div className="mt-10 space-y-6 shrink-0">
-                    <div className="flex items-center justify-center gap-2 px-6 py-3 bg-[#05D16E]/10 border-2 border-[#05D16E]/20 rounded-full w-fit mx-auto">
-                        <CheckCircle2 size={16} className="text-[#05D16E]" />
-                        <span className="text-[#024653] font-black text-xs uppercase tracking-widest">
+                <div className="mt-4 space-y-4 shrink-0 max-w-lg mx-auto w-full">
+                    <div className="flex items-center justify-center gap-2 px-6 py-2 bg-[#05D16E]/10 border-2 border-[#05D16E]/20 rounded-full w-fit mx-auto">
+                        <CheckCircle2 size={14} className="text-[#05D16E]" />
+                        <span className="text-[#024653] font-black text-[10px] uppercase tracking-widest">
                             {format(selectedDate, "MMM do")} at {selectedTime}
                         </span>
                     </div>
@@ -218,12 +220,12 @@ export default function DateStep({ onNext, onBack }: DateStepProps) {
                     <button
                         onClick={handleContinue}
                         disabled={isSubmitting}
-                        className="btn-accent shadow-2xl shadow-[#05D16E]/20 flex items-center justify-center gap-4 w-full py-8 text-base rounded-[2.5rem] group disabled:opacity-50"
+                        className="btn-accent shadow-2xl shadow-[#05D16E]/20 flex items-center justify-center gap-4 w-full py-4 text-sm rounded-[2rem] group disabled:opacity-50"
                     >
-                        <span className="text-[12px] font-black uppercase tracking-[0.4em]">
+                        <span className="text-[10px] font-black uppercase tracking-[0.4em]">
                             {isSubmitting ? "Saving..." : "Continue to Address"}
                         </span>
-                        {!isSubmitting && <ArrowRight size={24} strokeWidth={3} className="transition-transform group-hover:translate-x-2" />}
+                        {!isSubmitting && <ArrowRight size={18} strokeWidth={3} className="transition-transform group-hover:translate-x-2" />}
                     </button>
                 </div>
             )}

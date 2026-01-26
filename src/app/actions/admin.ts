@@ -17,8 +17,13 @@ export async function getRecentLeads() {
 
 export async function getPricingConfig() {
     try {
-        const data = await db.select().from(pricingConfig);
-        return { success: true, data };
+        const raw = await db.select().from(pricingConfig);
+        // Transform to key-value map
+        const config: Record<string, number> = {};
+        raw.forEach(row => {
+            config[row.key] = row.value;
+        });
+        return { success: true, config };
     } catch (error) {
         console.error("Failed to fetch pricing config:", error);
         return { success: false, error: "Failed to fetch pricing config" };

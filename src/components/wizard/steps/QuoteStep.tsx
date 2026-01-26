@@ -20,9 +20,13 @@ export default function QuoteStep({ onNext }: QuoteStepProps) {
         setIsSubmitting(true);
         try {
             const { calculateTotal } = await import("@/lib/utils/pricing");
-            const { createLead } = await import("@/app/actions/admin");
+            const { createLead, getPricingConfig } = await import("@/app/actions/admin");
 
-            const total = calculateTotal(data);
+            // Get latest pricing config
+            const configRes = await getPricingConfig();
+            const config = configRes.success ? configRes.config : {};
+
+            const total = calculateTotal(data, config);
             const res = await createLead({
                 firstName: data.firstName,
                 lastName: data.lastName,

@@ -171,9 +171,23 @@ export default function ExtremeCleaningWizard() {
         }
     };
 
+    // Pricing Config State
+    const [pricingConfig, setPricingConfig] = useState<any>({});
+
+    useEffect(() => {
+        const loadConfig = async () => {
+            const { getPricingConfig } = await import("@/app/actions/admin");
+            const res = await getPricingConfig();
+            if (res.success && res.config) {
+                setPricingConfig(res.config);
+            }
+        };
+        loadConfig();
+    }, []);
+
     // Calculate data for the quote card
     const data = methods.watch();
-    const totalPrice = calculateTotal(data);
+    const totalPrice = calculateTotal(data, pricingConfig);
     const selectedFreq = FREQUENCIES.find(f => f.id === data.frequency);
 
     // Dynamic Left Panel Content Logic

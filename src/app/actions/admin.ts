@@ -85,21 +85,12 @@ export async function deletePromotion(id: number) {
     }
 }
 
-export async function createLead(data: any) {
+export async function createLead(data: typeof leads.$inferInsert) {
     try {
         const result = await db.insert(leads).values({
-            firstName: data.firstName,
-            lastName: data.lastName,
-            email: data.email,
-            phone: data.phone,
-            serviceType: data.serviceType,
-            frequency: data.frequency,
-            totalPrice: data.totalPrice,
+            ...data,
             status: "new",
-            details: data,
-            // Capture date/time if available upfront
-            serviceDate: data.serviceDate ? new Date(data.serviceDate) : null,
-            serviceTime: data.serviceTime,
+            createdAt: new Date(),
         }).returning({ insertedId: leads.id });
 
         revalidatePath("/admin");
@@ -110,18 +101,9 @@ export async function createLead(data: any) {
     }
 }
 
-export async function updateLead(id: number, data: any) {
+export async function updateLead(id: number, data: Partial<typeof leads.$inferInsert>) {
     try {
-        await db.update(leads).set({
-            // Update fields that might change in later steps
-            serviceDate: data.serviceDate ? new Date(data.serviceDate) : undefined,
-            serviceTime: data.serviceTime,
-            details: data, // Update full details JSON
-            // If address is provided in data
-            // Note: Schema 'leads' table doesn't have address columns explicitly usually, 
-            // but we store it in 'details' JSONB. 
-            // If we needed specific columns for address we'd add them, but details JSON is fine.
-        }).where(eq(leads.id, id));
+        await db.update(leads).set(data).where(eq(leads.id, id));
 
         revalidatePath("/admin");
         return { success: true };

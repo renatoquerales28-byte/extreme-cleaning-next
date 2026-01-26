@@ -11,19 +11,42 @@ interface QuoteStepProps {
 }
 
 export default function QuoteStep({ onNext }: QuoteStepProps) {
-    const { register, watch } = useFormContext<WizardData>();
+    const { register, watch, setValue } = useFormContext<WizardData>();
     const { setAction } = useWizardAction();
     const data = watch();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleNext = useCallback(async () => {
         setIsSubmitting(true);
-        // Simulate submit
-        setTimeout(() => {
+        try {
+            const { calculateTotal } = await import("@/lib/utils/pricing");
+            const { createLead } = await import("@/app/actions/admin");
+
+            const total = calculateTotal(data);
+            const res = await createLead({
+                firstName: data.firstName,
+                lastName: data.lastName,
+                email: data.email,
+                phone: data.phone,
+                serviceType: data.serviceType,
+                frequency: data.frequency,
+                totalPrice: total,
+                details: data,
+            });
+
+            if (res.success && res.leadId) {
+                setValue("leadId", res.leadId);
+                onNext();
+            } else {
+                console.error(res.error);
+                // Ideally show a toast here, but for now we log
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
             setIsSubmitting(false);
-            onNext();
-        }, 1000);
-    }, [onNext]);
+        }
+    }, [data, onNext, setValue]);
 
     useEffect(() => {
         const isValid = data.firstName && data.lastName && data.email && data.phone;

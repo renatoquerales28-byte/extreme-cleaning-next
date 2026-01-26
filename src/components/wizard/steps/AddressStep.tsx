@@ -17,14 +17,38 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
     const data = watch();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    const leadId = watch("leadId");
+
     useEffect(() => {
         setAction({
             label: isSubmitting ? "Processing..." : "Confirm My Booking",
             disabled: isSubmitting,
             isLoading: isSubmitting,
-            onClick: handleSubmit((d) => {
+            onClick: handleSubmit(async (d) => {
                 setIsSubmitting(true);
-                onSubmit(d);
+                try {
+                    if (!leadId) {
+                        console.error("No leadId found");
+                        onSubmit(d);
+                        return;
+                    }
+
+                    const { updateLead } = await import("@/app/actions/admin");
+                    const res = await updateLead(leadId, {
+                        details: d, // Save full wizard state into details
+                        status: "booked"
+                    });
+
+                    if (res.success) {
+                        onSubmit(d);
+                    } else {
+                        console.error("Failed to update lead");
+                    }
+                } catch (error) {
+                    console.error(error);
+                } finally {
+                    setIsSubmitting(false);
+                }
             }),
             icon: <CheckCircle size={18} strokeWidth={2.5} />,
             secondaryContent: (
@@ -33,7 +57,7 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
                 </p>
             )
         });
-    }, [isSubmitting, handleSubmit, onSubmit, setAction]);
+    }, [isSubmitting, handleSubmit, onSubmit, setAction, leadId]);
 
     return (
         <div className="h-full w-full relative flex flex-col">

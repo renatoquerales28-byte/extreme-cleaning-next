@@ -19,13 +19,35 @@ export default function DateStep({ onNext }: DateStepProps) {
     const selectedTime = watch("serviceTime");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    const handleContinue = useCallback(() => {
+    const leadId = watch("leadId");
+
+    const handleContinue = useCallback(async () => {
         setIsSubmitting(true);
-        setTimeout(() => {
+        try {
+            if (!leadId) {
+                console.error("No lead ID found");
+                // Fallback: just proceed if testing, but in production we need leadId
+                onNext();
+                return;
+            }
+
+            const { updateLead } = await import("@/app/actions/admin");
+            const res = await updateLead(leadId, {
+                serviceDate: selectedDate ? new Date(selectedDate) : undefined,
+                serviceTime: selectedTime
+            });
+
+            if (res.success) {
+                onNext();
+            } else {
+                console.error("Failed to update lead");
+            }
+        } catch (error) {
+            console.error(error);
+        } finally {
             setIsSubmitting(false);
-            onNext();
-        }, 500);
-    }, [onNext]);
+        }
+    }, [leadId, selectedDate, selectedTime, onNext]);
 
     useEffect(() => {
         setAction({

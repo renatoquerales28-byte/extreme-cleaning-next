@@ -41,7 +41,7 @@ function Calendar({
                 row: "flex w-full mt-2",
                 cell: "h-9 w-9 text-center text-sm p-0 relative [&:has([aria-selected].day-range-end)]:rounded-r-md [&:has([aria-selected].day-outside)]:bg-stone-100/50 [&:has([aria-selected])]:bg-stone-100 first:[&:has([aria-selected])]:rounded-l-md last:[&:has([aria-selected])]:rounded-r-md focus-within:relative focus-within:z-20 dark:[&:has([aria-selected].day-outside)]:bg-stone-800/50 dark:[&:has([aria-selected])]:bg-stone-800",
                 day: cn(
-                    "h-9 w-9 p-0 font-normal aria-selected:opacity-100 rounded-full"
+                    "h-9 w-9 p-0 font-normal aria-selected:opacity-100 rounded-full aria-selected:!bg-[#024653] aria-selected:!text-white hover:aria-selected:!bg-[#024653] hover:aria-selected:!text-white focus:aria-selected:!bg-[#024653] focus:aria-selected:!text-white"
                 ),
                 day_range_end: "day-range-end",
                 day_selected:

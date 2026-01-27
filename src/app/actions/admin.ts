@@ -23,7 +23,7 @@ export async function getPricingConfig() {
         raw.forEach(row => {
             config[row.key] = row.value;
         });
-        return { success: true, config };
+        return { success: true, data: raw, config };
     } catch (error) {
         console.error("Failed to fetch pricing config:", error);
         return { success: false, error: "Failed to fetch pricing config" };

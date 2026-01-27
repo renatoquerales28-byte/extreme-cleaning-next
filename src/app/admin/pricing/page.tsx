@@ -4,9 +4,8 @@ import PricingContent from "@/components/admin/PricingContent";
 export const dynamic = 'force-dynamic';
 
 export default async function PricingPage() {
-    const { data } = await getPricingConfig();
-
-    let initialConfigs = data || [];
+    const res = await getPricingConfig();
+    let initialConfigs = res.success ? (res.data || []) : [];
 
     // Default configs if empty
     if (initialConfigs.length === 0) {

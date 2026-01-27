@@ -34,12 +34,12 @@ function Calendar({
                 ),
                 nav_button_previous: "absolute left-1",
                 nav_button_next: "absolute right-1",
-                table: "w-full border-collapse space-y-1",
-                head_row: "",
+                table: "w-full border-collapse",
+                head_row: "table-row",
                 head_cell:
-                    "text-stone-500 rounded-md w-9 font-normal text-[0.8rem] dark:text-stone-400 text-center",
-                row: "mt-2",
-                cell: "h-9 w-9 text-center text-sm p-0 relative focus-within:relative focus-within:z-20",
+                    "text-stone-500 w-9 font-normal text-[0.8rem] text-center p-2",
+                row: "table-row",
+                cell: "table-cell h-9 w-9 text-center text-sm p-0 relative",
                 day: cn(
                     "h-9 w-9 p-0 font-normal flex items-center justify-center rounded-full transition-colors duration-200",
                     "hover:bg-slate-100",

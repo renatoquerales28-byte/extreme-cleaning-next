@@ -107,6 +107,25 @@ export async function createLead(data: typeof leads.$inferInsert) {
 }
 
 export async function updateLead(id: number, data: Partial<typeof leads.$inferInsert>) {
+    // Input validation
+    if (!id || typeof id !== 'number') {
+        return { success: false, error: "Invalid lead ID" };
+    }
+
+    // Validate serviceDate if present
+    if (data.serviceDate) {
+        if (!(data.serviceDate instanceof Date)) {
+            return { success: false, error: "Invalid date format" };
+        }
+
+        // Ensure date is not in the past
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (data.serviceDate < today) {
+            return { success: false, error: "Cannot set past date" };
+        }
+    }
+
     try {
         await db.update(leads).set(data).where(eq(leads.id, id));
 

@@ -21,33 +21,62 @@ export default function DateStep({ onNext }: DateStepProps) {
 
     const leadId = watch("leadId");
 
+    // Date validation: block past dates
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalize to midnight
+
+    const isDateDisabled = (date: Date) => {
+        return date < today;
+    };
+
     const handleContinue = useCallback(async () => {
+        // Preventive validation
+        if (!selectedDate || !selectedTime) {
+            console.error("Date or time not selected");
+            return;
+        }
+
+        // Validate date is valid
+        const dateObj = new Date(selectedDate);
+        if (isNaN(dateObj.getTime())) {
+            console.error("Invalid date format");
+            return;
+        }
+
+        // Validate date is not in the past
+        if (dateObj < today) {
+            console.error("Cannot select past date");
+            return;
+        }
+
         setIsSubmitting(true);
         try {
             if (!leadId) {
                 console.error("No lead ID found");
-                // Fallback: just proceed if testing, but in production we need leadId
-                onNext();
+                // TODO: Show error toast to user
+                onNext(); // Fallback for testing
                 return;
             }
 
             const { updateLead } = await import("@/app/actions/admin");
             const res = await updateLead(leadId, {
-                serviceDate: selectedDate ? new Date(selectedDate) : undefined,
+                serviceDate: dateObj,
                 serviceTime: selectedTime
             });
 
             if (res.success) {
                 onNext();
             } else {
-                console.error("Failed to update lead");
+                console.error("Failed to update lead:", res.error);
+                // TODO: Show error toast to user
             }
         } catch (error) {
-            console.error(error);
+            console.error("Unexpected error:", error);
+            // TODO: Show generic error toast
         } finally {
             setIsSubmitting(false);
         }
-    }, [leadId, selectedDate, selectedTime, onNext]);
+    }, [leadId, selectedDate, selectedTime, onNext, today]);
 
     useEffect(() => {
         setAction({
@@ -81,13 +110,23 @@ export default function DateStep({ onNext }: DateStepProps) {
 
                     <div className="flex flex-col gap-6">
                         {/* Calendar */}
-                        <div className="bg-white p-6 rounded-[2rem] border-2 border-slate-50 shadow-sm flex justify-center">
+                        <div className="bg-white p-6 rounded-[2rem] border-2 border-slate-50 shadow-sm flex justify-center relative">
                             <Calendar
                                 mode="single"
                                 selected={selectedDate ? new Date(selectedDate) : undefined}
-                                onSelect={(date) => setValue("serviceDate", date?.toISOString() || "")}
+                                onSelect={(date) => {
+                                    if (date && date >= today) {
+                                        setValue("serviceDate", date.toISOString());
+                                    }
+                                }}
+                                disabled={isDateDisabled}
                                 className="rounded-md border-none"
                             />
+                            {isSubmitting && (
+                                <div className="absolute inset-0 bg-white/80 flex items-center justify-center rounded-[2rem]">
+                                    <div className="animate-spin h-8 w-8 border-4 border-[#024653] border-t-transparent rounded-full" />
+                                </div>
+                            )}
                         </div>
 
                         {/* Times */}

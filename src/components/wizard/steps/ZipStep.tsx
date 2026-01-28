@@ -59,11 +59,13 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
             {/* SCROLLABLE CONTENT AREA */}
             <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
                 <div className="max-w-xl mx-auto space-y-6">
-                    <div className="text-center space-y-2">
-                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-tight">
-                            Let&apos;s start with <br /> <span className="text-[#05D16E]">your location</span>
+                    <div className="text-center space-y-2 md:hidden">
+                        <h2 className="text-3xl font-black tracking-tighter text-[#024653] leading-tight text-balance">
+                            Where is the <br /> <span className="text-[#05D16E]">Sparkle Needed?</span>
                         </h2>
-                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Enter your Zip Code to check availability</p>
+                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full px-4">
+                            Enter your zip code to check availability in the Spokane area.
+                        </p>
                     </div>
 
                     <div className="bg-white border-2 border-slate-50 p-8 rounded-[2rem] shadow-sm space-y-6">

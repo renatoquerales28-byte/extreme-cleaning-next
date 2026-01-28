@@ -314,7 +314,7 @@ export default function ExtremeCleaningWizard() {
                 renderStep={renderStep}
                 className={inter.className}
                 methods={methods}
-                onClose={() => router.push('/')}
+                onClose={() => window.location.href = '/'}
             />
             <Toaster richColors position="top-center" />
         </WizardActionProvider>
@@ -361,7 +361,7 @@ function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, m
                 {/* Right Panel */}
                 <div className="flex-1 w-full lg:w-[60%] h-screen bg-[#F9F8F2] relative flex flex-col overflow-hidden">
                     {/* Header with Progress */}
-                    <div className="shrink-0 w-full px-6 py-6 md:px-12 grid grid-cols-[1fr_auto_1fr] items-center bg-[#F9F8F2] z-40">
+                    <div className="shrink-0 w-full px-6 py-6 md:px-12 grid grid-cols-[1fr_auto_1fr] items-center bg-[#F9F8F2] z-50 relative">
                         <div className="flex justify-start">
                             {step !== 0 && step !== "returning_lookup" && step !== 8 && (
                                 <button onClick={prevStep} className="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-[#024653]/60 hover:text-[#024653] transition-colors group py-2">
@@ -380,7 +380,7 @@ function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, m
                             )}
                         </div>
                         <div className="flex justify-end">
-                            <button onClick={onClose} className="w-8 h-8 rounded-full bg-[#024653]/5 flex items-center justify-center hover:bg-[#024653]/10 transition-colors">
+                            <button onClick={onClose} className="w-8 h-8 rounded-full bg-[#024653]/5 flex items-center justify-center hover:bg-[#024653]/10 transition-colors cursor-pointer active:scale-95">
                                 <span className="text-lg font-bold text-[#024653] mb-1">×</span>
                             </button>
                         </div>

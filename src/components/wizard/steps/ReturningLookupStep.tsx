@@ -47,8 +47,8 @@ export default function ReturningLookupStep({ onBack, onFound }: ReturningLookup
             {/* SCROLLABLE CONTENT AREA */}
             <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
                 <div className="max-w-xl mx-auto space-y-8">
-                    <div className="text-center space-y-2">
-                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-tight">
+                    <div className="text-center space-y-2 md:hidden">
+                        <h2 className="text-3xl font-black tracking-tighter text-[#024653] leading-tight">
                             Welcome <br /> <span className="text-[#05D16E]">Back!</span>
                         </h2>
                         <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Enter your phone number to find your account</p>
@@ -60,7 +60,15 @@ export default function ReturningLookupStep({ onBack, onFound }: ReturningLookup
                                 {...register("phone")}
                                 type="tel"
                                 placeholder="(555) 123-4567"
-                                className="w-full p-6 text-center text-3xl font-black tracking-[0.1em] text-[#024653] border-b-4 border-slate-100 focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200"
+                                autoComplete="tel"
+                                className={`
+                                    w-full p-6 text-center text-3xl font-black tracking-[0.1em] text-[#024653] 
+                                    border-b-4 border-slate-100 focus:border-[#05D16E] outline-none transition-all bg-transparent
+                                    placeholder:text-slate-200 placeholder:font-medium placeholder:tracking-normal
+                                    [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset]
+                                    [&:-webkit-autofill]:-webkit-text-fill-color-[#024653]
+                                `}
+                                style={{ caretColor: "#05D16E" }}
                             />
                         </div>
                     </div>

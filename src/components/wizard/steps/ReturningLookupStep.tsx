@@ -65,12 +65,23 @@ export default function ReturningLookupStep({ onBack, onFound }: ReturningLookup
                                     w-full p-6 text-center text-3xl font-black tracking-[0.1em] text-[#024653] 
                                     border-b-4 border-slate-100 focus:border-[#05D16E] outline-none transition-all bg-transparent
                                     placeholder:text-slate-200 placeholder:font-medium placeholder:tracking-normal
-                                    [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset]
-                                    [&:-webkit-autofill]:-webkit-text-fill-color-[#024653]
-                                    [&:-webkit-autofill]:!text-3xl [&:-webkit-autofill]:!font-black
+                                    phone-input
                                 `}
                                 style={{ caretColor: "#05D16E" }}
                             />
+                            <style jsx>{`
+                                .phone-input:-webkit-autofill,
+                                .phone-input:-webkit-autofill:hover, 
+                                .phone-input:-webkit-autofill:focus, 
+                                .phone-input:-webkit-autofill:active {
+                                    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+                                    -webkit-text-fill-color: #024653 !important;
+                                    font-size: 1.875rem !important;
+                                    font-weight: 900 !important;
+                                    background-color: transparent !important;
+                                    background-clip: content-box !important;
+                                }
+                            `}</style>
                         </div>
                     </div>
                 </div>

@@ -91,7 +91,7 @@ export default function QuoteStep({ onNext }: QuoteStepProps) {
                                 <input
                                     {...register("firstName")}
                                     placeholder="Jane"
-                                    className="w-full p-4 bg-transparent border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200 placeholder:font-medium [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset] [&:-webkit-autofill]:-webkit-text-fill-color-[#024653] [&:-webkit-autofill]:!font-bold"
+                                    className="w-full p-4 bg-transparent border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200 placeholder:font-medium contact-input"
                                 />
                             </div>
                             <div className="space-y-2">
@@ -99,7 +99,7 @@ export default function QuoteStep({ onNext }: QuoteStepProps) {
                                 <input
                                     {...register("lastName")}
                                     placeholder="Doe"
-                                    className="w-full p-4 bg-transparent border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200 placeholder:font-medium [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset] [&:-webkit-autofill]:-webkit-text-fill-color-[#024653] [&:-webkit-autofill]:!font-bold"
+                                    className="w-full p-4 bg-transparent border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200 placeholder:font-medium contact-input"
                                 />
                             </div>
                         </div>
@@ -110,7 +110,7 @@ export default function QuoteStep({ onNext }: QuoteStepProps) {
                                 {...register("email")}
                                 type="email"
                                 placeholder="jane@example.com"
-                                className="w-full p-4 bg-transparent border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200 placeholder:font-medium [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset] [&:-webkit-autofill]:-webkit-text-fill-color-[#024653] [&:-webkit-autofill]:!font-bold"
+                                className="w-full p-4 bg-transparent border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200 placeholder:font-medium contact-input"
                             />
                         </div>
 
@@ -120,12 +120,25 @@ export default function QuoteStep({ onNext }: QuoteStepProps) {
                                 {...register("phone")}
                                 type="tel"
                                 placeholder="(555) 123-4567"
-                                className="w-full p-4 bg-transparent border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200 placeholder:font-medium [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset] [&:-webkit-autofill]:-webkit-text-fill-color-[#024653] [&:-webkit-autofill]:!font-bold"
+                                className="w-full p-4 bg-transparent border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200 placeholder:font-medium contact-input"
                             />
                         </div>
                     </div>
                 </div>
             </div>
+            <style jsx>{`
+                .contact-input:-webkit-autofill,
+                .contact-input:-webkit-autofill:hover, 
+                .contact-input:-webkit-autofill:focus, 
+                .contact-input:-webkit-autofill:active {
+                    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+                    -webkit-text-fill-color: #024653 !important;
+                    font-size: 1rem !important;
+                    font-weight: 700 !important;
+                    background-color: transparent !important;
+                    background-clip: content-box !important;
+                }
+            `}</style>
         </div>
     );
 }

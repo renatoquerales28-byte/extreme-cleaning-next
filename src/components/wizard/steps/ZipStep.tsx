@@ -81,15 +81,27 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                                     border-b-4 outline-none transition-all bg-transparent 
                                     placeholder:text-slate-200 placeholder:tracking-normal placeholder:font-medium
                                     focus:border-[#05D16E]
-                                    [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset]
-                                    [&:-webkit-autofill]:-webkit-text-fill-color-[#024653]
-                                    [&:-webkit-autofill]:!text-4xl [&:-webkit-autofill]:!font-black
+                                    zip-input
                                     ${status === 'unavailable' ? 'border-red-200' : status === 'active' ? 'border-[#05D16E]' : 'border-slate-100'}
                                 `}
                                 style={{
                                     caretColor: "#05D16E"
                                 }}
                             />
+                            <style jsx>{`
+                                .zip-input:-webkit-autofill,
+                                .zip-input:-webkit-autofill:hover, 
+                                .zip-input:-webkit-autofill:focus, 
+                                .zip-input:-webkit-autofill:active {
+                                    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+                                    -webkit-text-fill-color: #024653 !important;
+                                    font-size: 2.25rem !important;
+                                    font-weight: 900 !important;
+                                    background-color: transparent !important;
+                                    background-clip: content-box !important;
+                                }
+                            `}</style>
+
                             {status === 'active' && (
                                 <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[#05D16E] animate-in fade-in zoom-in">
                                     <CheckCircle2 size={32} strokeWidth={3} />

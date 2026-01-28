@@ -24,6 +24,8 @@ ts-debug.log*
 
 # local env files
 .env*.local
+.env
+
 
 # vercel
 .vercel
@@ -32,3 +34,4 @@ ts-debug.log*
 build.log
 debug.log
 *.tsbuildinfo
+

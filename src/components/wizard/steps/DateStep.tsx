@@ -8,6 +8,7 @@ import { format } from "date-fns";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { SimpleCalendar } from "@/components/ui/SimpleCalendar";
 import { getAvailableSlots } from "@/app/actions/calendar";
+import { toast } from "sonner";
 
 interface DateStepProps {
     onNext: () => void;
@@ -75,30 +76,25 @@ export default function DateStep({ onNext }: DateStepProps) {
 
     const handleContinue = useCallback(async () => {
         // Preventive validation
-        if (!selectedDate || !selectedTime) {
-            console.error("Date or time not selected");
-            return;
-        }
+        if (!selectedDate || !selectedTime) { return; }
 
-        // Validate date is valid
+        // Validate date format and past date
         const dateObj = new Date(selectedDate);
-        if (isNaN(dateObj.getTime())) {
-            console.error("Invalid date format");
-            return;
-        }
-
-        // Validate date is not in the past
-        if (dateObj < today) {
-            console.error("Cannot select past date");
+        if (isNaN(dateObj.getTime()) || dateObj < today) {
+            toast.error("Please select a valid future date");
             return;
         }
 
         setIsSubmitting(true);
+        const toastId = toast.loading("Saving schedule...");
+
         try {
             if (!leadId) {
-                console.error("No lead ID found");
-                // TODO: Show error toast to user
-                onNext(); // Fallback for testing
+                // If checking logic mode: Alert user.
+                // But for seamless wizard flow, we might want to proceed and let ReviewStep create.
+                console.warn("No lead ID found at DateStep");
+                toast.dismiss(toastId);
+                onNext();
                 return;
             }
 
@@ -109,14 +105,15 @@ export default function DateStep({ onNext }: DateStepProps) {
             });
 
             if (res.success) {
+                toast.success("Schedule saved", { id: toastId });
                 onNext();
             } else {
                 console.error("Failed to update lead:", res.error);
-                // TODO: Show error toast to user
+                toast.error("Failed to save schedule: " + (res.error || "Unknown error"), { id: toastId });
             }
         } catch (error) {
             console.error("Unexpected error:", error);
-            // TODO: Show generic error toast
+            toast.error("An unexpected error occurred", { id: toastId });
         } finally {
             setIsSubmitting(false);
         }

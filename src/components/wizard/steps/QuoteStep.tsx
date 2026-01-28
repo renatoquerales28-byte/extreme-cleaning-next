@@ -20,14 +20,14 @@ export default function QuoteStep({ onNext }: QuoteStepProps) {
         setIsSubmitting(true);
         try {
             const { calculateTotal } = await import("@/lib/utils/pricing");
-            const { createLead, getPricingConfig } = await import("@/app/actions/admin");
+            const { createLead, updateLead, getPricingConfig } = await import("@/app/actions/admin");
 
             // Get latest pricing config
             const configRes = await getPricingConfig();
             const config = configRes.success ? configRes.config : {};
 
             const total = calculateTotal(data, config);
-            const res = await createLead({
+            const leadData = {
                 firstName: data.firstName,
                 lastName: data.lastName,
                 email: data.email,
@@ -36,14 +36,23 @@ export default function QuoteStep({ onNext }: QuoteStepProps) {
                 frequency: data.frequency,
                 totalPrice: total,
                 details: data,
-            });
+            };
 
-            if (res.success && res.leadId) {
-                setValue("leadId", res.leadId);
+            let res;
+            if (data.leadId) {
+                // Update existing lead
+                res = await updateLead(data.leadId, leadData);
+            } else {
+                // Create new lead
+                res = await createLead(leadData);
+            }
+
+            if (res.success) {
+                if (res.leadId) setValue("leadId", res.leadId);
                 onNext();
             } else {
                 console.error(res.error);
-                // Ideally show a toast here, but for now we log
+                // Ideally show a toast here
             }
         } catch (error) {
             console.error(error);

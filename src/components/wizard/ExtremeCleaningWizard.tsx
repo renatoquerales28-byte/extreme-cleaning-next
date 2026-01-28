@@ -191,9 +191,7 @@ export default function ExtremeCleaningWizard() {
     const selectedFreq = FREQUENCIES.find(f => f.id === data.frequency);
 
     // Dynamic Left Panel Content Logic
-    const getLeftPanelContent = () => {
-        const serviceType = data.serviceType;
-
+    const getLeftPanelContent = (currentStep: number | string, sType?: string) => {
         const content = {
             0: {
                 title: "Where is the",
@@ -210,6 +208,7 @@ export default function ExtremeCleaningWizard() {
                 accent: "Your Space.",
                 description: "Customize your cleaning plan for a perfect fit."
             },
+            // Overridden dynamically below for step 2 based on type
             3: {
                 title: "Select Your",
                 accent: "Frequency.",
@@ -234,11 +233,37 @@ export default function ExtremeCleaningWizard() {
             "returning_select": { title: "Glad you're", accent: "Here.", description: "Select which property needs care today." },
             "returning_config": { title: "Almost", accent: "Done.", description: "Confirm your cleaning intensity and frequency." }
         };
-        // @ts-ignore
-        return content[step] || content[0];
+
+        let activeContent = activeContent = (content as any)[currentStep] || content[0];
+
+        // Specific overrides for Step 2 based on Service Type
+        if (currentStep === 2) {
+            if (sType === "commercial") {
+                activeContent = {
+                    title: "Commercial",
+                    accent: "Specs.",
+                    description: "Tell us about your facility size and needs.",
+                };
+            } else if (sType === "property_mgmt") {
+                activeContent = {
+                    title: "Property",
+                    accent: "Portfolio.",
+                    description: "How many units do you need us to manage?",
+                };
+            } else {
+                // Default Residential
+                activeContent = {
+                    title: "Home",
+                    accent: "Details.",
+                    description: "How big is the home we are cleaning?",
+                };
+            }
+        }
+
+        return activeContent;
     };
 
-    const lp = getLeftPanelContent();
+    const lp = getLeftPanelContent(step, data.serviceType);
 
     return (
         <WizardActionProvider>

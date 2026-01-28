@@ -83,6 +83,7 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                                     focus:border-[#05D16E]
                                     [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset]
                                     [&:-webkit-autofill]:-webkit-text-fill-color-[#024653]
+                                    [&:-webkit-autofill]:!text-4xl [&:-webkit-autofill]:!font-black
                                     ${status === 'unavailable' ? 'border-red-200' : status === 'active' ? 'border-[#05D16E]' : 'border-slate-100'}
                                 `}
                                 style={{

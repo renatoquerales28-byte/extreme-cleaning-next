@@ -67,6 +67,7 @@ export default function ReturningLookupStep({ onBack, onFound }: ReturningLookup
                                     placeholder:text-slate-200 placeholder:font-medium placeholder:tracking-normal
                                     [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset]
                                     [&:-webkit-autofill]:-webkit-text-fill-color-[#024653]
+                                    [&:-webkit-autofill]:!text-3xl [&:-webkit-autofill]:!font-black
                                 `}
                                 style={{ caretColor: "#05D16E" }}
                             />

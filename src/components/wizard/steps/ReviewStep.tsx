@@ -46,67 +46,63 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                     let success = false;
                     let errorMsg = "";
 
-                    // Helper to ensure date is proper object for DB
-                    const leadInput = {
+                    // FINAL CLEANUP: Ensure all data is serializable and DB-friendly
+                    const sanitizedData = {
                         ...data,
-                        serviceDate: data.serviceDate ? new Date(data.serviceDate) : undefined,
+                        // Convert Date object back to ISO string if present
+                        serviceDate: data.serviceDate instanceof Date
+                            ? data.serviceDate.toISOString()
+                            : data.serviceDate,
+                        leadId: data.leadId ? Number(data.leadId) : undefined
                     };
 
                     if (data.leadId) {
-                        // Attempt to update existing lead
-                        const res = await updateLead(Number(data.leadId), {
-                            status: "booked",
-                            details: data
-                        });
-
-                        if (res.success) {
-                            success = true;
-                        } else {
-                            console.warn("Lead update failed, attempting session recovery...", res.error);
-
-                            // Session Recovery: Create new lead if update fails (e.g. ID expired)
-                            const createRes = await createLead({
-                                ...leadInput,
-                                totalPrice: total || 0,
-                                status: "booked", // Create directly as booked
-                                details: data
+                        try {
+                            const res = await updateLead(Number(data.leadId), {
+                                status: "booked",
+                                details: sanitizedData
                             });
 
-                            if (createRes.success) {
+                            if (res.success) {
                                 success = true;
-                                console.log("Session recovered with new Lead ID:", createRes.leadId);
                             } else {
-                                errorMsg = createRes.error || "Failed to create booking";
+                                console.warn("Update failed, attempting recovery", res.error);
+                                // Session Recovery
+                                const createRes = await createLead({
+                                    ...sanitizedData,
+                                    totalPrice: total || 0,
+                                    status: "booked",
+                                    details: sanitizedData
+                                });
+                                if (createRes.success) success = true;
+                                else errorMsg = createRes.error || "Recovery failed";
                             }
+                        } catch (err: any) {
+                            errorMsg = err.message || "Server update error";
                         }
                     } else {
-                        // No lead ID found (e.g. refreshed without persistence or error), create new
-                        console.warn("No Lead ID found, creating new lead...");
                         const createRes = await createLead({
-                            ...leadInput,
+                            ...sanitizedData,
                             totalPrice: total || 0,
                             status: "booked",
-                            details: data
+                            details: sanitizedData
                         });
-
-                        if (createRes.success) {
-                            success = true;
-                        } else {
-                            errorMsg = createRes.error || "Failed to create booking";
-                        }
+                        if (createRes.success) success = true;
+                        else errorMsg = createRes.error || "Creation failed";
                     }
 
                     if (success) {
                         toast.success("Booking confirmed!", { id: toastId });
+                        // Clear storage on success
+                        if (typeof window !== 'undefined') localStorage.removeItem("wizard-data");
                         onNext();
                     } else {
-                        // Strict Mode: Do not proceed
-                        toast.error(errorMsg || "Unable to complete booking. Please try again.", { id: toastId });
+                        toast.error(`Booking Error: ${errorMsg}`, { id: toastId });
                     }
 
-                } catch (e) {
-                    console.error(e);
-                    toast.error("Network connection error. Please try again.", { id: toastId });
+                } catch (e: any) {
+                    console.error("Critical error in ReviewStep:", e);
+                    toast.error(`System Error: ${e.message || "Connection failed"}`, { id: toastId });
                 } finally {
                     setIsSubmitting(false);
                 }

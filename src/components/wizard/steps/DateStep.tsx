@@ -3,10 +3,11 @@
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { useWizardAction } from "../WizardActionContext";
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import { format } from "date-fns";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
+import { getAvailableSlots } from "@/app/actions/calendar";
 
 interface DateStepProps {
     onNext: () => void;
@@ -19,15 +20,58 @@ export default function DateStep({ onNext }: DateStepProps) {
     const selectedTime = watch("serviceTime");
     const [isSubmitting, setIsSubmitting] = useState(false);
 
+    // Slots state
+    const [availableSlots, setAvailableSlots] = useState<string[]>([]);
+    const [isLoadingSlots, setIsLoadingSlots] = useState(false);
+    const [slotError, setSlotError] = useState<string | null>(null);
+
     const leadId = watch("leadId");
 
     // Date validation: block past dates
-    const today = new Date();
-    today.setHours(0, 0, 0, 0); // Normalize to midnight
+    const today = useMemo(() => {
+        const d = new Date();
+        d.setHours(0, 0, 0, 0); // Normalize to midnight
+        return d;
+    }, []);
 
     const isDateDisabled = (date: Date) => {
         return date < today;
     };
+
+    // Fetch slots when date changes
+    useEffect(() => {
+        const fetchSlots = async () => {
+            if (!selectedDate) {
+                setAvailableSlots([]);
+                return;
+            }
+
+            setIsLoadingSlots(true);
+            setSlotError(null);
+
+            try {
+                const dateObj = new Date(selectedDate);
+                const res = await getAvailableSlots(dateObj);
+
+                if (res.success && res.slots) {
+                    setAvailableSlots(res.slots);
+                    if (res.slots.length === 0) {
+                        setSlotError(res.reason || "No slots available for this date");
+                    }
+                } else {
+                    setSlotError("Could not load availability");
+                    setAvailableSlots([]);
+                }
+            } catch (err) {
+                console.error(err);
+                setSlotError("Error loading slots");
+            } finally {
+                setIsLoadingSlots(false);
+            }
+        };
+
+        fetchSlots();
+    }, [selectedDate]);
 
     const handleContinue = useCallback(async () => {
         // Preventive validation
@@ -94,7 +138,17 @@ export default function DateStep({ onNext }: DateStepProps) {
         });
     }, [selectedDate, selectedTime, isSubmitting, setAction, handleContinue]);
 
-    const timeSlots = ["08:00 AM", "10:00 AM", "12:00 PM", "02:00 PM", "04:00 PM"];
+    // Helper to format time for display (24h -> 12h)
+    const formatTimeDisplay = (time: string) => {
+        try {
+            const [hours, minutes] = time.split(':');
+            const date = new Date();
+            date.setHours(parseInt(hours), parseInt(minutes));
+            return format(date, "hh:mm a");
+        } catch (e) {
+            return time;
+        }
+    };
 
     return (
         <div className="h-full w-full relative flex flex-col">
@@ -117,6 +171,7 @@ export default function DateStep({ onNext }: DateStepProps) {
                                 onSelect={(date) => {
                                     if (date && date >= today) {
                                         setValue("serviceDate", date.toISOString());
+                                        setValue("serviceTime", undefined); // Clear time on date change
                                     }
                                 }}
                                 disabled={isDateDisabled}
@@ -130,19 +185,42 @@ export default function DateStep({ onNext }: DateStepProps) {
                         </div>
 
                         {/* Times */}
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                            {timeSlots.map((time) => (
-                                <button
-                                    key={time}
-                                    onClick={() => setValue("serviceTime", time)}
-                                    className={`p-3 rounded-xl border-2 text-xs font-bold uppercase tracking-wider transition-all ${selectedTime === time
-                                        ? "bg-[#024653] border-[#024653] text-white"
-                                        : "bg-white border-slate-50 text-[#024653]/60 hover:border-[#05D16E]"
-                                        }`}
-                                >
-                                    {time}
-                                </button>
-                            ))}
+                        <div className="min-h-[200px]">
+                            {isLoadingSlots ? (
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 animate-pulse">
+                                    {[1, 2, 3, 4, 5, 6].map((i) => (
+                                        <div key={i} className="h-10 bg-slate-100 rounded-xl" />
+                                    ))}
+                                </div>
+                            ) : slotError ? (
+                                <div className="flex flex-col items-center justify-center h-full p-4 text-center border-2 border-slate-50 border-dashed rounded-xl bg-slate-50/50">
+                                    <p className="text-[#024653] font-bold mb-1">Unavailable</p>
+                                    <p className="text-xs text-slate-500">{slotError}</p>
+                                </div>
+                            ) : availableSlots.length === 0 && selectedDate ? (
+                                <div className="flex flex-col items-center justify-center p-8 text-center bg-slate-50 rounded-xl text-slate-400 text-sm">
+                                    No available slots for this date
+                                </div>
+                            ) : !selectedDate ? (
+                                <div className="flex flex-col items-center justify-center p-8 text-center bg-slate-50 rounded-xl text-slate-400 text-sm">
+                                    Select a date first
+                                </div>
+                            ) : (
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                    {availableSlots.map((time) => (
+                                        <button
+                                            key={time}
+                                            onClick={() => setValue("serviceTime", time)}
+                                            className={`p-3 rounded-xl border-2 text-xs font-bold uppercase tracking-wider transition-all ${selectedTime === time
+                                                ? "bg-[#024653] border-[#024653] text-white"
+                                                : "bg-white border-slate-50 text-[#024653]/60 hover:border-[#05D16E]"
+                                                }`}
+                                        >
+                                            {formatTimeDisplay(time)}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>

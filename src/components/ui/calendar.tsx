@@ -34,11 +34,11 @@ function Calendar({
                 ),
                 nav_button_previous: "absolute left-1",
                 nav_button_next: "absolute right-1",
-                table: "w-full border-collapse",
-                head_row: "flex w-full mb-2",
+                table: "w-full border-collapse space-y-1",
+                head_row: "mb-2",
                 head_cell:
-                    "text-stone-500 font-normal text-[0.8rem] text-center flex-1 flex items-center justify-center pt-1",
-                row: "flex w-full mt-2",
+                    "text-stone-500 font-normal text-[0.8rem] text-center pt-1 pb-2",
+                row: "w-full mt-2",
                 cell: "h-9 w-9 text-center text-sm p-0 relative flex items-center justify-center focus-within:relative focus-within:z-20",
                 day: cn(
                     "h-9 w-9 p-0 font-normal flex items-center justify-center rounded-full transition-colors duration-200",

@@ -175,6 +175,9 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                     <div className="space-y-4">
                         <Section title="Service" icon={Home} stepIndex={2}>
                             <p className="font-bold text-[#024653] capitalize">{data.serviceType} Cleaning</p>
+                            <p className="text-xs font-bold text-[#024653]/80 capitalize mt-0.5 mb-1">
+                                {(data.cleaningType || 'standard').replace('_', ' ')} Intensity
+                            </p>
                             {data.serviceType === 'residential' && (
                                 <p className="text-xs text-[#024653]/60">{data.bedrooms} Bed, {data.bathrooms} Bath, ~{data.sqFt} sqft</p>
                             )}
@@ -184,12 +187,12 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                             <p className="text-xs text-[#05D16E] font-bold mt-1 uppercase tracking-wider">{data.frequency} Plan</p>
                         </Section>
 
-                        <Section title="Schedule" icon={Calendar} stepIndex={6}>
+                        <Section title="Schedule" icon={Calendar} stepIndex={7}>
                             <p className="font-bold text-[#024653]">{formattedDate}</p>
                             <p className="text-xs text-[#024653]/60">@ {data.serviceTime}</p>
                         </Section>
 
-                        <Section title="Location" icon={MapPin} stepIndex={7}>
+                        <Section title="Location" icon={MapPin} stepIndex={8}>
                             <p className="font-bold text-[#024653]">{data.address}</p>
                             <p className="text-xs text-[#024653]/60">{data.city}, {data.zipCode}</p>
                         </Section>
@@ -211,6 +214,6 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }

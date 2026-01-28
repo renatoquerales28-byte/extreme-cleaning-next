@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 export const serviceTypes = ["residential", "commercial", "property_mgmt"] as const;
-export const cleaningTypes = ["regular", "deep", "move"] as const;
+export const cleaningTypes = ["regular", "standard", "deep", "move", "post_construction"] as const;
 export const frequencies = ["weekly", "biweekly", "monthly", "onetime"] as const;
 
 export const wizardSchema = z.object({

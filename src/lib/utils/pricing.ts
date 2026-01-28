@@ -15,6 +15,7 @@ export const DEFAULT_PRICING = {
     price_per_sq_ft: 0.015, // /1000 * 15 = 0.015
     multiplier_deep: 1.5,
     multiplier_move: 1.8,
+    multiplier_post_construction: 2.0,
     commercial_min: 150,
     commercial_sq_ft_rate: 0.12,
     property_mgmt_flat: 120
@@ -32,6 +33,7 @@ export const calculateBasePrice = (beds: number, baths: number, sq: number, type
 
     if (type === "deep") base *= p.multiplier_deep;
     if (type === "move") base *= p.multiplier_move;
+    if (type === "post_construction") base *= p.multiplier_post_construction;
 
     return base;
 };

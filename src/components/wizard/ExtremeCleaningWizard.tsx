@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { calculateTotal, FREQUENCIES } from "@/lib/utils/pricing";
 import { Inter } from "next/font/google";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { useWizardAction, WizardActionProvider } from './WizardActionContext';
 import { ArrowRight, Loader2 } from 'lucide-react';
 
@@ -33,6 +33,7 @@ import { Toaster } from "sonner";
 const TOTAL_STEPS = 8; // 0 to 7 (Review) + Success (8)
 
 export default function ExtremeCleaningWizard() {
+    const router = useRouter();
     const searchParams = useSearchParams();
     const urlZip = searchParams.get("zip");
     const urlType = searchParams.get("type"); // residential, commercial, property_mgmt
@@ -313,13 +314,14 @@ export default function ExtremeCleaningWizard() {
                 renderStep={renderStep}
                 className={inter.className}
                 methods={methods}
+                onClose={() => router.push('/')}
             />
             <Toaster richColors position="top-center" />
         </WizardActionProvider>
     );
 }
 
-function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, methods }: any) {
+function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, methods, onClose }: any) {
     const { action } = useWizardAction();
 
     // 0-7 are steps (8 total). 8 is success (no progress bar needed ideally or full).
@@ -378,7 +380,7 @@ function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, m
                             )}
                         </div>
                         <div className="flex justify-end">
-                            <button className="w-8 h-8 rounded-full bg-[#024653]/5 flex items-center justify-center hover:bg-[#024653]/10 transition-colors">
+                            <button onClick={onClose} className="w-8 h-8 rounded-full bg-[#024653]/5 flex items-center justify-center hover:bg-[#024653]/10 transition-colors">
                                 <span className="text-lg font-bold text-[#024653] mb-1">×</span>
                             </button>
                         </div>

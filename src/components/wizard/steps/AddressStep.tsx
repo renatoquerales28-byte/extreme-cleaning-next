@@ -119,6 +119,17 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
                                 {errors.zipCode && <p className="text-[8px] text-rose-500 font-bold ml-4 uppercase tracking-widest">{errors.zipCode.message}</p>}
                             </div>
                         </div>
+
+                        <div className="space-y-4">
+                            <label className="text-[10px] font-black uppercase tracking-wider text-[#024653]">Phone Number</label>
+                            <input
+                                {...register("phone")}
+                                type="tel"
+                                placeholder="(555) 123-4567"
+                                className={`w-full p-4 bg-slate-50 border-2 rounded-xl font-bold text-[#024653] outline-none transition-all ${errors.phone ? 'border-rose-400' : 'border-slate-100 focus:border-[#05D16E]'}`}
+                            />
+                            {errors.phone && <p className="text-[8px] text-rose-500 font-bold ml-4 uppercase tracking-widest">{errors.phone.message}</p>}
+                        </div>
                     </div>
                 </div>
             </div>

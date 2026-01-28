@@ -184,8 +184,8 @@ export default function ExtremeCleaningWizard() {
                 if (serviceType === "property_mgmt") return <PMSelectionStep onNext={nextStep} />;
                 return null;
             case 3: return <FrequencyStep onNext={nextStep} />;
-            case 4: return <PriceStep onNext={nextStep} totalPrice={totalPrice} />;
-            case 5: return <QuoteStep onNext={nextStep} />;
+            case 4: return <QuoteStep onNext={nextStep} />;
+            case 5: return <PriceStep onNext={nextStep} totalPrice={totalPrice} />;
             case 6: return <DateStep onNext={nextStep} />;
             case 7: return <AddressStep onSubmit={() => nextStep()} />;
             case 8: return <ReviewStep onNext={nextStep} onEditStep={(s) => setStep(s)} />;
@@ -248,14 +248,14 @@ export default function ExtremeCleaningWizard() {
                 description: "Save up to 20% with our recurring care plans."
             },
             4: {
+                title: "Unlock your",
+                accent: "Quote.",
+                description: "Enter your details to view your instant price."
+            },
+            5: {
                 title: "Your Final",
                 accent: "Estimate.",
                 description: "Premium Care, Guaranteed Quality. No hidden fees."
-            },
-            5: {
-                title: "Who are we",
-                accent: "Serving?",
-                description: "We just need a few details to send your confirmed quote."
             },
             6: {
                 title: "When should",

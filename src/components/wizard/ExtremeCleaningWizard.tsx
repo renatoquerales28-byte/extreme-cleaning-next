@@ -210,7 +210,7 @@ export default function ExtremeCleaningWizard() {
             },
             // Overridden dynamically below for step 2 based on type
             3: {
-                title: "Select Your",
+                title: "Select",
                 accent: "Frequency.",
                 description: "Save up to 20% with our recurring care plans."
             },
@@ -225,8 +225,8 @@ export default function ExtremeCleaningWizard() {
                 description: "Select your preferred date and time for the service."
             },
             6: {
-                title: "Where should",
-                accent: "we Sparkle?",
+                title: "Location",
+                accent: "Details.",
                 description: "Finalize your cleaning schedule and secure your slot."
             },
             "returning_lookup": { title: "Welcome", accent: "Back.", description: "Access your saved properties and preferences." },

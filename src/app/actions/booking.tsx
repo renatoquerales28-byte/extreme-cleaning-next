@@ -11,31 +11,29 @@ export async function submitBooking(formData: any) {
     try {
         console.log("📩 Iniciando proceso de reserva para:", formData.email);
 
-        // 1. Generar el PDF en memoria
-        // Nota: renderToBuffer es asíncrono
-        const pdfBuffer = await renderToBuffer(<BookingReceipt data={ formData } />);
+        // 1. DIAGNOSTICO: Omitimos PDF temporalmente para probar envío
+        // const pdfBuffer = await renderToBuffer(<BookingReceipt data={formData} />);
+        console.log("⚠️ PDF Generation SKIPPED for testing");
 
         // 2. Enviar el correo usando Resend
         const { data, error } = await resend.emails.send({
             from: "ECS Team <onboarding@resend.dev>", // Usamos el dominio de prueba de Resend por ahora
             to: [formData.email], // Enviamos al correo que ingresó el usuario
-            subject: "Confirmation: Your ECS Booking is Confirmed! ✨",
+            subject: "Confirmation: Your ECS Booking is Confirmed! (Test)",
             html: `
         <div style="font-family: sans-serif; color: #333;">
           <h1>Hi ${formData.firstName},</h1>
-          <p>We are thrilled to confirm your cleaning service.</p>
-          <p><strong>Attached you will find your official receipt.</strong></p>
-          <br/>
-          <p>See you soon!</p>
+          <p>This is a test to verify email delivery connectivity.</p>
+          <p><strong>Receipt generation is temporarily paused for diagnostics.</strong></p>
           <p style="color: #024653; font-weight: bold;">The ECS Team</p>
         </div>
       `,
-            attachments: [
-                {
-                    filename: "ECS-Booking-Receipt.pdf",
-                    content: pdfBuffer,
-                },
-            ],
+            // attachments: [
+            //   {
+            //     filename: "ECS-Booking-Receipt.pdf",
+            //     content: pdfBuffer,
+            //   },
+            // ],
         });
 
         if (error) {

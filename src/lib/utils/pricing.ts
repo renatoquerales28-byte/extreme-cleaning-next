@@ -49,7 +49,8 @@ export const calculateTotal = (data: WizardData, config: Partial<PricingConfig> 
         const sq = data.commSqFt || 0;
         total = Math.max(p.commercial_min, Math.round(sq * p.commercial_sq_ft_rate));
     } else if (data.serviceType === "property_mgmt") {
-        total = p.property_mgmt_flat;
+        const count = data.propertyCount || 1;
+        total = p.property_mgmt_flat * count;
     }
 
     return Math.round(total);

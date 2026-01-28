@@ -166,7 +166,17 @@ export default function ExtremeCleaningWizard() {
         });
     };
 
-    // ... (useEffect sync remains)
+    // Sync step changes to form state (so it saves to LS)
+    useEffect(() => {
+        const current = step;
+        if (typeof current === 'number') {
+            methods.setValue("step", current);
+        }
+    }, [step, methods]);
+
+    const goToReturning = () => {
+        setStep("returning_lookup");
+    };
 
     const renderStep = () => {
         switch (step) {

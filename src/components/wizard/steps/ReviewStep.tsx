@@ -9,6 +9,7 @@ import { format } from "date-fns";
 import { calculateTotal } from "@/lib/utils/pricing";
 import { toast } from "sonner";
 import { updateLead, createLead, getPricingConfig } from "@/app/actions/admin";
+import { submitBooking } from "@/app/actions/booking";
 
 interface ReviewStepProps {
     onNext: () => void;
@@ -93,7 +94,21 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                     }
 
                     if (success) {
-                        toast.success("Booking confirmed!", { id: toastId });
+                        // Send Receipt Logic
+                        toast.loading("Sending confirmation...", { id: toastId });
+                        try {
+                            const emailRes = await submitBooking(dbPayload);
+                            if (emailRes.success) {
+                                toast.success("Confirmed! Receipt sent.", { id: toastId });
+                            } else {
+                                console.warn("Email warning:", emailRes.error);
+                                toast.success("Booking confirmed!", { id: toastId });
+                            }
+                        } catch (emailErr) {
+                            console.error("Email failed", emailErr);
+                            toast.success("Booking confirmed!", { id: toastId });
+                        }
+
                         if (typeof window !== 'undefined') localStorage.removeItem("wizard-data");
                         onNext();
                     } else {

@@ -353,16 +353,7 @@ function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, m
                                 <p className="text-white/80 font-medium text-base leading-relaxed max-w-xs">{lp?.description}</p>
                             </div>
 
-                            {/* Optional: Show running total in bottom left for steps > 1 */}
-                            {typeof step === 'number' && step > 1 && step < 9 && (
-                                <div className="mt-auto pt-6 border-t border-white/10">
-                                    <p className="text-[10px] font-black uppercase tracking-widest text-[#10f081] mb-1">Estimated Total</p>
-                                    <div className="flex items-baseline gap-2">
-                                        <span className="text-4xl font-black text-white">${totalPrice}</span>
-                                        <span className="text-sm font-bold text-white/70">/service</span>
-                                    </div>
-                                </div>
-                            )}
+
                         </motion.div>
                     </AnimatePresence>
                 </div>

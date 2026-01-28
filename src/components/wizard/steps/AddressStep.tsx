@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { CheckCircle, MapPin } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
+import { warmUpServer } from "@/app/actions/admin";
 
 interface AddressStepProps {
     onSubmit: (data: WizardData) => void;
@@ -17,6 +18,11 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
     const { setAction } = useWizardAction();
     const data = watch();
     const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // Pre-warm server connection for faster final submission
+    useEffect(() => {
+        warmUpServer();
+    }, []);
 
     const leadId = watch("leadId");
 

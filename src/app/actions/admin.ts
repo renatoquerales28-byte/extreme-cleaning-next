@@ -2,8 +2,17 @@
 
 import { db } from "@/lib/db";
 import { leads, pricingConfig, promotions } from "@/lib/db/schema";
-import { desc, eq } from "drizzle-orm";
+import { desc, eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+
+export async function warmUpServer() {
+    try {
+        await db.execute(sql`SELECT 1`);
+        return { success: true };
+    } catch (e) {
+        return { success: false };
+    }
+}
 
 export async function getRecentLeads() {
     try {

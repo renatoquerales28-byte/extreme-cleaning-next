@@ -20,7 +20,6 @@ import ResidentialStep from "./steps/ResidentialStep";
 import CommercialStep from "./steps/CommercialStep";
 import PMSelectionStep from "./steps/PMSelectionStep";
 import FrequencyStep from "./steps/FrequencyStep";
-import FrequencyStep from "./steps/FrequencyStep";
 import PriceStep from "./steps/PriceStep";
 import QuoteStep from "./steps/QuoteStep";
 import ReturningLookupStep from "./steps/ReturningLookupStep";

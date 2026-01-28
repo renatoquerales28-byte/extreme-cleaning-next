@@ -99,11 +99,6 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                         timeoutPromise
                     ]) as any;
 
-                    // Limpiar localStorage
-                    if (typeof window !== 'undefined') {
-                        localStorage.removeItem("wizard-data");
-                    }
-
                     // Mostrar mensaje apropiado
                     if (result.emailRes?.skipped) {
                         toast.success("Booking confirmed! (Email skipped - configure RESEND_API_KEY)", {

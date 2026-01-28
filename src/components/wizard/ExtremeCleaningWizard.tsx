@@ -71,44 +71,6 @@ export default function ExtremeCleaningWizard() {
 
     const data = methods.watch();
 
-    // Persist to LocalStorage
-    useEffect(() => {
-        const subscription = methods.watch((value) => {
-            if (typeof window !== 'undefined') {
-                localStorage.setItem("wizard-data", JSON.stringify(value));
-            }
-        });
-        return () => subscription.unsubscribe();
-    }, [methods]);
-
-    // Hydrate from LocalStorage
-    useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const saved = localStorage.getItem("wizard-data");
-            if (saved) {
-                try {
-                    const parsed = JSON.parse(saved);
-                    // Only restore if user is not in a 'new' flow (step 0 with no url params)
-                    // Or just verify if parsed has meaningful data.
-                    // Merging logic:
-                    if (parsed.step < 9) { // Don't restore if finished
-                        methods.reset({ ...parsed, ...methods.getValues() }); // Keep current defaults if missing
-                        setStep(parsed.step); // Restore step
-                    }
-                } catch (e) {
-                    console.error("Failed to parse wizard data", e);
-                }
-            }
-        }
-    }, [methods]);
-
-    // Clear Storage on Success
-    useEffect(() => {
-        if (step === 9) {
-            localStorage.removeItem("wizard-data");
-        }
-    }, [step]);
-
     // OPTIMIZACIÓN: Warm-up de la conexión a DB al cargar el wizard
     useEffect(() => {
         const warmUp = async () => {

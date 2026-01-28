@@ -1,4 +1,6 @@
-import { pgTable, serial, text, integer, timestamp, boolean, jsonb } from "drizzle-orm/pg-core";
+import { pgTable, serial, text, integer, timestamp, boolean, jsonb, pgEnum, varchar } from "drizzle-orm/pg-core";
+
+export const areaStatusEnum = pgEnum("area_status", ["active", "coming_soon"]);
 
 export const leads = pgTable("leads", {
     id: serial("id").primaryKey(),
@@ -14,6 +16,14 @@ export const leads = pgTable("leads", {
     details: jsonb("details"), // Store full wizard data object
     serviceDate: timestamp("service_date"),
     serviceTime: text("service_time"),
+});
+
+export const serviceAreas = pgTable("service_areas", {
+    id: serial("id").primaryKey(),
+    zipCode: varchar("zip_code", { length: 10 }).notNull().unique(),
+    city: varchar("city", { length: 256 }),
+    status: areaStatusEnum("status").default("active").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 export const promotions = pgTable("promotions", {

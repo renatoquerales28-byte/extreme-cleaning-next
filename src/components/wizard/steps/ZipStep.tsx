@@ -16,17 +16,43 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     const { setAction } = useWizardAction();
     const zipCode = watch("zipCode") || "";
 
-    // Simple mock validation
-    const zip = ["90210", "10001", "33101", "33160", "33162"];
-    const isValidZip = zip.includes(zipCode);
+    const [status, setStatus] = React.useState<'idle' | 'active' | 'coming_soon' | 'unavailable'>('idle');
+    const [city, setCity] = React.useState<string | undefined>();
+    const [isChecking, setIsChecking] = React.useState(false);
+
+    // Reset status when user types
+    React.useEffect(() => {
+        if (status !== 'idle') setStatus('idle');
+    }, [zipCode]);
+
+    const checkAvailability = React.useCallback(async () => {
+        setIsChecking(true);
+        try {
+            const { checkZipAvailability } = await import("@/app/actions/location");
+            const res = await checkZipAvailability(zipCode);
+            setCity(res.city);
+            setStatus(res.status);
+
+            if (res.status === 'active') {
+                onNext();
+            }
+        } catch (error) {
+            console.error(error);
+            setStatus('unavailable');
+        } finally {
+            setIsChecking(false);
+        }
+    }, [zipCode, onNext]);
 
     useEffect(() => {
+        const canCheck = zipCode.length === 5;
         setAction({
-            label: "Check Availability",
-            disabled: !isValidZip,
-            onClick: onNext
+            label: isChecking ? "Checking..." : "Check Availability",
+            disabled: !canCheck || isChecking,
+            isLoading: isChecking,
+            onClick: checkAvailability
         });
-    }, [isValidZip, onNext, setAction]);
+    }, [zipCode, isChecking, checkAvailability, setAction]);
 
     return (
         <div className="h-full w-full relative flex flex-col">
@@ -47,19 +73,28 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                                 type="text"
                                 maxLength={5}
                                 placeholder="e.g. 90210"
-                                className="w-full p-6 text-center text-4xl font-black tracking-[0.2em] text-[#024653] border-b-4 border-slate-100 focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200"
+                                className={`w-full p-6 text-center text-4xl font-black tracking-[0.2em] text-[#024653] border-b-4 outline-none transition-all placeholder:text-slate-200 ${status === 'unavailable' ? 'border-red-200' : status === 'active' ? 'border-[#05D16E]' : 'border-slate-100 hover:border-[#05D16E]/50'}`}
                             />
-                            {isValidZip && (
+                            {status === 'active' && (
                                 <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[#05D16E] animate-in fade-in zoom-in">
                                     <CheckCircle2 size={32} strokeWidth={3} />
                                 </div>
                             )}
                         </div>
 
-                        {!isValidZip && zipCode?.length === 5 && (
+                        {status === 'unavailable' && (
                             <div className="p-4 bg-red-50 border border-red-100 rounded-xl flex items-center gap-3 animate-in slide-in-from-top-2">
                                 <AlertCircle className="text-red-500 shrink-0" size={20} />
                                 <p className="text-xs font-bold text-red-600">Sorry, we don&apos;t service this area yet.</p>
+                            </div>
+                        )}
+
+                        {status === 'coming_soon' && (
+                            <div className="p-4 bg-yellow-50 border border-yellow-100 rounded-xl text-center space-y-2 animate-in slide-in-from-top-2">
+                                <p className="text-xs font-bold text-yellow-700">
+                                    We are coming to <span className="uppercase">{city || zipCode}</span> very soon!
+                                </p>
+                                <p className="text-[10px] font-medium text-yellow-600">Join our waitlist to get notified.</p>
                             </div>
                         )}
                     </div>

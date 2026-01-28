@@ -4,10 +4,10 @@
 
 :root {
     /* Botanical Brand Foundation */
-    --background: #F9F8F2;
-    --foreground: #024653;
+    --background: 60 30% 96%; /* #F9F8F2 */
+    --foreground: 189 95% 17%; /* #024653 */
 
-    /* Brand Colors */
+    /* Brand Colors (Keeping for compatibility) */
     --brand-teal: #024653;
     --brand-green: #05D16E;
     --brand-cream: #F9F8F2;
@@ -22,6 +22,64 @@
     --accent-hover: #08BF5F;
 
     --card-bg: rgba(255, 255, 255, 0.6);
+
+    /* Shadcn UI Variables (Mapped to Brand) */
+    --card: 0 0% 100%;
+    --card-foreground: 189 95% 17%;
+ 
+    --popover: 0 0% 100%;
+    --popover-foreground: 189 95% 17%;
+ 
+    --primary: 189 95% 17%; /* #024653 */
+    --primary-foreground: 60 30% 96%; /* #F9F8F2 */
+ 
+    --secondary: 60 30% 90%; /* Cream darker */
+    --secondary-foreground: 189 95% 17%;
+ 
+    --muted: 60 10% 90%;
+    --muted-foreground: 189 40% 40%;
+ 
+    --accent: 151 93% 42%; /* #05D16E */
+    --accent-foreground: 189 95% 17%;
+ 
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 189 20% 85%;
+    --input: 189 20% 85%;
+    --ring: 189 95% 17%;
+ 
+    --radius: 0.5rem;
+}
+ 
+.dark {
+    --background: 189 95% 10%;
+    --foreground: 60 30% 96%;
+ 
+    --card: 189 95% 12%;
+    --card-foreground: 60 30% 96%;
+ 
+    --popover: 189 95% 12%;
+    --popover-foreground: 60 30% 96%;
+ 
+    --primary: 60 30% 96%;
+    --primary-foreground: 189 95% 17%;
+ 
+    --secondary: 189 50% 20%;
+    --secondary-foreground: 60 30% 96%;
+ 
+    --muted: 189 50% 20%;
+    --muted-foreground: 189 30% 60%;
+ 
+    --accent: 151 93% 42%;
+    --accent-foreground: 189 95% 17%;
+ 
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 30% 96%;
+ 
+    --border: 189 50% 20%;
+    --input: 189 50% 20%;
+    --ring: 151 93% 42%;
 }
 
 * {

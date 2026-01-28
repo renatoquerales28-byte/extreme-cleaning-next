@@ -46,6 +46,12 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                     let success = false;
                     let errorMsg = "";
 
+                    // Helper to ensure date is proper object for DB
+                    const leadInput = {
+                        ...data,
+                        serviceDate: data.serviceDate ? new Date(data.serviceDate) : undefined,
+                    };
+
                     if (data.leadId) {
                         // Attempt to update existing lead
                         const res = await updateLead(data.leadId, {
@@ -60,7 +66,7 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
 
                             // Session Recovery: Create new lead if update fails (e.g. ID expired)
                             const createRes = await createLead({
-                                ...data,
+                                ...leadInput,
                                 totalPrice: total || 0,
                                 status: "booked", // Create directly as booked
                                 details: data
@@ -77,7 +83,7 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                         // No lead ID found (e.g. refreshed without persistence or error), create new
                         console.warn("No Lead ID found, creating new lead...");
                         const createRes = await createLead({
-                            ...data,
+                            ...leadInput,
                             totalPrice: total || 0,
                             status: "booked",
                             details: data

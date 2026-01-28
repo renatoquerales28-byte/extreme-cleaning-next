@@ -45,79 +45,92 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                 const toastId = toast.loading("Securing your slot...");
 
                 try {
-                    let success = false;
-                    let errorMsg = "";
+                    // OPTIMIZACIÓN: Timeout general de 10 segundos
+                    const bookingProcess = async () => {
+                        // Preparar datos para DB
+                        const dbPayload = {
+                            firstName: data.firstName,
+                            lastName: data.lastName,
+                            email: data.email,
+                            phone: data.phone,
+                            serviceType: data.serviceType,
+                            frequency: data.frequency,
+                            totalPrice: total || 0,
+                            status: "booked" as const,
+                            serviceDate: data.serviceDate ? new Date(data.serviceDate) : undefined,
+                            serviceTime: data.serviceTime,
+                            details: data
+                        };
 
-                    // FINAL CLEANUP: Ensure all data is serializable and DB-friendly
-                    const sanitizedData = {
-                        ...data,
-                        // Convert Date object back to ISO string if present
-                        serviceDate: data.serviceDate instanceof Date
-                            ? data.serviceDate.toISOString()
-                            : data.serviceDate,
-                        leadId: data.leadId ? Number(data.leadId) : undefined
-                    };
-
-                    // FINAL CLEANUP: Ensure all data matches the Server Action's expected types (Date objects, numbers)
-                    const dbPayload = {
-                        ...data,
-                        serviceDate: data.serviceDate ? new Date(data.serviceDate) : undefined,
-                        leadId: data.leadId ? Number(data.leadId) : undefined,
-                        totalPrice: total || 0,
-                        status: "booked" as const,
-                        details: data
-                    };
-
-                    if (data.leadId) {
-                        try {
+                        // Guardar en base de datos
+                        let dbSuccess = false;
+                        if (data.leadId) {
                             const res = await updateLead(Number(data.leadId), {
                                 status: "booked",
+                                totalPrice: total || 0,
+                                serviceDate: dbPayload.serviceDate,
+                                serviceTime: data.serviceTime,
                                 details: data
                             });
-
-                            if (res.success) {
-                                success = true;
-                            } else {
-                                console.warn("Update failed, attempting recovery", res.error);
-                                // Session Recovery: use dbPayload (proper Dates)
-                                const createRes = await createLead(dbPayload as any);
-                                if (createRes.success) success = true;
-                                else errorMsg = createRes.error || "Recovery failed";
-                            }
-                        } catch (err: any) {
-                            errorMsg = err.message || "Server update error";
+                            dbSuccess = res.success;
+                        } else {
+                            const res = await createLead(dbPayload as any);
+                            dbSuccess = res.success;
                         }
-                    } else {
-                        const createRes = await createLead(dbPayload as any);
-                        if (createRes.success) success = true;
-                        else errorMsg = createRes.error || "Creation failed";
-                    }
 
-                    if (success) {
-                        // Send Receipt Logic
+                        if (!dbSuccess) {
+                            throw new Error("Failed to save booking");
+                        }
+
+                        // Intentar enviar email (no bloqueante)
                         toast.loading("Sending confirmation...", { id: toastId });
-                        try {
-                            const emailRes = await submitBooking(dbPayload);
-                            if (emailRes.success) {
-                                toast.success("Confirmed! Receipt sent.", { id: toastId });
-                            } else {
-                                console.warn("Email warning:", emailRes.error);
-                                toast.success("Booking confirmed!", { id: toastId });
-                            }
-                        } catch (emailErr) {
-                            console.error("Email failed", emailErr);
-                            toast.success("Booking confirmed!", { id: toastId });
-                        }
+                        const emailRes = await submitBooking(data);
 
-                        if (typeof window !== 'undefined') localStorage.removeItem("wizard-data");
-                        onNext();
-                    } else {
-                        toast.error(`Booking Error: ${errorMsg}`, { id: toastId });
+                        return { dbSuccess, emailRes };
+                    };
+
+                    // Timeout de 10 segundos
+                    const timeoutPromise = new Promise((_, reject) =>
+                        setTimeout(() => reject(new Error("Request timeout")), 10000)
+                    );
+
+                    const result = await Promise.race([
+                        bookingProcess(),
+                        timeoutPromise
+                    ]) as any;
+
+                    // Limpiar localStorage
+                    if (typeof window !== 'undefined') {
+                        localStorage.removeItem("wizard-data");
                     }
+
+                    // Mostrar mensaje apropiado
+                    if (result.emailRes?.skipped) {
+                        toast.success("Booking confirmed! (Email skipped - configure RESEND_API_KEY)", {
+                            id: toastId,
+                            duration: 4000
+                        });
+                    } else if (result.emailRes?.emailFailed) {
+                        toast.success("Booking confirmed! (Email failed to send)", {
+                            id: toastId,
+                            duration: 3000
+                        });
+                    } else {
+                        toast.success("Confirmed! Receipt sent to your email.", {
+                            id: toastId
+                        });
+                    }
+
+                    // Avanzar al siguiente paso
+                    onNext();
 
                 } catch (e: any) {
-                    console.error("Critical error in ReviewStep:", e);
-                    toast.error(`System Error: ${e.message || "Connection failed"}`, { id: toastId });
+                    console.error("Error in booking:", e);
+                    toast.error(e.message === "Request timeout"
+                        ? "Request timed out. Please try again."
+                        : `Error: ${e.message || "Connection failed"}`,
+                        { id: toastId }
+                    );
                 } finally {
                     setIsSubmitting(false);
                 }

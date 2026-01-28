@@ -1,12 +1,12 @@
 "use client";
 
-import { useFormContext } from "react-hook-form";
+import { useFormContext, Controller } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { useWizardAction } from "../WizardActionContext";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { format } from "date-fns";
 import { CheckCircle2, ArrowRight } from "lucide-react";
-import { Calendar } from "@/components/ui/calendar";
+import { SimpleCalendar } from "@/components/ui/SimpleCalendar";
 import { getAvailableSlots } from "@/app/actions/calendar";
 
 interface DateStepProps {
@@ -14,7 +14,7 @@ interface DateStepProps {
 }
 
 export default function DateStep({ onNext }: DateStepProps) {
-    const { setValue, watch } = useFormContext<WizardData>();
+    const { setValue, watch, control } = useFormContext<WizardData>();
     const { setAction } = useWizardAction();
     const selectedDate = watch("serviceDate");
     const selectedTime = watch("serviceTime");
@@ -165,17 +165,19 @@ export default function DateStep({ onNext }: DateStepProps) {
                     <div className="flex flex-col gap-6">
                         {/* Calendar */}
                         <div className="bg-white p-6 rounded-[2rem] border-2 border-slate-50 shadow-sm flex justify-center relative">
-                            <Calendar
-                                mode="single"
-                                selected={selectedDate ? new Date(selectedDate) : undefined}
-                                onSelect={(date) => {
-                                    if (date && date >= today) {
-                                        setValue("serviceDate", date.toISOString());
-                                        setValue("serviceTime", undefined); // Clear time on date change
-                                    }
-                                }}
-                                disabled={isDateDisabled}
-                                className="rounded-md border-none"
+                            <Controller
+                                control={control}
+                                name="serviceDate"
+                                render={({ field }) => (
+                                    <SimpleCalendar
+                                        selected={field.value ? new Date(field.value) : undefined}
+                                        onSelect={(date) => {
+                                            field.onChange(date);
+                                            setValue("serviceTime", undefined); // Limpiar hora al cambiar fecha
+                                        }}
+                                        className="border-none shadow-none p-0"
+                                    />
+                                )}
                             />
                             {isSubmitting && (
                                 <div className="absolute inset-0 bg-white/80 flex items-center justify-center rounded-[2rem]">

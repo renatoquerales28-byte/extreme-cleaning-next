@@ -6,11 +6,14 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { wizardSchema, type WizardData } from "@/lib/schemas/wizard";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { Star, Shield } from "lucide-react";
 import { calculateTotal, FREQUENCIES } from "@/lib/utils/pricing";
 import { Inter } from "next/font/google";
+import { useSearchParams } from "next/navigation";
+import { useWizardAction, WizardActionProvider } from './WizardActionContext';
+import { ArrowRight, Loader2 } from 'lucide-react';
 
 const inter = Inter({ subsets: ["latin"] });
+
 import ZipStep from "./steps/ZipStep";
 import ServiceStep from "./steps/ServiceStep";
 import ResidentialStep from "./steps/ResidentialStep";
@@ -23,8 +26,7 @@ import PropertySelectionStep from "./steps/PropertySelectionStep";
 import QuickConfigStep from "./steps/QuickConfigStep";
 import DateStep from "./steps/DateStep";
 import AddressStep from "./steps/AddressStep";
-
-import { useSearchParams } from "next/navigation";
+import SuccessStep from "./steps/SuccessStep";
 
 export default function ExtremeCleaningWizard() {
     const searchParams = useSearchParams();
@@ -61,6 +63,8 @@ export default function ExtremeCleaningWizard() {
         },
     });
 
+    const data = methods.watch();
+
     const nextStep = () => {
         setDirection(1);
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -72,7 +76,8 @@ export default function ExtremeCleaningWizard() {
             if (prev === 3) return 4;
             if (prev === 4) return 5; // QuoteStep → DateStep
             if (prev === 5) return 6; // DateStep → AddressStep
-            if (prev === 6) return 6; // AddressStep is final
+            if (prev === 6) return 7; // AddressStep → SuccessStep
+            if (prev === 7) return 7; // Final step
 
             // Returning flow transitions
             if (prev === "returning_lookup") return "returning_select";
@@ -98,6 +103,8 @@ export default function ExtremeCleaningWizard() {
             }
             if (prev === 5) return 4; // DateStep → QuoteStep
             if (prev === 6) return 5; // AddressStep → DateStep
+            if (prev === 7) return 6; // Success → Address (Valid?)
+
             if (prev === "returning_lookup") return 0;
             if (prev === "returning_select") return "returning_lookup";
             if (prev === "returning_config") return "returning_select";
@@ -105,32 +112,15 @@ export default function ExtremeCleaningWizard() {
         });
     };
 
-    // Clean up fields when service type changes
-    React.useEffect(() => {
-        const subscription = methods.watch((value, { name }) => {
-            if (name === "serviceType") {
-                const newType = value.serviceType;
-                if (newType === "residential") {
-                    methods.setValue("smallPortfolio", []);
-                    methods.setValue("commSqFt", undefined);
-                } else if (newType === "commercial") {
-                    methods.setValue("bedrooms", 1);
-                    methods.setValue("bathrooms", 1);
-                    methods.setValue("sqFt", 1000);
-                    methods.setValue("smallPortfolio", []);
-                } else if (newType === "property_mgmt") {
-                    methods.setValue("bedrooms", 1);
-                    methods.setValue("bathrooms", 1);
-                    methods.setValue("sqFt", 1000);
-                    methods.setValue("commSqFt", undefined);
-                }
-            }
-        });
-        return () => subscription.unsubscribe();
-    }, [methods]);
+    // Sync step changes to form state
+    useEffect(() => {
+        const current = step;
+        if (typeof current === 'number') {
+            methods.setValue("step", current);
+        }
+    }, [step, methods]);
 
     const goToReturning = () => {
-        setDirection(1);
         setStep("returning_lookup");
     };
 
@@ -147,7 +137,8 @@ export default function ExtremeCleaningWizard() {
             case 3: return <FrequencyStep onNext={nextStep} />;
             case 4: return <QuoteStep onNext={nextStep} />;
             case 5: return <DateStep onNext={nextStep} />;
-            case 6: return <AddressStep onSubmit={(data) => console.log("Final Submit", data)} />;
+            case 6: return <AddressStep onSubmit={() => nextStep()} />;
+            case 7: return <SuccessStep />;
 
             // Returning Flow
             case "returning_lookup": return <ReturningLookupStep
@@ -171,24 +162,16 @@ export default function ExtremeCleaningWizard() {
         }
     };
 
-    // Pricing Config State
+    // Calculate dynamic pricing config (simulated or real)
     const [pricingConfig, setPricingConfig] = useState<any>({});
-
     useEffect(() => {
-        const loadConfig = async () => {
-            const { getPricingConfig } = await import("@/app/actions/admin");
+        import("@/app/actions/admin").then(async ({ getPricingConfig }) => {
             const res = await getPricingConfig();
-            if (res.success && res.config) {
-                setPricingConfig(res.config);
-            }
-        };
-        loadConfig();
+            if (res.success) setPricingConfig(res.config);
+        });
     }, []);
 
-    // Calculate data for the quote card
-    const data = methods.watch();
     const totalPrice = calculateTotal(data, pricingConfig);
-    const selectedFreq = FREQUENCIES.find(f => f.id === data.frequency);
 
     // Dynamic Left Panel Content Logic
     const getLeftPanelContent = (currentStep: number | string, sType?: string) => {
@@ -208,7 +191,6 @@ export default function ExtremeCleaningWizard() {
                 accent: "Your Space.",
                 description: "Customize your cleaning plan for a perfect fit."
             },
-            // Overridden dynamically below for step 2 based on type
             3: {
                 title: "Select",
                 accent: "Frequency.",
@@ -228,6 +210,11 @@ export default function ExtremeCleaningWizard() {
                 title: "Location",
                 accent: "Details.",
                 description: "Finalize your cleaning schedule and secure your slot."
+            },
+            7: {
+                title: "All",
+                accent: "Set!",
+                description: "Your appointment has been confirmed."
             },
             "returning_lookup": { title: "Welcome", accent: "Back.", description: "Access your saved properties and preferences." },
             "returning_select": { title: "Glad you're", accent: "Here.", description: "Select which property needs care today." },
@@ -280,10 +267,6 @@ export default function ExtremeCleaningWizard() {
     );
 }
 
-// Inner Component to consume Context
-import { useWizardAction, WizardActionProvider } from './WizardActionContext'; // Assuming WizardActionContext.ts exists
-import { ArrowRight, Loader2 } from 'lucide-react';
-
 function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, methods }: any) {
     const { action } = useWizardAction();
 
@@ -305,7 +288,7 @@ function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, m
                             </div>
 
                             {/* Optional: Show running total in bottom left for steps > 1 */}
-                            {typeof step === 'number' && step > 1 && (
+                            {typeof step === 'number' && step > 1 && step !== 7 && (
                                 <div className="mt-auto pt-6 border-t border-white/10">
                                     <p className="text-[10px] font-black uppercase tracking-widest text-[#10f081] mb-1">Estimated Total</p>
                                     <div className="flex items-baseline gap-2">
@@ -323,71 +306,70 @@ function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, m
                     {/* Header with Progress */}
                     <div className="shrink-0 w-full px-6 py-6 md:px-12 grid grid-cols-[1fr_auto_1fr] items-center bg-[#F9F8F2] z-40">
                         <div className="flex justify-start">
-                            {step !== 0 && step !== "returning_lookup" && (
+                            {step !== 0 && step !== "returning_lookup" && step !== 7 && (
                                 <button onClick={prevStep} className="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-[#024653]/60 hover:text-[#024653] transition-colors group py-2">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="group-hover:-translate-x-1 transition-transform"><path d="m15 18-6-6 6-6" /></svg> Back
+                                    <ArrowRight className="rotate-180 group-hover:-translate-x-1 transition-transform" size={16} strokeWidth={3} /> Back
                                 </button>
                             )}
                         </div>
-
-                        <div className="flex flex-col items-center gap-3 w-32 md:w-48">
-                            <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#024653]/30">Step {typeof step === 'number' ? Math.min(step + 1, 7) : 1} of 7</span>
-                            <div className="w-full h-1 bg-[#024653]/10">
-                                <motion.div className="h-full bg-[#10f081]" initial={{ width: 0 }} animate={{ width: typeof step === 'number' ? `${((Math.max(step, 0) + 1) / 7) * 100}%` : "14%" }} transition={{ duration: 0.5, ease: "easeInOut" }} />
-                            </div>
+                        <div className="flex justify-center w-full">
+                            {typeof step === 'number' && (
+                                <div className="flex flex-col items-center gap-1">
+                                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#024653]/30">Step {step + 1} of 7</span>
+                                    <div className="w-24 h-1 bg-[#024653]/5 rounded-full overflow-hidden">
+                                        <div className="h-full bg-[#05D16E] transition-all duration-500" style={{ width: `${((step + 1) / 7) * 100}%` }} />
+                                    </div>
+                                </div>
+                            )}
                         </div>
-
                         <div className="flex justify-end">
-                            <a href="/" className="p-2 md:p-3 rounded-full bg-white hover:bg-[#024653] hover:text-white transition-colors border-2 border-slate-100" title="Exit">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
-                            </a>
+                            <button className="w-8 h-8 rounded-full bg-[#024653]/5 flex items-center justify-center hover:bg-[#024653]/10 transition-colors">
+                                <span className="text-lg font-bold text-[#024653] mb-1">×</span>
+                            </button>
                         </div>
                     </div>
 
-                    {/* Stage - Full Viewport Height without Card UI */}
-                    <div className="w-full h-full relative overflow-hidden">
-                        <AnimatePresence mode="wait">
-                            <motion.div
-                                key={step}
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.2 }}
-                                className="w-full h-full"
-                            >
-                                {renderStep()}
-                            </motion.div>
-                        </AnimatePresence>
+                    {/* Step Content */}
+                    <AnimatePresence mode="wait" initial={false}>
+                        <motion.div
+                            key={step}
+                            initial={{ x: 20, opacity: 0 }}
+                            animate={{ x: 0, opacity: 1 }}
+                            exit={{ x: -20, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            className="flex-1 w-full relative overflow-hidden"
+                        >
+                            {renderStep()}
+                        </motion.div>
+                    </AnimatePresence>
 
-                        {/* GLOBAL RIGID FOOTER */}
-                        {action && !action.hide && (
-                            <div className="fixed bottom-6 right-0 w-full lg:w-[60%] z-50 flex flex-col items-center justify-end pointer-events-none bg-transparent border-none shadow-none">
-                                {action.secondaryContent && (
-                                    <div className="pointer-events-auto mb-4">
-                                        {action.secondaryContent}
-                                    </div>
-                                )}
-                                {!action.hideMainButton && (
-                                    <button
-                                        onClick={action.onClick}
-                                        disabled={action.disabled || action.isLoading}
-                                        className="pointer-events-auto w-[90%] md:w-[380px] h-[56px] bg-[#024653] text-white font-bold rounded-xl shadow-2xl flex items-center justify-center gap-3 uppercase tracking-[0.25em] text-xs hover:bg-[#0E6168] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-                                    >
-                                        {action.isLoading ? (
-                                            <span className="flex items-center gap-2">
-                                                <Loader2 className="animate-spin" size={18} />
-                                                {action.loadingLabel || "Processing..."}
-                                            </span>
-                                        ) : (
-                                            <>
-                                                {action.label}
-                                                {action.icon || <ArrowRight size={18} strokeWidth={2.5} />}
-                                            </>
-                                        )}
-                                    </button>
-                                )}
+                    {/* Footer for Actions */}
+                    <div className="shrink-0 w-full bg-white border-t border-slate-100 p-6 md:px-12 pb-8 z-50">
+                        <div className="max-w-xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+                            <div className="hidden md:block">
+                                {action?.secondaryContent}
                             </div>
-                        )}
+                            <button
+                                onClick={action?.onClick}
+                                disabled={action?.disabled || action?.isLoading}
+                                className={`
+                                    w-full md:w-auto px-8 py-4 rounded-full font-black text-xs uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl hover:-translate-y-0.5
+                                    ${action?.disabled
+                                        ? "bg-slate-100 text-slate-400 cursor-not-allowed shadow-none"
+                                        : "bg-[#024653] text-white hover:bg-[#02333d] shadow-[#024653]/20"
+                                    }
+                                `}
+                            >
+                                {action?.isLoading ? (
+                                    <>Processing <Loader2 className="animate-spin" size={16} /></>
+                                ) : (
+                                    <>
+                                        {action?.label || "Continue"}
+                                        {!action?.disabled && (action?.icon || <ArrowRight size={16} strokeWidth={3} />)}
+                                    </>
+                                )}
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>

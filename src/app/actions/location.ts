@@ -43,10 +43,34 @@ export async function upsertServiceArea(data: { zip: string, status: 'active' | 
             });
         }
 
+
         revalidatePath("/"); // Revalidate wizard or other pages
+        revalidatePath("/admin/locations");
         return { success: true };
     } catch (error) {
         console.error("Failed to upsert service area:", error);
         return { success: false, error: "Failed to update service area" };
+    }
+}
+
+export async function getAllServiceAreas() {
+    try {
+        const areas = await db.select().from(serviceAreas);
+        return { success: true, data: areas };
+    } catch (error) {
+        console.error("Failed to fetch service areas:", error);
+        return { success: false, error: "Failed to fetch service areas" };
+    }
+}
+
+export async function deleteServiceArea(id: number) {
+    try {
+        await db.delete(serviceAreas).where(eq(serviceAreas.id, id));
+        revalidatePath("/admin/locations");
+        revalidatePath("/");
+        return { success: true };
+    } catch (error) {
+        console.error("Failed to delete service area:", error);
+        return { success: false, error: "Failed to delete service area" };
     }
 }

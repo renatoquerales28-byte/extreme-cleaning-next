@@ -22,6 +22,7 @@ export default function AdminLayout({
         { name: "Calendar", href: "/admin/calendar", icon: "📅" },
         { name: "Clients", href: "/admin/clients", icon: "👤" },
         { name: "Pricing", href: "/admin/pricing", icon: "💲" },
+        { name: "Locations", href: "/admin/locations", icon: "📍" },
         { name: "Promotions", href: "/admin/promotions", icon: "🏷️" },
     ];
 

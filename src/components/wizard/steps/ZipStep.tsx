@@ -76,10 +76,16 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                                 maxLength={5}
                                 placeholder="Enter Zip Code"
                                 autoComplete="postal-code"
-                                className={`w-full p-6 text-center text-4xl font-black tracking-[0.2em] text-[#024653] border-b-4 outline-none transition-all placeholder:text-slate-300 placeholder:tracking-normal placeholder:font-bold bg-transparent focus:border-[#05D16E] ${status === 'unavailable' ? 'border-red-200' : status === 'active' ? 'border-[#05D16E]' : 'border-slate-100'}`}
+                                className={`
+                                    w-full p-6 text-center text-4xl font-black tracking-[0.2em] text-[#024653] 
+                                    border-b-4 outline-none transition-all bg-transparent 
+                                    placeholder:text-slate-200 placeholder:tracking-normal placeholder:font-medium
+                                    focus:border-[#05D16E]
+                                    [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset]
+                                    [&:-webkit-autofill]:-webkit-text-fill-color-[#024653]
+                                    ${status === 'unavailable' ? 'border-red-200' : status === 'active' ? 'border-[#05D16E]' : 'border-slate-100'}
+                                `}
                                 style={{
-                                    WebkitBoxShadow: "0 0 0 30px white inset",
-                                    WebkitTextFillColor: "#024653",
                                     caretColor: "#05D16E"
                                 }}
                             />

@@ -1,8 +1,8 @@
 "use server";
 
 import { Resend } from "resend";
-import { renderToBuffer } from "@react-pdf/renderer";
-import { BookingReceipt } from "@/components/pdf/BookingReceipt";
+// import { renderToBuffer } from "@react-pdf/renderer";
+// import { BookingReceipt } from "@/components/pdf/BookingReceipt";
 
 // Inicializar Resend con la variable de entorno
 const resend = new Resend(process.env.RESEND_API_KEY);

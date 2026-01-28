@@ -38,7 +38,11 @@ import CleaningTypeStep from "./steps/CleaningTypeStep";
 // ... (imports remain)
 
 export default function ExtremeCleaningWizard() {
-    // ... (params logic remains)
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const urlZip = searchParams.get("zip");
+    const urlType = searchParams.get("type"); // residential, commercial, property_mgmt
+    const urlIntensity = searchParams.get("intensity"); // regular, deep, move
 
     // Update initial step logic if needed, but 0/1/2 logic needs shift
     const getInitialStep = () => {
@@ -52,7 +56,51 @@ export default function ExtremeCleaningWizard() {
         return 1;
     };
 
-    // ... (state setup remains)
+    const [step, setStep] = useState<number | string>(getInitialStep());
+    const [direction, setDirection] = useState(0);
+    const [customerName, setCustomerName] = useState("");
+
+    const methods = useForm<WizardData>({
+        resolver: zodResolver(wizardSchema),
+        defaultValues: {
+            step: typeof getInitialStep() === 'number' ? getInitialStep() as number : 0,
+            zipCode: urlZip || "",
+            serviceType: (urlType as any) || "",
+            bedrooms: 1,
+            bathrooms: 1,
+            sqFt: 1000,
+            cleaningType: (urlIntensity as any) || "standard",
+            frequency: "biweekly",
+            smallPortfolio: [],
+        },
+    });
+
+    const data = methods.watch();
+
+    // OPTIMIZACIÓN: Warm-up de la conexión a DB al cargar el wizard
+    useEffect(() => {
+        const warmUp = async () => {
+            try {
+                console.log('🔥 Pre-warming database connection...');
+                const start = Date.now();
+                // Importar dinámicamente para no bloquear el render inicial
+                const { warmUpServer } = await import('@/app/actions/admin');
+                const result = await warmUpServer();
+                const duration = Date.now() - start;
+
+                if (result.success) {
+                    console.log(`✅ Database ready in ${duration}ms`);
+                } else {
+                    console.warn(`⚠️ Database warm-up failed (${duration}ms)`);
+                }
+            } catch (error) {
+                console.error('❌ Failed to warm up database:', error);
+            }
+        };
+
+        // Ejecutar warm-up en background (no bloquea la UI)
+        warmUp();
+    }, []); // Solo ejecutar una vez al montar
 
     const nextStep = () => {
         setDirection(1);

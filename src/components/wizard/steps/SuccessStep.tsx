@@ -36,7 +36,7 @@ export default function SuccessStep() {
                     <h2 className="text-3xl md:text-4xl font-black tracking-tighter text-[#024653]">
                         Booking <br /><span className="text-[#05D16E]">Confirmed!</span>
                     </h2>
-                    <p className="text-[#024653]/60 font-medium">We've sent a confirmation email to <br /> <span className="text-[#024653] font-bold">{data.email}</span></p>
+                    <p className="text-[#024653]/60 font-medium">We&apos;ve sent a confirmation email to <br /> <span className="text-[#024653] font-bold">{data.email}</span></p>
                 </div>
 
                 <div className="bg-slate-50 rounded-2xl p-6 space-y-4 text-left">

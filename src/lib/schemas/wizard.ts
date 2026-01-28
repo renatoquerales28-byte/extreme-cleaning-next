@@ -34,14 +34,14 @@ export const wizardSchema = z.object({
     })).default([]),
 
     // Contact
-    firstName: z.string().min(2, "Required").optional(),
-    lastName: z.string().min(2, "Required").optional(),
-    email: z.string().email("Invalid email").optional(),
-    phone: z.string().min(10, "Invalid phone").optional(),
+    firstName: z.preprocess((val) => val === "" ? undefined : val, z.string().min(2, "Required").optional()),
+    lastName: z.preprocess((val) => val === "" ? undefined : val, z.string().min(2, "Required").optional()),
+    email: z.preprocess((val) => val === "" ? undefined : val, z.string().email("Invalid email").optional()),
+    phone: z.preprocess((val) => val === "" ? undefined : val, z.string().min(10, "Invalid phone").optional()),
     notes: z.string().optional(),
 
     // Address (New Step)
-    address: z.string().min(5, "Full address required").optional(),
+    address: z.preprocess((val) => val === "" ? undefined : val, z.string().min(5, "Full address required").optional()),
     unit: z.string().optional(),
     city: z.string().default("Spokane"),
     state: z.string().default("WA"),
@@ -53,7 +53,7 @@ export const wizardSchema = z.object({
     // Logic helpers
     referralCode: z.string().optional(),
     promoCode: z.string().optional(),
-    leadId: z.number().optional(),
+    leadId: z.union([z.number(), z.string()]).optional(),
 });
 
 export type WizardData = z.infer<typeof wizardSchema>;

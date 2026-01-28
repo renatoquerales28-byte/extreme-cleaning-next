@@ -54,8 +54,10 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
                     setIsSubmitting(false);
                 }
             }, (errors) => {
+                const firstError = Object.values(errors)[0];
+                const msg = firstError?.message || "Please check required fields";
+                toast.error(`Validation: ${msg}`);
                 console.error("Validation errors:", errors);
-                toast.error("Please fill in all required fields correctly.");
             }),
             icon: <CheckCircle size={18} strokeWidth={2.5} />,
             secondaryContent: (

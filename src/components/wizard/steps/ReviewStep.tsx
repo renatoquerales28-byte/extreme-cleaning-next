@@ -32,7 +32,8 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
             setTotal(calculateTotal(data, config));
         };
         fetchConfig();
-    }, [data]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []); // Solo ejecutar una vez al montar
 
     useEffect(() => {
         setAction({

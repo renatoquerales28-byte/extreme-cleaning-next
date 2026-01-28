@@ -47,7 +47,7 @@ export const wizardSchema = z.object({
     state: z.string().default("WA"),
 
     // Date & Time Selection
-    serviceDate: z.string().optional(), // ISO string
+    serviceDate: z.union([z.string(), z.date()]).optional(), // ISO string or Date object
     serviceTime: z.string().optional(), // HH:mm format
 
     // Logic helpers

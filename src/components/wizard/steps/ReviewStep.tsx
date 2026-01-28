@@ -43,28 +43,38 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
             onClick: async () => {
                 setIsSubmitting(true);
                 const toastId = toast.loading("Securing your slot...");
+                const processStart = Date.now();
 
                 try {
-                    // OPTIMIZACIÓN: Timeout general de 10 segundos
-                    const bookingProcess = async () => {
-                        // Preparar datos para DB
-                        const dbPayload = {
-                            firstName: data.firstName,
-                            lastName: data.lastName,
-                            email: data.email,
-                            phone: data.phone,
-                            serviceType: data.serviceType,
-                            frequency: data.frequency,
-                            totalPrice: total || 0,
-                            status: "booked" as const,
-                            serviceDate: data.serviceDate ? new Date(data.serviceDate) : undefined,
-                            serviceTime: data.serviceTime,
-                            details: data
-                        };
+                    console.log('🚀 [BOOKING] Starting process at', new Date().toISOString());
 
-                        // Guardar en base de datos
-                        let dbSuccess = false;
+                    // Preparar datos
+                    const t1 = Date.now();
+                    const dbPayload = {
+                        firstName: data.firstName,
+                        lastName: data.lastName,
+                        email: data.email,
+                        phone: data.phone,
+                        serviceType: data.serviceType,
+                        frequency: data.frequency,
+                        totalPrice: total || 0,
+                        status: "booked" as const,
+                        serviceDate: data.serviceDate ? new Date(data.serviceDate) : undefined,
+                        serviceTime: data.serviceTime,
+                        details: data
+                    };
+                    console.log(`✅ [BOOKING] Data prepared in ${Date.now() - t1}ms`);
+
+                    // Guardar en base de datos
+                    const t2 = Date.now();
+                    console.log('📝 [BOOKING] Saving to database...');
+
+                    let dbSuccess = false;
+                    let dbError = null;
+
+                    try {
                         if (data.leadId) {
+                            console.log(`📝 [BOOKING] Updating lead ${data.leadId}...`);
                             const res = await updateLead(Number(data.leadId), {
                                 status: "booked",
                                 totalPrice: total || 0,
@@ -73,58 +83,53 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                                 details: data
                             });
                             dbSuccess = res.success;
+                            if (!res.success) dbError = res.error;
                         } else {
+                            console.log('📝 [BOOKING] Creating new lead...');
                             const res = await createLead(dbPayload as any);
                             dbSuccess = res.success;
+                            if (!res.success) dbError = res.error;
                         }
-
-                        if (!dbSuccess) {
-                            throw new Error("Failed to save booking");
-                        }
-
-                        // Intentar enviar email (no bloqueante)
-                        toast.loading("Sending confirmation...", { id: toastId });
-                        const emailRes = await submitBooking(data);
-
-                        return { dbSuccess, emailRes };
-                    };
-
-                    // Timeout de 20 segundos (aumentado para conexiones lentas)
-                    const timeoutPromise = new Promise((_, reject) =>
-                        setTimeout(() => reject(new Error("Request timeout")), 20000)
-                    );
-
-                    const result = await Promise.race([
-                        bookingProcess(),
-                        timeoutPromise
-                    ]) as any;
-
-                    // Mostrar mensaje apropiado
-                    if (result.emailRes?.skipped) {
-                        toast.success("Booking confirmed! (Email skipped - configure RESEND_API_KEY)", {
-                            id: toastId,
-                            duration: 4000
-                        });
-                    } else if (result.emailRes?.emailFailed) {
-                        toast.success("Booking confirmed! (Email failed to send)", {
-                            id: toastId,
-                            duration: 3000
-                        });
-                    } else {
-                        toast.success("Confirmed! Receipt sent to your email.", {
-                            id: toastId
-                        });
+                    } catch (err: any) {
+                        dbError = err.message;
+                        console.error('❌ [BOOKING] Database error:', err);
                     }
 
-                    // Avanzar al siguiente paso
+                    const dbDuration = Date.now() - t2;
+                    console.log(`${dbSuccess ? '✅' : '❌'} [BOOKING] Database ${dbSuccess ? 'saved' : 'failed'} in ${dbDuration}ms`);
+
+                    if (!dbSuccess) {
+                        throw new Error(`Database error: ${dbError || 'Unknown error'}`);
+                    }
+
+                    // Email en background (no bloqueante)
+                    console.log('📧 [BOOKING] Attempting email send (non-blocking)...');
+                    submitBooking(data).then(emailRes => {
+                        if (emailRes.skipped) {
+                            console.log('⚠️ [BOOKING] Email skipped (no API key)');
+                        } else if (emailRes.emailFailed) {
+                            console.warn('⚠️ [BOOKING] Email failed:', emailRes.error);
+                        } else {
+                            console.log('✅ [BOOKING] Email sent successfully');
+                        }
+                    }).catch(err => {
+                        console.error('❌ [BOOKING] Email error:', err);
+                    });
+
+                    // Continuar inmediatamente sin esperar email
+                    const totalDuration = Date.now() - processStart;
+                    console.log(`🎉 [BOOKING] Process completed in ${totalDuration}ms`);
+
+                    toast.success("Booking confirmed!", { id: toastId });
                     onNext();
 
                 } catch (e: any) {
-                    console.error("Error in booking:", e);
-                    toast.error(e.message === "Request timeout"
-                        ? "Request timed out. Please try again."
-                        : `Error: ${e.message || "Connection failed"}`,
-                        { id: toastId }
+                    const elapsed = Date.now() - processStart;
+                    console.error(`❌ [BOOKING] Failed after ${elapsed}ms:`, e);
+
+                    toast.error(
+                        `Booking failed: ${e.message || "Unknown error"}. Please try again or contact support.`,
+                        { id: toastId, duration: 6000 }
                     );
                 } finally {
                     setIsSubmitting(false);

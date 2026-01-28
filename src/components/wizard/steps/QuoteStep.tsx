@@ -48,7 +48,8 @@ export default function QuoteStep({ onNext }: QuoteStepProps) {
             }
 
             if (res.success) {
-                if (res.leadId) setValue("leadId", res.leadId);
+                const newLeadId = (res as any).leadId;
+                if (newLeadId) setValue("leadId", newLeadId);
                 onNext();
             } else {
                 console.error(res.error);

@@ -77,7 +77,7 @@ export default function ExtremeCleaningWizard() {
             }
         });
         return () => subscription.unsubscribe();
-    }, [methods.watch]);
+    }, [methods]);
 
     // Hydrate from LocalStorage
     useEffect(() => {

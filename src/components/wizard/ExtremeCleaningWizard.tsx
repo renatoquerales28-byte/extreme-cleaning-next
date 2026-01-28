@@ -234,7 +234,7 @@ export default function ExtremeCleaningWizard() {
             "returning_config": { title: "Almost", accent: "Done.", description: "Confirm your cleaning intensity and frequency." }
         };
 
-        let activeContent = activeContent = (content as any)[currentStep] || content[0];
+        let activeContent: any = (content as any)[currentStep] || content[0];
 
         // Specific overrides for Step 2 based on Service Type
         if (currentStep === 2) {

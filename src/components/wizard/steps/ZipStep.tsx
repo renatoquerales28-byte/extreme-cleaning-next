@@ -23,7 +23,7 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     // Reset status when user types
     React.useEffect(() => {
         if (status !== 'idle') setStatus('idle');
-    }, [zipCode]);
+    }, [zipCode, status]);
 
     const checkAvailability = React.useCallback(async () => {
         setIsChecking(true);

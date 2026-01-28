@@ -37,7 +37,7 @@ export default function ServiceStep({ onNext }: ServiceStepProps) {
                         <h2 className="text-3xl font-black tracking-tighter text-[#024653] leading-tight">
                             Choose Your <br /> <span className="text-[#05D16E]">Service.</span>
                         </h2>
-                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Select the type of space we'll be transforming today.</p>
+                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Select the type of space we&apos;ll be transforming today.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -23,6 +23,7 @@ export const wizardSchema = z.object({
 
     // Portfolio (PM)
     propertyCount: z.number().min(1).default(1),
+    serviceNeeds: z.array(z.string()).default([]),
     smallPortfolio: z.array(z.object({
         id: z.number(),
         name: z.string(),

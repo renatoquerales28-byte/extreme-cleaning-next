@@ -242,20 +242,20 @@ export default function ExtremeCleaningWizard() {
                 activeContent = {
                     title: "Commercial",
                     accent: "Specs.",
-                    description: "Tell us about your facility size and needs.",
+                    description: "Tell us about your facility size.",
                 };
             } else if (sType === "property_mgmt") {
                 activeContent = {
                     title: "Property",
-                    accent: "Portfolio.",
-                    description: "How many units do you need us to manage?",
+                    accent: "Management.",
+                    description: "Volume pricing for pros.",
                 };
             } else {
                 // Default Residential
                 activeContent = {
                     title: "Home",
                     accent: "Details.",
-                    description: "How big is the home we are cleaning?",
+                    description: "Bedrooms, bathrooms, and size.",
                 };
             }
         }

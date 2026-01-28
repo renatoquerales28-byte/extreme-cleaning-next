@@ -8,6 +8,7 @@ import { CheckCircle2, Pencil, Calendar, MapPin, User, Home } from "lucide-react
 import { format } from "date-fns";
 import { calculateTotal } from "@/lib/utils/pricing";
 import { toast } from "sonner";
+import { updateLead, createLead, getPricingConfig } from "@/app/actions/admin";
 
 interface ReviewStepProps {
     onNext: () => void;
@@ -24,11 +25,12 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
     const [total, setTotal] = useState<number | null>(null);
 
     useEffect(() => {
-        import("@/app/actions/admin").then(async ({ getPricingConfig }) => {
+        const fetchConfig = async () => {
             const res = await getPricingConfig();
             const config = res.success ? res.config : {};
             setTotal(calculateTotal(data, config));
-        });
+        };
+        fetchConfig();
     }, [data]);
 
     useEffect(() => {
@@ -42,7 +44,6 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                 const toastId = toast.loading("Securing your slot...");
 
                 try {
-                    const { updateLead, createLead } = await import("@/app/actions/admin");
                     let success = false;
                     let errorMsg = "";
 

@@ -6,6 +6,7 @@ import { useWizardAction } from "../WizardActionContext";
 import { useEffect, useState } from "react";
 import { CheckCircle, MapPin } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner";
 
 interface AddressStepProps {
     onSubmit: (data: WizardData) => void;
@@ -52,6 +53,9 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
                 } finally {
                     setIsSubmitting(false);
                 }
+            }, (errors) => {
+                console.error("Validation errors:", errors);
+                toast.error("Please fill in all required fields correctly.");
             }),
             icon: <CheckCircle size={18} strokeWidth={2.5} />,
             secondaryContent: (
@@ -101,8 +105,8 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
                                 <label className="text-[10px] font-black uppercase tracking-wider text-[#024653]">Zip</label>
                                 <input
                                     {...register("zipCode")}
-                                    disabled
-                                    className="w-full p-4 bg-slate-100 border-2 border-slate-100 rounded-xl font-bold text-[#024653]/50 outline-none"
+                                    readOnly
+                                    className="w-full p-4 bg-slate-100 border-2 border-slate-100 rounded-xl font-bold text-[#024653]/50 outline-none cursor-not-allowed"
                                 />
                                 {errors.zipCode && <p className="text-[8px] text-rose-500 font-bold ml-4 uppercase tracking-widest">{errors.zipCode.message}</p>}
                             </div>

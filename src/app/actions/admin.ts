@@ -107,7 +107,7 @@ export async function createLead(data: typeof leads.$inferInsert) {
             createdAt: new Date(),
         }).returning({ insertedId: leads.id });
 
-        revalidatePath("/admin");
+        // revalidatePath("/admin"); // Disabled for performance
         return { success: true, leadId: result[0].insertedId };
     } catch (error) {
         console.error("Failed to create lead:", error);
@@ -138,7 +138,7 @@ export async function updateLead(id: number, data: Partial<typeof leads.$inferIn
     try {
         await db.update(leads).set(data).where(eq(leads.id, id));
 
-        revalidatePath("/admin");
+        // revalidatePath("/admin"); // Disabled for performance
         return { success: true };
     } catch (error) {
         console.error("Failed to update lead:", error);

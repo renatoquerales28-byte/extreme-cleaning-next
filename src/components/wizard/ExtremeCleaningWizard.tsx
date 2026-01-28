@@ -178,6 +178,17 @@ export default function ExtremeCleaningWizard() {
         setStep("returning_lookup");
     };
 
+    // Calculate dynamic pricing config (simulated or real)
+    const [pricingConfig, setPricingConfig] = useState<any>({});
+    useEffect(() => {
+        import("@/app/actions/admin").then(async ({ getPricingConfig }) => {
+            const res = await getPricingConfig();
+            if (res.success) setPricingConfig(res.config);
+        });
+    }, []);
+
+    const totalPrice = calculateTotal(data, pricingConfig);
+
     const renderStep = () => {
         switch (step) {
             case 0: return <ZipStep onNext={nextStep} onReturning={goToReturning} />;
@@ -221,7 +232,7 @@ export default function ExtremeCleaningWizard() {
         }
     };
 
-    // ... (pricing logic remains)
+
 
     const getLeftPanelContent = (currentStep: number | string, sType?: string) => {
         const content = {

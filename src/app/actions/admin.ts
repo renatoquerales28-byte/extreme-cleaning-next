@@ -100,22 +100,30 @@ export async function deletePromotion(id: number) {
 }
 
 export async function createLead(data: typeof leads.$inferInsert) {
+    const startTime = Date.now();
     try {
+        console.log('📝 Creating lead...');
         const result = await db.insert(leads).values({
             ...data,
             status: "new",
             createdAt: new Date(),
         }).returning({ insertedId: leads.id });
 
+        const duration = Date.now() - startTime;
+        console.log(`✅ Lead created in ${duration}ms (ID: ${result[0].insertedId})`);
+
         // revalidatePath("/admin"); // Disabled for performance
         return { success: true, leadId: result[0].insertedId };
     } catch (error) {
-        console.error("Failed to create lead:", error);
+        const duration = Date.now() - startTime;
+        console.error(`❌ Failed to create lead after ${duration}ms:`, error);
         return { success: false, error: "Failed to create lead" };
     }
 }
 
 export async function updateLead(id: number, data: Partial<typeof leads.$inferInsert>) {
+    const startTime = Date.now();
+
     // Input validation
     if (!id || typeof id !== 'number') {
         return { success: false, error: "Invalid lead ID" };
@@ -136,12 +144,17 @@ export async function updateLead(id: number, data: Partial<typeof leads.$inferIn
     }
 
     try {
+        console.log(`📝 Updating lead ${id}...`);
         await db.update(leads).set(data).where(eq(leads.id, id));
+
+        const duration = Date.now() - startTime;
+        console.log(`✅ Lead ${id} updated in ${duration}ms`);
 
         // revalidatePath("/admin"); // Disabled for performance
         return { success: true };
     } catch (error) {
-        console.error("Failed to update lead:", error);
+        const duration = Date.now() - startTime;
+        console.error(`❌ Failed to update lead ${id} after ${duration}ms:`, error);
         return { success: false, error: "Failed to update lead" };
     }
 }

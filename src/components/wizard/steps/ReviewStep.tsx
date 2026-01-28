@@ -89,9 +89,9 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                         return { dbSuccess, emailRes };
                     };
 
-                    // Timeout de 10 segundos
+                    // Timeout de 20 segundos (aumentado para conexiones lentas)
                     const timeoutPromise = new Promise((_, reject) =>
-                        setTimeout(() => reject(new Error("Request timeout")), 10000)
+                        setTimeout(() => reject(new Error("Request timeout")), 20000)
                     );
 
                     const result = await Promise.race([

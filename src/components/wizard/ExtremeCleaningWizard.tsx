@@ -109,6 +109,31 @@ export default function ExtremeCleaningWizard() {
         }
     }, [step]);
 
+    // OPTIMIZACIÓN: Warm-up de la conexión a DB al cargar el wizard
+    useEffect(() => {
+        const warmUp = async () => {
+            try {
+                console.log('🔥 Pre-warming database connection...');
+                const start = Date.now();
+                // Importar dinámicamente para no bloquear el render inicial
+                const { warmUpServer } = await import('@/app/actions/admin');
+                const result = await warmUpServer();
+                const duration = Date.now() - start;
+
+                if (result.success) {
+                    console.log(`✅ Database ready in ${duration}ms`);
+                } else {
+                    console.warn(`⚠️ Database warm-up failed (${duration}ms)`);
+                }
+            } catch (error) {
+                console.error('❌ Failed to warm up database:', error);
+            }
+        };
+
+        // Ejecutar warm-up en background (no bloquea la UI)
+        warmUp();
+    }, []); // Solo ejecutar una vez al montar
+
 
     const nextStep = () => {
         setDirection(1);

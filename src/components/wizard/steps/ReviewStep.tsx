@@ -56,24 +56,29 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                         leadId: data.leadId ? Number(data.leadId) : undefined
                     };
 
+                    // FINAL CLEANUP: Ensure all data matches the Server Action's expected types (Date objects, numbers)
+                    const dbPayload = {
+                        ...data,
+                        serviceDate: data.serviceDate ? new Date(data.serviceDate) : undefined,
+                        leadId: data.leadId ? Number(data.leadId) : undefined,
+                        totalPrice: total || 0,
+                        status: "booked" as const,
+                        details: data
+                    };
+
                     if (data.leadId) {
                         try {
                             const res = await updateLead(Number(data.leadId), {
                                 status: "booked",
-                                details: sanitizedData
+                                details: data
                             });
 
                             if (res.success) {
                                 success = true;
                             } else {
                                 console.warn("Update failed, attempting recovery", res.error);
-                                // Session Recovery
-                                const createRes = await createLead({
-                                    ...sanitizedData,
-                                    totalPrice: total || 0,
-                                    status: "booked",
-                                    details: sanitizedData
-                                });
+                                // Session Recovery: use dbPayload (proper Dates)
+                                const createRes = await createLead(dbPayload as any);
                                 if (createRes.success) success = true;
                                 else errorMsg = createRes.error || "Recovery failed";
                             }
@@ -81,19 +86,13 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                             errorMsg = err.message || "Server update error";
                         }
                     } else {
-                        const createRes = await createLead({
-                            ...sanitizedData,
-                            totalPrice: total || 0,
-                            status: "booked",
-                            details: sanitizedData
-                        });
+                        const createRes = await createLead(dbPayload as any);
                         if (createRes.success) success = true;
                         else errorMsg = createRes.error || "Creation failed";
                     }
 
                     if (success) {
                         toast.success("Booking confirmed!", { id: toastId });
-                        // Clear storage on success
                         if (typeof window !== 'undefined') localStorage.removeItem("wizard-data");
                         onNext();
                     } else {

@@ -33,11 +33,11 @@ export default function ServiceStep({ onNext }: ServiceStepProps) {
             {/* SCROLLABLE CONTENT AREA */}
             <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
                 <div className="max-w-xl mx-auto space-y-8">
-                    <div className="text-center space-y-2">
-                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-[#024653] leading-tight">
-                            What kind of <br /> <span className="text-[#05D16E]">space is this?</span>
+                    <div className="text-center space-y-2 md:hidden">
+                        <h2 className="text-3xl font-black tracking-tighter text-[#024653] leading-tight">
+                            Choose Your <br /> <span className="text-[#05D16E]">Service.</span>
                         </h2>
-                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Select the service type to proceed</p>
+                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Select the type of space we'll be transforming today.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">

@@ -99,7 +99,7 @@ export default function DateStep({ onNext }: DateStepProps) {
             }
 
             const { updateLead } = await import("@/app/actions/admin");
-            const res = await updateLead(leadId, {
+            const res = await updateLead(Number(leadId), {
                 serviceDate: dateObj,
                 serviceTime: selectedTime
             });

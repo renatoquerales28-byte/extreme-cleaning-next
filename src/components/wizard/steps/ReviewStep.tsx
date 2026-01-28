@@ -54,7 +54,7 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
 
                     if (data.leadId) {
                         // Attempt to update existing lead
-                        const res = await updateLead(data.leadId, {
+                        const res = await updateLead(Number(data.leadId), {
                             status: "booked",
                             details: data
                         });

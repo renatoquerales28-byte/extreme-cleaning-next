@@ -41,7 +41,7 @@ export default function QuoteStep({ onNext }: QuoteStepProps) {
             let res;
             if (data.leadId) {
                 // Update existing lead
-                res = await updateLead(data.leadId, leadData);
+                res = await updateLead(Number(data.leadId), leadData);
             } else {
                 // Create new lead
                 res = await createLead(leadData);

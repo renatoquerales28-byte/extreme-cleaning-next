@@ -35,7 +35,7 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
                     }
 
                     const { updateLead } = await import("@/app/actions/admin");
-                    const res = await updateLead(leadId, {
+                    const res = await updateLead(Number(leadId), {
                         details: d, // Save full wizard state into details
                         // Status remains draft until review
                     });

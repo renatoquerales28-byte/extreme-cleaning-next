@@ -6,6 +6,55 @@ import { ArrowRight, CheckCircle2, ShieldCheck, Star } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 
+function getInclusions(type: 'regular' | 'deep' | 'move', service: 'residential' | 'commercial' | 'property_mgmt') {
+    if (service === 'commercial') return [
+        "Office Areas Sanitized",
+        "Trash Removal & Liners",
+        "Restroom Deep Clean",
+        "Kitchen/Breakroom Detailing",
+        "Floor Care (Vacuum/Mop)"
+    ];
+
+    if (service === 'property_mgmt') return [
+        "Full Turnover Checklist",
+        "Appliance Cleaning (In/Out)",
+        "Interior Windows & Blinds",
+        "Cabinet Interiors",
+        "Deep Bathroom Scrub"
+    ];
+
+    // Residential Defaults
+    const common = ["Eco-Friendly Supplies", "Vetted & Insured Team"];
+
+    if (type === 'deep') return [
+        ...common,
+        "Baseboards & Door Frames",
+        "Inside Oven & Fridge",
+        "Interior Windows (Reachable)",
+        "Deep Scrub Bathrooms",
+        "Light Switches & Fixtures"
+    ];
+
+    if (type === 'move') return [
+        ...common,
+        "Inside Cabinets & Drawers",
+        "Spot Clean Walls/Trims",
+        "Inside Oven & Fridge",
+        "Deep Scrub All Surfaces",
+        "Closets & Shelves"
+    ];
+
+    // Regular
+    return [
+        ...common,
+        "Dusting All Surfaces",
+        "Floors Vacuumed & Mopped",
+        "Bathrooms Sanitized",
+        "Kitchen Counters & Sink",
+        "Trash Emptying"
+    ];
+}
+
 interface PriceStepProps {
     onNext: () => void;
     totalPrice: number;
@@ -53,16 +102,25 @@ export default function PriceStep({ onNext, totalPrice }: PriceStepProps) {
                             <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">Per Service</p>
                         </div>
 
+                        {/* Dynamic Inclusions List */}
+                        <div className="bg-slate-50/50 rounded-2xl p-6 border border-slate-100">
+                            <h4 className="text-xs font-black uppercase tracking-widest text-[#024653] mb-4 text-center border-b border-slate-200 pb-2">
+                                included in {data.cleaningType || "Standard"} Clean
+                            </h4>
+                            <div className="grid grid-cols-1 gap-2">
+                                {getInclusions(data.cleaningType as any, data.serviceType as any).map((item, idx) => (
+                                    <div key={idx} className="flex items-center gap-3 text-[#024653]/80">
+                                        <div className="p-1 bg-[#05D16E]/20 rounded-full shrink-0">
+                                            <CheckCircle2 size={12} className="text-[#024653]" strokeWidth={3} />
+                                        </div>
+                                        <span className="text-[11px] font-bold leading-tight">{item}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
                         {/* Breakdown / Value Props */}
                         <div className="space-y-3 pt-6 border-t border-slate-100">
-                            <div className="flex items-center gap-3 text-[#024653]/80">
-                                <CheckCircle2 size={16} className="text-[#05D16E]" />
-                                <span className="text-xs font-bold">{data.bedrooms} Bedrooms, {data.bathrooms} Bathrooms</span>
-                            </div>
-                            <div className="flex items-center gap-3 text-[#024653]/80">
-                                <CheckCircle2 size={16} className="text-[#05D16E]" />
-                                <span className="text-xs font-bold capitalize">{data.serviceType} Cleaning ({data.cleaningType})</span>
-                            </div>
                             <div className="flex items-center gap-3 text-[#024653]/80">
                                 <ShieldCheck size={16} className="text-[#05D16E]" />
                                 <span className="text-xs font-bold">100% Satisfaction Guarantee</span>
@@ -90,3 +148,5 @@ export default function PriceStep({ onNext, totalPrice }: PriceStepProps) {
         </div>
     );
 }
+
+

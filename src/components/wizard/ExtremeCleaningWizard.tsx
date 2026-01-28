@@ -20,6 +20,8 @@ import ResidentialStep from "./steps/ResidentialStep";
 import CommercialStep from "./steps/CommercialStep";
 import PMSelectionStep from "./steps/PMSelectionStep";
 import FrequencyStep from "./steps/FrequencyStep";
+import FrequencyStep from "./steps/FrequencyStep";
+import PriceStep from "./steps/PriceStep";
 import QuoteStep from "./steps/QuoteStep";
 import ReturningLookupStep from "./steps/ReturningLookupStep";
 import PropertySelectionStep from "./steps/PropertySelectionStep";
@@ -30,7 +32,7 @@ import ReviewStep from "./steps/ReviewStep";
 import SuccessStep from "./steps/SuccessStep";
 import { Toaster } from "sonner";
 
-const TOTAL_STEPS = 8; // 0 to 7 (Review) + Success (8)
+const TOTAL_STEPS = 9; // 0 to 8 (Review) + Success (9)
 
 export default function ExtremeCleaningWizard() {
     const router = useRouter();
@@ -90,7 +92,7 @@ export default function ExtremeCleaningWizard() {
                     // Only restore if user is not in a 'new' flow (step 0 with no url params)
                     // Or just verify if parsed has meaningful data.
                     // Merging logic:
-                    if (parsed.step < 8) { // Don't restore if finished
+                    if (parsed.step < 9) { // Don't restore if finished
                         methods.reset({ ...parsed, ...methods.getValues() }); // Keep current defaults if missing
                         setStep(parsed.step); // Restore step
                     }
@@ -103,7 +105,7 @@ export default function ExtremeCleaningWizard() {
 
     // Clear Storage on Success
     useEffect(() => {
-        if (step === 8) {
+        if (step === 9) {
             localStorage.removeItem("wizard-data");
         }
     }, [step]);
@@ -120,9 +122,10 @@ export default function ExtremeCleaningWizard() {
             if (prev === 3) return 4;
             if (prev === 4) return 5;
             if (prev === 5) return 6;
-            if (prev === 6) return 7; // Address -> Review
-            if (prev === 7) return 8; // Review -> Success
-            if (prev === 8) return 8;
+            if (prev === 6) return 7;
+            if (prev === 7) return 8; // Address -> Review
+            if (prev === 8) return 9; // Review -> Success
+            if (prev === 9) return 9;
 
             // Returning flow transitions
             if (prev === "returning_lookup") return "returning_select";
@@ -148,8 +151,9 @@ export default function ExtremeCleaningWizard() {
             }
             if (prev === 5) return 4;
             if (prev === 6) return 5;
-            if (prev === 7) return 6; // Review -> Address
-            if (prev === 8) return 8; // Can't go back from success
+            if (prev === 7) return 6;
+            if (prev === 8) return 7; // Review -> Address
+            if (prev === 9) return 9; // Can't go back from success
 
             if (prev === "returning_lookup") return 0;
             if (prev === "returning_select") return "returning_lookup";
@@ -181,11 +185,12 @@ export default function ExtremeCleaningWizard() {
                 if (serviceType === "property_mgmt") return <PMSelectionStep onNext={nextStep} />;
                 return null;
             case 3: return <FrequencyStep onNext={nextStep} />;
-            case 4: return <QuoteStep onNext={nextStep} />;
-            case 5: return <DateStep onNext={nextStep} />;
-            case 6: return <AddressStep onSubmit={() => nextStep()} />;
-            case 7: return <ReviewStep onNext={nextStep} onEditStep={(s) => setStep(s)} />;
-            case 8: return <SuccessStep />;
+            case 4: return <PriceStep onNext={nextStep} totalPrice={totalPrice} />;
+            case 5: return <QuoteStep onNext={nextStep} />;
+            case 6: return <DateStep onNext={nextStep} />;
+            case 7: return <AddressStep onSubmit={() => nextStep()} />;
+            case 8: return <ReviewStep onNext={nextStep} onEditStep={(s) => setStep(s)} />;
+            case 9: return <SuccessStep />;
 
             // Returning Flow
             case "returning_lookup": return <ReturningLookupStep
@@ -249,21 +254,26 @@ export default function ExtremeCleaningWizard() {
                 description: "Premium Care, Guaranteed Quality. No hidden fees."
             },
             5: {
+                title: "Who are we",
+                accent: "Serving?",
+                description: "We just need a few details to send your confirmed quote."
+            },
+            6: {
                 title: "When should",
                 accent: "we Clean?",
                 description: "Select your preferred date and time for the service."
             },
-            6: {
+            7: {
                 title: "Location",
                 accent: "Details.",
                 description: "Finalize your cleaning schedule and secure your slot."
             },
-            7: {
+            8: {
                 title: "Almost",
                 accent: "Done.",
                 description: "Please review your details before confirming."
             },
-            8: {
+            9: {
                 title: "All",
                 accent: "Set!",
                 description: "Your appointment has been confirmed."
@@ -324,8 +334,8 @@ export default function ExtremeCleaningWizard() {
 function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, methods, onClose }: any) {
     const { action } = useWizardAction();
 
-    // 0-7 are steps (8 total). 8 is success (no progress bar needed ideally or full).
-    const progressBarWidth = typeof step === 'number' && step < 8 ? ((step + 1) / 8) * 100 : 100;
+    // 0-8 are steps (9 total). 9 is success (no progress bar needed ideally or full).
+    const progressBarWidth = typeof step === 'number' && step < 9 ? ((step + 1) / 9) * 100 : 100;
 
     return (
         <FormProvider {...methods}>
@@ -345,7 +355,7 @@ function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, m
                             </div>
 
                             {/* Optional: Show running total in bottom left for steps > 1 */}
-                            {typeof step === 'number' && step > 1 && step < 8 && (
+                            {typeof step === 'number' && step > 1 && step < 9 && (
                                 <div className="mt-auto pt-6 border-t border-white/10">
                                     <p className="text-[10px] font-black uppercase tracking-widest text-[#10f081] mb-1">Estimated Total</p>
                                     <div className="flex items-baseline gap-2">
@@ -363,16 +373,16 @@ function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, m
                     {/* Header with Progress */}
                     <div className="shrink-0 w-full px-6 py-6 md:px-12 grid grid-cols-[1fr_auto_1fr] items-center bg-[#F9F8F2] z-50 relative">
                         <div className="flex justify-start">
-                            {step !== 0 && step !== "returning_lookup" && step !== 8 && (
+                            {step !== 0 && step !== "returning_lookup" && step !== 9 && (
                                 <button onClick={prevStep} className="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-[#024653]/60 hover:text-[#024653] transition-colors group py-2">
                                     <ArrowRight className="rotate-180 group-hover:-translate-x-1 transition-transform" size={16} strokeWidth={3} /> Back
                                 </button>
                             )}
                         </div>
                         <div className="flex justify-center w-full">
-                            {typeof step === 'number' && step < 8 && (
+                            {typeof step === 'number' && step < 9 && (
                                 <div className="flex flex-col items-center gap-1">
-                                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#024653]/30">Step {step + 1} of 8</span>
+                                    <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#024653]/30">Step {step + 1} of 9</span>
                                     <div className="w-24 h-1 bg-[#024653]/5 rounded-full overflow-hidden">
                                         <div className="h-full bg-[#05D16E] transition-all duration-500" style={{ width: `${progressBarWidth}%` }} />
                                     </div>

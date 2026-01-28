@@ -155,17 +155,17 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                             <p className="text-xs text-[#05D16E] font-bold mt-1 uppercase tracking-wider">{data.frequency} Plan</p>
                         </Section>
 
-                        <Section title="Schedule" icon={Calendar} stepIndex={5}>
+                        <Section title="Schedule" icon={Calendar} stepIndex={6}>
                             <p className="font-bold text-[#024653]">{formattedDate}</p>
                             <p className="text-xs text-[#024653]/60">@ {data.serviceTime}</p>
                         </Section>
 
-                        <Section title="Location" icon={MapPin} stepIndex={6}>
+                        <Section title="Location" icon={MapPin} stepIndex={7}>
                             <p className="font-bold text-[#024653]">{data.address}</p>
                             <p className="text-xs text-[#024653]/60">{data.city}, {data.zipCode}</p>
                         </Section>
 
-                        <Section title="Contact" icon={User} stepIndex={4}>
+                        <Section title="Contact" icon={User} stepIndex={5}>
                             <p className="font-bold text-[#024653]">{data.firstName} {data.lastName}</p>
                             <p className="text-xs text-[#024653]/60">{data.email}</p>
                             <p className="text-xs text-[#024653]/60">{data.phone}</p>

@@ -79,31 +79,49 @@ export default function QuoteStep({ onNext }: QuoteStepProps) {
                 <div className="max-w-xl mx-auto space-y-8">
                     <div className="text-center space-y-2 md:hidden">
                         <h2 className="text-3xl font-black tracking-tighter text-[#024653] leading-tight">
-                            Personal <br /> <span className="text-[#05D16E]">Details</span>
+                            Contact <br /> <span className="text-[#05D16E]">Details</span>
                         </h2>
-                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Where should we send the quote?</p>
+                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Who should we send the booking confirmation to?</p>
                     </div>
 
                     <div className="bg-white border-2 border-slate-50 p-8 rounded-[2rem] shadow-sm space-y-6">
                         <div className="grid grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <label className="text-[10px] font-black uppercase tracking-wider text-[#024653]">First Name</label>
-                                <input {...register("firstName")} placeholder="Jane" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all" />
+                                <input
+                                    {...register("firstName")}
+                                    placeholder="Jane"
+                                    className="w-full p-4 bg-transparent border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200 placeholder:font-medium [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset] [&:-webkit-autofill]:-webkit-text-fill-color-[#024653]"
+                                />
                             </div>
                             <div className="space-y-2">
                                 <label className="text-[10px] font-black uppercase tracking-wider text-[#024653]">Last Name</label>
-                                <input {...register("lastName")} placeholder="Doe" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all" />
+                                <input
+                                    {...register("lastName")}
+                                    placeholder="Doe"
+                                    className="w-full p-4 bg-transparent border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200 placeholder:font-medium [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset] [&:-webkit-autofill]:-webkit-text-fill-color-[#024653]"
+                                />
                             </div>
                         </div>
 
                         <div className="space-y-2">
                             <label className="text-[10px] font-black uppercase tracking-wider text-[#024653]">Email Address</label>
-                            <input {...register("email")} type="email" placeholder="jane@example.com" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all" />
+                            <input
+                                {...register("email")}
+                                type="email"
+                                placeholder="jane@example.com"
+                                className="w-full p-4 bg-transparent border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200 placeholder:font-medium [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset] [&:-webkit-autofill]:-webkit-text-fill-color-[#024653]"
+                            />
                         </div>
 
                         <div className="space-y-2">
                             <label className="text-[10px] font-black uppercase tracking-wider text-[#024653]">Phone Number</label>
-                            <input {...register("phone")} type="tel" placeholder="(555) 123-4567" className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all" />
+                            <input
+                                {...register("phone")}
+                                type="tel"
+                                placeholder="(555) 123-4567"
+                                className="w-full p-4 bg-transparent border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-slate-200 placeholder:font-medium [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset] [&:-webkit-autofill]:-webkit-text-fill-color-[#024653]"
+                            />
                         </div>
                     </div>
                 </div>

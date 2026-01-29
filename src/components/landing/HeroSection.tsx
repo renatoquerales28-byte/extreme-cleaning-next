@@ -10,7 +10,7 @@ export default function HeroSection() {
     const router = useRouter();
 
     return (
-        <section className="relative w-full bg-[#F9F8F2] antialiased overflow-hidden pt-28 pb-10 lg:pt-32 lg:pb-16 flex flex-col justify-center min-h-[90vh]">
+        <section className="relative w-full antialiased overflow-hidden pt-28 pb-10 lg:pt-32 lg:pb-16 flex flex-col justify-center min-h-[90vh]">
 
             <div className="container mx-auto px-6 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center h-full">
 

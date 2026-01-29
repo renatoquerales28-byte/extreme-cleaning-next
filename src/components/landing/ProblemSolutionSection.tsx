@@ -7,7 +7,7 @@ import { ArrowRight } from "lucide-react";
 
 export default function ProblemSolutionSection() {
     return (
-        <section className="bg-[#F9F8F2] py-24 relative overflow-hidden text-[#024653]">
+        <section className="py-24 relative overflow-hidden text-[#024653]">
             {/* Ambient Botanical Glow */}
             <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-[#05D16E]/5 rounded-full blur-[120px]" />
             <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-[#024653]/5 rounded-full blur-[120px]" />

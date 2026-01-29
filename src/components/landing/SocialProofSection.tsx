@@ -35,7 +35,8 @@ export default function SocialProofSection() {
     return (
         <section className="py-24 bg-white relative overflow-hidden" id="reviews">
             {/* Decor - Soft Cream Contrast */}
-            <div className="absolute right-0 top-0 w-1/3 h-full bg-[#F9F8F2] -skew-x-12 z-0" />
+            {/* Decor - Soft Cream Contrast */}
+            {/* Removed cream background decor to keep it clean white */}
 
             <div className="container px-4 mx-auto relative z-10">
                 <div className="flex flex-col items-center text-center mb-16 space-y-4">

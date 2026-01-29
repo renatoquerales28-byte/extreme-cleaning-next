@@ -353,7 +353,7 @@ function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, m
         <FormProvider {...methods}>
             <div className={`w-full h-screen fixed inset-0 flex flex-col lg:flex-row bg-[#F9F8F2] overflow-hidden ${className}`}>
                 {/* Left Panel */}
-                <div className="hidden lg:flex w-[40%] bg-[#024653] relative flex-col justify-between p-12 text-white overflow-hidden shrink-0 border-r-4 border-[#10f081]">
+                <div className="hidden lg:flex w-1/3 bg-[#024653] relative flex-col justify-between p-12 text-white overflow-hidden shrink-0 border-r-4 border-[#10f081]">
                     <AnimatePresence mode="wait">
                         <motion.div key="lp-content" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} className="relative z-10 flex flex-col h-full justify-between">
                             <div>
@@ -372,7 +372,7 @@ function WizardLayout({ lp, step, totalPrice, prevStep, renderStep, className, m
                 </div>
 
                 {/* Right Panel */}
-                <div className="flex-1 w-full lg:w-[60%] h-screen bg-[#F9F8F2] relative flex flex-col overflow-hidden">
+                <div className="flex-1 w-full lg:w-2/3 h-screen bg-[#F9F8F2] relative flex flex-col overflow-hidden">
                     {/* Header with Progress */}
                     <div className="shrink-0 w-full px-6 py-6 md:px-12 grid grid-cols-[1fr_auto_1fr] items-center bg-[#F9F8F2] z-50 relative">
                         <div className="flex justify-start">

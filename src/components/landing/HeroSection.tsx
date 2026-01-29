@@ -18,6 +18,19 @@ export default function HeroSection() {
 
     return (
         <section className="relative w-full antialiased overflow-hidden flex flex-col justify-center min-h-[85vh]">
+            {/* Background Image with Overlay */}
+            <div className="absolute inset-0 w-full h-full z-0">
+                <Image
+                    src="/brand/hero-bg.png"
+                    alt="Clean Living Space"
+                    fill
+                    className="object-cover"
+                    priority
+                />
+                {/* Gradient Overlay for Text Readability */}
+                <div className="absolute inset-0 bg-white/90 bg-gradient-to-b from-white/95 via-white/80 to-white/95 backdrop-blur-[2px]" />
+            </div>
+
             <div className="container mx-auto px-4 relative z-10 flex flex-col items-center justify-center text-center h-full">
 
                 <motion.div

@@ -58,69 +58,77 @@ export default function CleaningTypeStep({ onNext }: CleaningTypeStepProps) {
     };
 
     return (
-        <div className="space-y-6">
-            <div className="space-y-2 lg:hidden">
-                <h2 className="text-2xl font-black text-[#024653]">What kind of clean?</h2>
-                <p className="text-slate-500">Choose the intensity level you need.</p>
-            </div>
+        <div className="h-full w-full relative flex flex-col">
+            <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
+                <div className="max-w-xl mx-auto space-y-6">
+                    <div className="space-y-2 lg:hidden text-center">
+                        <h2 className="text-2xl font-black text-[#024653]">What kind of clean?</h2>
+                        <p className="text-slate-500">Choose the intensity level you need.</p>
+                    </div>
 
-            <div className="grid grid-cols-1 gap-4">
-                {cleaningTypes.map((type) => {
-                    const isSelected = selectedType === type.id;
-                    const Icon = type.icon;
+                    <div className="grid grid-cols-1 gap-4">
+                        {cleaningTypes.map((type) => {
+                            const isSelected = selectedType === type.id;
+                            const Icon = type.icon;
 
-                    return (
-                        <motion.button
-                            key={type.id}
-                            whileHover={{ scale: 1.02 }}
-                            whileTap={{ scale: 0.98 }}
-                            onClick={() => handleSelect(type.id)}
-                            className={`
-                                relative p-6 rounded-2xl text-left transition-all duration-200 border-2
-                                flex flex-col gap-4 h-full
-                                ${isSelected
-                                    ? "border-[#024653] bg-[#024653]/5 shadow-md"
-                                    : "border-slate-100 bg-white hover:border-[#024653]/30 hover:shadow-sm"
-                                }
-                            `}
-                        >
-                            {type.popular && (
-                                <span className="absolute top-4 right-4 text-[10px] font-black uppercase tracking-wider bg-[#05D16E]/10 text-[#05D16E] px-2 py-1 rounded-full">
-                                    Popular
-                                </span>
-                            )}
-
-                            <div className={`
-                                w-12 h-12 rounded-xl flex items-center justify-center transition-colors
-                                ${isSelected ? "bg-[#024653] text-white" : "bg-slate-50 text-[#024653]"}
-                            `}>
-                                <Icon size={24} strokeWidth={2.5} />
-                            </div>
-
-                            <div>
-                                <h3 className={`font-black text-lg mb-1 ${isSelected ? "text-[#024653]" : "text-slate-700"}`}>
-                                    {type.label}
-                                </h3>
-                                <p className="text-sm text-slate-500 font-medium leading-relaxed">
-                                    {type.description}
-                                </p>
-                            </div>
-
-                            {isSelected && (
-                                <motion.div
-                                    layoutId="check"
-                                    initial={{ scale: 0 }}
-                                    animate={{ scale: 1 }}
-                                    className="absolute bottom-4 right-4 w-6 h-6 bg-[#05D16E] rounded-full flex items-center justify-center text-white"
+                            return (
+                                <motion.button
+                                    key={type.id}
+                                    whileHover={{ scale: 1.01 }}
+                                    whileTap={{ scale: 0.99 }}
+                                    onClick={() => handleSelect(type.id)}
+                                    className={`
+                                        group relative p-6 rounded-[2rem] text-left transition-all duration-200 border-2
+                                        flex items-center gap-6 w-full
+                                        ${isSelected
+                                            ? "bg-[#024653] border-[#024653] shadow-lg"
+                                            : "bg-white border-slate-100 hover:border-[#024653]/30"
+                                        }
+                                    `}
                                 >
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                </motion.div>
-                            )}
-                        </motion.button>
-                    );
-                })}
+                                    {type.popular && (
+                                        <span className={`
+                                            absolute top-0 right-8 -translate-y-1/2 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm
+                                            ${isSelected ? "bg-[#05D16E] text-[#024653]" : "bg-[#05D16E] text-white"}
+                                        `}>
+                                            Popular
+                                        </span>
+                                    )}
+
+                                    <div className={`
+                                        w-12 h-12 rounded-2xl flex items-center justify-center shrink-0 transition-colors
+                                        ${isSelected ? "bg-white/10 text-[#05D16E]" : "bg-[#F0FDF4] text-[#024653]"}
+                                    `}>
+                                        <Icon size={24} strokeWidth={2.5} />
+                                    </div>
+
+                                    <div className="flex-1">
+                                        <div className="flex items-center justify-between mb-1">
+                                            <h3 className={`font-black text-lg ${isSelected ? "text-white" : "text-[#024653]"}`}>
+                                                {type.label}
+                                            </h3>
+                                        </div>
+                                        <p className={`text-xs font-medium leading-relaxed ${isSelected ? "text-white/70" : "text-slate-400"}`}>
+                                            {type.description}
+                                        </p>
+                                    </div>
+
+                                    <div className={`
+                                        w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all
+                                        ${isSelected
+                                            ? "border-[#05D16E] bg-[#05D16E] text-[#024653]"
+                                            : "border-slate-200 text-transparent group-hover:border-[#024653]/30"
+                                        }
+                                    `}>
+                                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round">
+                                            <polyline points="20 6 9 17 4 12"></polyline>
+                                        </svg>
+                                    </div>
+                                </motion.button>
+                            );
+                        })}
+                    </div>
+                </div>
             </div>
         </div>
     );

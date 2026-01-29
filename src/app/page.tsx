@@ -32,7 +32,7 @@ export default function Home() {
     return (
         <main className="min-h-screen bg-white selection:bg-accent selection:text-white">
             {/* Sticky Navigation - Full Width Glassmorphism */}
-            <nav className="fixed top-0 left-0 w-full z-50 bg-[#f3f6f6] border-b border-[#05D16E]/10 transition-all duration-300">
+            <nav className="fixed top-0 left-0 w-full z-50 bg-[#f3f6f6] transition-all duration-300">
                 <div className="container mx-auto px-6 py-4 md:py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2 group shrink-0">
                         <div className="relative h-8 md:h-10 w-24 md:w-32 overflow-hidden">
@@ -52,7 +52,7 @@ export default function Home() {
 
                     <div className="flex items-center gap-4">
                         <div className={`hidden md:block transition-all duration-300 ${showGetQuote ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
-                            <Link href="/quote" className="px-6 py-2.5 bg-[#05D16E] text-[#024653] rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#04bd63] transition-colors shadow-lg hover:shadow-xl hover:shadow-[#05D16E]/20">
+                            <Link href="/quote" className="px-6 py-2.5 bg-[#05D16E] text-[#024653] rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:bg-[#04bd63] transition-colors">
                                 Get Quote
                             </Link>
                         </div>

@@ -29,7 +29,7 @@ export default function Home() {
     }, []);
 
     return (
-        <main className="min-h-screen bg-[#F9F8F2] selection:bg-accent selection:text-white">
+        <main className="min-h-screen bg-white selection:bg-accent selection:text-white">
             {/* Sticky Navigation */}
             <nav className="fixed top-4 md:top-6 left-1/2 -translate-x-1/2 px-4 md:px-6 py-2.5 md:py-3 glass-card rounded-full z-50 flex items-center gap-4 md:gap-8 bg-white/80 backdrop-blur-xl border border-white/40 shadow-xl shadow-black/5 w-fit max-w-[95vw] md:max-w-[90vw] transition-all duration-200">
                 <Link href="/" className="flex items-center gap-2 group shrink-0">

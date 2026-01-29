@@ -134,24 +134,24 @@ export default function HeroSection() {
                                 priority
                             />
 
-                            {/* Stats Overlay */}
-                            <div className="absolute bottom-6 left-6 right-6 p-6 bg-[#024653]/90 backdrop-blur-md rounded-[2.5rem] text-white border border-[#05D16E]/20">
+                            {/* Stats Overlay - Liquid Glass Light Version */}
+                            <div className="absolute bottom-6 left-6 right-6 p-6 bg-white/20 backdrop-blur-[20px] rounded-[2.5rem] text-[#024653] border border-white/50 shadow-xl">
                                 <div className="flex items-end justify-between">
                                     <div>
                                         <div className="text-4xl lg:text-5xl font-bold tracking-tighter flex items-center gap-1">
                                             100<span className="text-[#05D16E] text-3xl">%</span>
                                         </div>
-                                        <div className="text-[10px] opacity-80 mt-1 uppercase tracking-widest font-bold">Satisfaction Guaranteed</div>
+                                        <div className="text-[10px] opacity-70 mt-1 uppercase tracking-widest font-extrabold">Satisfaction Guaranteed</div>
                                     </div>
-                                    <div className="p-3 bg-white/10 rounded-full">
+                                    <div className="p-3 bg-[#024653]/10 rounded-full">
                                         <Sparkles className="text-[#05D16E]" size={24} />
                                     </div>
                                 </div>
                                 <div className="flex gap-2 mt-5 overflow-hidden">
-                                    <span className="bg-white/10 border border-white/10 px-4 py-1.5 rounded-full text-[10px] font-bold text-white flex items-center gap-1.5 whitespace-nowrap">
+                                    <span className="bg-[#024653]/5 border border-[#024653]/10 px-4 py-1.5 rounded-full text-[10px] font-bold text-[#024653] flex items-center gap-1.5 whitespace-nowrap">
                                         <span className="w-1.5 h-1.5 bg-[#05D16E] rounded-full"></span> Vetted Staff
                                     </span>
-                                    <span className="bg-white/10 border border-white/10 px-4 py-1.5 rounded-full text-[10px] font-bold text-white flex items-center gap-1.5 whitespace-nowrap">
+                                    <span className="bg-[#024653]/5 border border-[#024653]/10 px-4 py-1.5 rounded-full text-[10px] font-bold text-[#024653] flex items-center gap-1.5 whitespace-nowrap">
                                         <span className="w-1.5 h-1.5 bg-[#05D16E] rounded-full"></span> Insured
                                     </span>
                                 </div>
@@ -198,10 +198,10 @@ export default function HeroSection() {
                             Impeccable
                         </div>
 
-                        {/* Lower Overlay */}
-                        <div className="absolute inset-x-5 bottom-5 bg-[#024653]/90 backdrop-blur-md p-5 rounded-[2rem] text-white">
+                        {/* Lower Overlay - Liquid Glass Light Version */}
+                        <div className="absolute inset-x-5 bottom-5 bg-white/20 backdrop-blur-[20px] p-5 rounded-[2rem] text-[#024653] border border-white/50 shadow-xl">
                             <div className="text-2xl font-bold">5000+</div>
-                            <p className="text-[10px] opacity-70 leading-tight mt-1 font-medium uppercase tracking-wider">
+                            <p className="text-[10px] opacity-70 leading-tight mt-1 font-extrabold uppercase tracking-wider">
                                 Cleans Completed <br /> Successfully
                             </p>
                         </div>

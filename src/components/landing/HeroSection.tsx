@@ -24,7 +24,7 @@ export default function HeroSection() {
             <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-[#05D16E]/5 blur-[120px] rounded-full pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-[#024653]/5 blur-[120px] rounded-full pointer-events-none" />
 
-            <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-4 items-center">
 
                 {/* Left Column: Content & CTA */}
                 <div className="lg:col-span-4 relative z-20 flex flex-col justify-center">
@@ -168,7 +168,7 @@ export default function HeroSection() {
                 </div>
 
                 {/* Right Column: Secondary Info */}
-                <div className="lg:col-span-3 pl-0 lg:pl-4 flex flex-col justify-between h-auto lg:h-[620px] py-1 gap-8 lg:gap-0 hidden md:flex">
+                <div className="lg:col-span-3 pl-0 flex flex-col justify-between h-auto lg:h-[620px] py-1 gap-8 lg:gap-0 hidden md:flex">
                     <div className="space-y-4 pt-10">
                         <h2 className="text-3xl font-bold tracking-tight leading-tight text-[#024653]">
                             Explore Our <br /> <span className="text-[#05D16E]">Excellence</span>

@@ -59,12 +59,12 @@ export default function CleaningTypeStep({ onNext }: CleaningTypeStepProps) {
 
     return (
         <div className="space-y-6">
-            <div className="space-y-2">
+            <div className="space-y-2 lg:hidden">
                 <h2 className="text-2xl font-black text-[#024653]">What kind of clean?</h2>
                 <p className="text-slate-500">Choose the intensity level you need.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4">
                 {cleaningTypes.map((type) => {
                     const isSelected = selectedType === type.id;
                     const Icon = type.icon;

@@ -173,7 +173,7 @@ export default function HeroSection() {
                             Explore Our <br /> <span className="text-[#05D16E]">Excellence</span>
                         </h2>
                         <p className="text-gray-500 text-sm leading-relaxed font-medium">
-                            Whether it's your home or office, our dedicated team ensures a pristine environment every time.
+                            Whether it&apos;s your home or office, our dedicated team ensures a pristine environment every time.
                         </p>
                     </div>
 

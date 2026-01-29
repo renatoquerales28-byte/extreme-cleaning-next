@@ -13,6 +13,21 @@ import { AnimatePresence, motion } from "framer-motion";
 
 export default function Home() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const [showGetQuote, setShowGetQuote] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            // Show button after scrolling down 400px (past most of hero content)
+            if (window.scrollY > 400) {
+                setShowGetQuote(true);
+            } else {
+                setShowGetQuote(false);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
 
     return (
         <main className="min-h-screen bg-white selection:bg-accent selection:text-white">
@@ -36,7 +51,7 @@ export default function Home() {
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <div className="hidden md:block">
+                        <div className={`hidden md:block transition-all duration-300 ${showGetQuote ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-2 pointer-events-none'}`}>
                             <Link href="/quote" className="px-6 py-2.5 bg-brand-dark text-white rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:bg-black transition-colors shadow-lg hover:shadow-xl">
                                 Get Quote
                             </Link>

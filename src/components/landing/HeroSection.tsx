@@ -8,6 +8,7 @@ import { motion } from "framer-motion";
 
 export default function HeroSection() {
     const router = useRouter();
+    const [zipCode, setZipCode] = useState("");
     const [isFocused, setIsFocused] = useState(false);
 
     const handleStart = (e?: React.FormEvent) => {

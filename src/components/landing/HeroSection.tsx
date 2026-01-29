@@ -55,7 +55,7 @@ export default function HeroSection() {
 
                         {/* Zip Code Form Integration */}
                         <div className="pt-2">
-                            <form onSubmit={handleStart} className={`relative flex items-center p-2 bg-white rounded-full transition-all duration-300 border-2 ${isFocused ? 'border-[#05D16E] shadow-xl shadow-[#05D16E]/10' : 'border-transparent shadow-lg'}`}>
+                            <form onSubmit={handleStart} className={`relative flex items-center p-2 bg-white rounded-full transition-all duration-300 border-2 ${isFocused ? 'border-[#05D16E]' : 'border-transparent'}`}>
                                 <div className="pl-4 text-[#024653]/50">
                                     <MapPin size={20} />
                                 </div>
@@ -109,7 +109,7 @@ export default function HeroSection() {
                             initial={{ x: -20, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ delay: 1 }}
-                            className="absolute top-10 left-6 z-40 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full flex items-center gap-2 text-xs font-bold text-[#024653] shadow-lg border border-white/40"
+                            className="absolute top-10 left-6 z-40 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full flex items-center gap-2 text-xs font-bold text-[#024653] border border-white/40"
                         >
                             <span className="w-2 h-2 bg-[#05D16E] rounded-full animate-pulse"></span>
                             Residential
@@ -118,14 +118,14 @@ export default function HeroSection() {
                             initial={{ x: 20, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ delay: 1.2 }}
-                            className="absolute top-24 -right-4 lg:right-auto lg:left-32 z-40 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full flex items-center gap-2 text-xs font-bold text-[#024653] shadow-lg border border-white/40"
+                            className="absolute top-24 -right-4 lg:right-auto lg:left-32 z-40 bg-white/80 backdrop-blur-md px-4 py-2 rounded-full flex items-center gap-2 text-xs font-bold text-[#024653] border border-white/40"
                         >
                             <span className="w-2 h-2 bg-[#024653] rounded-full"></span>
                             Commercial
                         </motion.div>
 
                         {/* Main Image */}
-                        <div className="w-full h-full rounded-[3.5rem] overflow-hidden shadow-2xl relative group border-4 border-white/50">
+                        <div className="w-full h-full rounded-[3.5rem] overflow-hidden relative group">
                             <Image
                                 src="/brand/hero_woman_cleaning.png"
                                 alt="Professional Cleaner"
@@ -183,7 +183,7 @@ export default function HeroSection() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.4, duration: 0.6 }}
-                        className="relative rounded-[3rem] overflow-hidden h-[340px] shadow-lg group border-2 border-white"
+                        className="relative rounded-[3rem] overflow-hidden h-[340px] group"
                     >
                         <Image
                             src="/brand/service-residential.png"

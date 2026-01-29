@@ -125,7 +125,7 @@ export default function HeroSection() {
                         </motion.div>
 
                         {/* Main Image */}
-                        <div className="w-full h-full rounded-[3.5rem] overflow-hidden relative group">
+                        <div className="w-full h-full rounded-[1.75rem] overflow-hidden relative group">
                             <Image
                                 src="/brand/hero_woman_cleaning.png"
                                 alt="Professional Cleaner"
@@ -135,7 +135,7 @@ export default function HeroSection() {
                             />
 
                             {/* Stats Overlay - Liquid Glass Light Version */}
-                            <div className="absolute bottom-6 left-6 right-6 p-6 bg-white/20 backdrop-blur-[20px] rounded-[2.5rem] text-[#024653] border border-white/50 shadow-xl">
+                            <div className="absolute bottom-6 left-6 right-6 p-6 bg-white/20 backdrop-blur-[20px] rounded-[1.25rem] text-[#024653] border border-white/50 shadow-xl">
                                 <div className="flex items-end justify-between">
                                     <div>
                                         <div className="text-4xl lg:text-5xl font-bold tracking-tighter flex items-center gap-1">
@@ -183,7 +183,7 @@ export default function HeroSection() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.4, duration: 0.6 }}
-                        className="relative rounded-[3rem] overflow-hidden h-[340px] group"
+                        className="relative rounded-[1.5rem] overflow-hidden h-[340px] group"
                     >
                         <Image
                             src="/brand/service-residential.png"
@@ -199,7 +199,7 @@ export default function HeroSection() {
                         </div>
 
                         {/* Lower Overlay - Liquid Glass Light Version */}
-                        <div className="absolute inset-x-5 bottom-5 bg-white/20 backdrop-blur-[20px] p-5 rounded-[2rem] text-[#024653] border border-white/50 shadow-xl">
+                        <div className="absolute inset-x-5 bottom-5 bg-white/20 backdrop-blur-[20px] p-5 rounded-[1rem] text-[#024653] border border-white/50 shadow-xl">
                             <div className="text-2xl font-bold">5000+</div>
                             <p className="text-[10px] opacity-70 leading-tight mt-1 font-extrabold uppercase tracking-wider">
                                 Cleans Completed <br /> Successfully

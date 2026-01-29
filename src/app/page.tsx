@@ -32,7 +32,7 @@ export default function Home() {
     return (
         <main className="min-h-screen bg-white selection:bg-accent selection:text-white">
             {/* Sticky Navigation - Full Width Glassmorphism */}
-            <nav className="fixed top-0 left-0 w-full z-50 bg-[#024653] border-b border-[#05D16E]/20 transition-all duration-300">
+            <nav className="fixed top-0 left-0 w-full z-50 bg-[#f3f6f6] border-b border-[#05D16E]/10 transition-all duration-300">
                 <div className="container mx-auto px-6 py-4 md:py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2 group shrink-0">
                         <div className="relative h-8 md:h-10 w-24 md:w-32 overflow-hidden">
@@ -40,14 +40,14 @@ export default function Home() {
                                 src="/brand/logo-full.png"
                                 alt="ECS Logo"
                                 fill
-                                className="object-contain brightness-0 invert transition-opacity duration-300 opacity-90 group-hover:opacity-100"
+                                className="object-contain transition-opacity duration-300 opacity-90 group-hover:opacity-100"
                             />
                         </div>
                     </Link>
-                    <div className="hidden md:flex items-center gap-8 text-[11px] font-black text-white/70 uppercase tracking-[0.2em]">
-                        <Link href="#services" className="hover:text-white hover:underline underline-offset-4 decoration-2 decoration-[#05D16E] transition-all">Services</Link>
-                        <Link href="#process" className="hover:text-white hover:underline underline-offset-4 decoration-2 decoration-[#05D16E] transition-all">Process</Link>
-                        <Link href="#reviews" className="hover:text-white hover:underline underline-offset-4 decoration-2 decoration-[#05D16E] transition-all">Reviews</Link>
+                    <div className="hidden md:flex items-center gap-8 text-[11px] font-black text-[#024653]/70 uppercase tracking-[0.2em]">
+                        <Link href="#services" className="hover:text-[#024653] hover:underline underline-offset-4 decoration-2 decoration-[#05D16E] transition-all">Services</Link>
+                        <Link href="#process" className="hover:text-[#024653] hover:underline underline-offset-4 decoration-2 decoration-[#05D16E] transition-all">Process</Link>
+                        <Link href="#reviews" className="hover:text-[#024653] hover:underline underline-offset-4 decoration-2 decoration-[#05D16E] transition-all">Reviews</Link>
                     </div>
 
                     <div className="flex items-center gap-4">
@@ -60,7 +60,7 @@ export default function Home() {
                         {/* Mobile Menu Toggle */}
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="md:hidden w-10 h-10 flex items-center justify-center rounded-full bg-white/10 border border-white/20 text-white"
+                            className="md:hidden w-10 h-10 flex items-center justify-center rounded-full bg-[#024653]/5 border border-[#024653]/10 text-[#024653]"
                         >
                             <div className="w-5 flex flex-col gap-1">
                                 <span className={`w-full h-0.5 bg-current rounded-full transition-transform ${mobileMenuOpen ? "rotate-45 translate-y-1.5" : ""}`} />

@@ -28,8 +28,8 @@ export default function HeroSection() {
                     className="object-cover"
                     priority
                 />
-                {/* Gradient Overlay for Text Readability */}
-                <div className="absolute inset-0 bg-white/90 bg-gradient-to-b from-white/95 via-white/80 to-white/95 backdrop-blur-[2px]" />
+                {/* Gradient Overlay for Text Readability - Reduced opacity */}
+                <div className="absolute inset-0 bg-white/40 bg-gradient-to-b from-white/80 via-white/40 to-white/90 backdrop-blur-[1px]" />
             </div>
 
             <div className="container mx-auto px-4 relative z-10 flex flex-col items-center justify-center text-center h-full">
@@ -41,43 +41,43 @@ export default function HeroSection() {
                     className="max-w-3xl space-y-8"
                 >
                     {/* Badge */}
-                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#05D16E]/10 text-[#024653] text-xs font-bold uppercase tracking-widest mb-4">
+                    <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/50 backdrop-blur-md border border-[#05D16E]/20 text-[#024653] text-xs font-bold uppercase tracking-widest mb-4 shadow-sm">
                         <Sparkles size={14} className="text-[#05D16E]" />
                         <span>Premium Cleaning Services</span>
                     </div>
 
-                    {/* Headline - Reduced size as requested */}
-                    <h1 className="text-4xl md:text-5xl font-black tracking-tight text-[#024653] leading-tight">
+                    {/* Headline */}
+                    <h1 className="text-5xl md:text-6xl font-black tracking-tight text-[#024653] leading-tight drop-shadow-sm">
                         Experience the peace <br /> of a <span className="text-[#05D16E]">perfectly clean space.</span>
                     </h1>
 
                     {/* Subtitle */}
-                    <p className="text-base md:text-lg text-[#024653]/60 font-medium leading-relaxed max-w-xl mx-auto">
+                    <p className="text-lg md:text-xl text-[#024653] font-semibold leading-relaxed max-w-xl mx-auto drop-shadow-sm">
                         We create the ideal conditions in your environment to fulfill our purpose: <br className="hidden md:block" />
                         Generating Well-being and Efficiency in your spaces.
                     </p>
 
-                    {/* Zip Code CTA */}
-                    <form onSubmit={handleStart} className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8 pt-4">
-                        <div className="relative w-full max-w-xs group">
-                            <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-[#024653]/30 group-focus-within:text-[#05D16E] transition-colors">
-                                <MapPin size={20} />
+                    {/* Zip Code CTA - Redesigned */}
+                    <form onSubmit={handleStart} className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-10 p-2 bg-white rounded-full shadow-2xl shadow-[#024653]/10 border border-[#05D16E]/10 max-w-lg mx-auto transform hover:scale-[1.01] transition-transform duration-300">
+                        <div className="relative flex-1 w-full sm:w-auto group">
+                            <div className="absolute inset-y-0 left-6 flex items-center pointer-events-none text-[#024653]/40 group-focus-within:text-[#05D16E] transition-colors">
+                                <MapPin size={22} />
                             </div>
                             <input
                                 type="text"
                                 placeholder="Enter your Zip Code"
                                 value={zipCode}
                                 onChange={(e) => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))}
-                                className="w-full pl-12 pr-6 py-4 bg-white border-2 border-slate-100 rounded-full font-bold text-[#024653] placeholder:text-[#024653]/30 focus:border-[#05D16E] focus:ring-4 focus:ring-[#05D16E]/10 outline-none transition-all shadow-lg shadow-[#024653]/5"
+                                className="w-full pl-14 pr-6 py-4 bg-transparent border-none font-bold text-[#024653] text-lg placeholder:text-[#024653]/30 focus:ring-0 focus:outline-none"
                             />
                         </div>
 
                         <button
                             type="submit"
                             disabled={zipCode.length < 5}
-                            className="h-[58px] px-8 rounded-full bg-[#024653] text-white font-bold tracking-wide hover:bg-[#02333d] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-xl shadow-[#024653]/20 flex items-center gap-2 hover:scale-105 active:scale-95"
+                            className="w-full sm:w-auto px-8 py-4 rounded-full bg-[#05D16E] text-[#024653] font-black text-lg tracking-wide hover:bg-[#04bd63] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-lg hover:shadow-[#05D16E]/30 flex items-center justify-center gap-2"
                         >
-                            Get Started <ArrowRight size={18} />
+                            Get Started <ArrowRight size={20} strokeWidth={3} />
                         </button>
                     </form>
 

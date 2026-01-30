@@ -17,9 +17,33 @@ interface ReviewStepProps {
     onEditStep: (step: StepId) => void;
 }
 
+const Section = ({ title, icon: Icon, children, stepId, onEdit }: { title: string, icon: any, children: React.ReactNode, stepId: StepId, onEdit: (id: StepId) => void }) => (
+    <div className="bg-white p-6 rounded-3xl border-2 border-slate-50 relative group">
+        <button
+            type="button"
+            onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                onEdit(stepId);
+            }}
+            className="absolute top-6 right-6 p-2 z-20 bg-slate-50 text-[#024653]/40 rounded-full hover:bg-[#024653] hover:text-white transition-colors cursor-pointer"
+        >
+            <Pencil size={14} />
+        </button>
+        <div className="flex items-center gap-3 mb-4">
+            <div className="p-2 bg-[#05D16E]/10 rounded-xl">
+                <Icon size={18} className="text-[#05D16E]" />
+            </div>
+            <h3 className="text-sm font-black uppercase tracking-wider text-[#024653]">{title}</h3>
+        </div>
+        <div className="pl-12 space-y-1">
+            {children}
+        </div>
+    </div>
+);
+
 export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
     const { watch } = useFormContext<WizardData>();
-    // ... (rest of hook calls remain same)
     const { setAction } = useWizardAction();
     const data = watch();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -35,7 +59,7 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
         };
         fetchConfig();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); // Solo ejecutar una vez al montar
+    }, []);
 
     useEffect(() => {
         setAction({
@@ -143,159 +167,59 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
 
     const formattedDate = data.serviceDate ? format(new Date(data.serviceDate), "MMMM do, yyyy") : "Not selected";
 
-    const Section = ({ title, icon: Icon, children, stepId, onEdit }: { title: string, icon: any, children: React.ReactNode, stepId: StepId, onEdit: (id: StepId) => void }) => (
-        <div className="bg-white p-6 rounded-3xl border-2 border-slate-50 relative group">
-            <button
-                type="button"
-                onClick={(e) => {
-                    e.stopPropagation();
-                    // console.log('Editing step:', stepId); // Debug
-                    onEdit(stepId);
-                }}
-                className="absolute top-6 right-6 p-2 z-10 bg-slate-50 text-[#024653]/40 rounded-full hover:bg-[#024653] hover:text-white transition-colors cursor-pointer"
-            >
-                <Pencil size={14} />
-            </button>
-            <div className="flex items-center gap-3 mb-4">
-                <div className="p-2 bg-[#05D16E]/10 rounded-xl">
-                    <Icon size={18} className="text-[#05D16E]" />
-                </div>
-                <h3 className="text-sm font-black uppercase tracking-wider text-[#024653]">{title}</h3>
-            </div>
-            <div className="pl-12 space-y-1">
-                {children}
-            </div>
-        </div>
-    );
+    return (
+        <div className="h-full w-full relative flex flex-col">
+            <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
+                <div className="max-w-xl mx-auto space-y-8">
+                    <div className="text-center space-y-2 md:hidden">
+                        <h2 className="text-3xl font-black tracking-tighter text-[#024653] leading-tight">
+                            Review <br /> <span className="text-[#05D16E]">Details</span>
+                        </h2>
+                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Double check everything looks good.</p>
+                    </div>
 
-    export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
-        // ... (rest of hook calls remain same)
-        const { watch } = useFormContext<WizardData>();
-        const { setAction } = useWizardAction();
-        const data = watch();
-        const [isSubmitting, setIsSubmitting] = useState(false);
+                    <div className="space-y-4">
+                        <Section title="Service" icon={Home} stepId="service" onEdit={onEditStep}>
+                            <p className="font-bold text-[#024653] capitalize">{data.serviceType} Cleaning</p>
+                            <p className="text-xs font-bold text-[#024653]/80 capitalize mt-0.5 mb-1">
+                                {(data.cleaningType || 'standard').replace('_', ' ')} Intensity
+                            </p>
+                            {data.serviceType === 'residential' && (
+                                <p className="text-xs text-[#024653]/60">{data.bedrooms} Bed, {data.bathrooms} Bath, ~{data.sqFt} sqft</p>
+                            )}
+                            {data.serviceType === 'commercial' && (
+                                <p className="text-xs text-[#024653]/60">{data.businessType}, {data.commSqFt} sqft</p>
+                            )}
+                            <p className="text-xs text-[#05D16E] font-bold mt-1 uppercase tracking-wider">{data.frequency} Plan</p>
+                        </Section>
 
-        // Re-calculate total to display accurate price
-        const [total, setTotal] = useState<number | null>(null);
+                        <Section title="Schedule" icon={Calendar} stepId="date" onEdit={onEditStep}>
+                            <p className="font-bold text-[#024653]">{formattedDate}</p>
+                            <p className="text-xs text-[#024653]/60">@ {data.serviceTime}</p>
+                        </Section>
 
-        useEffect(() => {
-            const fetchConfig = async () => {
-                const res = await getPricingConfig();
-                const config = res.success ? res.config : {};
-                setTotal(calculateTotal(data, config));
-            };
-            fetchConfig();
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-        }, []);
+                        <Section title="Location" icon={MapPin} stepId="address" onEdit={onEditStep}>
+                            <p className="font-bold text-[#024653]">{data.address}</p>
+                            <p className="text-xs text-[#024653]/60">{data.city}, {data.zipCode}</p>
+                        </Section>
 
-        // ... (useEffect for setAction remains same)
-        useEffect(() => {
-            setAction({
-                label: isSubmitting ? "Finalizing..." : "Confirm Booking",
-                disabled: isSubmitting,
-                isLoading: isSubmitting,
-                icon: <CheckCircle2 size={18} strokeWidth={2.5} />,
-                onClick: async () => {
-                    setIsSubmitting(true);
-                    const toastId = toast.loading("Securing your slot...");
-                    const processStart = Date.now();
+                        <Section title="Contact" icon={User} stepId="quote" onEdit={onEditStep}>
+                            <p className="font-bold text-[#024653]">{data.firstName} {data.lastName}</p>
+                            <p className="text-xs text-[#024653]/60">{data.email}</p>
+                            <p className="text-xs text-[#024653]/60">{data.phone}</p>
+                        </Section>
 
-                    try {
-                        // (Submit logic preserved)
-                        console.log('🚀 Submit logic placeholder');
-                        // ... (I am truncating the long submit logic here for brevity in Replace, 
-                        // assuming the user wants me to fix the UI mainly. 
-                        // WAIT: ReplaceFileContent replaces the BLOCK. I must include the logic or I delete it.
-                        // I will include the full submit logic from the original file to be safe.)
-
-                        // Actually, to avoid deleting the logic, I need to match the StartLine/EndLine carefully.
-                        // The Section component definition is causing the issue.
-                        // I will define Section BEFORE default export, and remove it from inside.
-                        // This tool call strategy needs to be smart.
-
-                        // Strategy:
-                        // 1. Insert Section definition BEFORE 'export default function...'
-                        // 2. Remove Section definition inside the function.
-                        // 3. Update usages or let them be if signature matches.
-
-                        // BUT replace_file_content is contiguous.
-                        // I'll try to execute this as a targeted replacement of the inner component definition 
-                        // AND simply define the outer one at the top? No, that's two edits.
-
-                        // Let's replace the whole file content to be safe and clean, or a large chunk?
-                        // The file is ~200 lines. 
-                        // Maybe I can just replace the 'Section' constant definition with nothing (delete it) 
-                        // And add it via a separate 'write_to_file' or careful replacement?
-
-                        // Better approach:
-                        // Just replace the inner definition with the usage, and define the component outside?
-                        // No, simpler: 
-                        // I will replace lines 146-164 (The inner Section definition) with NOTHING (or just "const formattedDate..." closure).
-                        // AND I will add the Section definition at the top of the file as an import or variable?
-
-                        // Wait, I can't add to the top easily without replacing the top.
-                        // I'll replace the entire file. It's safer to guarantee integrity.
-                    } catch (e) { console.error(e) }
-                }
-            });
-        }, [isSubmitting, onNext, data, setAction, total]);
-
-        // ...
-
-
-        return (
-            <div className="h-full w-full relative flex flex-col">
-                <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
-                    <div className="max-w-xl mx-auto space-y-8">
-                        <div className="text-center space-y-2 md:hidden">
-                            <h2 className="text-3xl font-black tracking-tighter text-[#024653] leading-tight">
-                                Review <br /> <span className="text-[#05D16E]">Details</span>
-                            </h2>
-                            <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Double check everything looks good.</p>
-                        </div>
-
-                        <div className="space-y-4">
-                            <Section title="Service" icon={Home} stepId="service">
-                                <p className="font-bold text-[#024653] capitalize">{data.serviceType} Cleaning</p>
-                                <p className="text-xs font-bold text-[#024653]/80 capitalize mt-0.5 mb-1">
-                                    {(data.cleaningType || 'standard').replace('_', ' ')} Intensity
-                                </p>
-                                {data.serviceType === 'residential' && (
-                                    <p className="text-xs text-[#024653]/60">{data.bedrooms} Bed, {data.bathrooms} Bath, ~{data.sqFt} sqft</p>
-                                )}
-                                {data.serviceType === 'commercial' && (
-                                    <p className="text-xs text-[#024653]/60">{data.businessType}, {data.commSqFt} sqft</p>
-                                )}
-                                <p className="text-xs text-[#05D16E] font-bold mt-1 uppercase tracking-wider">{data.frequency} Plan</p>
-                            </Section>
-
-                            <Section title="Schedule" icon={Calendar} stepId="date">
-                                <p className="font-bold text-[#024653]">{formattedDate}</p>
-                                <p className="text-xs text-[#024653]/60">@ {data.serviceTime}</p>
-                            </Section>
-
-                            <Section title="Location" icon={MapPin} stepId="address">
-                                <p className="font-bold text-[#024653]">{data.address}</p>
-                                <p className="text-xs text-[#024653]/60">{data.city}, {data.zipCode}</p>
-                            </Section>
-
-                            <Section title="Contact" icon={User} stepId="quote">
-                                <p className="font-bold text-[#024653]">{data.firstName} {data.lastName}</p>
-                                <p className="text-xs text-[#024653]/60">{data.email}</p>
-                                <p className="text-xs text-[#024653]/60">{data.phone}</p>
-                            </Section>
-
-                            {/* Total */}
-                            <div className="bg-[#024653] p-8 rounded-[2rem] text-center text-white space-y-2 shadow-xl shadow-[#024653]/20">
-                                <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Estimated Total</p>
-                                <div className="flex items-baseline justify-center gap-1">
-                                    <span className="text-5xl font-black">${total || "..."}</span>
-                                    <span className="text-sm font-bold opacity-60">/service</span>
-                                </div>
+                        {/* Total */}
+                        <div className="bg-[#024653] p-8 rounded-[2rem] text-center text-white space-y-2 shadow-xl shadow-[#024653]/20">
+                            <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Estimated Total</p>
+                            <div className="flex items-baseline justify-center gap-1">
+                                <span className="text-5xl font-black">${total || "..."}</span>
+                                <span className="text-sm font-bold opacity-60">/service</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div >
-        );
-    }
+            </div>
+        </div >
+    );
+}

@@ -10,14 +10,16 @@ import { calculateTotal } from "@/lib/utils/pricing";
 import { toast } from "sonner";
 import { updateLead, createLead, getPricingConfig } from "@/app/actions/admin";
 import { submitBooking } from "@/app/actions/booking";
+import { StepId } from "@/lib/wizard/config";
 
 interface ReviewStepProps {
     onNext: () => void;
-    onEditStep: (step: number) => void;
+    onEditStep: (step: StepId) => void;
 }
 
 export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
     const { watch } = useFormContext<WizardData>();
+    // ... (rest of hook calls remain same)
     const { setAction } = useWizardAction();
     const data = watch();
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -141,10 +143,10 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
 
     const formattedDate = data.serviceDate ? format(new Date(data.serviceDate), "MMMM do, yyyy") : "Not selected";
 
-    const Section = ({ title, icon: Icon, children, stepIndex }: any) => (
+    const Section = ({ title, icon: Icon, children, stepId }: { title: string, icon: any, children: React.ReactNode, stepId: StepId }) => (
         <div className="bg-white p-6 rounded-3xl border-2 border-slate-50 relative group">
             <button
-                onClick={() => onEditStep(stepIndex)}
+                onClick={() => onEditStep(stepId)}
                 className="absolute top-6 right-6 p-2 bg-slate-50 text-[#024653]/40 rounded-full hover:bg-[#024653] hover:text-white transition-colors"
             >
                 <Pencil size={14} />
@@ -173,7 +175,7 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                     </div>
 
                     <div className="space-y-4">
-                        <Section title="Service" icon={Home} stepIndex={2}>
+                        <Section title="Service" icon={Home} stepId="service">
                             <p className="font-bold text-[#024653] capitalize">{data.serviceType} Cleaning</p>
                             <p className="text-xs font-bold text-[#024653]/80 capitalize mt-0.5 mb-1">
                                 {(data.cleaningType || 'standard').replace('_', ' ')} Intensity
@@ -187,17 +189,17 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                             <p className="text-xs text-[#05D16E] font-bold mt-1 uppercase tracking-wider">{data.frequency} Plan</p>
                         </Section>
 
-                        <Section title="Schedule" icon={Calendar} stepIndex={7}>
+                        <Section title="Schedule" icon={Calendar} stepId="date">
                             <p className="font-bold text-[#024653]">{formattedDate}</p>
                             <p className="text-xs text-[#024653]/60">@ {data.serviceTime}</p>
                         </Section>
 
-                        <Section title="Location" icon={MapPin} stepIndex={8}>
+                        <Section title="Location" icon={MapPin} stepId="address">
                             <p className="font-bold text-[#024653]">{data.address}</p>
                             <p className="text-xs text-[#024653]/60">{data.city}, {data.zipCode}</p>
                         </Section>
 
-                        <Section title="Contact" icon={User} stepIndex={5}>
+                        <Section title="Contact" icon={User} stepId="quote">
                             <p className="font-bold text-[#024653]">{data.firstName} {data.lastName}</p>
                             <p className="text-xs text-[#024653]/60">{data.email}</p>
                             <p className="text-xs text-[#024653]/60">{data.phone}</p>

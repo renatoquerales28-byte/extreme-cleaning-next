@@ -22,8 +22,21 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
 
     // Reset status when user types
     React.useEffect(() => {
-        if (status !== 'idle') setStatus('idle');
+        if (status !== 'idle' && status !== 'active') setStatus('idle');
+        // If we have a valid length zip but idle (back navigation), we might want to prompt check or auto-recover
+        // For now, let's just leave it idle to force re-check, OR better:
+        // If we really want to persist 'active', we need to store 'zipStatus' in form data too, not just local state.
+        // But the user complained about "inputs deleting". preserving text is mostly what they want.
+        // Actually, let's auto-trigger check if it's 5 digits on mount? No, that might spam API.
+        // Let's just trust valid structure.
     }, [zipCode, status]);
+
+    // Auto-recover visual state on mount if zip is already 5 chars (likely from back nav)
+    // We can't know if it was 'active' for sure without API, but we can assume 'idle' is safe.
+    // However, the issue was "part where inputs appear is deleted" -> This was the White Screen issue.
+    // The "inputs disappearing" inside the box was likely the white screen too.
+    // Let's stick to the white screen fix first.
+
 
     const checkAvailability = React.useCallback(async () => {
         setIsChecking(true);

@@ -15,7 +15,12 @@ const cleaningTypes = [
         description: "Perfect for maintaining a tidy home.",
         icon: Sparkles,
         popular: true,
-        features: ["Dusting & Mopping", "Bathrooms & Kitchen", "Exterior of Appliances", "Making Beds"]
+        features: [
+            { name: "Dusting & Mopping", included: true },
+            { name: "Bathrooms & Kitchen", included: true },
+            { name: "Inside Microwave", included: false },
+            { name: "Baseboards & Doors", included: false }
+        ]
     },
     {
         id: "deep",
@@ -23,7 +28,12 @@ const cleaningTypes = [
         description: "Thorough cleaning for neglected spaces.",
         icon: Zap,
         popular: false,
-        features: ["Standard Clean Included", "Inside Microwave", "Baseboards & Doors", "Heavy Scrubbing"]
+        features: [
+            { name: "Standard Clean Included", included: true },
+            { name: "Inside Microwave", included: true },
+            { name: "Baseboards & Doors", included: true },
+            { name: "Heavy Scrubbing", included: true }
+        ]
     },
     {
         id: "move",
@@ -31,7 +41,12 @@ const cleaningTypes = [
         description: "Get your deposit back or start fresh.",
         icon: Box,
         popular: false,
-        features: ["Deep Clean Included", "Inside Cabinets", "Inside Fridge & Oven", "Interior Windows"]
+        features: [
+            { name: "Deep Clean Scope", included: true },
+            { name: "Inside Cabinets", included: true },
+            { name: "Inside Fridge & Oven", included: true },
+            { name: "Trash Removal", included: true }
+        ]
     },
     {
         id: "post_construction",
@@ -39,7 +54,12 @@ const cleaningTypes = [
         description: "Remove dust and debris after renovation.",
         icon: HardHat,
         popular: false,
-        features: ["Dust & Debris Removal", "Polishing Services", "Paint Spot Removal", "Sanitization"]
+        features: [
+            { name: "Dust & Debris", included: true },
+            { name: "Paint Spot Removal", included: true },
+            { name: "Polishing", included: true },
+            { name: "Sanitization", included: true }
+        ]
     }
 ];
 
@@ -128,13 +148,30 @@ export default function CleaningTypeStep({ onNext }: CleaningTypeStepProps) {
                                             {type.description}
                                         </p>
 
-                                        {/* Features List */}
-                                        <div className="grid grid-cols-2 gap-2">
-                                            {type.features.map((feature, i) => (
+                                        {/* Features List Comparison */}
+                                        <div className="grid grid-cols-2 gap-y-2 gap-x-4">
+                                            {/* @ts-ignore - feature type inferred as string but is now object */}
+                                            {type.features.map((feature: any, i) => (
                                                 <div key={i} className="flex items-center gap-2">
-                                                    <div className={`w-1.5 h-1.5 rounded-full ${isSelected ? "bg-[#05D16E]" : "bg-[#05D16E]/60"}`} />
-                                                    <span className={`text-[10px] font-bold uppercase tracking-wider ${isSelected ? "text-white/90" : "text-[#024653]/70"}`}>
-                                                        {feature}
+                                                    {feature.included ? (
+                                                        <div className={`w-4 h-4 rounded-full flex items-center justify-center bg-[#05D16E]/20 text-[#05D16E]`}>
+                                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="4">
+                                                                <polyline points="20 6 9 17 4 12"></polyline>
+                                                            </svg>
+                                                        </div>
+                                                    ) : (
+                                                        <div className={`w-4 h-4 rounded-full flex items-center justify-center ${isSelected ? "bg-white/10 text-white/40" : "bg-slate-100 text-slate-400"}`}>
+                                                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                                                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                                                            </svg>
+                                                        </div>
+                                                    )}
+                                                    <span className={`text-[10px] font-bold uppercase tracking-wider ${isSelected
+                                                            ? (feature.included ? "text-white/90" : "text-white/40 line-through decoration-white/30")
+                                                            : (feature.included ? "text-[#024653]/80" : "text-slate-400 line-through decoration-slate-300")
+                                                        }`}>
+                                                        {feature.name}
                                                     </span>
                                                 </div>
                                             ))}

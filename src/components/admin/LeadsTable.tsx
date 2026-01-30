@@ -1,10 +1,35 @@
 "use client";
 
 import { useState } from "react";
-import { Eye, X } from "lucide-react";
+import { Eye, X, Gift, Copy, Check, Sparkles } from "lucide-react";
+import { generateOneTimePromo } from "@/app/actions/promotions";
+import { toast } from "sonner";
 
 export default function LeadsTable({ leads }: { leads: any[] }) {
     const [selectedLead, setSelectedLead] = useState<any>(null);
+    const [isGenerating, setIsGenerating] = useState(false);
+    const [generatedCode, setGeneratedCode] = useState<string | null>(null);
+    const [discountAmount, setDiscountAmount] = useState(10);
+
+
+
+    const handleGenerateCoupon = async () => {
+        setIsGenerating(true);
+        const res = await generateOneTimePromo(discountAmount, "fixed", "VIP");
+        setIsGenerating(false);
+        if (res.success && res.code) {
+            setGeneratedCode(res.code);
+            toast.success("Coupon generated!");
+        } else {
+            toast.error("Failed to generate coupon");
+        }
+    };
+
+    const handleCloseModal = () => {
+        setSelectedLead(null);
+        setGeneratedCode(null);
+        setDiscountAmount(10);
+    };
 
     return (
         <>
@@ -84,7 +109,7 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                         <div className="flex justify-between items-center p-6 border-b border-gray-100 sticky top-0 bg-white">
                             <h2 className="text-2xl font-serif text-[#1C1C1C]">Lead Details</h2>
                             <button
-                                onClick={() => setSelectedLead(null)}
+                                onClick={handleCloseModal}
                                 className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                             >
                                 <X size={24} className="text-gray-500" />
@@ -134,15 +159,89 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                                     <pre>{JSON.stringify(selectedLead.details, null, 2)}</pre>
                                 </div>
                             </section>
+
+                            {/* Coupon Generation Section */}
+                            {isGenerating || generatedCode ? (
+                                <section className="bg-gradient-to-br from-[#024653] to-[#012f38] text-white p-6 rounded-2xl relative overflow-hidden">
+                                    <div className="relative z-10">
+                                        <div className="flex items-center gap-3 mb-4">
+                                            <div className="p-2 bg-white/10 rounded-lg backdrop-blur-sm">
+                                                <Gift size={20} className="text-[#05D16E]" />
+                                            </div>
+                                            <h3 className="font-bold text-lg">Send a Special Offer</h3>
+                                        </div>
+
+                                        {generatedCode ? (
+                                            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-4">
+                                                <p className="text-white/80 text-sm">Review this code and share it with the customer manually.</p>
+                                                <div className="bg-white/10 border border-white/20 rounded-xl p-4 flex items-center justify-between gap-4">
+                                                    <code className="text-2xl font-mono font-black text-[#05D16E] tracking-widest">{generatedCode}</code>
+                                                    <button
+                                                        onClick={() => {
+                                                            navigator.clipboard.writeText(generatedCode);
+                                                            toast.success("Copied to clipboard!");
+                                                        }}
+                                                        className="p-2 hover:bg-white/20 rounded-lg transition-colors text-white/50 hover:text-white"
+                                                    >
+                                                        <Copy size={20} />
+                                                    </button>
+                                                </div>
+                                                <div className="flex items-center gap-2 text-xs text-[#05D16E] bg-[#05D16E]/10 w-fit px-3 py-1 rounded-full">
+                                                    <Check size={12} />
+                                                    <span>Single use • Expires in 48h</span>
+                                                </div>
+                                            </div>
+                                        ) : (
+                                            <div className="space-y-4">
+                                                <p className="text-white/80 text-sm">Create a one-time use coupon ($) for this customer.</p>
+                                                <div className="flex gap-2">
+                                                    {[10, 15, 20, 25, 50].map((amount) => (
+                                                        <button
+                                                            key={amount}
+                                                            onClick={() => setDiscountAmount(amount)}
+                                                            className={`px-4 py-2 rounded-lg font-bold text-sm transition-all ${discountAmount === amount
+                                                                ? "bg-[#05D16E] text-[#024653] shadow-lg scale-105"
+                                                                : "bg-white/10 text-white hover:bg-white/20"
+                                                                }`}
+                                                        >
+                                                            ${amount}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                                <button
+                                                    onClick={handleGenerateCoupon}
+                                                    disabled={isGenerating}
+                                                    className="w-full bg-white text-[#024653] py-3 rounded-xl font-black uppercase tracking-wider hover:bg-gray-500 transition-colors mt-4 disabled:opacity-50"
+                                                >
+                                                    {isGenerating ? "Generating..." : "Generate Code"}
+                                                </button>
+                                            </div>
+                                        )}
+                                    </div>
+                                    <Sparkles className="absolute -bottom-4 -right-4 text-white/5 w-32 h-32 rotate-12" />
+                                </section>
+                            ) : null}
+
                         </div>
 
-                        <div className="p-6 border-t border-gray-100 flex justify-end">
-                            <button
-                                onClick={() => setSelectedLead(null)}
-                                className="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors"
-                            >
-                                Close
-                            </button>
+                        <div className="p-6 border-t border-gray-100 flex justify-between items-center">
+                            {!generatedCode && !isGenerating && (
+                                <button
+                                    onClick={() => setIsGenerating(true)}
+                                    className="flex items-center gap-2 px-4 py-2 text-[#024653] font-bold hover:bg-[#024653]/5 rounded-lg transition-colors"
+                                >
+                                    <Gift size={18} />
+                                    Gift Discount
+                                </button>
+                            )}
+                            <div className="flex gap-3 ml-auto">
+                                <button
+                                    onClick={handleCloseModal}
+                                    className="px-6 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-lg font-medium transition-colors"
+                                >
+                                    Close
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

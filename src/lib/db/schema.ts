@@ -32,6 +32,9 @@ export const promotions = pgTable("promotions", {
     discountType: text("discount_type").notNull(), // 'percent' or 'fixed'
     discountValue: integer("discount_value").notNull(),
     active: boolean("active").default(true).notNull(),
+    maxUses: integer("max_uses").default(1).notNull(),
+    currentUses: integer("current_uses").default(0).notNull(),
+    expiresAt: timestamp("expires_at"),
     createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 

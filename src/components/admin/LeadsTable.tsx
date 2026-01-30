@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Eye, X, Gift, Copy, Check, Sparkles } from "lucide-react";
 import { generateOneTimePromo } from "@/app/actions/promotions";
 import { toast } from "sonner";
+import { FEATURE_FLAGS } from "@/lib/config/features";
 
 export default function LeadsTable({ leads }: { leads: any[] }) {
     const [selectedLead, setSelectedLead] = useState<any>(null);
@@ -161,7 +162,7 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                             </section>
 
                             {/* Coupon Generation Section */}
-                            {isGenerating || generatedCode ? (
+                            {FEATURE_FLAGS.ENABLE_PROMOTIONS && (isGenerating || generatedCode) ? (
                                 <section className="bg-gradient-to-br from-[#024653] to-[#012f38] text-white p-6 rounded-2xl relative overflow-hidden">
                                     <div className="relative z-10">
                                         <div className="flex items-center gap-3 mb-4">
@@ -225,7 +226,7 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                         </div>
 
                         <div className="p-6 border-t border-gray-100 flex justify-between items-center">
-                            {!generatedCode && !isGenerating && (
+                            {FEATURE_FLAGS.ENABLE_PROMOTIONS && !generatedCode && !isGenerating && (
                                 <button
                                     onClick={() => setIsGenerating(true)}
                                     className="flex items-center gap-2 px-4 py-2 text-[#024653] font-bold hover:bg-[#024653]/5 rounded-lg transition-colors"

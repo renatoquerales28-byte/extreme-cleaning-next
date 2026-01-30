@@ -11,7 +11,7 @@ import { toast } from "sonner";
 import { updateLead, createLead, getPricingConfig } from "@/app/actions/admin";
 import { submitBooking } from "@/app/actions/booking";
 import { StepId } from "@/lib/wizard/config";
-import { validatePromoCode, type ValidatePromoResult } from "@/app/actions/promotions";
+import { validatePromoCode, type ValidatePromoResult, redeemPromoCode } from "@/app/actions/promotions";
 
 interface ReviewStepProps {
     onNext: () => void;
@@ -159,6 +159,14 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                     // Continuar inmediatamente sin esperar email
                     const totalDuration = Date.now() - processStart;
                     console.log(`🎉 [BOOKING] Process completed in ${totalDuration}ms`);
+
+                    // Redeem promo code if applicable
+                    if (data.promoCode) {
+                        console.log('🎫 [BOOKING] Redeeming promo code:', data.promoCode);
+                        redeemPromoCode(data.promoCode).catch(err => {
+                            console.error('❌ [BOOKING] Failed to redeem promo:', err);
+                        });
+                    }
 
                     toast.success("Booking confirmed!", { id: toastId });
                     onNext();

@@ -87,3 +87,19 @@ export async function generateOneTimePromo(
         return { success: false, message: "Failed to generate code." };
     }
 }
+
+export async function redeemPromoCode(code: string) {
+    try {
+        const normalizedCode = code.trim().toUpperCase();
+        await db
+            .update(promotions)
+            .set({
+                currentUses: sql`${promotions.currentUses} + 1`,
+            })
+            .where(eq(promotions.code, normalizedCode));
+        return { success: true };
+    } catch (error) {
+        console.error("Error redeeming promo:", error);
+        return { success: false };
+    }
+}

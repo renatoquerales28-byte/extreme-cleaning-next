@@ -7,6 +7,7 @@ import { useEffect, useState, useCallback, useMemo } from "react";
 import { ArrowRight, Sparkles, X, AlertCircle, CheckCircle2 } from "lucide-react";
 import { validatePromoCode, type ValidatePromoResult } from "@/app/actions/promotions";
 import { toast } from "sonner";
+import { FEATURE_FLAGS } from "@/lib/config/features";
 
 interface QuoteStepProps {
     onNext: () => void;
@@ -156,55 +157,57 @@ export default function QuoteStep({ onNext }: QuoteStepProps) {
                     <div className="bg-white border-2 border-slate-50 p-8 rounded-[2rem] shadow-sm space-y-6">
 
                         {/* Promo Code Input - Moved Here */}
-                        <div className="bg-slate-50 p-4 rounded-xl space-y-3">
-                            <div className="flex items-center gap-2">
-                                <Sparkles size={16} className="text-[#05D16E]" />
-                                <span className="text-xs font-bold uppercase tracking-wider text-[#024653]">Have a Promo Code?</span>
-                            </div>
-                            <div className="flex gap-2">
-                                <input
-                                    type="text"
-                                    value={promoCode}
-                                    onChange={(e) => {
-                                        setPromoCode(e.target.value);
-                                        setPromoError(null);
-                                    }}
-                                    disabled={!!appliedDiscount}
-                                    placeholder="Enter code"
-                                    className="flex-1 bg-white border-2 border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all uppercase placeholder:normal-case placeholder:font-medium"
-                                />
-                                {appliedDiscount ? (
-                                    <button
-                                        onClick={() => {
-                                            setAppliedDiscount(null);
-                                            setPromoCode("");
+                        {FEATURE_FLAGS.ENABLE_PROMOTIONS && (
+                            <div className="bg-slate-50 p-4 rounded-xl space-y-3">
+                                <div className="flex items-center gap-2">
+                                    <Sparkles size={16} className="text-[#05D16E]" />
+                                    <span className="text-xs font-bold uppercase tracking-wider text-[#024653]">Have a Promo Code?</span>
+                                </div>
+                                <div className="flex gap-2">
+                                    <input
+                                        type="text"
+                                        value={promoCode}
+                                        onChange={(e) => {
+                                            setPromoCode(e.target.value);
+                                            setPromoError(null);
                                         }}
-                                        className="bg-red-50 text-red-500 p-2 rounded-lg hover:bg-red-100 transition-colors"
-                                    >
-                                        <X size={18} />
-                                    </button>
-                                ) : (
-                                    <button
-                                        onClick={handleApplyPromo}
-                                        disabled={!promoCode || isCheckingPromo}
-                                        className="bg-[#024653] text-white px-4 py-2 rounded-lg font-bold text-xs hover:bg-[#024653]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                                    >
-                                        {isCheckingPromo ? "..." : "Apply"}
-                                    </button>
+                                        disabled={!!appliedDiscount}
+                                        placeholder="Enter code"
+                                        className="flex-1 bg-white border-2 border-slate-200 rounded-lg px-3 py-2 text-sm font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all uppercase placeholder:normal-case placeholder:font-medium"
+                                    />
+                                    {appliedDiscount ? (
+                                        <button
+                                            onClick={() => {
+                                                setAppliedDiscount(null);
+                                                setPromoCode("");
+                                            }}
+                                            className="bg-red-50 text-red-500 p-2 rounded-lg hover:bg-red-100 transition-colors"
+                                        >
+                                            <X size={18} />
+                                        </button>
+                                    ) : (
+                                        <button
+                                            onClick={handleApplyPromo}
+                                            disabled={!promoCode || isCheckingPromo}
+                                            className="bg-[#024653] text-white px-4 py-2 rounded-lg font-bold text-xs hover:bg-[#024653]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                        >
+                                            {isCheckingPromo ? "..." : "Apply"}
+                                        </button>
+                                    )}
+                                </div>
+                                {promoError && (
+                                    <p className="text-xs font-bold text-red-500 flex items-center gap-1">
+                                        <AlertCircle size={12} /> {promoError}
+                                    </p>
+                                )}
+                                {appliedDiscount && (
+                                    <div className="flex items-center justify-between text-xs font-bold text-[#05D16E] bg-[#05D16E]/10 p-2 rounded-lg">
+                                        <span className="flex items-center gap-1"><CheckCircle2 size={12} /> Code Applied!</span>
+                                        <span>-{appliedDiscount.type === 'percent' ? `${appliedDiscount.value}%` : `$${appliedDiscount.value}`}</span>
+                                    </div>
                                 )}
                             </div>
-                            {promoError && (
-                                <p className="text-xs font-bold text-red-500 flex items-center gap-1">
-                                    <AlertCircle size={12} /> {promoError}
-                                </p>
-                            )}
-                            {appliedDiscount && (
-                                <div className="flex items-center justify-between text-xs font-bold text-[#05D16E] bg-[#05D16E]/10 p-2 rounded-lg">
-                                    <span className="flex items-center gap-1"><CheckCircle2 size={12} /> Code Applied!</span>
-                                    <span>-{appliedDiscount.type === 'percent' ? `${appliedDiscount.value}%` : `$${appliedDiscount.value}`}</span>
-                                </div>
-                            )}
-                        </div>
+                        )}
 
 
                         <div className="grid grid-cols-2 gap-4">

@@ -1,7 +1,7 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { WizardData } from '../schemas/wizard';
-import { WIZARD_FLOW, StepId, INITIAL_STEP, STEP_ORDER } from '../lib/wizard/config';
+import { WizardData } from '@/lib/schemas/wizard';
+import { WIZARD_FLOW, StepId, INITIAL_STEP, STEP_ORDER } from '@/lib/wizard/config';
 
 export function useWizardEngine() {
     const [currentStepId, setCurrentStepId] = useState<StepId>(INITIAL_STEP);

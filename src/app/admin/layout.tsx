@@ -24,6 +24,7 @@ export default function AdminLayout({
         { name: "Pricing", href: "/admin/pricing", icon: "💲" },
         { name: "Locations", href: "/admin/locations", icon: "📍" },
         { name: "Promotions", href: "/admin/promotions", icon: "🏷️" },
+        { name: "Support", href: "/admin/support", icon: "🆘" },
     ];
 
     return (

@@ -5,6 +5,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
 
+import { FEATURE_FLAGS } from "@/lib/config/features";
+
 export default function AdminLayout({
     children,
 }: {
@@ -23,7 +25,7 @@ export default function AdminLayout({
         { name: "Clients", href: "/admin/clients", icon: "👤" },
         { name: "Pricing", href: "/admin/pricing", icon: "💲" },
         { name: "Locations", href: "/admin/locations", icon: "📍" },
-        { name: "Promotions", href: "/admin/promotions", icon: "🏷️" },
+        ...(FEATURE_FLAGS.ENABLE_PROMOTIONS ? [{ name: "Promotions", href: "/admin/promotions", icon: "🏷️" }] : []),
         { name: "Support", href: "/admin/support", icon: "🆘" },
     ];
 

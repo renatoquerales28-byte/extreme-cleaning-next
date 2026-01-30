@@ -104,10 +104,9 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                         serviceTime: data.serviceTime,
                         details: data // This will now include promo details if added in QuoteStep
                     };
-                    console.log(`✅ [BOOKING] Data prepared in ${Date.now() - t1}ms`);
-
                     // Guardar en base de datos
                     const t1 = Date.now();
+                    console.log(`✅ [BOOKING] Data prepared (timestamp check)`);
                     console.log('📝 [BOOKING] Saving to database...');
 
                     let dbSuccess = false;

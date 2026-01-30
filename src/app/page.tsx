@@ -35,21 +35,24 @@ export default function Home() {
 
     return (
         <main className="min-h-screen bg-white selection:bg-accent selection:text-white">
-            {/* Conventional Header - 53px version */}
+            {/* Conventional Header - 60px version */}
             <header
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[53px] ${scrolled
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[60px] ${scrolled
                     ? "bg-white/80 backdrop-blur-xl shadow-sm border-b border-white/10"
                     : "bg-white/20 backdrop-blur-md border-b border-white/20"
                     }`}
             >
                 <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
-                    {/* Left: Logo (Scaled for 55px height) */}
+                    {/* Left: Logo (48px height) */}
                     <Link href="/" className="flex items-center gap-2 group shrink-0">
-                        <div className="relative h-9 w-28 md:w-32 overflow-hidden">
+                        <div className="relative h-12 w-32 md:w-36 overflow-hidden">
                             <Image
                                 src="/brand/logo-full.png"
                                 alt="ECS Logo"
                                 fill
+                                style={{
+                                    filter: 'brightness(0) saturate(100%) invert(18%) sepia(87%) saturate(464%) hue-rotate(142deg) brightness(91%) contrast(97%)'
+                                }}
                                 className="object-contain transition-opacity duration-300 opacity-100 group-hover:opacity-80"
                             />
                         </div>

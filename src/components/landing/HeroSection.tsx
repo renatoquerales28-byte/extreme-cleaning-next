@@ -19,7 +19,7 @@ export default function HeroSection() {
     };
 
     return (
-        <section id="hero-section" className="relative w-full bg-white pt-[53px] lg:pt-[15px] lg:h-[100svh] lg:max-h-[1000px] overflow-hidden font-sans text-[#024653]">
+        <section id="hero-section" className="relative w-full bg-white pt-[60px] lg:pt-[20px] lg:h-[100svh] lg:max-h-[1000px] overflow-hidden font-sans text-[#024653]">
             <div className="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-2 h-full gap-4 lg:gap-0">
 
                 {/* Left Column: Content & Conversion */}

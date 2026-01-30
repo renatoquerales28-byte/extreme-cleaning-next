@@ -88,13 +88,13 @@ export default function HeroSection() {
                         </div>
 
                         {/* Promo Widget - Coordinated position */}
-                        <div className="flex items-center gap-4 pt-6 lg:pt-8 border-t border-gray-100 w-fit">
-                            <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-gray-100 relative overflow-hidden flex-shrink-0">
+                        <div className="flex items-center gap-3 pt-4 border-t border-gray-100 w-fit">
+                            <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-gray-100 relative overflow-hidden flex-shrink-0">
                                 <Image src="/brand/service-residential.png" alt="Promo" fill className="object-cover" />
                             </div>
-                            <div className="space-y-0.5">
-                                <div className="text-sm font-bold">Spring Cleaning Sale</div>
-                                <div className="text-[11px] opacity-60 max-w-[180px] lg:max-w-[200px] font-light leading-snug">Get 15% off your first deep cleaning service this month.</div>
+                            <div className="space-y-0">
+                                <div className="text-[13px] font-bold">Spring Cleaning Sale</div>
+                                <div className="text-[10px] opacity-60 max-w-[160px] lg:max-w-[180px] font-light leading-snug">Get 15% off your first deep cleaning service this month.</div>
                             </div>
                         </div>
                     </motion.div>
@@ -106,7 +106,7 @@ export default function HeroSection() {
                         initial={{ opacity: 0, scale: 0.98 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1, delay: 0.2 }}
-                        className="relative w-full h-[95%] rounded-[2.5rem] lg:rounded-[4rem] overflow-hidden shadow-sm"
+                        className="relative w-full h-[95%] rounded-2xl lg:rounded-3xl overflow-hidden shadow-sm"
                     >
                         <Image
                             src="/brand/hero_woman_cleaning.png"
@@ -115,11 +115,6 @@ export default function HeroSection() {
                             className="object-cover"
                             priority
                         />
-
-                        <div className="absolute top-6 left-6 lg:top-8 lg:left-8 text-white">
-                            <div className="text-xl lg:text-2xl font-light">+500</div>
-                            <div className="text-[9px] lg:text-[10px] uppercase tracking-widest opacity-80 mt-0.5">Cleans Completed</div>
-                        </div>
 
                         {/* Overlay: Social Links */}
                         <div className="absolute bottom-8 right-8 text-white flex gap-6 text-[10px] font-bold tracking-widest uppercase">

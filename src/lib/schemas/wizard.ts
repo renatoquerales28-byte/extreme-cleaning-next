@@ -53,6 +53,9 @@ export const wizardSchema = z.object({
     // Logic helpers
     referralCode: z.string().optional(),
     promoCode: z.string().optional(),
+    discountApplied: z.boolean().optional(),
+    originalPrice: z.number().optional(),
+    totalPrice: z.number().optional(),
     leadId: z.union([z.number(), z.string()]).optional(),
     mode: z.string().optional(), // 'returning' or other modes
 });

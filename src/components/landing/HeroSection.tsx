@@ -46,12 +46,15 @@ export default function HeroSection() {
                             Explore our collection and uncover the radiant treasures that will add a touch of enchantment to your world.
                         </p>
 
-                        {/* Minimalist Zip Code Input */}
+                        {/* Premium Elevated Zip Code Input */}
                         <div className="max-w-md">
                             <form onSubmit={handleStart} className="relative group">
-                                <div className={`flex items-center bg-[#024653] rounded-full p-1 transition-all duration-300 ${isFocused ? 'scale-[1.02]' : ''}`}>
-                                    <div className="pl-5 text-white/50">
-                                        <MapPin size={18} />
+                                <div className={`flex items-center bg-white rounded-2xl p-1.5 transition-all duration-500 ${isFocused
+                                        ? 'shadow-[0_20px_50px_rgba(2,70,83,0.15)] scale-[1.02]'
+                                        : 'shadow-[0_10px_30px_rgba(2,70,83,0.08)]'
+                                    }`}>
+                                    <div className={`pl-5 transition-colors duration-300 ${isFocused ? 'text-[#024653]' : 'text-[#024653]/40'}`}>
+                                        <MapPin size={20} />
                                     </div>
                                     <input
                                         type="text"
@@ -60,13 +63,14 @@ export default function HeroSection() {
                                         onFocus={() => setIsFocused(true)}
                                         onBlur={() => setIsFocused(false)}
                                         placeholder="Enter Zip Code"
-                                        className="w-full bg-transparent border-none focus:ring-0 text-white font-medium placeholder:text-white/40 text-base px-4 py-1.5 h-11"
+                                        className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-medium placeholder:text-[#024653]/30 text-base px-4 py-2 h-12"
                                     />
                                     <button
                                         type="submit"
                                         disabled={zipCode.length < 5}
-                                        className="bg-[#05D16E] hover:bg-[#04bd63] text-[#024653] w-11 h-11 rounded-full flex items-center justify-center transition-all disabled:opacity-50 disabled:cursor-not-allowed shrink-0"
+                                        className="bg-[#05D16E] hover:bg-[#04bd63] text-[#024653] px-6 h-12 rounded-xl flex items-center gap-2 transition-all disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed shrink-0 shadow-lg shadow-[#05D16E]/20"
                                     >
+                                        <span className="text-[11px] font-black uppercase tracking-widest hidden sm:block">Start</span>
                                         <ArrowRight size={18} className="stroke-[3px]" />
                                     </button>
                                 </div>

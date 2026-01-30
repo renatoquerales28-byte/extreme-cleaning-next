@@ -32,7 +32,7 @@ export default function Home() {
     return (
         <main className="min-h-screen bg-white selection:bg-accent selection:text-white">
             {/* Sticky Navigation - Full Width Glassmorphism */}
-            <nav className="fixed top-0 left-0 w-full z-50 bg-[#f3f6f6] transition-all duration-300">
+            <nav className="fixed top-0 left-0 w-full z-50 bg-white transition-all duration-300">
                 <div className="container mx-auto px-6 py-4 md:py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2 group shrink-0">
                         <div className="relative h-8 md:h-10 w-24 md:w-32 overflow-hidden">
@@ -40,7 +40,7 @@ export default function Home() {
                                 src="/brand/logo-full.png"
                                 alt="ECS Logo"
                                 fill
-                                className="object-contain transition-opacity duration-300 opacity-90 group-hover:opacity-100"
+                                className="object-contain transition-opacity duration-300 opacity-100 group-hover:opacity-80"
                             />
                         </div>
                     </Link>

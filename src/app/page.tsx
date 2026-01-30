@@ -54,10 +54,10 @@ export default function Home() {
                     </Link>
 
                     {/* Center: Centered Nav Links */}
-                    <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-12 text-[11px] font-black text-[#024653]/70 uppercase tracking-[0.2em]">
-                        <Link href="#services" className="hover:text-[#024653] transition-colors">Services</Link>
-                        <Link href="#process" className="hover:text-[#024653] transition-colors">Process</Link>
-                        <Link href="#reviews" className="hover:text-[#024653] transition-colors">Reviews</Link>
+                    <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-12 text-[11px] font-normal text-[#024653] uppercase tracking-[0.2em]">
+                        <Link href="#services" className="hover:opacity-70 transition-opacity">Services</Link>
+                        <Link href="#process" className="hover:opacity-70 transition-opacity">Process</Link>
+                        <Link href="#reviews" className="hover:opacity-70 transition-opacity">Reviews</Link>
                     </nav>
 
                     {/* Right: Conditional Action Button */}
@@ -69,10 +69,11 @@ export default function Home() {
                                     animate={{ opacity: 1, x: 0 }}
                                     exit={{ opacity: 0, x: 20 }}
                                     transition={{ duration: 0.4, ease: "easeOut" }}
+                                    className="flex items-center"
                                 >
                                     <Link
                                         href="/quote"
-                                        className="px-8 py-2.5 bg-[#08BF5F] text-[#024653] rounded-full text-[10px] font-black uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#08BF5F]/10 whitespace-nowrap"
+                                        className="px-6 py-2 bg-[#024653] text-white rounded-xl text-[10px] font-normal uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#024653]/10 whitespace-nowrap"
                                     >
                                         Get Quote
                                     </Link>

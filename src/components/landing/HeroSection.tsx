@@ -13,7 +13,7 @@ export default function HeroSection() {
 
     const handleStart = (e?: React.FormEvent) => {
         if (e) e.preventDefault();
-        if (zipCode.length >= 5) {
+        if (zipCode.length === 5) {
             router.push(`/quote?zip=${zipCode}`);
         }
     };
@@ -69,8 +69,7 @@ export default function HeroSection() {
                                         />
                                         <button
                                             type="submit"
-                                            disabled={zipCode.length < 5}
-                                            className="bg-[#05D16E] hover:bg-[#04bd63] text-[#024653] w-12 h-12 rounded-xl flex items-center justify-center transition-all disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed shrink-0 shadow-md shadow-[#05D16E]/20"
+                                            className="bg-[#05D16E] hover:bg-[#04bd63] text-[#024653] w-12 h-12 rounded-xl flex items-center justify-center transition-all shrink-0 shadow-sm shadow-[#05D16E]/15 active:scale-95"
                                         >
                                             <ArrowRight size={20} className="stroke-[3px]" />
                                         </button>

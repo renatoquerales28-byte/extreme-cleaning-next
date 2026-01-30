@@ -37,12 +37,12 @@ export default function Home() {
         <main className="min-h-screen bg-white selection:bg-accent selection:text-white">
             {/* Conventional Header - 60px version */}
             <header
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[60px] ${scrolled
-                    ? "bg-white/80 backdrop-blur-xl shadow-sm border-b border-white/10"
-                    : "bg-white/20 backdrop-blur-md border-b border-white/20"
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[60px] bg-white/40 backdrop-blur-xl border-b border-white/20 ${scrolled
+                    ? "shadow-sm"
+                    : ""
                     }`}
             >
-                <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
+                <div className="max-w-[1700px] mx-auto h-full px-6 lg:px-10 flex items-center justify-between">
                     {/* Left: Logo (48px height) */}
                     <Link href="/" className="flex items-center gap-2 group shrink-0">
                         <div className="relative h-12 w-32 md:w-36 overflow-hidden">

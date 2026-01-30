@@ -36,18 +36,20 @@ export default function Home() {
     return (
         <main className="min-h-screen bg-white selection:bg-accent selection:text-white">
             {/* Modular Navbar Container */}
-            <div className="fixed top-6 left-6 right-6 z-50 pointer-events-none flex justify-between items-center h-[76px]">
+            <div className="fixed top-6 left-6 right-6 z-50 pointer-events-none flex justify-between items-center h-[72px] md:h-[80px]">
 
                 {/* Left Piece (Macho) - Identity & Nav */}
                 <motion.nav
                     initial={false}
                     animate={{
                         width: scrolled ? "auto" : "fit-content",
-                        paddingRight: scrolled ? "4.5rem" : "3rem",
-                        backgroundColor: scrolled ? "rgba(255, 255, 255, 0.9)" : "rgba(255, 255, 255, 0.4)",
+                        paddingRight: scrolled ? "1.5rem" : "3rem",
+                        backgroundColor: scrolled ? "rgba(255, 255, 255, 0.95)" : "rgba(255, 255, 255, 0.4)",
+                        borderTopRightRadius: scrolled ? "0px" : "2.5rem",
+                        borderBottomRightRadius: scrolled ? "0px" : "2.5rem",
                     }}
                     transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-                    className="pointer-events-auto backdrop-blur-xl border border-white/20 shadow-xl rounded-[2.5rem] flex items-center gap-10 pl-8 h-full relative"
+                    className="pointer-events-auto backdrop-blur-xl border border-white/20 shadow-xl rounded-l-[2.5rem] flex items-center gap-10 pl-8 h-full relative"
                 >
                     <Link href="/" className="flex items-center gap-2 group shrink-0">
                         <div className="relative h-9 w-28 md:h-10 md:w-32 overflow-hidden">
@@ -66,23 +68,18 @@ export default function Home() {
                         <Link href="#reviews" className="hover:text-[#024653] transition-colors">Reviews</Link>
                     </div>
 
-                    {/* Macho Convex Tip */}
-                    <motion.div
-                        initial={false}
-                        animate={{
-                            opacity: scrolled ? 1 : 0,
-                            x: scrolled ? 0 : -20
-                        }}
-                        className="absolute right-0 top-0 bottom-0 w-8 flex items-center justify-end pointer-events-none"
-                    >
-                        <div
-                            className="w-8 h-full bg-white/90"
-                            style={{
-                                clipPath: "path('M 0 0 C 20 0, 32 20, 32 50 C 32 80, 20 100, 0 100 Z')",
-                                transform: "translateX(100%)"
-                            }}
-                        />
-                    </motion.div>
+                    {/* Integrated Macho Tip */}
+                    {scrolled && (
+                        <motion.div
+                            initial={{ opacity: 0, x: -10 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            className="absolute right-0 top-0 bottom-0 w-8 translate-x-full pointer-events-none"
+                        >
+                            <svg viewBox="0 0 32 100" preserveAspectRatio="none" className="w-full h-full fill-white/95 drop-shadow-lg">
+                                <path d="M 0 0 C 15 0, 32 20, 32 50 C 32 80, 15 100, 0 100 Z" />
+                            </svg>
+                        </motion.div>
+                    )}
 
                     {/* Mobile Toggle */}
                     <button
@@ -105,22 +102,20 @@ export default function Home() {
                             animate={{ x: 0, opacity: 1 }}
                             exit={{ x: 100, opacity: 0 }}
                             transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-                            className="pointer-events-auto bg-[#024653] shadow-2xl rounded-full flex items-center h-full relative"
+                            className="pointer-events-auto bg-[#024653] shadow-2xl rounded-r-full flex items-center h-full relative"
                         >
-                            {/* Hembra Concave Cutout */}
-                            <div
-                                className="absolute left-0 top-0 bottom-0 w-8 -translate-x-full"
-                                style={{
-                                    background: "#024653",
-                                    clipPath: "path('M 32 0 L 32 100 L 0 100 C 12 80, 0 70, 0 50 C 0 30, 12 20, 0 0 L 0 0 Z')"
-                                }}
-                            />
+                            {/* Integrated Hembra Cutout */}
+                            <div className="absolute left-0 top-0 bottom-0 w-8 -translate-x-full pointer-events-none">
+                                <svg viewBox="0 0 32 100" preserveAspectRatio="none" className="w-full h-full fill-[#024653]">
+                                    <path d="M 32 0 L 32 100 L 0 100 C 12 80, 0 70, 0 50 C 0 30, 12 20, 0 0 Z" />
+                                </svg>
+                            </div>
 
-                            <div className="flex items-center gap-8 pl-6 pr-4">
+                            <div className="flex items-center gap-8 pl-4 pr-6">
                                 {/* Minimalist Social Icons */}
                                 <div className="flex items-center gap-5 text-white/40">
-                                    <a href="#" className="hover:text-[#08BF5F] transition-colors"><Instagram size={18} strokeWidth={2.5} /></a>
-                                    <a href="#" className="hover:text-[#08BF5F] transition-colors"><Facebook size={18} strokeWidth={2.5} /></a>
+                                    <a href="#" className="hover:text-[#08BF5F] transition-colors"><Instagram size={18} strokeWidth={2} /></a>
+                                    <a href="#" className="hover:text-[#08BF5F] transition-colors"><Facebook size={18} strokeWidth={2} /></a>
                                 </div>
 
                                 {/* Get Quote Button */}

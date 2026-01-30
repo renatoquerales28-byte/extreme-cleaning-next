@@ -54,6 +54,7 @@ export const wizardSchema = z.object({
     referralCode: z.string().optional(),
     promoCode: z.string().optional(),
     leadId: z.union([z.number(), z.string()]).optional(),
+    mode: z.string().optional(), // 'returning' or other modes
 });
 
 export type WizardData = z.infer<typeof wizardSchema>;

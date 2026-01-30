@@ -21,9 +21,10 @@ export default function HelpCallbackModal({ open, onOpenChange }: { open: boolea
                 lastName: "Help Request",
                 phone,
                 serviceType: "residential", // Default for help request
-                status: "new",
-                notes: "URGENT: Customer requested help callback from wizard.",
-                details: { source: "wizard_help_callback" }
+                details: {
+                    source: "wizard_help_callback",
+                    urgentNote: "URGENT: Customer requested help callback from wizard."
+                }
             });
             setStatus("success");
             setTimeout(() => {

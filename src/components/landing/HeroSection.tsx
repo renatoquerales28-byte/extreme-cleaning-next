@@ -23,13 +23,14 @@ export default function HeroSection() {
             <div className="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-2 h-full gap-4 lg:gap-0">
 
                 {/* Left Column: Content & Conversion */}
-                <div className="relative z-20 flex flex-col justify-between px-6 lg:px-20 xl:px-32 py-12 lg:py-24 h-full">
+                <div className="relative z-20 flex flex-col justify-center px-6 lg:px-20 xl:px-32 h-full lg:pt-[53px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="flex-1 flex flex-col justify-center space-y-4 lg:space-y-6 xl:space-y-8"
+                        className="flex flex-col gap-8 lg:gap-10 xl:gap-12"
                     >
+                        {/* Main Content Group */}
                         <div className="space-y-4 lg:space-y-6 xl:space-y-8">
                             {/* Eyebrow */}
                             <div className="text-[10px] tracking-[0.4em] uppercase font-medium opacity-50 pl-1">
@@ -51,8 +52,8 @@ export default function HeroSection() {
                             <div className="max-w-md">
                                 <form onSubmit={handleStart} className="relative group">
                                     <div className={`flex items-center bg-white rounded-2xl p-1.5 transition-all duration-500 border border-gray-100/50 ${isFocused
-                                            ? 'shadow-[0_12px_30px_rgba(2,70,83,0.12)] scale-[1.01]'
-                                            : 'shadow-[0_4px_12px_rgba(2,70,83,0.05)]'
+                                        ? 'shadow-[0_12px_30px_rgba(2,70,83,0.12)] scale-[1.01]'
+                                        : 'shadow-[0_4px_12px_rgba(2,70,83,0.05)]'
                                         }`}>
                                         <div className={`pl-5 transition-colors duration-300 ${isFocused ? 'text-[#024653]' : 'text-[#024653]/40'}`}>
                                             <MapPin size={20} />
@@ -86,21 +87,16 @@ export default function HeroSection() {
                                 ))}
                             </div>
                         </div>
-                    </motion.div>
 
-                    {/* Promo Widget - Anchored at the bottom */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 0.5 }}
-                        className="flex items-center gap-4 pt-10 border-t border-gray-100 mt-auto w-fit"
-                    >
-                        <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-gray-100 relative overflow-hidden flex-shrink-0">
-                            <Image src="/brand/service-residential.png" alt="Promo" fill className="object-cover" />
-                        </div>
-                        <div className="space-y-0.5">
-                            <div className="text-sm font-bold">Spring Cleaning Sale</div>
-                            <div className="text-[11px] opacity-60 max-w-[180px] lg:max-w-[200px] font-light leading-snug">Get 15% off your first deep cleaning service this month.</div>
+                        {/* Promo Widget - Coordinated position */}
+                        <div className="flex items-center gap-4 pt-6 lg:pt-8 border-t border-gray-100 w-fit">
+                            <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-gray-100 relative overflow-hidden flex-shrink-0">
+                                <Image src="/brand/service-residential.png" alt="Promo" fill className="object-cover" />
+                            </div>
+                            <div className="space-y-0.5">
+                                <div className="text-sm font-bold">Spring Cleaning Sale</div>
+                                <div className="text-[11px] opacity-60 max-w-[180px] lg:max-w-[200px] font-light leading-snug">Get 15% off your first deep cleaning service this month.</div>
+                            </div>
                         </div>
                     </motion.div>
                 </div>
@@ -175,6 +171,6 @@ export default function HeroSection() {
                     </motion.div>
                 </motion.div>
             </div>
-        </section>
+        </section >
     );
 }

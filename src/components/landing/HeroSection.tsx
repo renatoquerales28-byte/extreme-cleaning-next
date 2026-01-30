@@ -23,78 +23,84 @@ export default function HeroSection() {
             <div className="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-2 h-full gap-4 lg:gap-0">
 
                 {/* Left Column: Content & Conversion */}
-                <div className="relative z-20 flex flex-col justify-center px-6 lg:px-20 xl:px-32 py-10 lg:py-0 h-full">
+                <div className="relative z-20 flex flex-col justify-between px-6 lg:px-20 xl:px-32 py-12 lg:py-24 h-full">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="space-y-4 lg:space-y-6 xl:space-y-8"
+                        className="flex-1 flex flex-col justify-center space-y-4 lg:space-y-6 xl:space-y-8"
                     >
-                        {/* Eyebrow */}
-                        <div className="text-[10px] tracking-[0.4em] uppercase font-medium opacity-50 pl-1">
-                            Luxury of Exclusive Cleaning
-                        </div>
+                        <div className="space-y-4 lg:space-y-6 xl:space-y-8">
+                            {/* Eyebrow */}
+                            <div className="text-[10px] tracking-[0.4em] uppercase font-medium opacity-50 pl-1">
+                                Luxury of Exclusive Cleaning
+                            </div>
 
-                        {/* Minimalist Headline */}
-                        <h1 className="text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-normal leading-[1.1] tracking-tight">
-                            Illuminate in style: <br />
-                            <span className="italic font-light">extreme</span> cleaning <br />
-                            solutions
-                        </h1>
+                            {/* Minimalist Headline */}
+                            <h1 className="text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-normal leading-[1.1] tracking-tight">
+                                Illuminate in style: <br />
+                                <span className="italic font-light">extreme</span> cleaning <br />
+                                solutions
+                            </h1>
 
-                        <p className="text-lg font-light opacity-70 max-w-md leading-relaxed">
-                            Explore our collection and uncover the radiant treasures that will add a touch of enchantment to your world.
-                        </p>
+                            <p className="text-lg font-light opacity-70 max-w-md leading-relaxed">
+                                Explore our collection and uncover the radiant treasures that will add a touch of enchantment to your world.
+                            </p>
 
-                        {/* Premium Elevated Zip Code Input */}
-                        <div className="max-w-md">
-                            <form onSubmit={handleStart} className="relative group">
-                                <div className={`flex items-center bg-white rounded-2xl p-1.5 transition-all duration-500 ${isFocused
-                                        ? 'shadow-[0_20px_50px_rgba(2,70,83,0.15)] scale-[1.02]'
-                                        : 'shadow-[0_10px_30px_rgba(2,70,83,0.08)]'
-                                    }`}>
-                                    <div className={`pl-5 transition-colors duration-300 ${isFocused ? 'text-[#024653]' : 'text-[#024653]/40'}`}>
-                                        <MapPin size={20} />
+                            {/* Premium Elevated Zip Code Input - Refined Shadow */}
+                            <div className="max-w-md">
+                                <form onSubmit={handleStart} className="relative group">
+                                    <div className={`flex items-center bg-white rounded-2xl p-1.5 transition-all duration-500 border border-gray-100/50 ${isFocused
+                                            ? 'shadow-[0_12px_30px_rgba(2,70,83,0.12)] scale-[1.01]'
+                                            : 'shadow-[0_4px_12px_rgba(2,70,83,0.05)]'
+                                        }`}>
+                                        <div className={`pl-5 transition-colors duration-300 ${isFocused ? 'text-[#024653]' : 'text-[#024653]/40'}`}>
+                                            <MapPin size={20} />
+                                        </div>
+                                        <input
+                                            type="text"
+                                            value={zipCode}
+                                            onChange={(e) => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))}
+                                            onFocus={() => setIsFocused(true)}
+                                            onBlur={() => setIsFocused(false)}
+                                            placeholder="Enter Zip Code"
+                                            className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-medium placeholder:text-[#024653]/30 text-base px-4 py-2 h-12"
+                                        />
+                                        <button
+                                            type="submit"
+                                            disabled={zipCode.length < 5}
+                                            className="bg-[#05D16E] hover:bg-[#04bd63] text-[#024653] w-12 h-12 rounded-xl flex items-center justify-center transition-all disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed shrink-0 shadow-md shadow-[#05D16E]/20"
+                                        >
+                                            <ArrowRight size={20} className="stroke-[3px]" />
+                                        </button>
                                     </div>
-                                    <input
-                                        type="text"
-                                        value={zipCode}
-                                        onChange={(e) => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))}
-                                        onFocus={() => setIsFocused(true)}
-                                        onBlur={() => setIsFocused(false)}
-                                        placeholder="Enter Zip Code"
-                                        className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-medium placeholder:text-[#024653]/30 text-base px-4 py-2 h-12"
-                                    />
-                                    <button
-                                        type="submit"
-                                        disabled={zipCode.length < 5}
-                                        className="bg-[#05D16E] hover:bg-[#04bd63] text-[#024653] px-6 h-12 rounded-xl flex items-center gap-2 transition-all disabled:opacity-30 disabled:grayscale disabled:cursor-not-allowed shrink-0 shadow-lg shadow-[#05D16E]/20"
-                                    >
-                                        <span className="text-[11px] font-black uppercase tracking-widest hidden sm:block">Start</span>
-                                        <ArrowRight size={18} className="stroke-[3px]" />
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-
-                        {/* Service Tags */}
-                        <div className="flex flex-wrap gap-2">
-                            {["Residential Deep Clean", "Post-Construction", "Move-In Ready"].map((tag, i) => (
-                                <span key={i} className="px-3.5 py-1.5 rounded-full bg-[#f3f6f6] text-[10px] font-medium tracking-wide text-[#024653]/80">
-                                    {tag}
-                                </span>
-                            ))}
-                        </div>
-
-                        {/* Promo Widget */}
-                        <div className="flex items-center gap-4 pt-4 lg:pt-6 xl:pt-10 border-t border-gray-100 lg:border-none w-fit">
-                            <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-gray-100 relative overflow-hidden flex-shrink-0">
-                                <Image src="/brand/service-residential.png" alt="Promo" fill className="object-cover" />
+                                </form>
                             </div>
-                            <div className="space-y-0.5">
-                                <div className="text-sm font-bold">Spring Cleaning Sale</div>
-                                <div className="text-[11px] opacity-60 max-w-[180px] lg:max-w-[200px] font-light leading-snug">Get 15% off your first deep cleaning service this month.</div>
+
+                            {/* Service Tags */}
+                            <div className="flex flex-wrap gap-2">
+                                {["Residential Deep Clean", "Post-Construction", "Move-In Ready"].map((tag, i) => (
+                                    <span key={i} className="px-3.5 py-1.5 rounded-full bg-[#f3f6f6] text-[10px] font-medium tracking-wide text-[#024653]/80">
+                                        {tag}
+                                    </span>
+                                ))}
                             </div>
+                        </div>
+                    </motion.div>
+
+                    {/* Promo Widget - Anchored at the bottom */}
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.5 }}
+                        className="flex items-center gap-4 pt-10 border-t border-gray-100 mt-auto w-fit"
+                    >
+                        <div className="w-12 h-12 lg:w-14 lg:h-14 rounded-2xl bg-gray-100 relative overflow-hidden flex-shrink-0">
+                            <Image src="/brand/service-residential.png" alt="Promo" fill className="object-cover" />
+                        </div>
+                        <div className="space-y-0.5">
+                            <div className="text-sm font-bold">Spring Cleaning Sale</div>
+                            <div className="text-[11px] opacity-60 max-w-[180px] lg:max-w-[200px] font-light leading-snug">Get 15% off your first deep cleaning service this month.</div>
                         </div>
                     </motion.div>
                 </div>

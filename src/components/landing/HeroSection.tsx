@@ -34,7 +34,7 @@ export default function HeroSection() {
                         transition={{ duration: 0.6 }}
                         className="space-y-10"
                     >
-                        <div className="inline-flex items-center gap-2 bg-[#f3f6f6] px-4 py-1.5 rounded-full text-xs font-bold shadow-sm text-[#024653] uppercase tracking-wider border border-gray-100">
+                        <div className="inline-flex items-center gap-2 bg-[#f3f6f6] px-4 py-1.5 rounded-full text-xs font-bold text-[#024653] uppercase tracking-wider border border-gray-100">
                             <span className="w-1.5 h-1.5 bg-[#05D16E] rounded-full animate-pulse"></span>
                             Premium Cleaning Spokane
                         </div>
@@ -43,7 +43,7 @@ export default function HeroSection() {
                             <h1 className="text-6xl xl:text-8xl font-black tracking-tight text-[#024653] leading-[1.05]">
                                 Extreme <br />
                                 <span className="inline-flex items-center gap-4 flex-wrap">
-                                    <span className="bg-white px-5 py-2 rounded-full shadow-sm border border-gray-100 flex items-center justify-center transform -rotate-2 hover:rotate-0 transition-transform duration-300">
+                                    <span className="bg-white px-5 py-2 rounded-full border border-gray-100 flex items-center justify-center transform -rotate-2 hover:rotate-0 transition-transform duration-300">
                                         <Sparkles className="text-[#05D16E] fill-[#05D16E]/20" size={32} />
                                     </span>
                                     <span className="text-[#05D16E]">Cleaning</span>
@@ -59,7 +59,7 @@ export default function HeroSection() {
 
                         {/* Zip Code Form Integration */}
                         <div className="pt-4 max-w-lg">
-                            <form onSubmit={handleStart} className={`relative flex items-center p-2 bg-white rounded-full transition-all duration-300 border-2 ${isFocused ? 'border-[#05D16E]' : 'border-transparent shadow-xl shadow-[#024653]/5'}`}>
+                            <form onSubmit={handleStart} className={`relative flex items-center p-2 bg-white rounded-full transition-all duration-300 border-2 ${isFocused ? 'border-[#05D16E]' : 'border-transparent'}`}>
                                 <div className="pl-4 text-[#024653]/50">
                                     <MapPin size={24} />
                                 </div>
@@ -111,10 +111,10 @@ export default function HeroSection() {
                             initial={{ x: 20, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
                             transition={{ delay: 0.8 }}
-                            className="absolute -top-6 -left-6 z-40 glass p-5 rounded-[1.5rem] border border-white/50 shadow-2xl"
+                            className="absolute -top-6 -left-6 z-40 glass p-5 rounded-[1.5rem] border border-white/50"
                         >
                             <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 bg-[#05D16E] rounded-full flex items-center justify-center text-[#024653] shadow-lg shadow-[#05D16E]/20">
+                                <div className="w-12 h-12 bg-[#05D16E] rounded-full flex items-center justify-center text-[#024653]">
                                     <Sparkles size={24} />
                                 </div>
                                 <div>
@@ -125,7 +125,7 @@ export default function HeroSection() {
                         </motion.div>
 
                         {/* Main Image */}
-                        <div className="w-full h-full rounded-[2rem] overflow-hidden relative group shadow-2xl">
+                        <div className="w-full h-full rounded-[2rem] overflow-hidden relative group">
                             <Image
                                 src="/brand/hero_woman_cleaning.png"
                                 alt="Professional Cleaner"
@@ -135,13 +135,13 @@ export default function HeroSection() {
                             />
 
                             {/* Info Overlay - Liquid Glass Light */}
-                            <div className="absolute bottom-8 left-8 right-8 p-8 bg-white/20 backdrop-blur-[20px] rounded-[1.75rem] text-[#024653] border border-white/50 shadow-2xl">
+                            <div className="absolute bottom-8 left-8 right-8 p-8 bg-white/20 backdrop-blur-[20px] rounded-[1.75rem] text-[#024653] border border-white/50">
                                 <div className="flex items-center justify-between mb-6">
                                     <div className="space-y-1">
                                         <div className="text-5xl font-black tracking-tighter text-[#024653]">500+</div>
                                         <div className="text-[10px] font-black uppercase tracking-[0.2em] opacity-60">Success Cases</div>
                                     </div>
-                                    <div className="w-14 h-14 bg-[#024653] rounded-2xl flex items-center justify-center text-[#05D16E] shadow-xl">
+                                    <div className="w-14 h-14 bg-[#024653] rounded-2xl flex items-center justify-center text-[#05D16E]">
                                         <ArrowRight size={28} className="-rotate-45" />
                                     </div>
                                 </div>

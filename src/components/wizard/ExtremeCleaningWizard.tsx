@@ -60,7 +60,15 @@ function WizardContent() {
     const { watch, setValue } = useFormContext<WizardData>();
     const data = watch();
 
-    // Initialize Engine
+    // Determine Start Step based on URL params - NO FLASHING
+    let initialStep: StepId = 'zip';
+    if (mode === "returning") {
+        initialStep = 'returning_lookup';
+    } else if (urlZip && urlZip.length === 5) {
+        initialStep = 'service';
+    }
+
+    // Initialize Engine with calculated start step
     const {
         stepId,
         stepConfig,
@@ -69,20 +77,9 @@ function WizardContent() {
         goToStep,
         progress,
         isFirstStep
-    } = useWizardEngine();
+    } = useWizardEngine(initialStep);
 
-    // Handle deep linking / initial routing
-    useEffect(() => {
-        if (mode === "returning") {
-            goToStep('returning_lookup');
-        } else if (urlZip && isFirstStep) {
-            // If zip is provided via URL and we are at the start, skip to service
-            // We verify length just to be safe, though schema handles validation
-            if (urlZip.length === 5) {
-                goToStep('service');
-            }
-        }
-    }, [mode, urlZip, goToStep, isFirstStep]);
+    // Handle deep linking / initial routing (Cleanup: removed the flash-causing useEffect)
 
     // Database Warm-up
     useEffect(() => {

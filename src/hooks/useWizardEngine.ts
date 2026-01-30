@@ -3,8 +3,8 @@ import { useFormContext } from 'react-hook-form';
 import { WizardData } from '@/lib/schemas/wizard';
 import { WIZARD_FLOW, StepId, INITIAL_STEP, STEP_ORDER } from '@/lib/wizard/config';
 
-export function useWizardEngine() {
-    const [currentStepId, setCurrentStepId] = useState<StepId>(INITIAL_STEP);
+export function useWizardEngine(initialStepId: StepId = INITIAL_STEP) {
+    const [currentStepId, setCurrentStepId] = useState<StepId>(initialStepId);
     const [history, setHistory] = useState<StepId[]>([]);
     const [direction, setDirection] = useState<number>(0);
 

@@ -32,11 +32,6 @@ export default function HeroSection() {
                     >
                         {/* Main Content Group */}
                         <div className="space-y-4 lg:space-y-6 xl:space-y-8">
-                            {/* Eyebrow */}
-                            <div className="text-[10px] tracking-[0.4em] uppercase font-medium opacity-50 pl-1">
-                                Luxury of Exclusive Cleaning
-                            </div>
-
                             {/* Minimalist Headline */}
                             <h1 className="text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-normal leading-[1.1] tracking-tight">
                                 Illuminate in style: <br />

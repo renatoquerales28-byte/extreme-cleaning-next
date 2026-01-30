@@ -14,9 +14,17 @@ import { AnimatePresence, motion } from "framer-motion";
 export default function Home() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [showGetQuote, setShowGetQuote] = useState(false);
+    const [scrolled, setScrolled] = useState(false);
 
     useEffect(() => {
         const handleScroll = () => {
+            // Header expansion logic
+            if (window.scrollY > 50) {
+                setScrolled(true);
+            } else {
+                setScrolled(false);
+            }
+
             // Show button after scrolling down 400px (past most of hero content)
             if (window.scrollY > 400) {
                 setShowGetQuote(true);
@@ -31,8 +39,8 @@ export default function Home() {
 
     return (
         <main className="min-h-screen bg-white selection:bg-accent selection:text-white">
-            {/* Sticky Navigation - Full Width Glassmorphism */}
-            <nav className="fixed top-0 left-0 w-full z-50 bg-white transition-all duration-300">
+            {/* Sticky Navigation - Dynamic Width */}
+            <nav className={`fixed top-0 left-0 z-50 bg-white border-b border-transparent transition-all duration-700 ease-in-out ${scrolled ? 'w-full shadow-sm' : 'w-full md:w-[50%]'}`}>
                 <div className="container mx-auto px-6 py-4 md:py-5 flex items-center justify-between">
                     <Link href="/" className="flex items-center gap-2 group shrink-0">
                         <div className="relative h-8 md:h-10 w-24 md:w-32 overflow-hidden">

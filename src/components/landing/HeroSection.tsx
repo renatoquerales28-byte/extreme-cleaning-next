@@ -28,7 +28,7 @@ export default function HeroSection() {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.8 }}
-                        className="flex flex-col gap-8 lg:gap-10 xl:gap-12"
+                        className="flex flex-col gap-5 lg:gap-6 xl:gap-8"
                     >
                         {/* Main Content Group */}
                         <div className="space-y-4 lg:space-y-6 xl:space-y-8">
@@ -69,7 +69,7 @@ export default function HeroSection() {
                                         />
                                         <button
                                             type="submit"
-                                            className="bg-[#05D16E] hover:bg-[#04bd63] text-[#024653] w-12 h-12 rounded-xl flex items-center justify-center transition-all shrink-0 shadow-sm shadow-[#05D16E]/15 active:scale-95"
+                                            className="bg-[#05D16E] hover:bg-[#04bd63] text-[#024653] w-12 h-12 rounded-xl flex items-center justify-center transition-all shrink-0 shadow-[0_2px_4px_rgba(5,209,110,0.1)] active:scale-95"
                                         >
                                             <ArrowRight size={20} className="stroke-[3px]" />
                                         </button>
@@ -88,7 +88,7 @@ export default function HeroSection() {
                         </div>
 
                         {/* Promo Widget - Coordinated position */}
-                        <div className="flex items-center gap-3 pt-4 border-t border-gray-100 w-fit">
+                        <div className="flex items-center gap-3 pt-1.5 border-t border-gray-100 w-fit">
                             <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-gray-100 relative overflow-hidden flex-shrink-0">
                                 <Image src="/brand/service-residential.png" alt="Promo" fill className="object-cover" />
                             </div>

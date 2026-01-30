@@ -75,10 +75,14 @@ function WizardContent() {
     useEffect(() => {
         if (mode === "returning") {
             goToStep('returning_lookup');
-        } else if (urlZip) {
-            // Optional handling
+        } else if (urlZip && isFirstStep) {
+            // If zip is provided via URL and we are at the start, skip to service
+            // We verify length just to be safe, though schema handles validation
+            if (urlZip.length === 5) {
+                goToStep('service');
+            }
         }
-    }, [mode, urlZip, goToStep]);
+    }, [mode, urlZip, goToStep, isFirstStep]);
 
     // Database Warm-up
     useEffect(() => {

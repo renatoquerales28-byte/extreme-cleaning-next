@@ -23,7 +23,7 @@ export default function HeroSection() {
             <div className="max-w-[1700px] mx-auto grid grid-cols-1 lg:grid-cols-2 h-full gap-4 lg:gap-0">
 
                 {/* Left Column: Content & Conversion */}
-                <div className="relative z-20 flex flex-col justify-center px-6 lg:px-20 xl:px-32 h-full lg:pt-[53px]">
+                <div className="relative z-20 flex flex-col justify-center p-6 lg:p-10 lg:pr-0 h-full lg:pt-[53px]">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -88,7 +88,7 @@ export default function HeroSection() {
                         </div>
 
                         {/* Promo Widget - Coordinated position */}
-                        <div className="flex items-center gap-3 pt-1.5 border-t border-gray-100 w-fit">
+                        <div className="flex items-center gap-3 w-fit">
                             <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-gray-100 relative overflow-hidden flex-shrink-0">
                                 <Image src="/brand/service-residential.png" alt="Promo" fill className="object-cover" />
                             </div>
@@ -116,11 +116,6 @@ export default function HeroSection() {
                             priority
                         />
 
-                        {/* Overlay: Social Links */}
-                        <div className="absolute bottom-8 right-8 text-white flex gap-6 text-[10px] font-bold tracking-widest uppercase">
-                            <a href="#" className="hover:opacity-70 transition-opacity">Instagram ↗</a>
-                            <a href="#" className="hover:opacity-70 transition-opacity">Facebook ↗</a>
-                        </div>
 
                         {/* Glassmorphism Chip */}
                         <div className="absolute bottom-24 right-16 bg-white/20 backdrop-blur-xl p-3.5 rounded-2xl flex items-center gap-3 text-white border border-white/20 max-w-[180px]">

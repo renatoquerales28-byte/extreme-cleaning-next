@@ -52,57 +52,24 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
     // Re-calculate total to display accurate price
     const [total, setTotal] = useState<number | null>(null);
 
-    // Promo Code State
-    const [promoCode, setPromoCode] = useState("");
-    const [isCheckingPromo, setIsCheckingPromo] = useState(false);
-    const [promoError, setPromoError] = useState<string | null>(null);
-    const [appliedDiscount, setAppliedDiscount] = useState<NonNullable<ValidatePromoResult['discount']> | null>(null);
-
     useEffect(() => {
         const fetchConfig = async () => {
             const res = await getPricingConfig();
             const config = res.success ? res.config : {};
+            // If there's a stored price from previous steps (like quote step with discount), use it? 
+            // Actually, for now let's just recalculate base price here. 
+            // Ideally, we should receive the discounted price from the previous step via form data if we want to persist it.
+            // For now, I will revert to standard calculation to keep it clean, 
+            // assuming the user sees the breakdown here.
+
+            // Wait, if we move logic to QuoteStep, we need to SAVE the final price in the form data.
+            // Let's rely on data.totalPrice if it exists and is valid from the quote step?
+            // Or let's just recalculate to be safe.
             setTotal(calculateTotal(data, config));
         };
         fetchConfig();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    const handleApplyPromo = async () => {
-        if (!promoCode) return;
-        setIsCheckingPromo(true);
-        setPromoError(null);
-
-        try {
-            const result = await validatePromoCode(promoCode);
-            if (result.success && result.discount) {
-                setAppliedDiscount(result.discount);
-                toast.success("Promo code applied!");
-            } else {
-                setPromoError(result.message || "Invalid code");
-                setAppliedDiscount(null);
-            }
-        } catch (error) {
-            setPromoError("Failed to validate code");
-        } finally {
-            setIsCheckingPromo(false);
-        }
-    };
-
-    const finalPrice = useMemo(() => {
-        if (!total) return 0;
-        if (!appliedDiscount) return total;
-
-        let discountAmount = 0;
-        if (appliedDiscount.type === 'percent') {
-            discountAmount = (total * appliedDiscount.value) / 100;
-        } else {
-            discountAmount = appliedDiscount.value;
-        }
-
-        // Ensure price doesn't go below 0
-        return Math.max(0, Math.round(total - discountAmount));
-    }, [total, appliedDiscount]);
 
     useEffect(() => {
         setAction({
@@ -118,16 +85,11 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                 try {
                     console.log('🚀 [BOOKING] Starting process at', new Date().toISOString());
 
-                    // Preparar datos
-                    const t1 = Date.now();
-
-                    const enrichedDetails = {
-                        ...data,
-                        promoCode: appliedDiscount?.code,
-                        discountApplied: !!appliedDiscount,
-                        originalPrice: total,
-                        finalPrice: finalPrice
-                    };
+                    // Use the price from form data if available (passed from QuoteStep), otherwise calculate
+                    // Using data.totalPrice (which we will update in QuoteStep) is better.
+                    // But wait, calculateTotal returns base price. 
+                    // Let's assume data.totalPrice holds the FINAL price including discounts from QuoteStep.
+                    const finalBookingPrice = data.totalPrice || total || 0;
 
                     const dbPayload = {
                         firstName: data.firstName,
@@ -136,16 +98,16 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                         phone: data.phone,
                         serviceType: data.serviceType,
                         frequency: data.frequency,
-                        totalPrice: finalPrice || 0,
+                        totalPrice: finalBookingPrice,
                         status: "booked" as const,
                         serviceDate: data.serviceDate ? new Date(data.serviceDate) : undefined,
                         serviceTime: data.serviceTime,
-                        details: enrichedDetails
+                        details: data // This will now include promo details if added in QuoteStep
                     };
                     console.log(`✅ [BOOKING] Data prepared in ${Date.now() - t1}ms`);
 
                     // Guardar en base de datos
-                    const t2 = Date.now();
+                    const t1 = Date.now();
                     console.log('📝 [BOOKING] Saving to database...');
 
                     let dbSuccess = false;
@@ -156,10 +118,10 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                             console.log(`📝 [BOOKING] Updating lead ${data.leadId}...`);
                             const res = await updateLead(Number(data.leadId), {
                                 status: "booked",
-                                totalPrice: finalPrice || 0,
+                                totalPrice: finalBookingPrice,
                                 serviceDate: dbPayload.serviceDate,
                                 serviceTime: data.serviceTime,
-                                details: enrichedDetails
+                                details: data
                             });
                             dbSuccess = res.success;
                             if (!res.success) dbError = res.error;
@@ -174,7 +136,7 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                         console.error('❌ [BOOKING] Database error:', err);
                     }
 
-                    const dbDuration = Date.now() - t2;
+                    const dbDuration = Date.now() - t1;
                     console.log(`${dbSuccess ? '✅' : '❌'} [BOOKING] Database ${dbSuccess ? 'saved' : 'failed'} in ${dbDuration}ms`);
 
                     if (!dbSuccess) {
@@ -215,7 +177,7 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                 }
             }
         });
-    }, [isSubmitting, onNext, data, setAction, total, finalPrice, appliedDiscount]);
+    }, [isSubmitting, onNext, data, setAction, total]);
 
     const formattedDate = data.serviceDate ? format(new Date(data.serviceDate), "MMMM do, yyyy") : "Not selected";
 
@@ -261,78 +223,17 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                             <p className="text-xs text-[#024653]/60">{data.phone}</p>
                         </Section>
 
-                        {/* Promo Code Section */}
-                        <div className="bg-white p-6 rounded-3xl border-2 border-slate-50 space-y-4">
-                            <div className="flex items-center gap-3">
-                                <div className="p-2 bg-[#05D16E]/10 rounded-xl">
-                                    <Sparkles size={18} className="text-[#05D16E]" />
-                                </div>
-                                <h3 className="text-sm font-black uppercase tracking-wider text-[#024653]">Promo Code</h3>
-                            </div>
-
-                            <div className="flex gap-2">
-                                <input
-                                    type="text"
-                                    value={promoCode}
-                                    onChange={(e) => {
-                                        setPromoCode(e.target.value);
-                                        setPromoError(null);
-                                    }}
-                                    disabled={!!appliedDiscount}
-                                    placeholder="Enter code (e.g. SUMMER20)"
-                                    className="flex-1 bg-slate-50 border-2 border-slate-100 rounded-xl px-4 py-3 text-sm font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all uppercase placeholder:normal-case placeholder:font-medium"
-                                />
-                                {appliedDiscount ? (
-                                    <button
-                                        onClick={() => {
-                                            setAppliedDiscount(null);
-                                            setPromoCode("");
-                                        }}
-                                        className="bg-red-50 text-red-500 p-3 rounded-xl hover:bg-red-100 transition-colors"
-                                    >
-                                        <X size={20} />
-                                    </button>
-                                ) : (
-                                    <button
-                                        onClick={handleApplyPromo}
-                                        disabled={!promoCode || isCheckingPromo}
-                                        className="bg-[#024653] text-white px-6 rounded-xl font-bold text-sm hover:bg-[#024653]/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-                                    >
-                                        {isCheckingPromo ? "..." : "Apply"}
-                                    </button>
-                                )}
-                            </div>
-
-                            {promoError && (
-                                <p className="text-xs font-bold text-red-500 flex items-center gap-1">
-                                    <AlertCircle size={12} /> {promoError}
-                                </p>
-                            )}
-
-                            {appliedDiscount && (
-                                <div className="bg-[#F0FDF4] border border-[#05D16E]/20 rounded-xl p-3 flex items-center justify-between">
-                                    <div className="flex items-center gap-2">
-                                        <CheckCircle2 size={14} className="text-[#05D16E]" />
-                                        <span className="text-xs font-bold text-[#024653]">Code {appliedDiscount.code} applied!</span>
-                                    </div>
-                                    <span className="text-xs font-black text-[#05D16E]">
-                                        -{appliedDiscount.type === 'percent' ? `${appliedDiscount.value}%` : `$${appliedDiscount.value}`}
-                                    </span>
-                                </div>
-                            )}
-                        </div>
-
                         {/* Total */}
                         <div className="bg-[#024653] p-8 rounded-[2rem] text-center text-white space-y-2 shadow-xl shadow-[#024653]/20 relative overflow-hidden">
                             <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Estimated Total</p>
                             <div className="flex flex-col items-center justify-center gap-0">
-                                {appliedDiscount && (
+                                {data.discountApplied && (
                                     <span className="text-lg font-bold text-white/40 line-through decoration-white/40 decoration-2">
-                                        ${total}
+                                        ${data.originalPrice || total}
                                     </span>
                                 )}
                                 <div className="flex items-baseline gap-1">
-                                    <span className="text-5xl font-black">${finalPrice}</span>
+                                    <span className="text-5xl font-black">${data.totalPrice || total || "..."}</span>
                                     <span className="text-sm font-bold opacity-60">/service</span>
                                 </div>
                             </div>

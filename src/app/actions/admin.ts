@@ -196,3 +196,34 @@ export async function getClients() {
         return { success: false, error: "Failed to fetch clients" };
     }
 }
+
+export async function getSupportRequests() {
+    try {
+        // Fetch all leads. Since 'details' is JSONB, we can filter using SQL operator or fetch and filter in JS.
+        // Drizzle specific JSON filtering might be complex, so for now we'll fetch recent leads and filter.
+        // Depending on volume, a raw SQL query would be better: WHERE details->>'source' = 'wizard_help_callback'
+
+        // Let's try raw SQL for efficiency if possible, or simple JS filter for MVP
+        const allLeads = await db.select().from(leads).orderBy(desc(leads.createdAt)).limit(100);
+
+        const supportRequests = allLeads.filter(lead => {
+            const details = lead.details as any;
+            return details?.source === 'wizard_help_callback';
+        });
+
+        return { success: false, data: supportRequests };
+    } catch (error) {
+        console.error("Failed to fetch support requests:", error);
+        return { success: false, error: "Failed to fetch support requests" };
+    }
+}
+
+export async function resolveSupportRequest(id: number) {
+    try {
+        await db.update(leads).set({ status: 'contacted' }).where(eq(leads.id, id));
+        revalidatePath("/admin/support");
+        return { success: true };
+    } catch (error) {
+        return { success: false, error: "Failed to resolve support request" };
+    }
+}

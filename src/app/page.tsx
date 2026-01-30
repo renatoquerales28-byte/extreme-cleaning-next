@@ -35,15 +35,15 @@ export default function Home() {
 
     return (
         <main className="min-h-screen bg-white selection:bg-accent selection:text-white">
-            {/* Conventional Header */}
+            {/* Conventional Header - Thin 40px version */}
             <header
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-white/90 backdrop-blur-md shadow-sm h-20" : "bg-white h-24"
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-10 ${scrolled ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-white"
                     }`}
             >
                 <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
-                    {/* Left: Logo */}
+                    {/* Left: Logo (Scaled down for 40px height) */}
                     <Link href="/" className="flex items-center gap-2 group shrink-0">
-                        <div className="relative h-9 w-28 md:h-10 md:w-32 overflow-hidden">
+                        <div className="relative h-7 w-24 md:w-28 overflow-hidden">
                             <Image
                                 src="/brand/logo-full.png"
                                 alt="ECS Logo"
@@ -54,7 +54,7 @@ export default function Home() {
                     </Link>
 
                     {/* Center: Centered Nav Links */}
-                    <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-12 text-[11px] font-black text-[#024653]/70 uppercase tracking-[0.2em]">
+                    <nav className="hidden lg:flex absolute left-1/2 -translate-x-1/2 items-center gap-10 text-[10px] font-black text-[#024653]/70 uppercase tracking-[0.2em]">
                         <Link href="#services" className="hover:text-[#024653] transition-colors">Services</Link>
                         <Link href="#process" className="hover:text-[#024653] transition-colors">Process</Link>
                         <Link href="#reviews" className="hover:text-[#024653] transition-colors">Reviews</Link>
@@ -72,7 +72,7 @@ export default function Home() {
                                 >
                                     <Link
                                         href="/quote"
-                                        className="px-8 py-3 bg-[#08BF5F] text-[#024653] rounded-full text-[11px] font-black uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#08BF5F]/20 whitespace-nowrap"
+                                        className="px-6 py-1.5 bg-[#08BF5F] text-[#024653] rounded-full text-[9px] font-black uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#08BF5F]/10 whitespace-nowrap"
                                     >
                                         Get Quote
                                     </Link>
@@ -83,12 +83,12 @@ export default function Home() {
                         {/* Mobile Toggle */}
                         <button
                             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                            className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full bg-[#024653]/5 text-[#024653]"
+                            className="lg:hidden w-8 h-8 flex items-center justify-center rounded-full bg-[#024653]/5 text-[#024653]"
                         >
-                            <div className="w-5 flex flex-col gap-1">
-                                <span className={`w-full h-0.5 bg-current rounded-full transition-transform ${mobileMenuOpen ? "rotate-45 translate-y-1.5" : ""}`} />
+                            <div className="w-4 flex flex-col gap-1">
+                                <span className={`w-full h-0.5 bg-current rounded-full transition-transform ${mobileMenuOpen ? "rotate-45 translate-y-1" : ""}`} />
                                 <span className={`w-full h-0.5 bg-current rounded-full transition-opacity ${mobileMenuOpen ? "opacity-0" : "opacity-100"}`} />
-                                <span className={`w-full h-0.5 bg-current rounded-full transition-transform ${mobileMenuOpen ? "-rotate-45 -translate-y-1.5" : ""}`} />
+                                <span className={`w-full h-0.5 bg-current rounded-full transition-transform ${mobileMenuOpen ? "-rotate-45 -translate-y-1" : ""}`} />
                             </div>
                         </button>
                     </div>

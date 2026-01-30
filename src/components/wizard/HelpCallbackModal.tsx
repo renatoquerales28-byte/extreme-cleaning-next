@@ -73,7 +73,7 @@ export default function HelpCallbackModal({ open, onOpenChange }: { open: boolea
                                 <div className="w-16 h-16 bg-[#05D16E]/10 rounded-full flex items-center justify-center text-[#05D16E]">
                                     <CheckCircle2 size={32} strokeWidth={3} />
                                 </div>
-                                <h3 className="text-xl font-black text-[#024653]">We're on it!</h3>
+                                <h3 className="text-xl font-black text-[#024653]">We&apos;re on it!</h3>
                                 <p className="text-sm text-[#024653]/70 font-medium">Please keep your phone nearby. <br /> A specialist will call you shortly.</p>
                             </div>
                         ) : (
@@ -81,7 +81,7 @@ export default function HelpCallbackModal({ open, onOpenChange }: { open: boolea
                                 <div className="text-center mb-6">
                                     <h3 className="text-2xl font-black text-[#024653] mb-2">Need a hand?</h3>
                                     <p className="text-sm font-medium text-[#024653]/60">
-                                        Enter your number and we'll call you in <span className="text-[#05D16E] font-bold">5 minutes</span>.
+                                        Enter your number and we&apos;ll call you in <span className="text-[#05D16E] font-bold">5 minutes</span>.
                                     </p>
                                 </div>
 

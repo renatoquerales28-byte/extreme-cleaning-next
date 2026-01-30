@@ -162,7 +162,7 @@ function WizardContent() {
                         </div>
                         <div className="text-left">
                             <p className="text-xs font-bold uppercase tracking-widest text-[#05D16E]">Need Help?</p>
-                            <p className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">Request a call back</p>
+                            <p className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">Text us now</p>
                         </div>
                     </button>
                 </div>

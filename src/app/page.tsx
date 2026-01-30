@@ -35,9 +35,9 @@ export default function Home() {
 
     return (
         <main className="min-h-screen bg-white selection:bg-accent selection:text-white">
-            {/* Conventional Header - 55px version */}
+            {/* Conventional Header - 53px version */}
             <header
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[55px] ${scrolled ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-white"
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[53px] ${scrolled ? "bg-white/95 backdrop-blur-md shadow-sm" : "bg-white"
                     }`}
             >
                 <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">

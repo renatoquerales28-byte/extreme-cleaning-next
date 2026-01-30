@@ -53,7 +53,7 @@ export default function Home() {
                                 style={{
                                     filter: 'brightness(0) saturate(100%) invert(18%) sepia(87%) saturate(464%) hue-rotate(142deg) brightness(91%) contrast(97%)'
                                 }}
-                                className="object-contain transition-opacity duration-300 opacity-100 group-hover:opacity-80"
+                                className="object-contain object-left transition-opacity duration-300 opacity-100 group-hover:opacity-80"
                             />
                         </div>
                     </Link>

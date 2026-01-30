@@ -147,7 +147,7 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
         <div className="bg-white p-6 rounded-3xl border-2 border-slate-50 relative group">
             <button
                 onClick={() => onEditStep(stepId)}
-                className="absolute top-6 right-6 p-2 bg-slate-50 text-[#024653]/40 rounded-full hover:bg-[#024653] hover:text-white transition-colors"
+                className="absolute top-6 right-6 p-2 z-10 bg-slate-50 text-[#024653]/40 rounded-full hover:bg-[#024653] hover:text-white transition-colors"
             >
                 <Pencil size={14} />
             </button>

@@ -36,25 +36,21 @@ export default function Home() {
     return (
         <main className="min-h-screen bg-white selection:bg-accent selection:text-white">
             {/* Modular Navbar Container */}
-            <div className="fixed top-0 left-0 right-0 z-50 pointer-events-none p-6 md:p-8 flex justify-between items-start">
+            <div className="fixed top-6 left-6 right-6 z-50 pointer-events-none flex justify-between items-center h-[76px]">
 
                 {/* Left Piece (Macho) - Identity & Nav */}
                 <motion.nav
                     initial={false}
                     animate={{
                         width: scrolled ? "auto" : "fit-content",
-                        paddingRight: scrolled ? "3rem" : "2.5rem",
+                        paddingRight: scrolled ? "4.5rem" : "3rem",
+                        backgroundColor: scrolled ? "rgba(255, 255, 255, 0.9)" : "rgba(255, 255, 255, 0.4)",
                     }}
                     transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-                    className="pointer-events-auto bg-white/80 backdrop-blur-xl border border-slate-200/50 shadow-xl rounded-[2.5rem] flex items-center gap-8 pl-6 pr-12 py-3 md:py-4 h-[64px] md:h-[76px] relative overflow-hidden"
-                    style={{
-                        // Convex (Macho) end shape
-                        borderTopRightRadius: scrolled ? "20px" : "2.5rem",
-                        borderBottomRightRadius: scrolled ? "20px" : "2.5rem",
-                    }}
+                    className="pointer-events-auto backdrop-blur-xl border border-white/20 shadow-xl rounded-[2.5rem] flex items-center gap-10 pl-8 h-full relative"
                 >
                     <Link href="/" className="flex items-center gap-2 group shrink-0">
-                        <div className="relative h-8 md:h-10 w-24 md:w-32 overflow-hidden">
+                        <div className="relative h-9 w-28 md:h-10 md:w-32 overflow-hidden">
                             <Image
                                 src="/brand/logo-full.png"
                                 alt="ECS Logo"
@@ -70,25 +66,28 @@ export default function Home() {
                         <Link href="#reviews" className="hover:text-[#024653] transition-colors">Reviews</Link>
                     </div>
 
-                    {/* Macho Convex Pointer (Only visible when scrolled) */}
-                    <AnimatePresence>
-                        {scrolled && (
-                            <motion.div
-                                initial={{ opacity: 0, x: -10 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -10 }}
-                                className="absolute right-0 top-0 bottom-0 w-8 bg-white/80 backdrop-blur-xl -mr-4"
-                                style={{
-                                    clipPath: "path('M 0 0 C 15 0, 30 15, 30 50 C 30 85, 15 100, 0 100 Z')",
-                                }}
-                            />
-                        )}
-                    </AnimatePresence>
+                    {/* Macho Convex Tip */}
+                    <motion.div
+                        initial={false}
+                        animate={{
+                            opacity: scrolled ? 1 : 0,
+                            x: scrolled ? 0 : -20
+                        }}
+                        className="absolute right-0 top-0 bottom-0 w-8 flex items-center justify-end pointer-events-none"
+                    >
+                        <div
+                            className="w-8 h-full bg-white/90"
+                            style={{
+                                clipPath: "path('M 0 0 C 20 0, 32 20, 32 50 C 32 80, 20 100, 0 100 Z')",
+                                transform: "translateX(100%)"
+                            }}
+                        />
+                    </motion.div>
 
                     {/* Mobile Toggle */}
                     <button
                         onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                        className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full bg-[#024653]/5 text-[#024653]"
+                        className="lg:hidden w-10 h-10 flex items-center justify-center rounded-full bg-[#024653]/5 text-[#024653] mr-2"
                     >
                         <div className="w-5 flex flex-col gap-1">
                             <span className={`w-full h-0.5 bg-current rounded-full transition-transform ${mobileMenuOpen ? "rotate-45 translate-y-1.5" : ""}`} />
@@ -102,33 +101,36 @@ export default function Home() {
                 <AnimatePresence>
                     {scrolled && (
                         <motion.nav
-                            initial={{ x: 300, opacity: 0 }}
+                            initial={{ x: 100, opacity: 0 }}
                             animate={{ x: 0, opacity: 1 }}
-                            exit={{ x: 300, opacity: 0 }}
+                            exit={{ x: 100, opacity: 0 }}
                             transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-                            className="pointer-events-auto bg-[#024653] shadow-2xl rounded-full flex items-center pl-10 pr-4 py-3 h-[64px] md:h-[76px] relative ml-2"
+                            className="pointer-events-auto bg-[#024653] shadow-2xl rounded-full flex items-center h-full relative"
                         >
-                            {/* Hembra Concave Shape - Visualized via negative space or mask */}
+                            {/* Hembra Concave Cutout */}
                             <div
-                                className="absolute inset-y-0 -left-6 w-8 bg-[#024653]"
+                                className="absolute left-0 top-0 bottom-0 w-8 -translate-x-full"
                                 style={{
-                                    clipPath: "path('M 30 0 L 30 100 L 0 100 C 15 85, 25 50, 15 0 L 0 0 Z')",
+                                    background: "#024653",
+                                    clipPath: "path('M 32 0 L 32 100 L 0 100 C 12 80, 0 70, 0 50 C 0 30, 12 20, 0 0 L 0 0 Z')"
                                 }}
                             />
 
-                            {/* Minimalist Social Icons */}
-                            <div className="flex items-center gap-4 mr-8 text-white/50">
-                                <a href="#" className="hover:text-white transition-colors cursor-pointer"><Instagram size={18} /></a>
-                                <a href="#" className="hover:text-white transition-colors cursor-pointer"><Facebook size={18} /></a>
-                            </div>
+                            <div className="flex items-center gap-8 pl-6 pr-4">
+                                {/* Minimalist Social Icons */}
+                                <div className="flex items-center gap-5 text-white/40">
+                                    <a href="#" className="hover:text-[#08BF5F] transition-colors"><Instagram size={18} strokeWidth={2.5} /></a>
+                                    <a href="#" className="hover:text-[#08BF5F] transition-colors"><Facebook size={18} strokeWidth={2.5} /></a>
+                                </div>
 
-                            {/* Get Quote Button */}
-                            <Link
-                                href="/quote"
-                                className="px-8 py-3 bg-[#08BF5F] text-[#024653] rounded-full text-[11px] font-black uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#08BF5F]/20 whitespace-nowrap"
-                            >
-                                Get Quote
-                            </Link>
+                                {/* Get Quote Button */}
+                                <Link
+                                    href="/quote"
+                                    className="px-10 py-3.5 bg-[#08BF5F] text-[#024653] rounded-full text-[11px] font-black uppercase tracking-[0.2em] hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-[#08BF5F]/30 whitespace-nowrap"
+                                >
+                                    Get Quote
+                                </Link>
+                            </div>
                         </motion.nav>
                     )}
                 </AnimatePresence>

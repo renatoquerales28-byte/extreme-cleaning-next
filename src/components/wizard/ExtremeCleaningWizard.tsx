@@ -52,10 +52,15 @@ export default function ExtremeCleaningWizard() {
     );
 }
 
+import HelpCallbackModal from "./HelpCallbackModal";
+
 function WizardContent() {
     const searchParams = useSearchParams();
     const mode = searchParams.get("mode");
     const urlZip = searchParams.get("zip");
+
+    // Help Modal State
+    const [isHelpOpen, setIsHelpOpen] = React.useState(false);
 
     const { watch, setValue } = useFormContext<WizardData>();
     const data = watch();
@@ -122,6 +127,7 @@ function WizardContent() {
 
     return (
         <div className={`w-full h-screen fixed inset-0 flex flex-col lg:flex-row bg-[#F9F8F2] overflow-hidden ${inter.className}`}>
+            <HelpCallbackModal open={isHelpOpen} onOpenChange={setIsHelpOpen} />
 
             {/* LEFT PANEL */}
             <div className="hidden lg:flex w-1/3 bg-[#024653] relative flex-col justify-between p-12 text-white overflow-hidden shrink-0 border-r-4 border-[#10f081]">
@@ -144,6 +150,22 @@ function WizardContent() {
                         </div>
                     </motion.div>
                 </AnimatePresence>
+
+                {/* Desktop Help Trigger */}
+                <div className="relative z-10 pt-8 border-t border-white/10">
+                    <button
+                        onClick={() => setIsHelpOpen(true)}
+                        className="flex items-center gap-3 group"
+                    >
+                        <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#05D16E] transition-colors">
+                            <span className="text-lg">👋</span>
+                        </div>
+                        <div className="text-left">
+                            <p className="text-xs font-bold uppercase tracking-widest text-[#05D16E]">Need Help?</p>
+                            <p className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">Request a call back</p>
+                        </div>
+                    </button>
+                </div>
             </div>
 
             {/* RIGHT PANEL */}
@@ -199,18 +221,27 @@ function WizardContent() {
                 </AnimatePresence>
 
                 {/* Footer (Actions) */}
-                <WizardFooter />
+                <WizardFooter onHelp={() => setIsHelpOpen(true)} />
 
             </div>
         </div>
     );
 }
 
-function WizardFooter() {
+function WizardFooter({ onHelp }: { onHelp: () => void }) {
     const { action } = useWizardAction();
     return (
         <div className="shrink-0 w-full bg-white border-t border-slate-100 p-6 md:px-12 pb-8 z-50">
             <div className="max-w-xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+
+                {/* Mobile Help Trigger */}
+                <button
+                    onClick={onHelp}
+                    className="md:hidden text-[10px] font-black uppercase tracking-widest text-[#05D16E] hover:text-[#024653] transition-colors py-2"
+                >
+                    Need Help? Call us.
+                </button>
+
                 <div className="hidden md:block">
                     {action?.secondaryContent}
                 </div>

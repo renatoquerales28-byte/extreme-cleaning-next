@@ -34,14 +34,14 @@ function CountdownTimer() {
 export default function SocialProofSection() {
     return (
         // SECTION CONTAINER: Full Height (Frame), Background #F9F8F2
-        // SECTION CONTAINER: Standard spacing, Background #F9F8F2
-        <section className="w-full bg-[#F9F8F2] relative flex items-center overflow-hidden py-16 lg:py-24">
+        // SECTION CONTAINER: Adjusted spacing (reduced top padding), Background #F9F8F2
+        <section className="w-full bg-[#F9F8F2] relative flex items-center overflow-hidden pt-8 pb-16 lg:pt-12 lg:pb-24">
 
             {/* CONTAINER: Max width of 1700px to match Hero */}
-            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 flex flex-col lg:flex-row gap-8 lg:gap-12 items-center justify-center">
+            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-center justify-center">
 
-                {/* LEFT COLUMN: REVIEWS (66.66% -> approx 8/12 cols) */}
-                <div className="w-full lg:w-8/12 flex flex-col justify-center relative">
+                {/* LEFT COLUMN: REVIEWS (60% -> 3/5 cols) */}
+                <div className="w-full lg:col-span-3 flex flex-col justify-center relative">
 
                     {/* Header for Reviews */}
                     <div className="mb-8 md:mb-12 pl-4 border-l-4 border-[#024653]">
@@ -98,8 +98,8 @@ export default function SocialProofSection() {
                     </div>
                 </div>
 
-                {/* RIGHT COLUMN: PROMO (33.33% -> approx 4/12 cols) */}
-                <div className="w-full lg:w-4/12 flex flex-col justify-center items-center lg:items-end relative">
+                {/* RIGHT COLUMN: PROMO (40% -> 2/5 cols) */}
+                <div className="w-full lg:col-span-2 flex flex-col justify-center items-center lg:items-end relative">
 
                     <div className="w-full max-w-md space-y-6 relative z-10">
 

@@ -37,7 +37,7 @@ export default function SocialProofSection() {
         <section className="w-full bg-[#F9F8F2] relative flex items-center overflow-hidden pt-8 pb-16 lg:pt-12 lg:pb-24">
 
             {/* CONTAINER: Max width of 1700px to match Hero */}
-            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-4 items-stretch justify-center">
+            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-3 items-stretch justify-center">
 
                 {/* LEFT COLUMN: REVIEWS (60% -> 3/5 cols) - NOW ENCLOSED IN WHITE CARD */}
                 <div className="w-full lg:col-span-3 flex flex-col justify-center relative">
@@ -74,21 +74,21 @@ export default function SocialProofSection() {
                                 {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, i) => (
                                     <div
                                         key={`${review.id}-${i}`}
-                                        className="bg-[#F9F8F2] p-8 rounded-[2rem] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative group w-[350px] md:w-[450px] shrink-0 border border-transparent hover:border-[#024653]/5"
+                                        className="bg-[#085560] p-8 rounded-[2rem] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative group w-[350px] md:w-[450px] shrink-0 border border-transparent hover:border-[#05D16E]/20"
                                     >
-                                        <Quote className="absolute top-6 right-8 text-[#024653]/5 transform rotate-180 group-hover:scale-110 transition-transform" size={48} />
+                                        <Quote className="absolute top-6 right-8 text-white/10 transform rotate-180 group-hover:scale-110 transition-transform" size={48} />
 
                                         <div className="flex items-center gap-4 mb-6">
                                             <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[#024653] font-black text-lg shadow-sm">
                                                 {review.name.charAt(0)}
                                             </div>
                                             <div>
-                                                <h4 className="font-bold text-[#024653] text-sm md:text-base">{review.name}</h4>
-                                                <span className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest">{review.date}</span>
+                                                <h4 className="font-bold text-white text-sm md:text-base">{review.name}</h4>
+                                                <span className="text-[10px] text-[#05D16E] font-bold uppercase tracking-widest">{review.date}</span>
                                             </div>
                                         </div>
 
-                                        <p className="text-[#024653]/80 text-base font-light leading-relaxed italic relative z-10 line-clamp-4">
+                                        <p className="text-white/80 text-base font-light leading-relaxed italic relative z-10 line-clamp-4">
                                             &quot;{review.text}&quot;
                                         </p>
                                     </div>

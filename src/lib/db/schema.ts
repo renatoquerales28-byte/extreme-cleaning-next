@@ -16,6 +16,7 @@ export const leads = pgTable("leads", {
     details: jsonb("details"), // Store full wizard data object
     serviceDate: timestamp("service_date"),
     serviceTime: text("service_time"),
+    assignedStaffId: integer("assigned_staff_id"), // References staff.id (no FK constraint in strict code to avoid complexity, but logic will handle it)
 });
 
 export const serviceAreas = pgTable("service_areas", {
@@ -51,11 +52,20 @@ export const calendarSettings = pgTable("calendar_settings", {
     isOpen: boolean("is_open").default(true).notNull(),
     startTime: text("start_time").default("08:00").notNull(),
     endTime: text("end_time").default("17:00").notNull(),
+    dailyCapacity: integer("daily_capacity").default(5).notNull(),
 });
 
 export const blockedDates = pgTable("blocked_dates", {
     id: serial("id").primaryKey(),
     date: timestamp("date").notNull(),
     reason: text("reason"),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const staff = pgTable("staff", {
+    id: serial("id").primaryKey(),
+    name: text("name").notNull(),
+    color: text("color").default("#0891B2").notNull(),
+    active: boolean("active").default(true).notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
 });

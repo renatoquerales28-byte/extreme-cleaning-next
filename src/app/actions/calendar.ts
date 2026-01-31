@@ -1,15 +1,53 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { leads, calendarSettings, blockedDates, pricingConfig } from "@/lib/db/schema";
+import { leads, calendarSettings, blockedDates, pricingConfig, staff } from "@/lib/db/schema";
 import { eq, and, gte, lte, inArray, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { addHours, format, startOfMonth, endOfMonth, getDay, parse, isSameDay } from "date-fns";
 
+export async function getStaff() {
+    try {
+        const team = await db.select().from(staff).where(eq(staff.active, true));
+        return { success: true, data: team };
+    } catch (error) {
+        return { success: false, error: "Failed to fetch staff" };
+    }
+}
+
+export async function createStaff(name: string, color: string) {
+    try {
+        await db.insert(staff).values({ name, color });
+        revalidatePath("/admin/calendar");
+        return { success: true };
+    } catch (error) {
+        return { success: false, error: "Failed to create staff" };
+    }
+}
+
+export async function deleteStaff(id: number) {
+    try {
+        await db.update(staff).set({ active: false }).where(eq(staff.id, id));
+        revalidatePath("/admin/calendar");
+        return { success: true };
+    } catch (error) {
+        return { success: false, error: "Failed to delete staff" };
+    }
+}
+
+export async function assignStaff(leadId: number, staffId: number | null) {
+    try {
+        await db.update(leads).set({ assignedStaffId: staffId }).where(eq(leads.id, leadId));
+        revalidatePath("/admin/calendar");
+        return { success: true };
+    } catch (error) {
+        return { success: false, error: "Failed to assign staff" };
+    }
+}
+
 export async function getCalendarSettings() {
     try {
         const settings = await db.select().from(calendarSettings);
-        // Return aggregation keyed by dayOfWeek for easier frontend use
         return { success: true, data: settings };
     } catch (error) {
         console.error("Failed to fetch calendar settings", error);
@@ -17,14 +55,19 @@ export async function getCalendarSettings() {
     }
 }
 
+// ... existing updateCalendarSettings ...
 export async function updateCalendarSettings(data: any[]) {
     try {
-        // Upsert settings for each day
         for (const setting of data) {
             const existing = await db.select().from(calendarSettings).where(eq(calendarSettings.dayOfWeek, setting.dayOfWeek));
             if (existing.length > 0) {
                 await db.update(calendarSettings)
-                    .set({ isOpen: setting.isOpen, startTime: setting.startTime, endTime: setting.endTime })
+                    .set({
+                        isOpen: setting.isOpen,
+                        startTime: setting.startTime,
+                        endTime: setting.endTime,
+                        dailyCapacity: setting.dailyCapacity
+                    })
                     .where(eq(calendarSettings.dayOfWeek, setting.dayOfWeek));
             } else {
                 await db.insert(calendarSettings).values(setting);
@@ -38,21 +81,20 @@ export async function updateCalendarSettings(data: any[]) {
     }
 }
 
-// Initialize default calendar settings if they don't exist
+// ... existing initializeDefaultSettings ...
 export async function initializeDefaultSettings() {
     try {
         const existing = await db.select().from(calendarSettings);
 
         if (existing.length === 0) {
-            // Default: Monday-Friday 9AM-5PM, Saturday 10AM-3PM, Sunday closed
             const defaultSettings = [
-                { dayOfWeek: 0, isOpen: false, startTime: "09:00", endTime: "17:00" }, // Sunday - Closed
-                { dayOfWeek: 1, isOpen: true, startTime: "09:00", endTime: "17:00" },  // Monday
-                { dayOfWeek: 2, isOpen: true, startTime: "09:00", endTime: "17:00" },  // Tuesday
-                { dayOfWeek: 3, isOpen: true, startTime: "09:00", endTime: "17:00" },  // Wednesday
-                { dayOfWeek: 4, isOpen: true, startTime: "09:00", endTime: "17:00" },  // Thursday
-                { dayOfWeek: 5, isOpen: true, startTime: "09:00", endTime: "17:00" },  // Friday
-                { dayOfWeek: 6, isOpen: true, startTime: "10:00", endTime: "15:00" },  // Saturday
+                { dayOfWeek: 0, isOpen: false, startTime: "09:00", endTime: "17:00", dailyCapacity: 0 },
+                { dayOfWeek: 1, isOpen: true, startTime: "09:00", endTime: "17:00", dailyCapacity: 5 },
+                { dayOfWeek: 2, isOpen: true, startTime: "09:00", endTime: "17:00", dailyCapacity: 5 },
+                { dayOfWeek: 3, isOpen: true, startTime: "09:00", endTime: "17:00", dailyCapacity: 5 },
+                { dayOfWeek: 4, isOpen: true, startTime: "09:00", endTime: "17:00", dailyCapacity: 5 },
+                { dayOfWeek: 5, isOpen: true, startTime: "09:00", endTime: "17:00", dailyCapacity: 5 },
+                { dayOfWeek: 6, isOpen: true, startTime: "10:00", endTime: "15:00", dailyCapacity: 3 },
             ];
 
             await db.insert(calendarSettings).values(defaultSettings);
@@ -95,7 +137,21 @@ export async function getMonthEvents(date: Date) {
         const blocked = await db.select().from(blockedDates)
             .where(and(gte(blockedDates.date, start), lte(blockedDates.date, end)));
 
-        const bookings = await db.select().from(leads)
+        // Join with staff to get assignee info
+        const bookings = await db.select({
+            id: leads.id,
+            firstName: leads.firstName,
+            lastName: leads.lastName,
+            serviceDate: leads.serviceDate,
+            serviceTime: leads.serviceTime,
+            serviceType: leads.serviceType,
+            frequency: leads.frequency,
+            assignedStaffId: leads.assignedStaffId,
+            staffName: staff.name,
+            staffColor: staff.color
+        })
+            .from(leads)
+            .leftJoin(staff, eq(leads.assignedStaffId, staff.id))
             .where(and(gte(leads.serviceDate, start), lte(leads.serviceDate, end)));
 
         return { success: true, data: { blocked, bookings } };
@@ -106,17 +162,13 @@ export async function getMonthEvents(date: Date) {
 
 export async function getAvailableSlots(date: Date) {
     try {
-        // 1. Check if date is blocked
         const blocked = await db.select().from(blockedDates).where(eq(blockedDates.date, date));
         if (blocked.length > 0) return { success: true, slots: [], reason: blocked[0].reason };
 
-        // 2. Check working hours for this day of week
         const dayOfWeek = getDay(date);
         let settings = await db.select().from(calendarSettings).where(eq(calendarSettings.dayOfWeek, dayOfWeek));
 
-        // Initialize default settings if none exist
         if (settings.length === 0) {
-            console.log("No calendar settings found, initializing defaults...");
             await initializeDefaultSettings();
             settings = await db.select().from(calendarSettings).where(eq(calendarSettings.dayOfWeek, dayOfWeek));
         }
@@ -125,14 +177,9 @@ export async function getAvailableSlots(date: Date) {
             return { success: true, slots: [], reason: "Closed" };
         }
 
-        const { startTime, endTime } = settings[0];
+        const { startTime, endTime, dailyCapacity } = settings[0];
+        const MAX_BOOKINGS_PER_DAY = dailyCapacity || 3;
 
-        // 3. Get Capacity from Config (Default 3)
-        const pricingRes = await db.select().from(pricingConfig).where(eq(pricingConfig.key, 'max_capacity_per_day'));
-        const MAX_BOOKINGS_PER_DAY = pricingRes.length > 0 ? pricingRes[0].value : 3;
-
-        // 4. Check Capacity
-        // Normalize date to start and end of day for comparison
         const startOfDay = new Date(date);
         startOfDay.setHours(0, 0, 0, 0);
         const endOfDay = new Date(date);

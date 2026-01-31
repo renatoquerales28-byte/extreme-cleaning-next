@@ -72,7 +72,7 @@ export default function AdminLoginPage() {
                     <form onSubmit={handleSubmit} className="space-y-6">
                         {/* Username Input */}
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4">Username / Email</label>
+                            <label className="text-[10px] font-bold uppercase tracking-widest opacity-40 ml-4">Username / Email</label>
                             <div className="relative flex items-center group">
                                 <div className="absolute left-5 text-[#024653]/30 group-focus-within:text-[#024653] transition-colors">
                                     <User size={18} />
@@ -90,7 +90,7 @@ export default function AdminLoginPage() {
 
                         {/* Password Input */}
                         <div className="space-y-2">
-                            <label className="text-[10px] font-black uppercase tracking-widest opacity-40 ml-4">Secret Password</label>
+                            <label className="text-[10px] font-bold uppercase tracking-widest opacity-40 ml-4">Secret Password</label>
                             <div className="relative flex items-center group">
                                 <div className="absolute left-5 text-[#024653]/30 group-focus-within:text-[#024653] transition-colors">
                                     <Lock size={18} />
@@ -127,7 +127,7 @@ export default function AdminLoginPage() {
                         <button
                             type="submit"
                             disabled={isSubmitting}
-                            className={`w-full bg-[#05D16E] hover:bg-[#04bd63] text-[#024653] py-4 rounded-2xl font-black uppercase tracking-widest transition-all shadow-[0_8px_20px_rgba(5,209,110,0.15)] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed`}
+                            className={`w-full bg-[#05D16E] hover:bg-[#04bd63] text-[#024653] py-4 rounded-2xl font-bold uppercase tracking-widest transition-all shadow-[0_8px_20px_rgba(5,209,110,0.15)] active:scale-[0.98] flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed`}
                         >
                             {isSubmitting ? (
                                 <span className="flex items-center gap-2">

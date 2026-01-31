@@ -178,7 +178,12 @@ export async function getAvailableSlots(date: Date) {
         }
 
         const { startTime, endTime, dailyCapacity } = settings[0];
-        const MAX_BOOKINGS_PER_DAY = dailyCapacity || 3;
+
+        // Fetch global master capacity
+        const pricingRes = await db.select().from(pricingConfig).where(eq(pricingConfig.key, 'max_capacity_per_day'));
+        const globalCapacity = pricingRes.length > 0 ? pricingRes[0].value : null;
+
+        const MAX_BOOKINGS_PER_DAY = globalCapacity !== null ? globalCapacity : (dailyCapacity || 3);
 
         const startOfDay = new Date(date);
         startOfDay.setHours(0, 0, 0, 0);

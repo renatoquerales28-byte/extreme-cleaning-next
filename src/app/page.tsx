@@ -7,7 +7,9 @@ import Image from "next/image";
 import HeroSection from "@/components/landing/HeroSection";
 import ProblemSolutionSection from "@/components/landing/ProblemSolutionSection";
 import ServicesSection from "@/components/landing/ServicesSection";
-import SocialProofSection from "@/components/landing/SocialProofSection";
+import SocialProofSection from "@/components/home/SocialProofSection";
+import ServiceSelectorSection from "@/components/home/ServiceSelectorSection";
+import LegacySocialProof from "@/components/landing/SocialProofSection"; // Renaming old to avoid collision if still needed
 import ProcessSection from "@/components/landing/ProcessSection";
 import FooterSection from "@/components/landing/FooterSection";
 import { AnimatePresence, motion } from "framer-motion";
@@ -120,10 +122,15 @@ export default function Home() {
             </AnimatePresence>
 
             <HeroSection />
+
+            {/* NEW STRATEGIC SECTIONS */}
+            <SocialProofSection />
+            <ServiceSelectorSection />
+
             <ProblemSolutionSection />
             <ServicesSection />
             <div id="process"><ProcessSection /></div>
-            <div id="reviews"><SocialProofSection /></div>
+            <div id="reviews"><LegacySocialProof /></div>
             <FooterSection />
         </main>
     );

@@ -18,26 +18,15 @@ export default function PropertySelectionStep({ onSelect, onBack, customerName, 
 
     useEffect(() => {
         setAction({
-            label: "", // Hidden button
-            onClick: () => { },
-            disabled: true,
-            // We use a hack or just standard secondary content
-            // Since we haven't implemented 'hideButton' yet, I will verify if I can just use secondary content
-            // My implementation: 
-            // {action.secondaryContent && (...)}
-            // <button ... className="..."> ... </button>
-            // The button is always rendered if action is present and !hide.
-            // I should update ExtremeCleaningWizard to respect `hideButton` property.
-            // For now, I will use a dummy button or...
-            // Actually, I'll update ExtremeCleaningWizard in the next step to support `hideMainButton`.
-            // Here I'll pass `hideMainButton: true` (which I'll add to the interface).
+            label: "Next", // Dummy label, hidden by hideMainButton
+            onClick: () => { }, // Dummy handler
             hideMainButton: true,
             secondaryContent: (
                 <button onClick={onBack} className="pointer-events-auto text-[10px] font-black uppercase tracking-widest text-[#024653]/40 hover:text-[#024653] transition-colors py-2 bg-white/80 px-4 rounded-full shadow-sm backdrop-blur-sm">
                     Not {customerName}? Switch account
                 </button>
             )
-        } as any); // Type cast until I update the interface
+        });
     }, [onBack, customerName, setAction]);
 
     return (

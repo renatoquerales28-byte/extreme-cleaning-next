@@ -160,7 +160,15 @@ function WizardContent() {
                                 <Image src="/brand/logo-full.png" alt="Logo" width={200} height={60} className="object-contain brightness-0 invert" />
                             </div>
                             <h2 className="text-5xl font-black tracking-tighter leading-tight mb-6 uppercase text-white">
-                                {stepConfig.title} <br /> <span className="text-[#10f081]">{stepConfig.accent}</span>
+                                {stepId === 'returning_select' && returningData?.customer?.firstName ? (
+                                    <>
+                                        Welcome <br /> <span className="text-[#10f081]">{returningData.customer.firstName}</span>
+                                    </>
+                                ) : (
+                                    <>
+                                        {stepConfig.title} <br /> <span className="text-[#10f081]">{stepConfig.accent}</span>
+                                    </>
+                                )}
                             </h2>
                             <p className="text-white/80 font-medium text-base leading-relaxed max-w-xs">{stepConfig.description}</p>
                         </div>

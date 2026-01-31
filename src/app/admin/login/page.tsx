@@ -11,6 +11,7 @@ export default function AdminLoginPage() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const [rememberMe, setRememberMe] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [error, setError] = useState("");
     const router = useRouter();
@@ -111,6 +112,30 @@ export default function AdminLoginPage() {
                                     {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                                 </button>
                             </div>
+                        </div>
+
+                        {/* Remember Me & Forgot Password Placeholder */}
+                        <div className="flex items-center justify-between px-2">
+                            <label className="flex items-center gap-2 cursor-pointer group">
+                                <div className="relative flex items-center justify-center">
+                                    <input
+                                        type="checkbox"
+                                        checked={rememberMe}
+                                        onChange={(e) => setRememberMe(e.target.checked)}
+                                        className="peer appearance-none w-5 h-5 bg-[#f3f6f6] rounded-md checked:bg-[#05D16E] transition-all cursor-pointer border-none focus:ring-0"
+                                    />
+                                    <div className="absolute opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none text-[#024653]">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-3.5 w-3.5" viewBox="0 0 20 20" fill="currentColor">
+                                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                <span className="text-[11px] font-bold text-[#024653]/60 group-hover:text-[#024653] transition-colors uppercase tracking-widest">Remember Me</span>
+                            </label>
+
+                            <button type="button" className="text-[11px] font-bold text-[#024653]/30 hover:text-[#024653] transition-colors uppercase tracking-widest">
+                                Forgot password?
+                            </button>
                         </div>
 
                         {error && (

@@ -12,17 +12,28 @@ export const metadata: Metadata = {
     description: "Experience the next level of clean with our premium residential and commercial cleaning wizard.",
 };
 
+import { ThemeProvider } from "@/components/theme-provider"
+
+// ... imports
+
 export default function RootLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <body className={`${openSans.variable} font-opensans antialiased`}>
-                <main className="relative z-10 min-h-screen">
-                    {children}
-                </main>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <main className="relative z-10 min-h-screen">
+                        {children}
+                    </main>
+                </ThemeProvider>
             </body>
         </html>
     );

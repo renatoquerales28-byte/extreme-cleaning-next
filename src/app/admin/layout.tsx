@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 import Image from "next/image";
+import { ModeToggle } from "@/components/mode-toggle";
 
 import { FEATURE_FLAGS } from "@/lib/config/features";
 
@@ -30,17 +31,17 @@ export default function AdminLayout({
     ];
 
     return (
-        <div className="min-h-screen bg-[#F9F8F2] flex">
+        <div className="min-h-screen bg-background flex">
             {/* Sidebar */}
-            <aside className="w-64 bg-white border-r border-[#D1D5DB] flex flex-col">
-                <div className="p-6 border-b border-[#D1D5DB] flex justify-center">
+            <aside className="w-64 bg-white dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 flex flex-col transition-colors">
+                <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-center">
                     <div className="relative w-40 h-16">
                         <Image
                             src="/brand/logo-full.png"
                             alt="ECS Logo"
                             fill
                             priority
-                            className="object-contain"
+                            className="object-contain dark:brightness-0 dark:invert transition-all"
                         />
                     </div>
                 </div>
@@ -53,9 +54,9 @@ export default function AdminLayout({
                                 key={item.href}
                                 href={item.href}
                                 prefetch={true}
-                                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive
-                                    ? "bg-[#1C1C1C] text-white shadow-md"
-                                    : "text-[#4B5563] hover:bg-gray-100"
+                                className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-all ${isActive
+                                    ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900 shadow-md"
+                                    : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                                     }`}
                             >
                                 <span className="text-xl">{item.icon}</span>
@@ -65,10 +66,12 @@ export default function AdminLayout({
                     })}
                 </nav>
 
-                <div className="p-4 border-t border-[#D1D5DB]">
+
+                <div className="p-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
+                    <ModeToggle />
                     <button
                         onClick={() => signOut({ callbackUrl: "/admin/login" })}
-                        className="flex items-center gap-3 px-4 py-3 w-full text-left text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                        className="flex items-center gap-3 px-4 py-3 w-full text-left text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
                     >
                         <span className="text-xl">🚪</span>
                         <span className="font-medium">Sign Out</span>

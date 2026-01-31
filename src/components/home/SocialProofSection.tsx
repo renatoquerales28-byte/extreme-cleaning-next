@@ -36,15 +36,15 @@ export default function SocialProofSection() {
         // SECTION CONTAINER: Full Height (Frame), Background #F9F8F2
         <section className="w-full min-h-screen bg-[#F9F8F2] relative flex items-center overflow-hidden py-12 md:py-0">
 
-            {/* CONTAINER: Matches Hero Section Margins/Width */}
-            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 h-full flex flex-col md:flex-row gap-8 lg:gap-20 items-stretch justify-center">
+            {/* CONTAINER: Max width of 1700px to match Hero */}
+            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 h-full flex flex-col lg:flex-row gap-8 lg:gap-12 items-center justify-center">
 
-                {/* LEFT COLUMN: REVIEWS (Adapted Style) */}
-                <div className="w-full md:w-1/2 flex flex-col justify-center relative">
+                {/* LEFT COLUMN: REVIEWS (66.66% -> approx 8/12 cols) */}
+                <div className="w-full lg:w-8/12 flex flex-col justify-center relative">
 
                     {/* Header for Reviews */}
-                    <div className="mb-10 pl-4 border-l-4 border-[#024653]">
-                        <h3 className="text-4xl md:text-5xl font-light text-[#024653] mb-2">
+                    <div className="mb-8 md:mb-12 pl-4 border-l-4 border-[#024653]">
+                        <h3 className="text-3xl md:text-5xl font-light text-[#024653] mb-2 leading-tight">
                             What our <br /> <span className="font-black">Clients Say.</span>
                         </h3>
                         <div className="flex items-center gap-2">
@@ -55,20 +55,24 @@ export default function SocialProofSection() {
                         </div>
                     </div>
 
-                    {/* Marquee Container - Styled as Floating Cards */}
-                    <div className="relative w-full h-[500px] overflow-hidden mask-vertical-fade">
+                    {/* Horizontal Marquee Container */}
+                    <div className="relative w-full overflow-hidden mask-horizontal-fade">
                         <motion.div
-                            className="flex flex-col gap-6"
-                            animate={{ y: ["0%", "-50%"] }}
+                            className="flex gap-6 pl-4"
+                            animate={{ x: ["0%", "-50%"] }}
                             transition={{
                                 repeat: Infinity,
                                 ease: "linear",
-                                duration: 25
+                                duration: 40
                             }}
+                            style={{ width: "max-content" }}
                         >
                             {/* Duplicate list for loop */}
-                            {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, i) => (
-                                <div key={`${review.id}-${i}`} className="bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-md transition-shadow relative group">
+                            {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, i) => (
+                                <div
+                                    key={`${review.id}-${i}`}
+                                    className="bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-md transition-shadow relative group w-[350px] md:w-[450px] shrink-0"
+                                >
                                     <Quote className="absolute top-6 right-8 text-[#024653]/5 transform rotate-180 group-hover:scale-110 transition-transform" size={48} />
 
                                     <div className="flex items-center gap-4 mb-6">
@@ -81,51 +85,51 @@ export default function SocialProofSection() {
                                         </div>
                                     </div>
 
-                                    <p className="text-[#024653]/80 text-base font-light leading-relaxed italic relative z-10">
+                                    <p className="text-[#024653]/80 text-base font-light leading-relaxed italic relative z-10 line-clamp-4">
                                         &quot;{review.text}&quot;
                                     </p>
                                 </div>
                             ))}
                         </motion.div>
-                        {/* Soft Gradient Masks for "Airy" fade */}
-                        <div className="absolute top-0 left-0 w-full h-24 bg-gradient-to-b from-[#F9F8F2] to-transparent z-10" />
-                        <div className="absolute bottom-0 left-0 w-full h-24 bg-gradient-to-t from-[#F9F8F2] to-transparent z-10" />
+                        {/* Gradient Masks for Horizontal Fade */}
+                        <div className="absolute top-0 left-0 w-24 h-full bg-gradient-to-r from-[#F9F8F2] to-transparent z-10 pointer-events-none" />
+                        <div className="absolute top-0 right-0 w-24 h-full bg-gradient-to-l from-[#F9F8F2] to-transparent z-10 pointer-events-none" />
                     </div>
                 </div>
 
-                {/* RIGHT COLUMN: PROMO (Redesigned White/Shadow) */}
-                <div className="w-full md:w-1/2 flex flex-col justify-center items-center relative">
+                {/* RIGHT COLUMN: PROMO (33.33% -> approx 4/12 cols) */}
+                <div className="w-full lg:w-4/12 flex flex-col justify-center items-center lg:items-end relative">
 
                     <div className="w-full max-w-md space-y-6 relative z-10">
 
                         {/* Top Card: Timer & Hook (White Card) */}
-                        <div className="bg-white rounded-[2rem] p-8 flex items-center justify-between shadow-lg shadow-[#024653]/5 border border-white">
+                        <div className="bg-white rounded-[2rem] p-6 lg:p-8 flex items-center justify-between shadow-lg shadow-[#024653]/5 border border-white">
                             <div>
                                 <h4 className="font-black text-[#024653] text-lg uppercase tracking-tight mb-1">Winter Special</h4>
-                                <p className="text-sm text-[#024653]/70 font-medium">Limited Time Offer</p>
+                                <p className="text-sm text-[#024653]/70 font-medium whitespace-nowrap">Limited Offer</p>
                             </div>
-                            <div className="pl-6 border-l border-[#024653]/5">
+                            <div className="pl-4 lg:pl-6 border-l border-[#024653]/5">
                                 <CountdownTimer />
                             </div>
                         </div>
 
                         {/* Main Offer Card (White Card) */}
-                        <div className="bg-white rounded-[2.5rem] p-10 text-center shadow-xl shadow-[#024653]/5 border border-white relative overflow-hidden group">
+                        <div className="bg-white rounded-[2.5rem] p-8 lg:p-10 text-center shadow-xl shadow-[#024653]/5 border border-white relative overflow-hidden group">
 
                             {/* Subtle Hover Decoration */}
                             <div className="absolute top-0 right-0 w-32 h-32 bg-[#05D16E]/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-[#05D16E]/10 transition-colors" />
 
                             <div className="relative z-10">
                                 <span className="inline-block px-4 py-1.5 rounded-full bg-[#05D16E]/10 text-[#024653] text-[10px] font-black uppercase tracking-widest mb-6">
-                                    Exclusive Online Deal
+                                    Exclusive Deal
                                 </span>
 
                                 <h3 className="text-5xl font-light text-[#024653] mb-2 tracking-tight">
                                     15% <span className="font-black">OFF</span>
                                 </h3>
 
-                                <p className="text-base text-[#024653]/60 mb-10 font-medium max-w-xs mx-auto">
-                                    Book your first <strong>Deep Clean</strong> today and experience the difference.
+                                <p className="text-base text-[#024653]/60 mb-10 font-medium mx-auto">
+                                    Book your first <strong>Deep Clean</strong> today.
                                 </p>
 
                                 <Link
@@ -136,7 +140,7 @@ export default function SocialProofSection() {
                                 </Link>
 
                                 <p className="text-[10px] text-[#024653]/30 mt-6 font-bold uppercase tracking-widest">
-                                    *Valid for new residential customers only
+                                    100% Refundable if not used!
                                 </p>
                             </div>
                         </div>

@@ -7,7 +7,7 @@ export default async function LeadsTableWrapper() {
     if (error) {
         return (
             <div className="bg-red-50 text-red-600 p-4 rounded-lg border border-red-200">
-                Error loading leads. Please check your database connection.
+                Error loading leads: {typeof error === 'string' ? error : JSON.stringify(error)}
             </div>
         );
     }

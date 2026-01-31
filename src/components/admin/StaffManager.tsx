@@ -20,7 +20,7 @@ export default function StaffManager({ onUpdate }: { onUpdate?: () => void }) {
 
     const loadStaff = async () => {
         const res = await getStaff();
-        if (res.success) setStaff(res.data);
+        if (res.success) setStaff(res.data || []);
     };
 
     const handleAdd = async () => {

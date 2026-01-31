@@ -36,7 +36,7 @@ export default function CalendarPage() {
 
     const loadStaff = async () => {
         const res = await getStaff();
-        if (res.success) setStaff(res.data);
+        if (res.success) setStaff(res.data || []);
     };
 
     const handleBlockDate = async () => {

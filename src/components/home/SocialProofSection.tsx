@@ -37,7 +37,7 @@ export default function SocialProofSection() {
         <section className="w-full bg-[#F9F8F2] relative flex items-center overflow-hidden pt-8 pb-16 lg:pt-12 lg:pb-24">
 
             {/* CONTAINER: Max width of 1700px to match Hero */}
-            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-12 items-stretch justify-center">
+            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-20 items-stretch justify-center">
 
                 {/* LEFT COLUMN: REVIEWS (60% -> 3/5 cols) - NOW ENCLOSED IN WHITE CARD */}
                 <div className="w-full lg:col-span-3 flex flex-col justify-center relative">
@@ -74,7 +74,7 @@ export default function SocialProofSection() {
                                 {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, i) => (
                                     <div
                                         key={`${review.id}-${i}`}
-                                        className="bg-[#F3F6F6] p-8 rounded-[2rem] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative group w-[350px] md:w-[450px] shrink-0 border border-transparent hover:border-[#024653]/5"
+                                        className="bg-[#F9F8F2] p-8 rounded-[2rem] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative group w-[350px] md:w-[450px] shrink-0 border border-transparent hover:border-[#024653]/5"
                                     >
                                         <Quote className="absolute top-6 right-8 text-[#024653]/5 transform rotate-180 group-hover:scale-110 transition-transform" size={48} />
 
@@ -118,17 +118,14 @@ export default function SocialProofSection() {
                         </div>
 
                         {/* Main Offer Card (White Card) */}
-                        <div className="bg-white rounded-[2.5rem] p-8 lg:p-10 text-center shadow-xl shadow-[#024653]/5 border border-white relative overflow-hidden group flex-grow flex flex-col justify-center">
-
-                            {/* Subtle Hover Decoration */}
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-[#05D16E]/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-[#05D16E]/10 transition-colors" />
+                        <div className="bg-white rounded-[2.5rem] p-8 lg:p-10 text-center shadow-xl shadow-[#024653]/5 border border-white relative overflow-hidden group flex-grow flex-col justify-center">
 
                             <div className="relative z-10">
                                 <span className="inline-block px-4 py-1.5 rounded-full bg-[#05D16E]/10 text-[#024653] text-[10px] font-black uppercase tracking-widest mb-6">
                                     Exclusive Deal
                                 </span>
 
-                                <h3 className="text-5xl font-light text-[#024653] mb-2 tracking-tight">
+                                <h3 className="text-5xl font-normal text-[#024653] mb-2 tracking-tight">
                                     15% <span className="font-black">OFF</span>
                                 </h3>
 

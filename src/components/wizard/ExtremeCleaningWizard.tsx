@@ -104,12 +104,12 @@ function WizardContent() {
     }, []);
     const totalPrice = calculateTotal(data, pricingConfig);
 
+    const [returningData, setReturningData] = React.useState<{ customer: any; properties: any[] } | null>(null);
+
     // Guard against undefined stepConfig
     if (!stepConfig) return null;
 
     const CurrentStepComponent = stepConfig.component;
-
-    const [returningData, setReturningData] = React.useState<{ customer: any; properties: any[] } | null>(null);
 
     // Handlers
     const handleReturningFound = (res: any) => {

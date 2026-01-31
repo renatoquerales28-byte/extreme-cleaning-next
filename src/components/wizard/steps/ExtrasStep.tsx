@@ -15,7 +15,10 @@ interface ExtrasStepProps {
 export default function ExtrasStep({ onNext }: ExtrasStepProps) {
     const { watch, setValue } = useFormContext<WizardData>();
     const { setAction } = useWizardAction();
-    const selectedExtras = watch("extras") || [];
+    const extras = watch("extras");
+    // Serialize to ensure deep comparison stability and avoid linter warnings
+    const extrasJson = JSON.stringify(extras || []);
+    const selectedExtras = React.useMemo(() => JSON.parse(extrasJson), [extrasJson]);
 
     const toggleExtra = (id: string) => {
         const current = [...selectedExtras];

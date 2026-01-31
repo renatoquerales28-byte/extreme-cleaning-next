@@ -8,7 +8,7 @@ export const dynamic = 'force-dynamic';
 export default function ClientsPage() {
     return (
         <div>
-            <h1 className="text-3xl font-serif text-[#1C1C1C] mb-8">Clients & History</h1>
+            <h1 className="text-3xl font-serif text-[#1C1C1C] dark:text-white mb-8">Clients & History</h1>
             <Suspense fallback={<Loading />}>
                 <ClientsTableWrapper />
             </Suspense>

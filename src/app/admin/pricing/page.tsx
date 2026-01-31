@@ -20,7 +20,7 @@ export default async function PricingPage() {
 
     return (
         <div>
-            <h1 className="text-3xl font-serif text-[#1C1C1C] mb-8">Pricing Configuration</h1>
+            <h1 className="text-3xl font-serif text-[#1C1C1C] dark:text-white mb-8">Pricing Configuration</h1>
             <PricingContent initialConfigs={initialConfigs} />
         </div>
     );

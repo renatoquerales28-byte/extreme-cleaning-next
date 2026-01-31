@@ -34,48 +34,48 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
 
     return (
         <>
-            <div className="bg-white rounded-xl shadow-sm border border-[#D1D5DB] overflow-hidden">
+            <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 overflow-hidden transition-colors">
                 <div className="overflow-x-auto">
                     <table className="w-full text-left">
-                        <thead className="bg-gray-50 border-b border-[#D1D5DB]">
+                        <thead className="bg-gray-50 dark:bg-slate-800/50 border-b border-slate-200 dark:border-slate-800">
                             <tr>
-                                <th className="px-6 py-4 font-medium text-[#4B5563]">Date</th>
-                                <th className="px-6 py-4 font-medium text-[#4B5563]">Contact</th>
-                                <th className="px-6 py-4 font-medium text-[#4B5563]">Service</th>
-                                <th className="px-6 py-4 font-medium text-[#4B5563]">Location</th>
-                                <th className="px-6 py-4 font-medium text-[#4B5563]">Price</th>
-                                <th className="px-6 py-4 font-medium text-[#4B5563]">Status</th>
-                                <th className="px-6 py-4 font-medium text-[#4B5563]">Actions</th>
+                                <th className="px-6 py-4 font-medium text-slate-600 dark:text-slate-400">Date</th>
+                                <th className="px-6 py-4 font-medium text-slate-600 dark:text-slate-400">Contact</th>
+                                <th className="px-6 py-4 font-medium text-slate-600 dark:text-slate-400">Service</th>
+                                <th className="px-6 py-4 font-medium text-slate-600 dark:text-slate-400">Location</th>
+                                <th className="px-6 py-4 font-medium text-slate-600 dark:text-slate-400">Price</th>
+                                <th className="px-6 py-4 font-medium text-slate-600 dark:text-slate-400">Status</th>
+                                <th className="px-6 py-4 font-medium text-slate-600 dark:text-slate-400">Actions</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-[#D1D5DB]">
+                        <tbody className="divide-y divide-slate-200 dark:divide-slate-800">
                             {leads && leads.length > 0 ? (
                                 leads.map((lead: any) => (
-                                    <tr key={lead.id} className="hover:bg-gray-50 transition-colors">
-                                        <td className="px-6 py-4 text-[#1C1C1C]">
+                                    <tr key={lead.id} className="hover:bg-gray-50 dark:hover:bg-slate-800/50 transition-colors">
+                                        <td className="px-6 py-4 text-slate-900 dark:text-slate-100">
                                             <div>{new Date(lead.createdAt).toLocaleDateString()}</div>
-                                            <div className="text-xs text-[#6B7280]">{new Date(lead.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
+                                            <div className="text-xs text-slate-500 dark:text-slate-500">{new Date(lead.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</div>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <div className="font-medium text-[#1C1C1C]">{lead.firstName} {lead.lastName}</div>
-                                            <div className="text-sm text-[#6B7280]">{lead.email}</div>
-                                            <div className="text-sm text-[#6B7280]">{lead.phone}</div>
+                                            <div className="font-medium text-slate-900 dark:text-slate-100">{lead.firstName} {lead.lastName}</div>
+                                            <div className="text-sm text-slate-500 dark:text-slate-500">{lead.email}</div>
+                                            <div className="text-sm text-slate-500 dark:text-slate-500">{lead.phone}</div>
                                         </td>
-                                        <td className="px-6 py-4 text-[#1C1C1C]">
+                                        <td className="px-6 py-4 text-slate-900 dark:text-slate-100">
                                             {lead.serviceType}
-                                            <div className="text-sm text-[#6B7280]">{lead.frequency}</div>
+                                            <div className="text-sm text-slate-500 dark:text-slate-500">{lead.frequency}</div>
                                         </td>
-                                        <td className="px-6 py-4 text-[#1C1C1C]">
+                                        <td className="px-6 py-4 text-slate-900 dark:text-slate-100">
                                             <div className="font-medium">{lead.details?.address || "No Address Provided"}</div>
-                                            <div className="text-sm text-[#6B7280]">{lead.details?.zipCode || "N/A"} {lead.details?.city || ""}</div>
+                                            <div className="text-sm text-slate-500 dark:text-slate-500">{lead.details?.zipCode || "N/A"} {lead.details?.city || ""}</div>
                                         </td>
-                                        <td className="px-6 py-4 font-semibold text-[#0891B2]">
+                                        <td className="px-6 py-4 font-semibold text-[#0891B2] dark:text-[#22d3ee]">
                                             ${lead.totalPrice}
                                         </td>
                                         <td className="px-6 py-4">
-                                            <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${lead.status === 'new' ? 'bg-blue-100 text-blue-700' :
-                                                lead.status === 'contacted' ? 'bg-yellow-100 text-yellow-700' :
-                                                    'bg-green-100 text-green-700'
+                                            <span className={`inline-flex px-3 py-1 rounded-full text-xs font-semibold ${lead.status === 'new' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' :
+                                                lead.status === 'contacted' ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-300' :
+                                                    'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300'
                                                 }`}>
                                                 {lead.status.toUpperCase()}
                                             </span>
@@ -83,7 +83,7 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                                         <td className="px-6 py-4">
                                             <button
                                                 onClick={() => setSelectedLead(lead)}
-                                                className="p-2 hover:bg-gray-100 rounded-full text-gray-500 hover:text-[#1C1C1C] transition-colors"
+                                                className="p-2 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-full text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
                                                 title="View Full Details"
                                             >
                                                 <Eye size={20} />
@@ -93,7 +93,7 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                                 ))
                             ) : (
                                 <tr>
-                                    <td colSpan={7} className="px-6 py-12 text-center text-[#6B7280]">
+                                    <td colSpan={7} className="px-6 py-12 text-center text-slate-500 dark:text-slate-400">
                                         No leads found yet.
                                     </td>
                                 </tr>

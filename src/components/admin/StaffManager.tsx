@@ -47,17 +47,18 @@ export default function StaffManager({ onUpdate }: { onUpdate?: () => void }) {
     };
 
     return (
-        <div className="bg-white p-6 rounded-xl shadow-sm border border-[#D1D5DB]">
-            <h3 className="text-sm font-bold text-[#1C1C1C] flex items-center gap-2 mb-4">
-                <Users size={16} className="text-[#024653]" /> Staff / Teams
+    return (
+        <div className="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors">
+            <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
+                <Users size={16} className="text-[#024653] dark:text-[#22d3ee]" /> Staff / Teams
             </h3>
 
             <div className="space-y-3 mb-4">
                 {staff.map((member) => (
-                    <div key={member.id} className="flex items-center justify-between p-2 hover:bg-slate-50 rounded-lg group">
+                    <div key={member.id} className="flex items-center justify-between p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg group transition-colors">
                         <div className="flex items-center gap-3">
                             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: member.color }} />
-                            <span className="text-sm font-medium text-slate-700">{member.name}</span>
+                            <span className="text-sm font-medium text-slate-700 dark:text-slate-200">{member.name}</span>
                         </div>
                         <button
                             onClick={() => handleDelete(member.id)}
@@ -69,23 +70,23 @@ export default function StaffManager({ onUpdate }: { onUpdate?: () => void }) {
                 ))}
             </div>
 
-            <div className="flex gap-2 items-center border-t pt-4">
+            <div className="flex gap-2 items-center border-t border-slate-100 dark:border-slate-800 pt-4">
                 <input
                     placeholder="New Team Name"
                     value={newName}
                     onChange={(e) => setNewName(e.target.value)}
-                    className="flex-1 text-sm border rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#05D16E]"
+                    className="flex-1 text-sm border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 dark:text-white rounded-lg px-3 py-2 outline-none focus:ring-1 focus:ring-[#05D16E]"
                 />
                 <input
                     type="color"
                     value={newColor}
                     onChange={(e) => setNewColor(e.target.value)}
-                    className="w-8 h-9 p-0 border-none rounded cursor-pointer"
+                    className="w-8 h-9 p-0 border-none rounded cursor-pointer bg-transparent"
                 />
                 <button
                     onClick={handleAdd}
                     disabled={loading || !newName}
-                    className="bg-[#024653] text-white p-2 rounded-lg hover:bg-[#023641] disabled:opacity-50"
+                    className="bg-[#024653] dark:bg-[#0E6168] text-white p-2 rounded-lg hover:bg-[#023641] dark:hover:bg-[#0a484d] disabled:opacity-50 transition-colors"
                 >
                     <Plus size={18} />
                 </button>

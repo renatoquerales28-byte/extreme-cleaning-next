@@ -37,7 +37,7 @@ export default function SocialProofSection() {
         <section className="w-full bg-[#F9F8F2] relative flex items-center overflow-hidden pt-8 pb-16 lg:pt-12 lg:pb-24">
 
             {/* CONTAINER: Max width of 1700px to match Hero */}
-            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch justify-center">
+            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-8 items-stretch justify-center">
 
                 {/* LEFT COLUMN: REVIEWS (60% -> 3/5 cols) - NOW ENCLOSED IN WHITE CARD */}
                 <div className="w-full lg:col-span-3 flex flex-col justify-center relative">

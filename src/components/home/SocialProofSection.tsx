@@ -2,10 +2,10 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Star, ChevronRight, Gift, Clock, Bell, Quote } from "lucide-react";
+import { Star, ChevronLeft, ChevronRight, Gift, Clock, Bell, Quote } from "lucide-react";
 import { GOOGLE_REVIEWS } from "@/lib/data/reviews_mock";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 function CountdownTimer() {
     const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutes in seconds
@@ -31,6 +31,88 @@ function CountdownTimer() {
     );
 }
 
+// Internal Component for the Carousel Logic
+function ReviewCarousel() {
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    // Auto-advance logic
+    useEffect(() => {
+        const interval = setInterval(() => {
+            handleNext();
+        }, 5000); // 5 seconds per slide
+        return () => clearInterval(interval);
+    }, [activeIndex]);
+
+    // Event Listeners for Custom Navigation
+    useEffect(() => {
+        const onNext = () => handleNext();
+        const onPrev = () => handlePrev();
+
+        window.addEventListener('next-review', onNext);
+        window.addEventListener('prev-review', onPrev);
+
+        return () => {
+            window.removeEventListener('next-review', onNext);
+            window.removeEventListener('prev-review', onPrev);
+        };
+    }, [activeIndex]);
+
+    const handleNext = () => {
+        setActiveIndex((prev) => (prev + 1) % GOOGLE_REVIEWS.length);
+    };
+
+    const handlePrev = () => {
+        setActiveIndex((prev) => (prev - 1 + GOOGLE_REVIEWS.length) % GOOGLE_REVIEWS.length);
+    };
+
+    return (
+        <div className="flex gap-6 items-center transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${activeIndex * 320}px)` }} // Adjust width multiplier as needed
+        >
+            {GOOGLE_REVIEWS.map((review, i) => (
+                <div
+                    key={`${review.id}-${i}`}
+                    className={`
+                        shrink-0 w-[300px] bg-[#085560] p-8 rounded-[2rem] shadow-sm relative group border border-transparent transition-all duration-300
+                        ${i === activeIndex ? 'opacity-100 scale-100' : 'opacity-50 scale-95 blur-[1px]'}
+                    `}
+                >
+                    <Quote className="absolute top-6 right-8 text-white/10 transform rotate-180" size={40} />
+
+                    <p className="text-white/90 text-sm md:text-base font-light leading-relaxed italic relative z-10 line-clamp-4 h-[100px] mb-6">
+                        &quot;{review.text}&quot;
+                    </p>
+
+                    <div className="flex items-center gap-4">
+                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#024653] font-black text-sm shadow-sm">
+                            {review.name.charAt(0)}
+                        </div>
+                        <div>
+                            <h4 className="font-bold text-white text-sm">{review.name}</h4>
+                            <span className="text-[9px] text-[#05D16E] font-bold uppercase tracking-widest">{review.date}</span>
+                        </div>
+                    </div>
+
+                    {/* Speech Bubble Tail */}
+                    <div className="absolute -bottom-2 left-12 w-4 h-4 bg-[#085560] rotate-45 transform" />
+                </div>
+            ))}
+            {/* Duplicates for infinite feel if desired, but here we just loop index logic */}
+        </div>
+    );
+}
+
+function CarouselControl({ direction, onClick }: { direction: 'prev' | 'next', onClick: () => void }) {
+    return (
+        <button
+            onClick={onClick}
+            className="w-10 h-10 rounded-full border border-[#024653]/10 flex items-center justify-center text-[#024653] hover:bg-[#024653] hover:text-white transition-all active:scale-95"
+        >
+            {direction === 'prev' ? <ChevronLeft size={18} /> : <ChevronRight size={18} />}
+        </button>
+    );
+}
+
 export default function SocialProofSection() {
     return (
         // SECTION CONTAINER: Adjusted spacing (reduced top padding), Background #F9F8F2
@@ -39,72 +121,57 @@ export default function SocialProofSection() {
             {/* CONTAINER: Max width of 1700px to match Hero */}
             <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-3 items-stretch justify-center">
 
-                {/* LEFT COLUMN: REVIEWS (60% -> 3/5 cols) - NOW ENCLOSED IN WHITE CARD */}
-                <div className="w-full lg:col-span-3 flex flex-col justify-center relative">
+                {/* LEFT COLUMN: REVIEWS - CAROUSEL REDESIGN */}
+                <div className="w-full lg:col-span-3">
 
-                    {/* NEW MODULAR CONTAINER */}
-                    <div className="bg-white rounded-[2.5rem] p-8 lg:p-12 shadow-xl shadow-[#024653]/5 border border-white h-full flex flex-col justify-center relative overflow-hidden">
+                    {/* MODULAR CONTAINER */}
+                    <div className="bg-white rounded-[2.5rem] shadow-xl shadow-[#024653]/5 border border-white h-full relative overflow-hidden flex items-center">
 
-                        {/* Header for Reviews */}
-                        <div className="mb-8 md:mb-12 pl-4 border-l-4 border-[#024653] relative z-10">
-                            <h3 className="text-3xl md:text-5xl font-light text-[#024653] mb-2 leading-tight">
-                                What our <br /> <span className="font-black">Clients Say.</span>
-                            </h3>
-                            <div className="flex items-center gap-2">
-                                <div className="flex text-[#F4B400]">
-                                    {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} fill="currentColor" />)}
+                        {/* 1. MIST OVERLAY & TITLE (Fixed Left Layer) */}
+                        <div className="absolute left-0 top-0 bottom-0 w-[90%] md:w-[60%] lg:w-[45%] bg-gradient-to-r from-white via-white/95 to-transparent z-20 flex flex-col justify-center pl-8 lg:pl-12 pr-12 pointer-events-none">
+                            <div className="pointer-events-auto"> {/* Make interactive contents clickable */}
+                                <Quote className="text-[#024653]/10 mb-6 transform rotate-180" size={60} />
+
+                                <h3 className="text-3xl md:text-5xl font-light text-[#024653] mb-4 leading-tight">
+                                    What our <br /> <span className="font-black">Clients Say.</span>
+                                </h3>
+
+                                <div className="flex items-center gap-3 mb-8">
+                                    <div className="flex text-[#F4B400]">
+                                        {[1, 2, 3, 4, 5].map(i => <Star key={i} size={18} fill="currentColor" />)}
+                                    </div>
+                                    <span className="text-sm font-bold text-[#024653]">5.0 on Google</span>
                                 </div>
-                                <span className="text-sm font-medium text-[#024653]/60">5.0 on Google</span>
+
+                                {/* Custom Navigation Controls */}
+                                <div className="flex items-center gap-4">
+                                    <CarouselControl
+                                        direction="prev"
+                                        onClick={() => window.dispatchEvent(new CustomEvent('prev-review'))}
+                                    />
+                                    <div className="h-[2px] w-16 bg-[#024653]/10 rounded-full overflow-hidden">
+                                        <div className="h-full bg-[#05D16E] w-1/3 animate-pulse" /> {/* Progress bar simulation */}
+                                    </div>
+                                    <CarouselControl
+                                        direction="next"
+                                        onClick={() => window.dispatchEvent(new CustomEvent('next-review'))}
+                                    />
+                                </div>
                             </div>
                         </div>
 
-                        {/* Horizontal Marquee Container */}
-                        <div className="relative w-full overflow-hidden mask-horizontal-fade -mx-4 px-4 py-8"> {/* Negative margin to allow shadow bleed, py for hover space */}
-                            <motion.div
-                                className="flex gap-6 pl-4"
-                                animate={{ x: ["0%", "-50%"] }}
-                                transition={{
-                                    repeat: Infinity,
-                                    ease: "linear",
-                                    duration: 40
-                                }}
-                                style={{ width: "max-content" }}
-                            >
-                                {/* Duplicate list for loop */}
-                                {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, i) => (
-                                    <div
-                                        key={`${review.id}-${i}`}
-                                        className="bg-[#085560] p-8 rounded-[2rem] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative group w-[350px] md:w-[450px] shrink-0 border border-transparent hover:border-[#05D16E]/20"
-                                    >
-                                        <Quote className="absolute top-6 right-8 text-white/10 transform rotate-180 group-hover:scale-110 transition-transform" size={48} />
-
-                                        <div className="flex items-center gap-4 mb-6">
-                                            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[#024653] font-black text-lg shadow-sm">
-                                                {review.name.charAt(0)}
-                                            </div>
-                                            <div>
-                                                <h4 className="font-bold text-white text-sm md:text-base">{review.name}</h4>
-                                                <span className="text-[10px] text-[#05D16E] font-bold uppercase tracking-widest">{review.date}</span>
-                                            </div>
-                                        </div>
-
-                                        <p className="text-white/80 text-base font-light leading-relaxed italic relative z-10 line-clamp-4">
-                                            &quot;{review.text}&quot;
-                                        </p>
-                                    </div>
-                                ))}
-                            </motion.div>
-                            {/* Gradient Masks for Horizontal Fade - Adjusted to match white BG */}
-                            <div className="absolute top-0 left-0 w-16 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
-                            <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+                        {/* 2. CAROUSEL TRACK (Sliding Layer) */}
+                        <div className="w-full h-full flex items-center lg:pl-[40%] pl-[20%]">
+                            <ReviewCarousel />
                         </div>
+
                     </div>
                 </div>
 
                 {/* RIGHT COLUMN: PROMO (40% -> 2/5 cols) */}
                 <div className="w-full lg:col-span-2 flex flex-col justify-center items-center lg:items-end relative h-full">
 
-                    <div className="w-full max-w-md space-y-6 relative z-10 flex flex-col h-full justify-center">
+                    <div className="w-full max-w-md space-y-4 relative z-10 flex flex-col h-full justify-center">
 
                         {/* Top Card: Timer & Hook (White Card) */}
                         <div className="bg-white rounded-[2rem] p-6 lg:p-8 flex items-center justify-between shadow-lg shadow-[#024653]/5 border border-white">

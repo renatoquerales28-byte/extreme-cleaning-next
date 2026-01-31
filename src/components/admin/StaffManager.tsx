@@ -47,7 +47,6 @@ export default function StaffManager({ onUpdate }: { onUpdate?: () => void }) {
     };
 
     return (
-    return (
         <div className="bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 transition-colors">
             <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
                 <Users size={16} className="text-[#024653] dark:text-[#22d3ee]" /> Staff / Teams

@@ -23,7 +23,7 @@ export default function CalendarSettingsModal() {
         const res = await getCalendarSettings();
         if (res.success) {
             // Sort by valid day index if needed, though usually 0-6
-            setSettings(res.data.sort((a: any, b: any) => a.dayOfWeek - b.dayOfWeek));
+            setSettings((res.data || []).sort((a: any, b: any) => a.dayOfWeek - b.dayOfWeek));
         }
         setLoading(false);
     };

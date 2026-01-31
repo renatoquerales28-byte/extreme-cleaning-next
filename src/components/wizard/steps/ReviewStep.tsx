@@ -230,6 +230,23 @@ export default function ReviewStep({ onNext, onEditStep }: ReviewStepProps) {
                             <p className="text-xs text-[#024653]/60">{data.phone}</p>
                         </Section>
 
+                        {data.extras && data.extras.length > 0 && (
+                            <Section title="Premium Extras" icon={Sparkles} stepId="extras" onEdit={onEditStep}>
+                                <div className="flex flex-wrap gap-2 pt-1">
+                                    {data.extras.map(id => {
+                                        const { EXTRAS_LIST } = require("@/lib/utils/pricing");
+                                        const extra = EXTRAS_LIST.find((e: any) => e.id === id);
+                                        return extra ? (
+                                            <div key={id} className="px-3 py-1 bg-[#05D16E]/10 rounded-full border border-[#05D16E]/20 text-[10px] font-black text-[#024653] uppercase tracking-wider flex items-center gap-1.5">
+                                                <span>{extra.icon}</span>
+                                                {extra.label}
+                                            </div>
+                                        ) : null;
+                                    })}
+                                </div>
+                            </Section>
+                        )}
+
                         {/* Total */}
                         <div className="bg-[#024653] p-8 rounded-[2rem] text-center text-white space-y-2 shadow-xl shadow-[#024653]/20 relative overflow-hidden">
                             <p className="text-[10px] font-black uppercase tracking-widest opacity-60">Estimated Total</p>

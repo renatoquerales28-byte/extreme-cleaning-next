@@ -7,12 +7,13 @@ import { useWizardAction } from "../WizardActionContext";
 import { Building, MapPin } from "lucide-react";
 
 interface PropertySelectionStepProps {
-    onSelect: (propertyId: number) => void;
+    onSelect: (prop: any) => void;
     onBack: () => void;
     customerName: string;
+    properties: any[];
 }
 
-export default function PropertySelectionStep({ onSelect, onBack, customerName }: PropertySelectionStepProps) {
+export default function PropertySelectionStep({ onSelect, onBack, customerName, properties }: PropertySelectionStepProps) {
     const { setAction } = useWizardAction();
 
     useEffect(() => {
@@ -38,11 +39,6 @@ export default function PropertySelectionStep({ onSelect, onBack, customerName }
             )
         } as any); // Type cast until I update the interface
     }, [onBack, customerName, setAction]);
-
-    const properties = [
-        { id: 1, address: "123 Ocean Drive", city: "Miami Beach, FL" },
-        { id: 2, address: "450 Brickell Ave", city: "Miami, FL" },
-    ];
 
     return (
         <div className="h-full w-full relative flex flex-col">

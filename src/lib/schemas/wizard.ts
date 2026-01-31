@@ -58,6 +58,7 @@ export const wizardSchema = z.object({
     totalPrice: z.number().optional(),
     leadId: z.union([z.number(), z.string()]).optional(),
     mode: z.string().optional(), // 'returning' or other modes
+    extras: z.array(z.string()).default([]), // Selected add-on services IDs
 });
 
 export type WizardData = z.infer<typeof wizardSchema>;

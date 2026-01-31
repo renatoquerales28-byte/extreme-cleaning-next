@@ -14,6 +14,7 @@ export default async function PricingPage() {
             { id: 2, key: 'base_price_deep_clean', value: 250, description: 'Base price for deep cleaning' },
             { id: 3, key: 'price_per_sqft', value: 0.15, description: 'Price per square foot' },
             { id: 4, key: 'price_per_bedroom', value: 20, description: 'Price per bedroom' },
+            { id: 5, key: 'max_capacity_per_day', value: 3, description: 'Maximum number of bookings allowed per day' },
         ];
     }
 

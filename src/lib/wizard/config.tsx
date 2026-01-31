@@ -18,6 +18,7 @@ import SuccessStep from '@/components/wizard/steps/SuccessStep';
 import ReturningLookupStep from '@/components/wizard/steps/ReturningLookupStep';
 import PropertySelectionStep from '@/components/wizard/steps/PropertySelectionStep';
 import QuickConfigStep from '@/components/wizard/steps/QuickConfigStep';
+import ExtrasStep from '@/components/wizard/steps/ExtrasStep';
 
 export type StepId =
     | 'zip'
@@ -26,6 +27,7 @@ export type StepId =
     | 'residential_details'
     | 'commercial_details'
     | 'pm_details'
+    | 'extras'
     | 'frequency'
     | 'quote'
     | 'price'
@@ -98,7 +100,7 @@ export const WIZARD_FLOW: Record<StepId, WizardStepConfig> = {
         title: "Tell us about",
         accent: "Your Space.",
         description: "Customize your cleaning plan for a perfect fit.",
-        next: () => 'frequency',
+        next: () => 'extras',
         guard: (data) => data.serviceType === 'residential',
         safeFallback: 'service'
     },
@@ -108,7 +110,7 @@ export const WIZARD_FLOW: Record<StepId, WizardStepConfig> = {
         title: "Commercial",
         accent: "Specs.",
         description: "Tell us about your facility size.",
-        next: () => 'frequency',
+        next: () => 'extras',
         guard: (data) => data.serviceType === 'commercial',
         safeFallback: 'service'
     },
@@ -118,9 +120,17 @@ export const WIZARD_FLOW: Record<StepId, WizardStepConfig> = {
         title: "Property",
         accent: "Management.",
         description: "Volume pricing for pros.",
-        next: () => 'frequency',
+        next: () => 'extras',
         guard: (data) => data.serviceType === 'property_mgmt',
         safeFallback: 'service'
+    },
+    extras: {
+        id: 'extras',
+        component: ExtrasStep,
+        title: "Want some",
+        accent: "Extras?",
+        description: "Add premium services to your cleaning plan.",
+        next: () => 'frequency',
     },
     frequency: {
         id: 'frequency',
@@ -218,6 +228,6 @@ export const INITIAL_STEP: StepId = 'zip';
 
 // Helper to get linear index for progress bar (approximate for linear steps)
 export const STEP_ORDER: StepId[] = [
-    'zip', 'service', 'cleaning_type', 'residential_details',
+    'zip', 'service', 'cleaning_type', 'residential_details', 'extras',
     'frequency', 'quote', 'price', 'date', 'address', 'review', 'success'
 ];

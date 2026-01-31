@@ -19,12 +19,21 @@ export default function ReturningLookupStep({ onBack, onFound }: ReturningLookup
 
     const handleSearch = useCallback(async () => {
         setLoading(true);
-        // Simulate API
-        setTimeout(() => {
+        try {
+            const { findCustomerByPhone } = await import("@/app/actions/admin");
+            const res = await findCustomerByPhone(phone);
+
+            if (res.success) {
+                onFound(res);
+            } else {
+                import("sonner").then(({ toast }) => toast.error(res.error || "No profile found"));
+            }
+        } catch (err) {
+            console.error(err);
+        } finally {
             setLoading(false);
-            onFound({ name: "John Doe", properties: [1, 2] });
-        }, 1500);
-    }, [onFound]);
+        }
+    }, [phone, onFound]);
 
     useEffect(() => {
         setAction({

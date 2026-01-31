@@ -227,3 +227,53 @@ export async function resolveSupportRequest(id: number) {
         return { success: false, error: "Failed to resolve support request" };
     }
 }
+
+export async function findCustomerByPhone(phone: string) {
+    try {
+        // Clean phone number for better matching
+        const cleanPhone = phone.replace(/\D/g, '');
+        if (cleanPhone.length < 10) return { success: false, error: "Invalid phone" };
+
+        const results = await db.select()
+            .from(leads)
+            .where(sql`REPLACE(REPLACE(REPLACE(REPLACE(${leads.phone}, ' ', ''), '-', ''), '(', ''), ')', '') LIKE ${'%' + cleanPhone + '%'}`)
+            .orderBy(desc(leads.createdAt))
+            .limit(50);
+
+        if (results.length === 0) return { success: false, error: "No customer found" };
+
+        // Aggregate unique properties found for this customer
+        const propertiesMap = new Map();
+        results.forEach(lead => {
+            const details = lead.details as any;
+            if (details?.address) {
+                const key = `${details.address}-${details.zipCode}`.toLowerCase();
+                if (!propertiesMap.has(key)) {
+                    propertiesMap.set(key, {
+                        address: details.address,
+                        city: details.city || "Spokane",
+                        zipCode: details.zipCode,
+                        bedrooms: details.bedrooms,
+                        bathrooms: details.bathrooms,
+                        sqFt: details.sqFt,
+                        serviceType: lead.serviceType
+                    });
+                }
+            }
+        });
+
+        return {
+            success: true,
+            customer: {
+                firstName: results[0].firstName,
+                lastName: results[0].lastName,
+                email: results[0].email,
+                phone: results[0].phone
+            },
+            properties: Array.from(propertiesMap.values())
+        };
+    } catch (error) {
+        console.error("Search error:", error);
+        return { success: false, error: "Database search failed" };
+    }
+}

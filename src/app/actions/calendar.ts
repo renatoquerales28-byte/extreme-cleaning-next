@@ -1,8 +1,8 @@
 "use server";
 
 import { db } from "@/lib/db";
-import { leads, calendarSettings, blockedDates } from "@/lib/db/schema";
-import { eq, and, gte, lte, inArray } from "drizzle-orm";
+import { leads, calendarSettings, blockedDates, pricingConfig } from "@/lib/db/schema";
+import { eq, and, gte, lte, inArray, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { addHours, format, startOfMonth, endOfMonth, getDay, parse, isSameDay } from "date-fns";
 
@@ -127,15 +127,43 @@ export async function getAvailableSlots(date: Date) {
 
         const { startTime, endTime } = settings[0];
 
-        // 3. Generate slots (hourly for now)
+        // 3. Get Capacity from Config (Default 3)
+        const pricingRes = await db.select().from(pricingConfig).where(eq(pricingConfig.key, 'max_capacity_per_day'));
+        const MAX_BOOKINGS_PER_DAY = pricingRes.length > 0 ? pricingRes[0].value : 3;
+
+        // 4. Check Capacity
+        // Normalize date to start and end of day for comparison
+        const startOfDay = new Date(date);
+        startOfDay.setHours(0, 0, 0, 0);
+        const endOfDay = new Date(date);
+        endOfDay.setHours(23, 59, 59, 999);
+
+        const existingBookingsCount = await db.select({ count: sql<number>`count(*)` })
+            .from(leads)
+            .where(and(
+                gte(leads.serviceDate, startOfDay),
+                lte(leads.serviceDate, endOfDay)
+            ));
+
+        const count = existingBookingsCount[0].count;
+        if (count >= MAX_BOOKINGS_PER_DAY) {
+            return {
+                success: true,
+                slots: [],
+                reason: `Fully Booked (Daily capacity of ${MAX_BOOKINGS_PER_DAY} reached)`
+            };
+        }
+
+        // 5. Generate slots (hourly)
         const slots = [];
         let current = parse(startTime, "HH:mm", date);
         const end = parse(endTime, "HH:mm", date);
 
-        // Fetch bookings for this day to exclude taken slots
-        // Note: Ideally we'd filter by exact timestamp range, but for simplicity let's assume serviceTime string match for now
-        // A more robust system would calculate duration.
-        const bookings = await db.select().from(leads).where(eq(leads.serviceDate, date));
+        // Fetch bookings for this day to exclude exact taken slots
+        const bookings = await db.select().from(leads).where(and(
+            gte(leads.serviceDate, startOfDay),
+            lte(leads.serviceDate, endOfDay)
+        ));
         const takenTimes = new Set(bookings.map(b => b.serviceTime));
 
         while (current < end) {

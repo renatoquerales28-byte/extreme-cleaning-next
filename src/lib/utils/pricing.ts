@@ -18,8 +18,22 @@ export const DEFAULT_PRICING = {
     multiplier_post_construction: 2.0,
     commercial_min: 150,
     commercial_sq_ft_rate: 0.12,
-    property_mgmt_flat: 120
+    property_mgmt_flat: 120,
+    // Extras
+    extra_oven: 35,
+    extra_fridge: 30,
+    extra_windows: 50,
+    extra_cabinets: 40,
+    extra_pets: 25,
 };
+
+export const EXTRAS_LIST = [
+    { id: "oven", label: "Oven Interior", icon: "🍳", priceKey: "extra_oven" },
+    { id: "fridge", label: "Fridge Interior", icon: "🧊", priceKey: "extra_fridge" },
+    { id: "windows", label: "Interior Windows", icon: "🪟", priceKey: "extra_windows" },
+    { id: "cabinets", label: "Inside Cabinets", icon: "📂", priceKey: "extra_cabinets" },
+    { id: "pets", label: "Pet Surcharge", icon: "🐾", priceKey: "extra_pets" },
+] as const;
 
 export type PricingConfig = typeof DEFAULT_PRICING;
 
@@ -53,6 +67,17 @@ export const calculateTotal = (data: WizardData, config: Partial<PricingConfig> 
     } else if (data.serviceType === "property_mgmt") {
         const count = data.propertyCount || 1;
         total = p.property_mgmt_flat * count;
+    }
+
+    // Add Extras
+    if (data.extras && data.extras.length > 0) {
+        data.extras.forEach(extraId => {
+            const extraInfo = EXTRAS_LIST.find(e => e.id === extraId);
+            if (extraInfo) {
+                const price = (p as any)[extraInfo.priceKey] || 0;
+                total += price;
+            }
+        });
     }
 
     return Math.round(total);

@@ -109,16 +109,32 @@ function WizardContent() {
 
     const CurrentStepComponent = stepConfig.component;
 
+    const [returningData, setReturningData] = React.useState<{ customer: any; properties: any[] } | null>(null);
+
     // Handlers
-    const handleReturningFound = () => {
+    const handleReturningFound = (res: any) => {
+        setReturningData(res);
+        setValue("firstName", res.customer.firstName);
+        setValue("lastName", res.customer.lastName);
+        setValue("email", res.customer.email);
+        setValue("phone", res.customer.phone);
         goNext();
     };
 
-    const handlePropertySelect = (id: number) => {
-        if (id === 0) {
+    const handlePropertySelect = (prop: any) => {
+        if (prop === 0) {
+            // New Property for existing customer
             setValue("serviceType", "residential");
             goToStep("service");
         } else {
+            // Pre-fill found property
+            setValue("address", prop.address);
+            setValue("city", prop.city);
+            setValue("zipCode", prop.zipCode);
+            setValue("bedrooms", prop.bedrooms || 1);
+            setValue("bathrooms", prop.bathrooms || 1);
+            setValue("sqFt", prop.sqFt || 1000);
+            setValue("serviceType", prop.serviceType || "residential");
             goNext();
         }
     };
@@ -216,6 +232,9 @@ function WizardContent() {
                             onEditStep={(id: StepId) => goToStep(id)}
                             totalPrice={totalPrice}
                             onSubmit={goNext}
+                            // Returning Customer props
+                            properties={returningData?.properties || []}
+                            customerName={returningData?.customer?.firstName || "Customer"}
                         />
                     </motion.div>
                 </AnimatePresence>
@@ -230,6 +249,8 @@ function WizardContent() {
 
 function WizardFooter({ onHelp }: { onHelp: () => void }) {
     const { action } = useWizardAction();
+    const hideMain = (action as any)?.hideMainButton;
+
     return (
         <div className="shrink-0 w-full bg-white border-t border-slate-100 p-6 md:px-12 pb-8 z-50">
             <div className="max-w-xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
@@ -245,26 +266,28 @@ function WizardFooter({ onHelp }: { onHelp: () => void }) {
                 <div className="hidden md:block">
                     {action?.secondaryContent}
                 </div>
-                <button
-                    onClick={action?.onClick}
-                    disabled={action?.disabled || action?.isLoading}
-                    className={`
-                        w-full md:w-auto px-8 py-4 rounded-full font-black text-xs uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl hover:-translate-y-0.5
-                        ${action?.disabled
-                            ? "bg-slate-100 text-slate-400 cursor-not-allowed shadow-none"
-                            : "bg-[#024653] text-white hover:bg-[#02333d] shadow-[#024653]/20"
-                        }
-                    `}
-                >
-                    {action?.isLoading ? (
-                        <>Processing <Loader2 className="animate-spin" size={16} /></>
-                    ) : (
-                        <>
-                            {action?.label || "Continue"}
-                            {!action?.disabled && (action?.icon || <ArrowRight size={16} strokeWidth={3} />)}
-                        </>
-                    )}
-                </button>
+                {!hideMain && (
+                    <button
+                        onClick={action?.onClick}
+                        disabled={action?.disabled || action?.isLoading}
+                        className={`
+                            w-full md:w-auto px-8 py-4 rounded-full font-black text-xs uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl hover:-translate-y-0.5
+                            ${action?.disabled
+                                ? "bg-slate-100 text-slate-400 cursor-not-allowed shadow-none"
+                                : "bg-[#024653] text-white hover:bg-[#02333d] shadow-[#024653]/20"
+                            }
+                        `}
+                    >
+                        {action?.isLoading ? (
+                            <>Processing <Loader2 className="animate-spin" size={16} /></>
+                        ) : (
+                            <>
+                                {action?.label || "Continue"}
+                                {!action?.disabled && (action?.icon || <ArrowRight size={16} strokeWidth={3} />)}
+                            </>
+                        )}
+                    </button>
+                )}
             </div>
         </div>
     );

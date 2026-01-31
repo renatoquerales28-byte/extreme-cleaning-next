@@ -1,108 +1,158 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Star, MapPin } from "lucide-react";
+import { Star, ChevronRight, Gift, Clock, Bell } from "lucide-react";
 import { GOOGLE_REVIEWS } from "@/lib/data/reviews_mock";
 import Link from "next/link";
+import { motion } from "framer-motion";
+
+function CountdownTimer() {
+    const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutes in seconds
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
+        }, 1000);
+        return () => clearInterval(timer);
+    }, []);
+
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    return (
+        <div className="flex flex-col items-center">
+            <Clock size={16} className="text-slate-500 mb-1" />
+            <span className="text-[10px] uppercase tracking-widest text-[#024653]/60 font-medium">Time Left</span>
+            <span className="font-mono text-lg font-bold text-[#024653]">
+                {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
+            </span>
+        </div>
+    );
+}
 
 export default function SocialProofSection() {
     return (
-        <section className="w-full bg-[#f9f9f9] border-y border-slate-100">
-            <div className="w-full h-full flex flex-col md:flex-row">
+        <section className="w-full bg-[#f9f9f9] border-y border-slate-100 overflow-hidden">
+            <div className="w-full flex flex-col md:flex-row min-h-[600px]">
 
-                {/* LEFT COLUMN: REVIEWS */}
-                <div className="w-full md:w-1/2 p-12 md:p-20 border-b md:border-b-0 md:border-r border-slate-200">
-                    <div className="max-w-xl mx-auto h-full flex flex-col justify-center">
+                {/* LEFT COLUMN: REVIEWS (Auto Slider) */}
+                <div className="w-full md:w-1/2 p-8 md:p-20 border-b md:border-b-0 md:border-r border-slate-200 flex flex-col justify-center relative bg-white md:bg-transparent">
 
-                        <div className="mb-10 flex items-center gap-4">
-                            <div className="w-12 h-12 relative">
-                                <Image src="/brand/logo.png" alt="Google" width={48} height={48} className="object-contain" />
+                    <div className="mb-12 relative z-10">
+                        <div className="flex items-center gap-3 mb-4">
+                            <div className="relative w-8 h-8">
+                                <Image src="/brand/logo.png" alt="Google" width={32} height={32} className="object-contain" />
                             </div>
-                            <div>
-                                <h3 className="text-xl font-bold text-[#024653]">Excellent</h3>
-                                <div className="flex text-[#F4B400] gap-0.5">
-                                    <Star size={18} fill="currentColor" />
-                                    <Star size={18} fill="currentColor" />
-                                    <Star size={18} fill="currentColor" />
-                                    <Star size={18} fill="currentColor" />
-                                    <Star size={18} fill="currentColor" />
-                                </div>
-                                <p className="text-sm text-slate-500 font-medium mt-1">Based on 150+ reviews on Google</p>
-                            </div>
+                            <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">Google Reviews</span>
                         </div>
+                        <h3 className="text-4xl md:text-5xl font-light text-[#024653] leading-tight">
+                            Loved by <span className="font-bold">Spokane.</span>
+                        </h3>
+                    </div>
 
-                        <div className="space-y-6">
-                            {GOOGLE_REVIEWS.map((review) => (
-                                <div key={review.id} className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow">
+                    {/* Marquee Container */}
+                    <div className="relative w-full overflow-hidden mask-linear-fade">
+                        <motion.div
+                            className="flex flex-col gap-6"
+                            animate={{ y: ["0%", "-50%"] }}
+                            transition={{
+                                repeat: Infinity,
+                                ease: "linear",
+                                duration: 20
+                            }}
+                        >
+                            {/* Duplicate list for seamless loop */}
+                            {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, i) => (
+                                <div key={`${review.id}-${i}`} className="bg-white p-6 rounded-xl shadow-sm border border-slate-100/50">
                                     <div className="flex justify-between items-start mb-3">
                                         <div className="flex items-center gap-3">
-                                            <div className="w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center text-[#024653] font-bold">
+                                            <div className="w-8 h-8 rounded-full bg-[#024653]/5 flex items-center justify-center text-[#024653] font-bold text-xs">
                                                 {review.name.charAt(0)}
                                             </div>
                                             <div>
-                                                <h4 className="font-bold text-[#024653] text-sm">{review.name}</h4>
-                                                <div className="flex text-[#F4B400] text-xs">
-                                                    {[...Array(review.rating)].map((_, i) => (
-                                                        <Star key={i} size={12} fill="currentColor" />
+                                                <h4 className="font-bold text-[#024653] text-xs">{review.name}</h4>
+                                                <div className="flex text-[#F4B400] text-[10px] gap-0.5">
+                                                    {[...Array(review.rating)].map((_, idx) => (
+                                                        <Star key={idx} size={10} fill="currentColor" />
                                                     ))}
                                                 </div>
                                             </div>
                                         </div>
-                                        <span className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">{review.date}</span>
+                                        <span className="text-[9px] text-slate-300 font-medium uppercase tracking-wider">{review.date}</span>
                                     </div>
-                                    <p className="text-slate-600 text-sm leading-relaxed">&quot;{review.text}&quot;</p>
+                                    <p className="text-slate-600 text-sm font-light leading-relaxed">&quot;{review.text}&quot;</p>
                                 </div>
                             ))}
-                        </div>
+                        </motion.div>
 
-                        <div className="mt-8 text-center md:text-left">
-                            <a href="#" className="text-[#05D16E] text-xs font-black uppercase tracking-widest hover:underline decoration-2 underline-offset-4">
-                                Read all reviews on Maps →
-                            </a>
-                        </div>
+                        {/* Gradient Masks */}
+                        <div className="absolute top-0 left-0 w-full h-12 bg-gradient-to-b from-[#f9f9f9] to-transparent z-10" />
+                        <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-[#f9f9f9] to-transparent z-10" />
+                    </div>
+
+                    <div className="mt-8 relative z-10">
+                        <a href="#" className="text-[#05D16E] text-[10px] font-black uppercase tracking-widest hover:underline decoration-2 underline-offset-4 flex items-center gap-2">
+                            View 150+ Reviews <ChevronRight size={12} strokeWidth={3} />
+                        </a>
                     </div>
                 </div>
 
-                {/* RIGHT COLUMN: PROMO */}
-                <div className="w-full md:w-1/2 p-12 md:p-20 bg-white relative overflow-hidden flex flex-col justify-center items-center text-center">
+                {/* RIGHT COLUMN: PROMO (Minimalist) */}
+                <div className="w-full md:w-1/2 bg-white flex flex-col justify-center items-center p-8 md:p-20 relative">
 
-                    {/* Background Pattern */}
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#05D16E]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#024653]/5 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
+                    {/* Background decoration */}
+                    <div className="absolute inset-0 opacity-30 pointer-events-none bg-[radial-gradient(#024653_1px,transparent_1px)] [background-size:16px_16px]" />
 
-                    <div className="relative z-10 max-w-md mx-auto space-y-8">
+                    <div className="w-full max-w-sm relative z-10 space-y-6">
 
-                        <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#05D16E]/10 rounded-full border border-[#05D16E]/20">
-                            <span className="animate-pulse w-2 h-2 rounded-full bg-[#05D16E]" />
-                            <span className="text-[10px] font-black uppercase tracking-widest text-[#024653]">Limited Time Offer</span>
-                        </div>
-
-                        <div>
-                            <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-[#024653] leading-none mb-4">
-                                15% <br /> <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#05D16E] to-[#024653]">OFF</span>
-                            </h2>
-                            <p className="text-xl font-medium text-slate-500">
-                                On your first <span className="text-[#024653] font-bold">Deep Cleaning</span> service.
-                            </p>
-                        </div>
-
-                        <div className="p-6 bg-slate-50 rounded-2xl border border-dashed border-slate-200">
-                            <p className="text-xs text-slate-400 font-bold uppercase tracking-widest mb-2">Use Code at Checkout</p>
-                            <div className="text-2xl font-mono font-bold text-[#024653] tracking-widest select-all cursor-pointer hover:text-[#05D16E] transition-colors">
-                                WELCOME15
+                        {/* Top Card: Timer & Hook */}
+                        <div className="bg-[#EAE8DD] rounded-2xl p-6 flex items-center justify-between shadow-sm">
+                            <div className="flex-1">
+                                <h4 className="font-medium text-[#024653] text-sm mb-1">Winter Cleaning Special</h4>
+                                <p className="text-xs text-[#024653]/70 font-light">Get your home cleaned for <strong className="text-[#024653]">$19!*</strong></p>
+                            </div>
+                            <div className="pl-6 border-l border-[#024653]/10">
+                                <CountdownTimer />
                             </div>
                         </div>
 
-                        <Link
-                            href="/wizard?type=residential&intensity=deep&promo=WELCOME15"
-                            className="inline-flex w-full md:w-auto items-center justify-center gap-3 px-8 py-4 bg-[#024653] text-white rounded-full font-black text-xs uppercase tracking-widest hover:bg-[#02333d] transition-all transform hover:-translate-y-1 shadow-xl hover:shadow-2xl shadow-[#024653]/20"
-                        >
-                            Claim Offer Now
-                        </Link>
+                        {/* Bell Icon Visual (Center) */}
+                        <div className="flex justify-center opacity-20 py-2">
+                            <Bell size={32} className="text-[#024653]" />
+                        </div>
 
-                        <p className="text-[10px] text-slate-400 max-w-xs mx-auto">
-                            *Valid only for new residential customers booking a Deep Clean service. Cannot be combined with other offers.
-                        </p>
+                        {/* Main Offer Card */}
+                        <div className="bg-[#EAE8DD] rounded-2xl p-8 text-center shadow-lg transform transition-transform hover:scale-[1.02]">
+                            <div className="flex justify-center mb-4 text-[#024653]">
+                                <Gift size={28} strokeWidth={1.5} />
+                            </div>
+
+                            <h3 className="text-xl font-normal text-[#024653] mb-2">Get a Discount Voucher</h3>
+
+                            <p className="text-sm font-light text-[#024653]/80 mb-8 leading-relaxed">
+                                Two, Three, Four, or Six Hours of Cleaning from ECS (Up to 82% Off)
+                            </p>
+
+                            <Link
+                                href="/wizard?type=residential&promo=WINTER_SPECIAL"
+                                className="w-full block py-4 bg-[#FCD34D] text-[#024653] rounded-xl font-medium text-sm hover:bg-[#fbbf24] transition-colors shadow-sm"
+                            >
+                                GET CLEAN
+                            </Link>
+
+                            <p className="text-[10px] text-[#024653]/50 mt-4 font-medium uppercase tracking-wider">
+                                100% Refundable if not used!
+                            </p>
+                        </div>
+
+                        {/* Notification Bubble */}
+                        <div className="bg-sky-50 border border-sky-100 rounded-lg p-3 text-center">
+                            <p className="text-[10px] text-sky-700 font-medium">
+                                Limited quantities - lock in your savings now.
+                            </p>
+                        </div>
+
                     </div>
                 </div>
             </div>

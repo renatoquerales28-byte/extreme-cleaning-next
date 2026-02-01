@@ -1,13 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Star, ChevronLeft, ChevronRight, Gift, Clock, Quote } from "lucide-react";
+import Image from "next/image";
+import { Star, ChevronRight, Gift, Clock, Bell, Quote } from "lucide-react";
 import { GOOGLE_REVIEWS } from "@/lib/data/reviews_mock";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 
 function CountdownTimer() {
-    const [timeLeft, setTimeLeft] = useState(15 * 60);
+    const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutes in seconds
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -30,251 +31,124 @@ function CountdownTimer() {
     );
 }
 
-function CarouselControl({ direction, onClick }: { direction: 'prev' | 'next', onClick: () => void }) {
-    return (
-        <button
-            onClick={onClick}
-            className="w-12 h-12 rounded-full border border-[#024653]/10 flex items-center justify-center text-[#024653] hover:bg-[#024653] hover:text-white transition-all active:scale-95 bg-white shadow-sm z-30 pointer-events-auto"
-        >
-            {direction === 'prev' ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
-        </button>
-    );
-}
-
 export default function SocialProofSection() {
-    // State for the infinite rotation stack
-    const [cards, setCards] = useState(() => {
-        return GOOGLE_REVIEWS.map((review, i) => ({
-            ...review,
-            uniqueId: `${review.id}-${i}-${Date.now()}` // Ensure unique keys for animations
-        }));
-    });
-    const [isPaused, setIsPaused] = useState(false);
-
-    // Auto-advance logic
-    useEffect(() => {
-        if (isPaused) return;
-        const interval = setInterval(() => {
-            handleNext();
-        }, 5000);
-        return () => clearInterval(interval);
-    }, [cards, isPaused]);
-
-    const handleNext = () => {
-        setCards((prev) => {
-            const newCards = [...prev];
-            const first = newCards.shift();
-            if (first) {
-                // Regenerate ID to ensure it enters as a "new" card
-                first.uniqueId = `${first.id}-${Date.now()}`;
-                newCards.push(first);
-            }
-            return newCards;
-        });
-    };
-
-    const handlePrev = () => {
-        setCards((prev) => {
-            const newCards = [...prev];
-            const last = newCards.pop();
-            if (last) {
-                last.uniqueId = `${last.id}-${Date.now()}`;
-                newCards.unshift(last);
-            }
-            return newCards;
-        });
-    };
-
-    const currentId = parseInt(cards[0]?.id || "1", 10);
-    const progress = (currentId / GOOGLE_REVIEWS.length) * 100;
-    const currentDisplayIndex = currentId;
-
-    const cardColors = ['#FFFFFF', '#F9FBFB', '#F2F6F6'];
-    const cardShadows = [
-        '0 20px 40px rgba(2, 70, 83, 0.08)',
-        '0 10px 20px rgba(2, 70, 83, 0.05)',
-        '0 5px 10px rgba(2, 70, 83, 0.02)'
-    ];
-
     return (
-        <section className="w-full min-h-screen bg-[#F9F8F2] relative flex items-center justify-center overflow-hidden py-12 md:py-16 lg:py-20">
-            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 items-center justify-center">
+        // SECTION CONTAINER: Adjusted spacing (reduced top padding), Background #F9F8F2
+        <section className="w-full bg-[#F9F8F2] relative flex items-center overflow-hidden pt-8 pb-16 lg:pt-12 lg:pb-24">
 
-                {/* Main Reviews Card */}
-                <div className="w-full lg:col-span-3">
-                    <div className="bg-white rounded-[4rem] shadow-xl shadow-[#024653]/5 border border-white relative overflow-hidden min-h-[600px] md:min-h-[650px] flex items-center">
-                        <div className="w-full h-full grid grid-cols-1 md:grid-cols-2 items-center">
+            {/* CONTAINER: Max width of 1700px to match Hero */}
+            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-8 items-stretch justify-center">
 
-                            {/* Left Column: Title & Alignment */}
-                            <div className="relative z-20 p-8 md:p-12 lg:p-20 flex flex-col justify-center">
-                                <div className="flex gap-6 items-stretch mb-6">
-                                    <div className="w-1.5 bg-[#024653] rounded-full" />
-                                    <motion.h3
-                                        initial={{ opacity: 0, x: -20 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        className="text-4xl md:text-6xl font-light text-[#024653] leading-[1.1] tracking-tight"
-                                    >
-                                        What our <br /> <span className="font-black">Clients Say.</span>
-                                    </motion.h3>
+                {/* LEFT COLUMN: REVIEWS (60% -> 3/5 cols) - NOW ENCLOSED IN WHITE CARD */}
+                <div className="w-full lg:col-span-3 flex flex-col justify-center relative">
+
+                    {/* NEW MODULAR CONTAINER */}
+                    <div className="bg-white rounded-[2.5rem] p-8 lg:p-12 shadow-xl shadow-[#024653]/5 border border-white h-full flex flex-col justify-center relative overflow-hidden">
+
+                        {/* Header for Reviews */}
+                        <div className="mb-8 md:mb-12 pl-4 border-l-4 border-[#024653] relative z-10">
+                            <h3 className="text-3xl md:text-5xl font-light text-[#024653] mb-2 leading-tight">
+                                What our <br /> <span className="font-black">Clients Say.</span>
+                            </h3>
+                            <div className="flex items-center gap-2">
+                                <div className="flex text-[#F4B400]">
+                                    {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} fill="currentColor" />)}
                                 </div>
-
-                                <div className="flex items-center gap-3 mb-12 ml-10">
-                                    <div className="flex text-[#F4B400]">
-                                        {[1, 2, 3, 4, 5].map(i => <Star key={i} size={20} fill="currentColor" />)}
-                                    </div>
-                                    <span className="text-sm font-bold text-[#024653]/60 italic tracking-wide">5.0 on Google</span>
-                                </div>
-
-                                <div className="flex flex-col gap-8 ml-10">
-                                    <div className="flex items-center gap-4">
-                                        <CarouselControl direction="prev" onClick={handlePrev} />
-                                        <CarouselControl direction="next" onClick={handleNext} />
-                                    </div>
-
-                                    <div className="flex flex-col gap-3 w-40">
-                                        <div className="h-[2px] bg-[#024653]/5 rounded-full overflow-hidden">
-                                            <motion.div
-                                                className="h-full bg-[#05D16E]"
-                                                initial={{ width: 0 }}
-                                                animate={{ width: `${progress}%` }}
-                                                transition={{ type: "spring", stiffness: 100, damping: 20 }}
-                                            />
-                                        </div>
-                                        <span className="text-[10px] font-black text-[#024653]/40 uppercase tracking-[0.3em]">
-                                            {String(currentDisplayIndex).padStart(2, '0')} / {String(GOOGLE_REVIEWS.length).padStart(2, '0')}
-                                        </span>
-                                    </div>
-                                </div>
+                                <span className="text-sm font-medium text-[#024653]/60">5.0 on Google</span>
                             </div>
+                        </div>
 
-                            {/* Right Column: Card Stack */}
-                            <div
-                                className="relative flex items-center justify-center p-8 md:p-12 min-h-[400px] md:min-h-[500px]"
-                                onMouseEnter={() => setIsPaused(true)}
-                                onMouseLeave={() => setIsPaused(false)}
+                        {/* Horizontal Marquee Container */}
+                        <div className="relative w-full overflow-hidden mask-horizontal-fade -mx-4 px-4 py-8"> {/* Negative margin to allow shadow bleed, py for hover space */}
+                            <motion.div
+                                className="flex gap-6 pl-4"
+                                animate={{ x: ["0%", "-50%"] }}
+                                transition={{
+                                    repeat: Infinity,
+                                    ease: "linear",
+                                    duration: 40
+                                }}
+                                style={{ width: "max-content" }}
                             >
-                                <div className="relative w-full max-w-[350px] h-[380px] flex items-center justify-center">
-                                    <AnimatePresence mode="popLayout">
-                                        {cards.slice(0, 3).map((review, index) => (
-                                            <motion.div
-                                                key={review.uniqueId}
-                                                layoutId={review.uniqueId}
-                                                initial={{ opacity: 0, scale: 0.9, x: 100, zIndex: 0 }}
-                                                animate={{
-                                                    opacity: 1,
-                                                    scale: index === 0 ? 1 : (1 - index * 0.05),
-                                                    x: index * 25,
-                                                    y: 0,
-                                                    zIndex: 10 - index,
-                                                }}
-                                                exit={{
-                                                    x: -200,
-                                                    opacity: 0,
-                                                    scale: 0.95,
-                                                    zIndex: 20,
-                                                    transition: { duration: 0.4, ease: "easeInOut" }
-                                                }}
-                                                transition={{
-                                                    type: "spring",
-                                                    stiffness: 200,
-                                                    damping: 25,
-                                                    mass: 1
-                                                }}
-                                                className="absolute left-0 top-1/2 -translate-y-1/2 w-[280px] md:w-[320px] p-8 md:p-12 rounded-[3rem] overflow-hidden"
-                                                style={{
-                                                    transformOrigin: "center left",
-                                                    backgroundColor: cardColors[index],
-                                                    boxShadow: cardShadows[index]
-                                                }}
-                                            >
-                                                <div className="absolute top-0 right-0 p-8 opacity-[0.03]">
-                                                    <Quote size={80} className="transform rotate-180 text-[#024653]" />
-                                                </div>
+                                {/* Duplicate list for loop */}
+                                {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, i) => (
+                                    <div
+                                        key={`${review.id}-${i}`}
+                                        className="bg-[#F9F8F2] p-8 rounded-[2rem] shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative group w-[350px] md:w-[450px] shrink-0 border border-transparent hover:border-[#024653]/5"
+                                    >
+                                        <Quote className="absolute top-6 right-8 text-[#024653]/5 transform rotate-180 group-hover:scale-110 transition-transform" size={48} />
 
-                                                <div className="relative z-10">
-                                                    <p className="text-[#024653]/80 text-lg md:text-xl font-light leading-relaxed italic mb-8 line-clamp-4 min-h-[140px]">
-                                                        &quot;{review.text}&quot;
-                                                    </p>
+                                        <div className="flex items-center gap-4 mb-6">
+                                            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[#024653] font-black text-lg shadow-sm">
+                                                {review.name.charAt(0)}
+                                            </div>
+                                            <div>
+                                                <h4 className="font-bold text-[#024653] text-sm md:text-base">{review.name}</h4>
+                                                <span className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest">{review.date}</span>
+                                            </div>
+                                        </div>
 
-                                                    <div className="flex items-center gap-4 border-t border-[#024653]/5 pt-8">
-                                                        <div className="w-14 h-14 rounded-full bg-[#024653]/5 flex items-center justify-center text-[#024653] font-black text-lg shadow-inner">
-                                                            {review.name.charAt(0)}
-                                                        </div>
-                                                        <div>
-                                                            <h4 className="font-bold text-[#024653] text-base tracking-tight">{review.name}</h4>
-                                                            <div className="flex items-center gap-2">
-                                                                <span className="text-[10px] text-[#05D16E] font-black uppercase tracking-[0.2em]">{review.date}</span>
-                                                                <span className="w-1.5 h-1.5 rounded-full bg-[#024653]/10" />
-                                                                <div className="flex text-[#F4B400] scale-90 origin-left">
-                                                                    {[1, 2, 3, 4, 5].map(st => <Star key={st} size={12} fill="currentColor" />)}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#05D16E] to-transparent opacity-10" />
-                                            </motion.div>
-                                        ))}
-                                    </AnimatePresence>
-                                </div>
-                            </div>
+                                        <p className="text-[#024653]/80 text-base font-light leading-relaxed italic relative z-10 line-clamp-4">
+                                            &quot;{review.text}&quot;
+                                        </p>
+                                    </div>
+                                ))}
+                            </motion.div>
+                            {/* Gradient Masks for Horizontal Fade - Adjusted to match white BG */}
+                            <div className="absolute top-0 left-0 w-16 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+                            <div className="absolute top-0 right-0 w-16 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
                         </div>
                     </div>
                 </div>
 
-                {/* Sidebar Column */}
-                <div className="w-full lg:col-span-2 flex flex-col h-auto lg:h-full gap-8">
-                    {/* Countdown Banner */}
-                    <div className="bg-white rounded-[3rem] p-8 flex items-center justify-between shadow-xl shadow-[#024653]/5 border border-white">
-                        <div>
-                            <span className="inline-block px-3 py-1 bg-[#024653]/5 text-[#024653] text-[9px] font-black uppercase tracking-[0.2em] rounded-full mb-2">
-                                Limited Availability
-                            </span>
-                            <h4 className="font-black text-[#024653] text-xl tracking-tight">Winter Special</h4>
+                {/* RIGHT COLUMN: PROMO (40% -> 2/5 cols) */}
+                <div className="w-full lg:col-span-2 flex flex-col justify-center items-center lg:items-end relative h-full">
+
+                    <div className="w-full max-w-md space-y-6 relative z-10 flex flex-col h-full justify-center">
+
+                        {/* Top Card: Timer & Hook (White Card) */}
+                        <div className="bg-white rounded-[2rem] p-6 lg:p-8 flex items-center justify-between shadow-lg shadow-[#024653]/5 border border-white">
+                            <div>
+                                <h4 className="font-black text-[#024653] text-lg uppercase tracking-tight mb-1">Winter Special</h4>
+                                <p className="text-sm text-[#024653]/70 font-medium whitespace-nowrap">Limited Offer</p>
+                            </div>
+                            <div className="pl-4 lg:pl-6 border-l border-[#024653]/5">
+                                <CountdownTimer />
+                            </div>
                         </div>
-                        <div className="pl-8 border-l border-[#024653]/10">
-                            <CountdownTimer />
-                        </div>
-                    </div>
 
-                    {/* Promo Card */}
-                    <div className="bg-white rounded-[4rem] p-12 text-center shadow-2xl shadow-[#024653]/5 border border-white relative overflow-hidden flex-grow flex flex-col justify-center">
-                        <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#05D16E]/5 rounded-full blur-3xl" />
+                        {/* Main Offer Card (White Card) */}
+                        <div className="bg-white rounded-[2.5rem] p-8 lg:p-10 text-center shadow-xl shadow-[#024653]/5 border border-white relative overflow-hidden group flex-grow flex-col justify-center">
 
-                        <div className="relative z-10">
-                            <Gift className="mx-auto text-[#05D16E] mb-8" size={48} strokeWidth={1.5} />
+                            <div className="relative z-10">
+                                <span className="inline-block px-4 py-1.5 rounded-full bg-[#05D16E]/10 text-[#024653] text-[10px] font-black uppercase tracking-widest mb-6">
+                                    Exclusive Deal
+                                </span>
 
-                            <h3 className="text-7xl font-normal text-[#024653] mb-3 tracking-tighter">
-                                15% <span className="font-black">OFF</span>
-                            </h3>
+                                <h3 className="text-5xl font-normal text-[#024653] mb-2 tracking-tight">
+                                    15% <span className="font-black">OFF</span>
+                                </h3>
 
-                            <p className="text-xl text-[#024653]/60 mb-12 font-medium">
-                                On your first <strong>Deep Cleaning</strong> session.
-                            </p>
+                                <p className="text-base text-[#024653]/60 mb-10 font-medium mx-auto">
+                                    Book your first <strong>Deep Clean</strong> today.
+                                </p>
 
-                            <Link
-                                href="/wizard?type=residential&intensity=deep&promo=WELCOME15"
-                                className="w-full flex items-center justify-center gap-4 py-7 bg-[#024653] text-white rounded-[2.5rem] font-black text-sm uppercase tracking-[0.2em] hover:bg-[#02333d] transition-all transform hover:-translate-y-2 shadow-2xl shadow-[#024653]/30 active:scale-95 group"
-                            >
-                                Claim Offer <ChevronRight size={22} className="group-hover:translate-x-1 transition-transform" />
-                            </Link>
+                                <Link
+                                    href="/wizard?type=residential&intensity=deep&promo=WELCOME15"
+                                    className="w-full flex items-center justify-center gap-3 py-5 bg-[#024653] text-white rounded-2xl font-black text-xs uppercase tracking-[0.15em] hover:bg-[#02333d] transition-all transform hover:-translate-y-1 shadow-lg shadow-[#024653]/20"
+                                >
+                                    Get Clean <ChevronRight size={16} />
+                                </Link>
 
-                            <div className="mt-10 flex items-center justify-center gap-3">
-                                <div className="flex -space-x-3">
-                                    {[1, 2, 4, 3].map(i => (
-                                        <div key={i} className="w-8 h-8 rounded-full border-4 border-white bg-[#F9F8F2] flex items-center justify-center text-[10px] font-bold text-[#024653]">
-                                            U{i}
-                                        </div>
-                                    ))}
-                                </div>
-                                <p className="text-[11px] text-[#024653]/30 font-bold uppercase tracking-widest">
-                                    Joined by 500+ locals
+                                <p className="text-[10px] text-[#024653]/30 mt-6 font-bold uppercase tracking-widest">
+                                    100% Refundable if not used!
                                 </p>
                             </div>
                         </div>
+
                     </div>
                 </div>
+
             </div>
         </section>
     );

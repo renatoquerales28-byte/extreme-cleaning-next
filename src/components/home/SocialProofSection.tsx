@@ -98,7 +98,7 @@ export default function SocialProofSection() {
             <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch justify-center">
 
                 {/* LEFT COLUMN: REVIEWS - STRATEGIC MIST REDESIGN */}
-                <div className="w-full lg:col-span-3 h-[450px] md:h-[500px]">
+                <div className="w-full lg:col-span-3 h-full min-h-[500px]">
                     <div className="bg-white rounded-[2.5rem] shadow-xl shadow-[#024653]/5 border border-white h-full relative overflow-hidden group/container">
 
                         {/* 1. THE MIST & TITLE LAYER (z-20) */}
@@ -151,7 +151,7 @@ export default function SocialProofSection() {
                         {/* 2. SLIDING CARDS LAYER (z-10) */}
                         {/* 2. SLIDING CARDS LAYER (z-10) - CARD STACK EFFECT */}
                         <div
-                            className="absolute inset-0 flex items-center pl-8 md:pl-12"
+                            className="absolute right-0 top-0 bottom-0 w-full md:w-[55%] flex items-center justify-center md:pr-12"
                             onMouseEnter={() => setIsPaused(true)}
                             onMouseLeave={() => setIsPaused(false)}
                         >

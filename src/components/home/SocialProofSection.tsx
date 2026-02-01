@@ -89,7 +89,7 @@ export default function SocialProofSection() {
 
     // Calculate "visual" progress just for the bar (based on ID of first card?)
     // Since it's infinite, we can just map the current 0th card's ID to original index.
-    const currentId = cards[0]?.id || 1;
+    const currentId = parseInt(cards[0]?.id || "1", 10);
     const progress = (currentId / GOOGLE_REVIEWS.length) * 100;
     const currentDisplayIndex = currentId;
 

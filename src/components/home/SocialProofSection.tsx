@@ -122,11 +122,17 @@ export default function SocialProofSection() {
                         </div>
 
                         {/* 2. SLIDING CARDS LAYER (z-10) */}
-                        <div
-                            className="absolute inset-0 flex items-center transition-all duration-700 ease-[cubic-bezier(0.23,1,0.32,1)]"
-                            style={{
-                                transform: `translateX(calc(40% - ${activeIndex * 340}px))`,
-                                paddingLeft: '2rem'
+                        {/* 2. SLIDING CARDS LAYER (z-10) - PHYSICAL SPRING EFFECT */}
+                        <motion.div
+                            className="absolute inset-0 flex items-center pl-8"
+                            animate={{
+                                x: `calc(40% - ${activeIndex * 340}px)`
+                            }}
+                            transition={{
+                                type: "spring",
+                                stiffness: 120,
+                                damping: 20,
+                                mass: 1
                             }}
                             onMouseEnter={() => setIsPaused(true)}
                             onMouseLeave={() => setIsPaused(false)}
@@ -134,12 +140,6 @@ export default function SocialProofSection() {
                             {GOOGLE_REVIEWS.map((review, i) => (
                                 <motion.div
                                     key={`${review.id}-${i}`}
-                                    initial={false}
-                                    animate={{
-                                        opacity: i === activeIndex ? 1 : (i > activeIndex ? 0.4 : 0),
-                                        scale: i === activeIndex ? 1 : 0.9,
-                                        filter: i === activeIndex ? 'blur(0px)' : 'blur(2px)',
-                                    }}
                                     className="shrink-0 w-[300px] md:w-[320px] mx-4 bg-[#085560] p-10 rounded-[2.5rem] shadow-2xl shadow-[#024653]/10 relative overflow-hidden"
                                 >
                                     {/* Subtle pattern background for cards */}
@@ -173,7 +173,7 @@ export default function SocialProofSection() {
                                     <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#05D16E] to-transparent opacity-30" />
                                 </motion.div>
                             ))}
-                        </div>
+                        </motion.div>
 
                         {/* Right edge fade - very subtle as requested */}
                         <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white/20 to-transparent z-15 pointer-events-none" />
@@ -181,7 +181,7 @@ export default function SocialProofSection() {
                 </div>
 
                 {/* RIGHT COLUMN: PROMO (UNCHANGED CORE LOGIC, REFINED VISUALS) */}
-                <div className="w-full lg:col-span-2 flex flex-col justify-center gap-6">
+                <div className="w-full lg:col-span-2 flex flex-col h-full gap-6">
                     {/* Timer Card */}
                     <div className="bg-white rounded-[2.5rem] p-8 flex items-center justify-between shadow-xl shadow-[#024653]/5 border border-white">
                         <div>

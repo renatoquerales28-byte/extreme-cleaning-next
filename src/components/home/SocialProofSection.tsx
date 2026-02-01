@@ -151,7 +151,7 @@ export default function SocialProofSection() {
                         {/* 2. SLIDING CARDS LAYER (z-10) */}
                         {/* 2. SLIDING CARDS LAYER (z-10) - CARD STACK EFFECT */}
                         <div
-                            className="absolute right-0 top-0 bottom-0 w-full md:w-[55%] flex items-start justify-center md:pr-12 pt-24"
+                            className="absolute right-0 top-0 bottom-0 w-full md:w-[55%] flex items-center justify-center md:pr-12"
                             onMouseEnter={() => setIsPaused(true)}
                             onMouseLeave={() => setIsPaused(false)}
                         >

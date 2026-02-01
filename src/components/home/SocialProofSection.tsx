@@ -100,12 +100,13 @@ export default function SocialProofSection() {
         <section className="w-full min-h-screen bg-[#F9F8F2] relative flex items-center justify-center overflow-hidden py-12 md:py-16 lg:py-20">
             <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 items-center justify-center">
 
-                <div className="w-full lg:col-span-3 h-auto lg:h-full min-h-[500px] md:min-h-[600px]">
-                    <div className="bg-white rounded-[2.5rem] shadow-xl shadow-[#024653]/5 border border-white h-full min-h-[600px] md:min-h-[650px] relative overflow-visible md:overflow-hidden group/container">
+                <div className="w-full lg:col-span-3">
+                    <div className="bg-white rounded-[2.5rem] shadow-xl shadow-[#024653]/5 border border-white relative overflow-hidden min-h-[600px] md:min-h-[650px] flex items-center">
 
-                        <div className="absolute left-0 top-0 bottom-0 w-full md:w-[60%] lg:w-[45%] bg-gradient-to-r from-white via-white/95 to-transparent z-20 flex flex-col justify-center pl-6 md:pl-8 lg:pl-16 pr-8 md:pr-12 pointer-events-none">
-                            <div className="pointer-events-auto max-w-xs">
-                                <div className="mb-6 flex items-center justify-between">
+                        <div className="w-full h-full grid grid-cols-1 md:grid-cols-2 items-center">
+
+                            <div className="relative z-20 p-8 md:p-12 lg:p-16 flex flex-col justify-center">
+                                <div className="mb-6">
                                     <Quote className="text-[#05D16E] opacity-20 transform rotate-180" size={48} />
                                 </div>
 
@@ -145,79 +146,79 @@ export default function SocialProofSection() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div
-                            className="absolute right-0 top-1/2 -translate-y-1/2 w-full md:w-[55%] flex items-center justify-center md:pr-12"
-                            onMouseEnter={() => setIsPaused(true)}
-                            onMouseLeave={() => setIsPaused(false)}
-                        >
-                            <div className="relative w-full h-[400px] md:h-[450px] flex items-center justify-center">
-                                <AnimatePresence mode="popLayout">
-                                    {cards.slice(0, 3).map((review, index) => {
-                                        return (
-                                            <motion.div
-                                                key={review.uniqueId}
-                                                layoutId={review.uniqueId}
-                                                initial={{ opacity: 0, scale: 0.9, x: 100, zIndex: 0 }}
-                                                animate={{
-                                                    opacity: 1,
-                                                    scale: index === 0 ? 1 : (1 - index * 0.05),
-                                                    x: index * 25,
-                                                    y: index * 0,
-                                                    zIndex: 10 - index,
-                                                }}
-                                                exit={{
-                                                    x: -200,
-                                                    opacity: 0,
-                                                    scale: 0.95,
-                                                    zIndex: 20,
-                                                    transition: { duration: 0.4, ease: "easeInOut" }
-                                                }}
-                                                transition={{
-                                                    type: "spring",
-                                                    stiffness: 200,
-                                                    damping: 25,
-                                                    mass: 1
-                                                }}
-                                                className="absolute left-8 md:left-12 top-1/2 -translate-y-1/2 shrink-0 w-[280px] md:w-[300px] p-10 rounded-[2.5rem] overflow-hidden"
-                                                style={{
-                                                    transformOrigin: "center left",
-                                                    backgroundColor: cardColors[index],
-                                                    boxShadow: cardShadows[index]
-                                                }}
-                                            >
-                                                <div className="absolute top-0 right-0 p-6 opacity-5">
-                                                    <Quote size={80} className="transform rotate-180" />
-                                                </div>
+                            <div
+                                className="relative flex items-center justify-center p-8 md:p-12 min-h-[400px] md:min-h-[500px]"
+                                onMouseEnter={() => setIsPaused(true)}
+                                onMouseLeave={() => setIsPaused(false)}
+                            >
+                                <div className="relative w-full max-w-[350px] h-[380px] flex items-center justify-center">
+                                    <AnimatePresence mode="popLayout">
+                                        {cards.slice(0, 3).map((review, index) => {
+                                            return (
+                                                <motion.div
+                                                    key={review.uniqueId}
+                                                    layoutId={review.uniqueId}
+                                                    initial={{ opacity: 0, scale: 0.9, x: 100, zIndex: 0 }}
+                                                    animate={{
+                                                        opacity: 1,
+                                                        scale: index === 0 ? 1 : (1 - index * 0.05),
+                                                        x: index * 20,
+                                                        y: 0,
+                                                        zIndex: 10 - index,
+                                                    }}
+                                                    exit={{
+                                                        x: -200,
+                                                        opacity: 0,
+                                                        scale: 0.95,
+                                                        zIndex: 20,
+                                                        transition: { duration: 0.4, ease: "easeInOut" }
+                                                    }}
+                                                    transition={{
+                                                        type: "spring",
+                                                        stiffness: 200,
+                                                        damping: 25,
+                                                        mass: 1
+                                                    }}
+                                                    className="absolute left-0 top-1/2 -translate-y-1/2 w-[280px] md:w-[300px] p-8 md:p-10 rounded-[2.5rem] overflow-hidden"
+                                                    style={{
+                                                        transformOrigin: "center left",
+                                                        backgroundColor: cardColors[index],
+                                                        boxShadow: cardShadows[index]
+                                                    }}
+                                                >
+                                                    <div className="absolute top-0 right-0 p-6 opacity-5">
+                                                        <Quote size={80} className="transform rotate-180" />
+                                                    </div>
 
-                                                <div className="relative z-10">
-                                                    <p className="text-white/90 text-base md:text-lg font-light leading-relaxed italic mb-8 line-clamp-5 h-[140px]">
-                                                        &quot;{review.text}&quot;
-                                                    </p>
+                                                    <div className="relative z-10">
+                                                        <p className="text-white/90 text-base md:text-lg font-light leading-relaxed italic mb-6 line-clamp-4 min-h-[120px]">
+                                                            &quot;{review.text}&quot;
+                                                        </p>
 
-                                                    <div className="flex items-center gap-4 border-t border-white/10 pt-6">
-                                                        <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[#024653] font-black text-sm shadow-inner">
-                                                            {review.name.charAt(0)}
-                                                        </div>
-                                                        <div>
-                                                            <h4 className="font-bold text-white text-sm tracking-tight">{review.name}</h4>
-                                                            <div className="flex items-center gap-2">
-                                                                <span className="text-[10px] text-[#05D16E] font-black uppercase tracking-widest">{review.date}</span>
-                                                                <span className="w-1 h-1 rounded-full bg-white/20" />
-                                                                <div className="flex text-[#F4B400] scale-75 origin-left">
-                                                                    {[1, 2, 3, 4, 5].map(st => <Star key={st} size={10} fill="currentColor" />)}
+                                                        <div className="flex items-center gap-4 border-t border-white/10 pt-6">
+                                                            <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[#024653] font-black text-sm shadow-inner">
+                                                                {review.name.charAt(0)}
+                                                            </div>
+                                                            <div>
+                                                                <h4 className="font-bold text-white text-sm tracking-tight">{review.name}</h4>
+                                                                <div className="flex items-center gap-2">
+                                                                    <span className="text-[10px] text-[#05D16E] font-black uppercase tracking-widest">{review.date}</span>
+                                                                    <span className="w-1 h-1 rounded-full bg-white/20" />
+                                                                    <div className="flex text-[#F4B400] scale-75 origin-left">
+                                                                        {[1, 2, 3, 4, 5].map(st => <Star key={st} size={10} fill="currentColor" />)}
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#05D16E] to-transparent opacity-30" />
-                                            </motion.div>
-                                        )
-                                    })}
-                                </AnimatePresence>
+                                                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#05D16E] to-transparent opacity-30" />
+                                                </motion.div>
+                                            )
+                                        })}
+                                    </AnimatePresence>
+                                </div>
                             </div>
                         </div>
                     </div>

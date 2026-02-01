@@ -1,14 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
-import { Star, ChevronLeft, ChevronRight, Gift, Clock, Bell, Quote } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Star, ChevronLeft, ChevronRight, Gift, Clock, Quote } from "lucide-react";
 import { GOOGLE_REVIEWS } from "@/lib/data/reviews_mock";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
 function CountdownTimer() {
-    const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutes in seconds
+    const [timeLeft, setTimeLeft] = useState(15 * 60);
 
     useEffect(() => {
         const timer = setInterval(() => {
@@ -31,7 +30,6 @@ function CountdownTimer() {
     );
 }
 
-// Fixed Carousel Control Component
 function CarouselControl({ direction, onClick }: { direction: 'prev' | 'next', onClick: () => void }) {
     return (
         <button
@@ -87,22 +85,25 @@ export default function SocialProofSection() {
         });
     };
 
-    // Calculate "visual" progress just for the bar (based on ID of first card?)
-    // Since it's infinite, we can just map the current 0th card's ID to original index.
     const currentId = parseInt(cards[0]?.id || "1", 10);
     const progress = (currentId / GOOGLE_REVIEWS.length) * 100;
     const currentDisplayIndex = currentId;
 
+    const cardColors = ['#024653', '#0E6168', '#167375'];
+    const cardShadows = [
+        '0 20px 40px rgba(2, 70, 83, 0.15)',
+        '0 10px 20px rgba(2, 70, 83, 0.08)',
+        '0 5px 10px rgba(2, 70, 83, 0.05)'
+    ];
+
     return (
-        <section className="w-full bg-[#F9F8F2] relative flex items-center overflow-hidden pt-8 pb-16 lg:pt-12 lg:pb-24">
-            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-6 items-stretch justify-center">
+        <section className="w-full min-h-screen bg-[#F9F8F2] relative flex items-center justify-center overflow-hidden py-12 md:py-16 lg:py-20">
+            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 items-center justify-center">
 
-                {/* LEFT COLUMN: REVIEWS - STRATEGIC MIST REDESIGN */}
-                <div className="w-full lg:col-span-3 h-full min-h-[500px]">
-                    <div className="bg-white rounded-[2.5rem] shadow-xl shadow-[#024653]/5 border border-white h-full relative overflow-hidden group/container">
+                <div className="w-full lg:col-span-3 h-auto lg:h-full min-h-[500px] md:min-h-[600px]">
+                    <div className="bg-white rounded-[2.5rem] shadow-xl shadow-[#024653]/5 border border-white h-full min-h-[600px] md:min-h-[650px] relative overflow-visible md:overflow-hidden group/container">
 
-                        {/* 1. THE MIST & TITLE LAYER (z-20) */}
-                        <div className="absolute left-0 top-0 bottom-0 w-[85%] md:w-[60%] lg:w-[45%] bg-gradient-to-r from-white via-white/95 to-transparent z-20 flex flex-col justify-center pl-8 lg:pl-16 pr-12 pointer-events-none">
+                        <div className="absolute left-0 top-0 bottom-0 w-full md:w-[60%] lg:w-[45%] bg-gradient-to-r from-white via-white/95 to-transparent z-20 flex flex-col justify-center pl-6 md:pl-8 lg:pl-16 pr-8 md:pr-12 pointer-events-none">
                             <div className="pointer-events-auto max-w-xs">
                                 <div className="mb-6 flex items-center justify-between">
                                     <Quote className="text-[#05D16E] opacity-20 transform rotate-180" size={48} />
@@ -123,14 +124,12 @@ export default function SocialProofSection() {
                                     <span className="text-xs font-bold text-[#024653]/60 uppercase tracking-widest">5.0 Google Score</span>
                                 </div>
 
-                                {/* Custom Navigation Controls - Fixed in safe area */}
                                 <div className="flex flex-col gap-6">
                                     <div className="flex items-center gap-4">
                                         <CarouselControl direction="prev" onClick={handlePrev} />
                                         <CarouselControl direction="next" onClick={handleNext} />
                                     </div>
 
-                                    {/* Real Progress Bar */}
                                     <div className="flex flex-col gap-2 w-32">
                                         <div className="h-[3px] bg-[#024653]/5 rounded-full overflow-hidden">
                                             <motion.div
@@ -148,28 +147,25 @@ export default function SocialProofSection() {
                             </div>
                         </div>
 
-                        {/* 2. SLIDING CARDS LAYER (z-10) */}
-                        {/* 2. SLIDING CARDS LAYER (z-10) - CARD STACK EFFECT */}
                         <div
-                            className="absolute right-0 top-0 bottom-0 w-full md:w-[55%] flex items-center justify-center md:pr-12"
+                            className="absolute right-0 top-1/2 -translate-y-1/2 w-full md:w-[55%] flex items-center justify-center md:pr-12"
                             onMouseEnter={() => setIsPaused(true)}
                             onMouseLeave={() => setIsPaused(false)}
                         >
-                            <div className="relative w-full h-[360px] flex items-center justify-center">
+                            <div className="relative w-full h-[400px] md:h-[450px] flex items-center justify-center">
                                 <AnimatePresence mode="popLayout">
                                     {cards.slice(0, 3).map((review, index) => {
                                         return (
                                             <motion.div
                                                 key={review.uniqueId}
-                                                layoutId={review.uniqueId} // Helps with smooth position swaps
+                                                layoutId={review.uniqueId}
                                                 initial={{ opacity: 0, scale: 0.9, x: 100, zIndex: 0 }}
                                                 animate={{
-                                                    opacity: index === 0 ? 1 : (1 - index * 0.15),
+                                                    opacity: 1,
                                                     scale: index === 0 ? 1 : (1 - index * 0.05),
-                                                    x: index * 25, // Stack offset
-                                                    y: index * 0,  // Could add Y offset if desired
+                                                    x: index * 25,
+                                                    y: index * 0,
                                                     zIndex: 10 - index,
-                                                    filter: index === 0 ? 'blur(0px)' : 'blur(2px)',
                                                 }}
                                                 exit={{
                                                     x: -200,
@@ -184,12 +180,13 @@ export default function SocialProofSection() {
                                                     damping: 25,
                                                     mass: 1
                                                 }}
-                                                className="absolute left-0 top-1/2 -translate-y-1/2 shrink-0 w-[300px] md:w-[320px] bg-[#085560] p-10 rounded-[2.5rem] shadow-2xl shadow-[#024653]/10 overflow-hidden"
+                                                className="absolute left-8 md:left-12 top-1/2 -translate-y-1/2 shrink-0 w-[280px] md:w-[300px] p-10 rounded-[2.5rem] overflow-hidden"
                                                 style={{
-                                                    transformOrigin: "center left"
+                                                    transformOrigin: "center left",
+                                                    backgroundColor: cardColors[index],
+                                                    boxShadow: cardShadows[index]
                                                 }}
                                             >
-                                                {/* Subtle pattern background for cards */}
                                                 <div className="absolute top-0 right-0 p-6 opacity-5">
                                                     <Quote size={80} className="transform rotate-180" />
                                                 </div>
@@ -216,7 +213,6 @@ export default function SocialProofSection() {
                                                     </div>
                                                 </div>
 
-                                                {/* Premium glass effect at bottom */}
                                                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[#05D16E] to-transparent opacity-30" />
                                             </motion.div>
                                         )
@@ -224,15 +220,11 @@ export default function SocialProofSection() {
                                 </AnimatePresence>
                             </div>
                         </div>
-
-                        {/* Right edge fade - very subtle as requested */}
-                        <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white/20 to-transparent z-15 pointer-events-none" />
                     </div>
                 </div>
 
-                {/* RIGHT COLUMN: PROMO (UNCHANGED CORE LOGIC, REFINED VISUALS) */}
-                <div className="w-full lg:col-span-2 flex flex-col h-full gap-6">
-                    {/* Timer Card */}
+
+                <div className="w-full lg:col-span-2 flex flex-col h-auto lg:h-full gap-6">
                     <div className="bg-white rounded-[2.5rem] p-8 flex items-center justify-between shadow-xl shadow-[#024653]/5 border border-white">
                         <div>
                             <span className="inline-block px-3 py-1 bg-[#024653]/5 text-[#024653] text-[9px] font-black uppercase tracking-[0.2em] rounded-full mb-2">
@@ -245,9 +237,7 @@ export default function SocialProofSection() {
                         </div>
                     </div>
 
-                    {/* Main Offer Card */}
                     <div className="bg-white rounded-[3rem] p-10 text-center shadow-2xl shadow-[#024653]/5 border border-white relative overflow-hidden flex-grow flex flex-col justify-center">
-                        {/* Background Decoration */}
                         <div className="absolute -top-10 -right-10 w-40 h-40 bg-[#05D16E]/5 rounded-full blur-3xl" />
 
                         <div className="relative z-10">

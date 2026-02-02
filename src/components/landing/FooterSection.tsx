@@ -9,10 +9,10 @@ import { motion } from "framer-motion";
 
 export default function FooterSection() {
     return (
-        <footer id="footer" className="w-full bg-[#F9F8F2] text-[#024653] h-screen min-h-[850px] flex flex-col justify-start relative z-10 overflow-hidden snap-start">
+        <footer id="footer" className="w-full bg-[#F9F8F2] text-[#024653] lg:h-screen min-h-[850px] flex flex-col justify-start relative z-10 overflow-hidden snap-start">
 
-            {/* --- SOCIAL PROOF MARQUEE (Top of Footer, no separation line) --- */}
-            <div className="w-full bg-transparent pt-[120px] pb-6">
+            {/* --- SOCIAL PROOF MARQUEE (Reduced top padding by 60px) --- */}
+            <div className="w-full bg-transparent pt-16 pb-6">
                 <div className="max-w-[1700px] mx-auto px-6 lg:px-10">
                     <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
                         {/* Title Block */}
@@ -64,7 +64,7 @@ export default function FooterSection() {
                 </div>
             </div>
 
-            {/* --- MAIN FOOTER CONTENT (Perfectly centered in remaining space) --- */}
+            {/* --- MAIN FOOTER CONTENT --- */}
             <div className="max-w-[1700px] w-full mx-auto px-6 lg:px-10 flex flex-col justify-between flex-1 pb-16 pt-8">
 
                 {/* --- TOP SECTION --- */}
@@ -120,48 +120,58 @@ export default function FooterSection() {
                     </div>
                 </div>
 
-                {/* --- BOTTOM SECTION: Links & Locations --- */}
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-6 pt-12">
-                    <div className="space-y-6">
-                        <h4 className="text-[9px] font-normal uppercase tracking-widest text-[#024653]/30">DIRECTLY TO</h4>
-                        <nav className="flex flex-col gap-4 text-sm font-normal">
-                            <Link href="#vision" className="hover:opacity-60 transition-opacity">Vision</Link>
-                            <Link href="#cases" className="hover:opacity-60 transition-opacity">Cases</Link>
-                            <button className="flex items-center gap-2 hover:opacity-60 transition-opacity w-fit text-left uppercase text-[11px] font-black tracking-widest">
-                                Solutions <span className="text-[7px]">▼</span>
-                            </button>
-                        </nav>
-                    </div>
+                {/* --- BOTTOM SECTION: Links & Right-Aligned Locations --- */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 pt-12 items-end">
 
-                    <div className="space-y-6 lg:pt-8">
-                        <nav className="flex flex-col gap-4 text-sm font-normal pt-1.5">
-                            <Link href="/about" className="hover:opacity-60 transition-opacity">About ECS</Link>
-                            <Link href="/updates" className="hover:opacity-60 transition-opacity">Updates</Link>
-                            <button className="flex items-center gap-2 hover:opacity-60 transition-opacity w-fit text-left uppercase text-[11px] font-black tracking-widest">
-                                Work <span className="text-[7px]">▼</span>
-                            </button>
-                        </nav>
-                    </div>
-
-                    {[
-                        { name: "ECS Spokane", addr: "509 N Howard St", city: "Spokane, WA", phone: "+1 (509) 123-4567" },
-                        { name: "ECS Liberty", addr: "8017 Liberty Lake", city: "Spokane, WA", phone: "+1 (509) 123-4568" },
-                        { name: "ECS Valley", addr: "1013 BC Broadway", city: "Spokane, WA", phone: "+1 (509) 123-4569" }
-                    ].map((loc, i) => (
-                        <div key={i} className="space-y-6">
-                            <div className="space-y-1">
-                                <h4 className="text-[10px] font-bold text-[#024653] opacity-80">{loc.name}</h4>
-                                <div className="text-[10px] space-y-0.5 font-normal leading-relaxed opacity-40">
-                                    <p>{loc.addr}</p>
-                                    <p>{loc.city}</p>
-                                    <p className="pt-1">{loc.phone}</p>
-                                </div>
-                            </div>
-                            <button className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#E1F724] text-[#024653] rounded-full text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all">
-                                ROUTE <span className="text-lg leading-none translate-y-[-1px]">→</span>
-                            </button>
+                    {/* Links Section (Left) - Takes 4 columns */}
+                    <div className="lg:col-span-4 grid grid-cols-2 gap-6">
+                        <div className="space-y-6">
+                            <h4 className="text-[9px] font-normal uppercase tracking-widest text-[#024653]/30">DIRECTLY TO</h4>
+                            <nav className="flex flex-col gap-4 text-sm font-normal">
+                                <Link href="#vision" className="hover:opacity-60 transition-opacity">Vision</Link>
+                                <Link href="#cases" className="hover:opacity-60 transition-opacity">Cases</Link>
+                                <button className="flex items-center gap-2 hover:opacity-60 transition-opacity w-fit text-left uppercase text-[11px] font-black tracking-widest">
+                                    Solutions <span className="text-[7px]">▼</span>
+                                </button>
+                            </nav>
                         </div>
-                    ))}
+
+                        <div className="space-y-6 lg:pt-8">
+                            <nav className="flex flex-col gap-4 text-sm font-normal pt-1.5">
+                                <Link href="/about" className="hover:opacity-60 transition-opacity">About ECS</Link>
+                                <Link href="/updates" className="hover:opacity-60 transition-opacity">Updates</Link>
+                                <button className="flex items-center gap-2 hover:opacity-60 transition-opacity w-fit text-left uppercase text-[11px] font-black tracking-widest">
+                                    Work <span className="text-[7px]">▼</span>
+                                </button>
+                            </nav>
+                        </div>
+                    </div>
+
+                    {/* Spacer (1 column) */}
+                    <div className="hidden lg:block lg:col-span-1" />
+
+                    {/* Locations Grid (Right Aligned) - Takes 7 columns */}
+                    <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-6">
+                        {[
+                            { name: "ECS Spokane", addr: "509 N Howard St", city: "Spokane, WA", phone: "+1 (509) 123-4567" },
+                            { name: "ECS Liberty", addr: "8017 Liberty Lake", city: "Spokane, WA", phone: "+1 (509) 123-4568" },
+                            { name: "ECS Valley", addr: "1013 BC Broadway", city: "Spokane, WA", phone: "+1 (509) 123-4569" }
+                        ].map((loc, i) => (
+                            <div key={i} className="space-y-6 lg:text-right flex flex-col lg:items-end">
+                                <div className="space-y-1">
+                                    <h4 className="text-[10px] font-bold text-[#024653] opacity-80">{loc.name}</h4>
+                                    <div className="text-[10px] space-y-0.5 font-normal leading-relaxed opacity-40">
+                                        <p>{loc.addr}</p>
+                                        <p>{loc.city}</p>
+                                        <p className="pt-1">{loc.phone}</p>
+                                    </div>
+                                </div>
+                                <button className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#E1F724] text-[#024653] rounded-full text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all">
+                                    ROUTE <span className="text-lg leading-none translate-y-[-1px]">→</span>
+                                </button>
+                            </div>
+                        ))}
+                    </div>
                 </div>
 
             </div>

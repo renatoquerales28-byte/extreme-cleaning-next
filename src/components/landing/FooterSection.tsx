@@ -9,10 +9,10 @@ import { motion } from "framer-motion";
 
 export default function FooterSection() {
     return (
-        <footer id="footer" className="w-full bg-[#F9F8F2] text-[#024653] lg:h-screen min-h-[850px] flex flex-col justify-start relative z-10 overflow-hidden snap-start">
+        <footer id="footer" className="w-full bg-[#F9F8F2] text-[#024653] relative z-10 overflow-hidden pt-[85px] pb-24">
 
             {/* --- SOCIAL PROOF MARQUEE --- */}
-            <div className="w-full bg-transparent pt-[85px] pb-6">
+            <div className="w-full bg-transparent pb-12">
                 <div className="max-w-[1700px] mx-auto px-6 lg:px-10">
                     <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
                         {/* Title Block */}
@@ -64,8 +64,8 @@ export default function FooterSection() {
                 </div>
             </div>
 
-            {/* --- MAIN FOOTER CONTENT (Unified Gap Control) --- */}
-            <div className="max-w-[1700px] w-full mx-auto px-6 lg:px-10 flex flex-col gap-12 lg:gap-20 pb-16 pt-4">
+            {/* --- MAIN FOOTER CONTENT --- */}
+            <div className="max-w-[1700px] w-full mx-auto px-6 lg:px-10 flex flex-col gap-12 lg:gap-24">
 
                 {/* --- TOP SECTION --- */}
                 <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-0">

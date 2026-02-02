@@ -125,7 +125,7 @@ export default function ServiceSelectorSection() {
             <div className="max-w-[1700px] w-full h-full mx-auto px-6 lg:px-10 relative z-10 flex items-center justify-center py-0">
 
                 {/* CONTENT GRID - Optimized for laptop viewports to match Hero's visual balance */}
-                <div className="w-full h-[85%] lg:h-[78%] grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
+                <div className="w-full h-[85%] lg:h-[78%] grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 translate-y-[30px]">
 
                     {/* LEFT: INFO CARD (Compact) */}
                     <motion.div

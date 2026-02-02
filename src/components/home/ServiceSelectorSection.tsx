@@ -17,7 +17,7 @@ const SERVICE_CONTENT = {
             "100% Satisfaction Guarantee",
             "Customizable Checklists"
         ],
-        icon: <Home size={32} />,
+        icon: <Home size={24} />,
         options: [
             { id: 'standard', label: 'Standard Clean', price: 'From $150', tag: 'Most Popular' },
             { id: 'deep', label: 'Deep Clean', price: 'From $250', tag: 'Best Value' },
@@ -33,7 +33,7 @@ const SERVICE_CONTENT = {
             "Customized Frequency",
             "Supply Management"
         ],
-        icon: <Building2 size={32} />,
+        icon: <Building2 size={24} />,
         options: [
             { id: 'standard', label: 'Office Maintenance', price: 'Custom Quote', tag: 'Daily/Weekly' },
             { id: 'deep', label: 'Deep Sanitization', price: 'Custom Quote', tag: null },
@@ -49,7 +49,7 @@ const SERVICE_CONTENT = {
             "Key Management Secure",
             "Volume Discounts"
         ],
-        icon: <Briefcase size={32} />,
+        icon: <Briefcase size={24} />,
         options: [
             { id: 'turnover', label: 'Tenant Turnover', price: 'Flat Rates', tag: 'Priority' },
             { id: 'common', label: 'Common Areas', price: 'Contract', tag: null },
@@ -73,23 +73,18 @@ export default function ServiceSelectorSection() {
     };
 
     return (
-        <section className="w-full bg-[#F9F8F2] relative lg:h-[100svh] lg:max-h-[1000px] flex flex-col py-10 lg:py-16 overflow-hidden">
+        <section className="w-full bg-[#F9F8F2] relative lg:h-[85svh] lg:max-h-[900px] flex flex-col pt-8 lg:pt-12 pb-12 lg:pb-16 overflow-hidden">
             <div className="max-w-[1700px] mx-auto px-6 lg:px-10 relative z-10 w-full h-full flex flex-col">
 
-                {/* HEADLINE & TABS - Compact for single frame height */}
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 lg:mb-10 shrink-0">
-                    <h2 className="text-3xl lg:text-4xl xl:text-5xl font-normal tracking-tight text-[#024653] text-center md:text-left leading-[1.1]">
-                        Cleaning Solutions <br /> <span className="font-light italic opacity-60">Tailored to You</span>
-                    </h2>
-
-                    {/* TOGGLE PILL */}
+                {/* TABS - Repositioned and Compact */}
+                <div className="flex justify-center md:justify-end mb-8 lg:mb-12 shrink-0">
                     <div className="inline-flex bg-white/50 p-1 rounded-full relative border border-slate-200 shrink-0 shadow-sm">
                         {(['residential', 'commercial', 'pm'] as ServiceType[]).map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => { setActiveTab(tab); setSelectedOption(null); }}
                                 className={`
-                                    relative px-5 py-2 rounded-full text-[10px] lg:text-[11px] font-bold uppercase tracking-widest transition-all z-10
+                                    relative px-5 py-2 rounded-full text-[9px] lg:text-[10px] font-bold uppercase tracking-widest transition-all z-10
                                     ${activeTab === tab ? 'text-[#024653]' : 'text-slate-400 hover:text-slate-600'}
                                 `}
                             >
@@ -108,16 +103,16 @@ export default function ServiceSelectorSection() {
                     </div>
                 </div>
 
-                {/* CONTENT GRID - Optimized to match Hero Image Aspect/Height */}
-                <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 pb-4">
+                {/* CONTENT GRID - Architectural & Balanced */}
+                <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
 
-                    {/* LEFT: INFO CARD (Dynamic) - Dark Navy Card */}
+                    {/* LEFT: INFO CARD (Hero Image Proportion Sync) */}
                     <motion.div
                         layout
-                        className="lg:col-span-4 bg-[#024653] rounded-[2.5rem] p-8 lg:p-10 xl:p-12 text-white flex flex-col relative overflow-hidden h-full shadow-2xl shadow-[#024653]/10"
+                        className="lg:col-span-4 bg-[#024653] rounded-[2rem] p-8 lg:p-10 text-white flex flex-col relative overflow-hidden h-full shadow-2xl shadow-[#024653]/10"
                     >
                         {/* Blob Decoration */}
-                        <div className="absolute top-0 right-0 w-80 h-80 bg-white/10 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2 mix-blend-overlay" />
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/2 mix-blend-overlay" />
 
                         <div className="relative z-10 flex flex-col h-full">
                             <AnimatePresence mode="wait">
@@ -130,13 +125,13 @@ export default function ServiceSelectorSection() {
                                     className="flex flex-col h-full"
                                 >
                                     <div className="flex items-center gap-4 mb-6 lg:mb-8 shrink-0">
-                                        <div className="w-12 h-12 lg:w-16 lg:h-16 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm shrink-0">
+                                        <div className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm shrink-0">
                                             {activeContent.icon}
                                         </div>
-                                        <h3 className="text-xl lg:text-2xl font-bold tracking-tight">{activeContent.title}</h3>
+                                        <h3 className="text-lg lg:text-xl font-bold tracking-tight">{activeContent.title}</h3>
                                     </div>
 
-                                    <p className="text-white/80 leading-relaxed mb-6 lg:mb-8 font-normal text-sm lg:text-base xl:text-lg">
+                                    <p className="text-white/70 leading-relaxed mb-6 lg:mb-8 font-normal text-xs lg:text-sm">
                                         {activeContent.description}
                                     </p>
 
@@ -144,31 +139,31 @@ export default function ServiceSelectorSection() {
                                         {activeContent.benefits.map((benefit, idx) => (
                                             <li key={idx} className="flex items-center gap-3">
                                                 <div className="p-0.5 rounded-full bg-white/20 shrink-0">
-                                                    <CheckCircle2 size={14} className="text-white" />
+                                                    <CheckCircle2 size={12} className="text-white" />
                                                 </div>
-                                                <span className="font-normal text-white/90 text-xs lg:text-sm">{benefit}</span>
+                                                <span className="font-normal text-white/80 text-[10px] lg:text-xs tracking-wide">{benefit}</span>
                                             </li>
                                         ))}
                                     </ul>
 
-                                    {/* DYNAMIC ACTION BUTTON AREA */}
-                                    <div className="mt-8 relative pt-6 lg:pt-8 border-t border-white/5 shrink-0 min-h-[100px] flex items-center">
+                                    {/* ACTION BUTTON - Compact & Premium */}
+                                    <div className="mt-8 relative pt-6 lg:pt-8 border-t border-white/5 shrink-0 min-h-[80px] flex items-center">
                                         <motion.div
                                             className="w-full"
                                             initial={false}
                                             animate={{
                                                 opacity: selectedOption ? 1 : 0,
-                                                y: selectedOption ? 0 : 20,
+                                                y: selectedOption ? 0 : 10,
                                                 pointerEvents: selectedOption ? "auto" : "none"
                                             }}
                                             transition={{ duration: 0.4, ease: "easeOut" }}
                                         >
                                             <Link
                                                 href={getWizardLink()}
-                                                className="inline-flex w-full items-center justify-between gap-4 px-8 py-5 bg-[#05D16E] text-[#024653] rounded-2xl font-bold text-xs lg:text-sm uppercase tracking-widest shadow-xl shadow-[#05D16E]/10 hover:-translate-y-1 hover:shadow-2xl transition-all"
+                                                className="inline-flex w-full items-center justify-between gap-4 px-6 lg:px-8 py-4 bg-[#05D16E] text-[#024653] rounded-xl font-bold text-[10px] lg:text-xs uppercase tracking-widest shadow-xl shadow-[#05D16E]/10 hover:-translate-y-0.5 hover:shadow-2xl transition-all"
                                             >
                                                 <span>Continue to Booking</span>
-                                                <ArrowRight size={20} />
+                                                <ArrowRight size={16} />
                                             </Link>
                                         </motion.div>
 
@@ -178,7 +173,7 @@ export default function ServiceSelectorSection() {
                                                 animate={{ opacity: 1 }}
                                                 className="absolute inset-0 flex items-center justify-center"
                                             >
-                                                <p className="text-[10px] uppercase tracking-widest text-white/30 italic font-medium">Select a plan on the right</p>
+                                                <p className="text-[9px] uppercase tracking-widest text-white/30 italic font-medium">Select a plan to proceed</p>
                                             </motion.div>
                                         )}
                                     </div>
@@ -187,7 +182,7 @@ export default function ServiceSelectorSection() {
                         </div>
                     </motion.div>
 
-                    {/* RIGHT: INTERACTIVE SELECTION - Balanced with Hero sync */}
+                    {/* RIGHT: SERVICE OPTIONS - Left Aligned */}
                     <div className="lg:col-span-8 flex flex-col h-full min-h-0">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 h-full">
                             <AnimatePresence mode="wait">
@@ -199,7 +194,7 @@ export default function ServiceSelectorSection() {
                                         exit={{ opacity: 0, scale: 0.98 }}
                                         onClick={() => setSelectedOption(option.id)}
                                         className={`
-                                            relative p-8 lg:p-10 rounded-[2.5rem] text-center border-2 transition-all group flex flex-col h-full justify-center
+                                            relative p-8 lg:p-10 rounded-[2rem] text-left transition-all group flex flex-col h-full items-start
                                             ${selectedOption === option.id
                                                 ? 'bg-white border-transparent shadow-2xl shadow-[#024653]/10 z-10 scale-[1.02]'
                                                 : 'bg-white/60 border-transparent hover:bg-white hover:shadow-xl'
@@ -208,35 +203,40 @@ export default function ServiceSelectorSection() {
                                     >
                                         {option.tag && (
                                             <span className={`
-                                                absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-2 text-[9px] font-bold uppercase tracking-widest rounded-full shadow-sm
+                                                absolute -top-2.5 left-8 px-3 py-1.5 text-[8px] font-bold uppercase tracking-widest rounded-full shadow-sm
                                                 ${selectedOption === option.id ? 'bg-[#024653] text-white' : 'bg-slate-200 text-slate-500'}
                                             `}>
                                                 {option.tag}
                                             </span>
                                         )}
 
-                                        <div className="mb-6 lg:mb-10">
-                                            <h5 className={`font-bold text-lg lg:text-2xl leading-tight mb-3 ${selectedOption === option.id ? 'text-[#024653]' : 'text-slate-600'}`}>
+                                        <div className="mt-4 mb-auto w-full">
+                                            <h5 className={`font-bold text-sm lg:text-base xl:text-lg leading-tight mb-2 ${selectedOption === option.id ? 'text-[#024653]' : 'text-slate-600'}`}>
                                                 {option.label}
                                             </h5>
-                                            <div className="flex justify-center">
-                                                <div className={`h-[2px] w-10 rounded-full ${selectedOption === option.id ? 'bg-[#05D16E]' : 'bg-slate-200'}`} />
-                                            </div>
+                                            <div className={`h-[2px] w-8 rounded-full ${selectedOption === option.id ? 'bg-[#05D16E]' : 'bg-slate-200'}`} />
                                         </div>
 
-                                        <div className="flex flex-col items-center gap-6">
-                                            <span className="text-xs lg:text-sm font-normal text-slate-400 uppercase tracking-widest font-medium">
+                                        <div className="flex flex-col items-start gap-4 mt-8 w-full">
+                                            <span className="text-[10px] lg:text-xs font-normal text-slate-400 uppercase tracking-widest font-medium">
                                                 {option.price}
                                             </span>
-                                            {selectedOption === option.id && (
-                                                <motion.div
-                                                    initial={{ scale: 0 }}
-                                                    animate={{ scale: 1 }}
-                                                    className="w-10 h-10 rounded-full bg-[#05D16E] flex items-center justify-center shadow-lg shadow-[#05D16E]/20"
-                                                >
-                                                    <CheckCircle2 size={20} className="text-white" />
-                                                </motion.div>
-                                            )}
+
+                                            {/* Corner Selection Indicator */}
+                                            <div className="absolute bottom-6 right-6 lg:bottom-8 lg:right-8">
+                                                <AnimatePresence>
+                                                    {selectedOption === option.id && (
+                                                        <motion.div
+                                                            initial={{ scale: 0, opacity: 0 }}
+                                                            animate={{ scale: 1, opacity: 1 }}
+                                                            exit={{ scale: 0, opacity: 0 }}
+                                                            className="w-8 h-8 rounded-lg bg-[#05D16E] flex items-center justify-center shadow-lg shadow-[#05D16E]/20"
+                                                        >
+                                                            <CheckCircle2 size={16} className="text-white" />
+                                                        </motion.div>
+                                                    )}
+                                                </AnimatePresence>
+                                            </div>
                                         </div>
                                     </motion.button>
                                 ))}

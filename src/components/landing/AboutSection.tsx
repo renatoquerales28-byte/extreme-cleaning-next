@@ -74,7 +74,7 @@ export default function AboutSection() {
                         </h2>
 
                         <p className="text-white/60 font-light text-base lg:text-lg leading-relaxed max-w-lg">
-                            From humble beginnings in Spokane to becoming the region's most trusted
+                            From humble beginnings in Spokane to becoming the region&apos;s most trusted
                             cleaning partner, ECS was built on hard work, integrity, and an unwavering
                             commitment to transforming every space we touch.
                         </p>

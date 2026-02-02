@@ -22,21 +22,21 @@ const SERVICE_CONTENT = {
                 label: 'Standard Clean',
                 price: 'From $150',
                 tag: 'Most Popular',
-                shortDesc: "Comprehensive surface cleaning for your primary living spaces."
+                shortDesc: "Our essential maintenance service to keep your home consistently fresh. Includes vacuuming, mopping, dusting, and full sanitization of kitchens and bathrooms for everyday comfort."
             },
             {
                 id: 'deep',
                 label: 'Deep Clean',
                 price: 'From $250',
                 tag: 'Best Value',
-                shortDesc: "Intensive restoration cleaning, targeting every corner and hidden detail."
+                shortDesc: "A comprehensive bottom-to-top restoration of your living space. We target overlooked areas like baseboards, behind appliances, interior windows, and heavy-duty lime scale removal."
             },
             {
                 id: 'move',
                 label: 'Move In / Out',
                 price: 'Custom Quote',
                 tag: null,
-                shortDesc: "Stress-free turnover cleaning to ensure your new or old home is pristine."
+                shortDesc: "Ensure your transition is flawless with a detailed sanitization of every square inch. We make sure every cabinet, drawer, and hidden corner is pristine for the next attendee."
             },
         ]
     },
@@ -54,21 +54,21 @@ const SERVICE_CONTENT = {
                 label: 'Office Maintenance',
                 price: 'Custom Quote',
                 tag: 'Daily/Weekly',
-                shortDesc: "Reliable daily or weekly upkeep for a consistently professional workplace."
+                shortDesc: "Keep your workspace productive and professional with our routine janitorial services. We handle trash removal, desk sanitization, and restroom maintenance on your schedule."
             },
             {
                 id: 'deep',
                 label: 'Deep Sanitization',
                 price: 'Custom Quote',
                 tag: null,
-                shortDesc: "Heavy-duty disinfection and deep cleaning for high-traffic office areas."
+                shortDesc: "Advanced high-touch surface disinfection for high-traffic environments. Ideal for maintaining a healthy workspace during flu seasons or after company events."
             },
             {
                 id: 'post-construction',
                 label: 'Post Construction',
                 price: 'Custom Quote',
                 tag: 'Heavy Duty',
-                shortDesc: "Expert dust and debris removal after renovations or new builds."
+                shortDesc: "Expert removal of fine construction dust and debris from every surface. We ensure your new build or renovation is ready for immediate occupancy."
             },
         ]
     },
@@ -86,21 +86,21 @@ const SERVICE_CONTENT = {
                 label: 'Tenant Turnover',
                 price: 'Flat Rates',
                 tag: 'Priority',
-                shortDesc: "Speedy, thorough cleans to get your units listed and rented faster."
+                shortDesc: "Fast-track your property listings with our high-efficiency turnover service. We specialize in getting units rent-ready within 24 hours while maintaining elite standards."
             },
             {
                 id: 'common',
                 label: 'Common Areas',
                 price: 'Contract',
                 tag: null,
-                shortDesc: "Consistent maintenance for lobbies, hallways, and shared building spaces."
+                shortDesc: "Reliable maintenance for shared building amenities, lobbies, and corridors. We ensure first impressions for potential tenants are always impeccable and corridors remain spot-free."
             },
             {
                 id: 'eviction',
                 label: 'Trash Out',
                 price: 'Heavy Duty',
                 tag: null,
-                shortDesc: "Full unit clearing and sanitization after evictions or move-outs."
+                shortDesc: "Complete debris removal and heavy-duty sanitization for challenging unit conditions. We handle full clear-outs and deep odor removal to restore units to market-ready condition."
             },
         ]
     }
@@ -232,10 +232,10 @@ export default function ServiceSelectorSection() {
                                         exit={{ opacity: 0, scale: 0.98 }}
                                         onClick={() => setSelectedOption(option.id)}
                                         className={`
-                                            relative p-6 lg:p-10 rounded-2xl lg:rounded-3xl text-left transition-all group flex flex-col h-full items-start
+                                            relative p-6 lg:p-10 rounded-2xl lg:rounded-3xl text-left transition-all duration-500 group flex flex-col h-full items-start border border-gray-100/50
                                             ${selectedOption === option.id
-                                                ? 'bg-white ring-1 ring-[#024653]/10 shadow-2xl shadow-[#024653]/10 z-10 scale-[1.01]'
-                                                : 'bg-white shadow-sm hover:shadow-xl hover:ring-1 hover:ring-[#024653]/5'
+                                                ? 'bg-white shadow-[0_20px_50px_rgba(2,70,83,0.15)] z-20 scale-[1.02] -translate-y-2'
+                                                : 'bg-white shadow-[0_4px_12px_rgba(2,70,83,0.05)] hover:shadow-[0_12px_30px_rgba(2,70,83,0.08)] hover:-translate-y-1'
                                             }
                                         `}
                                     >

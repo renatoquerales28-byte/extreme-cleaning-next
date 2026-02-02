@@ -73,7 +73,7 @@ export default function ServiceSelectorSection() {
     };
 
     return (
-        <section className="w-full bg-white relative overflow-hidden lg:h-[100svh] lg:max-h-[950px] flex flex-col pt-16 pb-8 lg:pt-20 lg:pb-8 border-t border-slate-100">
+        <section className="w-full bg-[#F9F8F2] relative overflow-hidden lg:h-[100svh] lg:max-h-[950px] flex flex-col pt-16 pb-8 lg:pt-20 lg:pb-8 border-t border-[#024653]/5">
             <div className="max-w-[1700px] mx-auto px-6 lg:px-10 relative z-10 w-full h-full flex flex-col">
 
                 {/* HEADLINE & TABS - Fixed Height portion */}
@@ -83,13 +83,13 @@ export default function ServiceSelectorSection() {
                     </h2>
 
                     {/* TOGGLE PILL */}
-                    <div className="inline-flex bg-slate-100 p-1.5 rounded-full relative border border-slate-200">
+                    <div className="inline-flex bg-white/50 p-1 rounded-full relative border border-slate-200 shrink-0">
                         {(['residential', 'commercial', 'pm'] as ServiceType[]).map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => { setActiveTab(tab); setSelectedOption(null); }}
                                 className={`
-                                    relative px-5 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-widest transition-all z-10
+                                    relative px-4 py-2 rounded-full text-[10px] lg:text-[11px] font-bold uppercase tracking-widest transition-all z-10
                                     ${activeTab === tab ? 'text-[#024653]' : 'text-slate-400 hover:text-slate-600'}
                                 `}
                             >
@@ -109,12 +109,12 @@ export default function ServiceSelectorSection() {
                 </div>
 
                 {/* CONTENT GRID - Fills remaining space */}
-                <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-0">
+                <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 min-h-0">
 
                     {/* LEFT: INFO CARD (Dynamic) - Dark Navy Card */}
                     <motion.div
                         layout
-                        className="lg:col-span-4 bg-[#024653] rounded-[2.5rem] p-8 lg:p-10 text-white flex flex-col relative overflow-hidden h-full shadow-2xl shadow-[#024653]/10"
+                        className="lg:col-span-4 bg-[#024653] rounded-[2rem] p-8 lg:p-10 text-white flex flex-col relative overflow-hidden h-full shadow-2xl shadow-[#024653]/10"
                     >
                         {/* Blob Decoration */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/2 mix-blend-overlay" />
@@ -162,82 +162,79 @@ export default function ServiceSelectorSection() {
                         </div>
                     </motion.div>
 
-                    {/* RIGHT: INTERACTIVE SELECTION - White Card */}
-                    <div className="lg:col-span-8 flex flex-col h-full min-h-0">
-                        <div className="bg-[#F9F8F2] rounded-[2.5rem] p-8 lg:p-10 h-full w-full border border-slate-100 flex flex-col shadow-2xl shadow-black/5 overflow-hidden relative">
+                    {/* RIGHT: INTERACTIVE SELECTION - Directly on Section Background */}
+                    <div className="lg:col-span-8 flex flex-col h-full min-h-0 relative">
+                        <div className="mb-4 flex items-center justify-between shrink-0 px-2">
+                            <h4 className="text-lg lg:text-xl font-bold text-[#024653] flex items-center gap-2">
+                                <Sparkles className="text-[#05D16E]" size={20} />
+                                Select Your Service Class
+                            </h4>
+                        </div>
 
-                            <div className="mb-4 flex items-center justify-between shrink-0">
-                                <h4 className="text-lg lg:text-xl font-bold text-[#024653] flex items-center gap-2">
-                                    <Sparkles className="text-[#05D16E]" size={20} />
-                                    Select Your Service Class
-                                </h4>
-                            </div>
+                        {/* Options Grid */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-4 flex-1 min-h-0">
+                            <AnimatePresence mode="wait">
+                                {activeContent.options.map((option) => (
+                                    <motion.button
+                                        key={`${activeTab}-${option.id}`}
+                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        animate={{ opacity: 1, scale: 1 }}
+                                        exit={{ opacity: 0, scale: 0.95 }}
+                                        onClick={() => setSelectedOption(option.id)}
+                                        className={`
+                                            relative p-4 lg:p-5 rounded-[1.25rem] text-left border-2 transition-all group flex flex-col h-full justify-between
+                                            ${selectedOption === option.id
+                                                ? 'bg-white border-transparent shadow-xl shadow-[#024653]/5 z-10'
+                                                : 'bg-white border-transparent hover:border-slate-200 shadow-sm hover:shadow-md'
+                                            }
+                                        `}
+                                    >
+                                        {option.tag && (
+                                            <span className={`
+                                                absolute -top-2.5 left-4 px-2.5 py-1 text-[8px] font-normal uppercase tracking-widest rounded-full shadow-sm
+                                                ${selectedOption === option.id ? 'bg-[#024653] text-white' : 'bg-slate-200 text-slate-500'}
+                                            `}>
+                                                {option.tag}
+                                            </span>
+                                        )}
 
-                            {/* Options Grid - Optimized to fit without scrolling */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-4 flex-1 min-h-0">
-                                <AnimatePresence mode="wait">
-                                    {activeContent.options.map((option) => (
-                                        <motion.button
-                                            key={`${activeTab}-${option.id}`}
-                                            initial={{ opacity: 0, scale: 0.95 }}
-                                            animate={{ opacity: 1, scale: 1 }}
-                                            exit={{ opacity: 0, scale: 0.95 }}
-                                            onClick={() => setSelectedOption(option.id)}
-                                            className={`
-                                                relative p-4 lg:p-5 rounded-[1.25rem] text-left border-2 transition-all group flex flex-col h-full justify-between
-                                                ${selectedOption === option.id
-                                                    ? 'bg-white border-[#05D16E] shadow-lg shadow-[#05D16E]/10 ring-2 ring-[#05D16E]/5 z-10'
-                                                    : 'bg-white border-transparent hover:border-slate-200 shadow-sm hover:shadow-md'
-                                                }
-                                            `}
-                                        >
-                                            {option.tag && (
-                                                <span className={`
-                                                    absolute -top-2.5 left-4 px-2.5 py-1 text-[8px] font-black uppercase tracking-widest rounded-full shadow-sm
-                                                    ${selectedOption === option.id ? 'bg-[#024653] text-white' : 'bg-slate-100 text-slate-500'}
-                                                `}>
-                                                    {option.tag}
-                                                </span>
-                                            )}
+                                        <div className="mt-2">
+                                            <h5 className={`font-bold text-base lg:text-lg leading-tight mb-1 ${selectedOption === option.id ? 'text-[#024653]' : 'text-slate-700'}`}>
+                                                {option.label}
+                                            </h5>
+                                            <div className={`h-1 w-6 rounded-full ${selectedOption === option.id ? 'bg-[#05D16E]' : 'bg-slate-200'}`} />
+                                        </div>
 
-                                            <div className="mt-2">
-                                                <h5 className={`font-bold text-base lg:text-lg leading-tight mb-1 ${selectedOption === option.id ? 'text-[#024653]' : 'text-slate-700'}`}>
-                                                    {option.label}
-                                                </h5>
-                                                <div className={`h-1 w-6 rounded-full ${selectedOption === option.id ? 'bg-[#05D16E]' : 'bg-slate-200'}`} />
+                                        <div className="flex items-end justify-between mt-4">
+                                            <span className="text-[11px] lg:text-xs font-normal text-slate-400 block uppercase tracking-wider">{option.price}</span>
+                                            <div className={`
+                                                w-6 h-6 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors
+                                                ${selectedOption === option.id ? 'border-transparent bg-[#05D16E]' : 'border-slate-100'}
+                                            `}>
+                                                {selectedOption === option.id && <CheckCircle2 size={12} className="text-white" />}
                                             </div>
+                                        </div>
+                                    </motion.button>
+                                ))}
+                            </AnimatePresence>
+                        </div>
 
-                                            <div className="flex items-end justify-between mt-4">
-                                                <span className="text-[11px] lg:text-xs font-bold text-slate-400 block uppercase tracking-wider">{option.price}</span>
-                                                <div className={`
-                                                    w-6 h-6 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors
-                                                    ${selectedOption === option.id ? 'border-[#05D16E] bg-[#05D16E]' : 'border-slate-200'}
-                                                `}>
-                                                    {selectedOption === option.id && <CheckCircle2 size={12} className="text-white" />}
-                                                </div>
-                                            </div>
-                                        </motion.button>
-                                    ))}
-                                </AnimatePresence>
-                            </div>
-
-                            {/* ACTION AREA - Fixed at bottom */}
-                            <div className="flex justify-end mt-4 lg:mt-6 shrink-0 pt-4 border-t border-[#024653]/5">
-                                <Link
-                                    href={selectedOption ? getWizardLink() : '#'}
-                                    className={`
-                                        inline-flex items-center gap-3 px-8 py-3.5 rounded-full font-black text-[10px] uppercase tracking-widest transition-all
-                                        ${selectedOption
-                                            ? 'bg-[#024653] text-white shadow-lg hover:-translate-y-0.5 hover:shadow-xl hover:bg-[#02333d]'
-                                            : 'bg-slate-100 text-slate-300 cursor-not-allowed'
-                                        }
-                                    `}
-                                    onClick={(e) => !selectedOption && e.preventDefault()}
-                                >
-                                    <span>Continue to Booking</span>
-                                    <ArrowRight size={14} />
-                                </Link>
-                            </div>
+                        {/* ACTION AREA */}
+                        <div className="flex justify-end mt-4 lg:mt-6 shrink-0">
+                            <Link
+                                href={selectedOption ? getWizardLink() : '#'}
+                                className={`
+                                    inline-flex items-center gap-3 px-8 py-3.5 rounded-full font-normal text-[10px] uppercase tracking-widest transition-all
+                                    ${selectedOption
+                                        ? 'bg-[#024653] text-white shadow-lg hover:-translate-y-0.5 hover:shadow-xl hover:bg-[#02333d]'
+                                        : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                                    }
+                                `}
+                                onClick={(e) => !selectedOption && e.preventDefault()}
+                            >
+                                <span>Continue to Booking</span>
+                                <ArrowRight size={14} />
+                            </Link>
                         </div>
                     </div>
                 </div>

@@ -3,13 +3,16 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { Star, Quote } from "lucide-react";
+import { GOOGLE_REVIEWS } from "@/lib/data/reviews_mock";
+import { motion } from "framer-motion";
 
 export default function FooterSection() {
     return (
-        <footer className="w-full bg-[#F9F8F2] text-[#024653] lg:h-screen min-h-[750px] flex flex-col justify-center relative z-10 pt-[100px] pb-10">
-            <div className="max-w-[1700px] w-full mx-auto px-6 lg:px-10 flex flex-col justify-between h-[80%] lg:h-[70%]">
+        <footer className="w-full bg-[#F9F8F2] text-[#024653] lg:h-screen min-h-[900px] flex flex-col justify-center relative z-10 pt-[80px] pb-10 overflow-hidden">
+            <div className="max-w-[1700px] w-full mx-auto px-6 lg:px-10 flex flex-col justify-between h-[85%] lg:h-[80%]">
 
-                {/* --- TOP SECTION --- */}
+                {/* --- TOP SECTION: Newsletter & Brand --- */}
                 <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-0">
 
                     {/* Left: Newsletter */}
@@ -62,8 +65,65 @@ export default function FooterSection() {
                     </div>
                 </div>
 
-                {/* --- MIDDLE SECTION --- */}
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-6 mt-20">
+                {/* --- MANTRA / SOCIAL PROOF INTEGRATION --- */}
+                <div className="w-full py-12 lg:py-16">
+                    <div className="flex flex-col lg:flex-row lg:items-center gap-10">
+                        {/* Title for the reviews */}
+                        <div className="shrink-0">
+                            <h3 className="text-xl md:text-2xl font-light text-[#024653]">
+                                What our <br /> <span className="font-black">Clients Say.</span>
+                            </h3>
+                            <div className="flex items-center gap-2 mt-2">
+                                <div className="flex text-[#F4B400]">
+                                    {[1, 2, 3, 4, 5].map(i => <Star key={i} size={12} fill="currentColor" />)}
+                                </div>
+                                <span className="text-[10px] font-medium text-[#024653]/40 uppercase tracking-widest">5.0 ON GOOGLE</span>
+                            </div>
+                        </div>
+
+                        {/* Scrolling Marquee */}
+                        <div className="flex-1 relative overflow-hidden">
+                            <motion.div
+                                className="flex gap-6"
+                                animate={{ x: ["0%", "-50%"] }}
+                                transition={{
+                                    repeat: Infinity,
+                                    ease: "linear",
+                                    duration: 40
+                                }}
+                                style={{ width: "max-content" }}
+                            >
+                                {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, i) => (
+                                    <div
+                                        key={i}
+                                        className="bg-white/50 backdrop-blur-sm p-6 rounded-2xl border border-[#024653]/5 w-[280px] shrink-0 space-y-4"
+                                    >
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 rounded-full bg-[#024653] text-white flex items-center justify-center text-[10px] font-bold">
+                                                {review.name.charAt(0)}
+                                            </div>
+                                            <div>
+                                                <h4 className="text-xs font-bold text-[#024653]">{review.name}</h4>
+                                                <div className="flex text-[#F4B400]">
+                                                    {[1, 2, 3, 4, 5].map(s => <Star key={s} size={8} fill="currentColor" />)}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p className="text-xs text-[#024653]/70 font-normal leading-relaxed italic line-clamp-3">
+                                            &quot;{review.text}&quot;
+                                        </p>
+                                    </div>
+                                ))}
+                            </motion.div>
+                            {/* Gradients to fade edges */}
+                            <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-[#F9F8F2] to-transparent z-10 pointer-events-none" />
+                            <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-[#F9F8F2] to-transparent z-10 pointer-events-none" />
+                        </div>
+                    </div>
+                </div>
+
+                {/* --- LINKS SECTION --- */}
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-6">
 
                     {/* Col 1: Links Left */}
                     <div className="space-y-6">
@@ -71,7 +131,7 @@ export default function FooterSection() {
                         <nav className="flex flex-col gap-5 text-sm font-normal">
                             <Link href="#vision" className="hover:opacity-60 transition-opacity">Vision</Link>
                             <Link href="#cases" className="hover:opacity-60 transition-opacity">Cases</Link>
-                            <button className="flex items-center gap-2 hover:opacity-60 transition-opacity w-fit">
+                            <button className="flex items-center gap-2 hover:opacity-60 transition-opacity w-fit text-left uppercase text-[11px] font-black tracking-widest">
                                 Solutions <span className="text-[7px]">▼</span>
                             </button>
                         </nav>
@@ -82,7 +142,7 @@ export default function FooterSection() {
                         <nav className="flex flex-col gap-5 text-sm font-normal pt-1.5">
                             <Link href="/about" className="hover:opacity-60 transition-opacity">About ECS</Link>
                             <Link href="/updates" className="hover:opacity-60 transition-opacity">Updates</Link>
-                            <button className="flex items-center gap-2 hover:opacity-60 transition-opacity w-fit">
+                            <button className="flex items-center gap-2 hover:opacity-60 transition-opacity w-fit text-left uppercase text-[11px] font-black tracking-widest">
                                 Work <span className="text-[7px]">▼</span>
                             </button>
                         </nav>

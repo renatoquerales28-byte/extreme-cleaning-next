@@ -17,9 +17,30 @@ const SERVICE_CONTENT = {
             "Customizable Checklists"
         ],
         options: [
-            { id: 'standard', label: 'Standard Clean', price: 'From $150', tag: 'Most Popular' },
-            { id: 'deep', label: 'Deep Clean', price: 'From $250', tag: 'Best Value' },
-            { id: 'move', label: 'Move In / Out', price: 'Custom Quote', tag: null },
+            {
+                id: 'standard',
+                label: 'Standard Clean',
+                price: 'From $150',
+                tag: 'Most Popular',
+                shortDesc: "Comprehensive surface cleaning for your primary living spaces.",
+                image: "/brand/service-residential.png"
+            },
+            {
+                id: 'deep',
+                label: 'Deep Clean',
+                price: 'From $250',
+                tag: 'Best Value',
+                shortDesc: "Intensive restoration cleaning, targeting every corner and hidden detail.",
+                image: "/brand/service-residential.png"
+            },
+            {
+                id: 'move',
+                label: 'Move In / Out',
+                price: 'Custom Quote',
+                tag: null,
+                shortDesc: "Stress-free turnover cleaning to ensure your new or old home is pristine.",
+                image: "/brand/service-residential.png"
+            },
         ]
     },
     commercial: {
@@ -31,9 +52,30 @@ const SERVICE_CONTENT = {
             "Supply Management"
         ],
         options: [
-            { id: 'standard', label: 'Office Maintenance', price: 'Custom Quote', tag: 'Daily/Weekly' },
-            { id: 'deep', label: 'Deep Sanitization', price: 'Custom Quote', tag: null },
-            { id: 'post-construction', label: 'Post Construction', price: 'Custom Quote', tag: 'Heavy Duty' },
+            {
+                id: 'standard',
+                label: 'Office Maintenance',
+                price: 'Custom Quote',
+                tag: 'Daily/Weekly',
+                shortDesc: "Reliable daily or weekly upkeep for a consistently professional workplace.",
+                image: "/brand/service-residential.png"
+            },
+            {
+                id: 'deep',
+                label: 'Deep Sanitization',
+                price: 'Custom Quote',
+                tag: null,
+                shortDesc: "Heavy-duty disinfection and deep cleaning for high-traffic office areas.",
+                image: "/brand/service-residential.png"
+            },
+            {
+                id: 'post-construction',
+                label: 'Post Construction',
+                price: 'Custom Quote',
+                tag: 'Heavy Duty',
+                shortDesc: "Expert dust and debris removal after renovations or new builds.",
+                image: "/brand/service-residential.png"
+            },
         ]
     },
     pm: {
@@ -45,9 +87,30 @@ const SERVICE_CONTENT = {
             "Volume Discounts"
         ],
         options: [
-            { id: 'turnover', label: 'Tenant Turnover', price: 'Flat Rates', tag: 'Priority' },
-            { id: 'common', label: 'Common Areas', price: 'Contract', tag: null },
-            { id: 'eviction', label: 'Trash Out', price: 'Heavy Duty', tag: null },
+            {
+                id: 'turnover',
+                label: 'Tenant Turnover',
+                price: 'Flat Rates',
+                tag: 'Priority',
+                shortDesc: "Speedy, thorough cleans to get your units listed and rented faster.",
+                image: "/brand/service-residential.png"
+            },
+            {
+                id: 'common',
+                label: 'Common Areas',
+                price: 'Contract',
+                tag: null,
+                shortDesc: "Consistent maintenance for lobbies, hallways, and shared building spaces.",
+                image: "/brand/service-residential.png"
+            },
+            {
+                id: 'eviction',
+                label: 'Trash Out',
+                price: 'Heavy Duty',
+                tag: null,
+                shortDesc: "Full unit clearing and sanitization after evictions or move-outs.",
+                image: "/brand/service-residential.png"
+            },
         ]
     }
 };
@@ -67,7 +130,7 @@ export default function ServiceSelectorSection() {
     };
 
     return (
-        <section className="w-full bg-[#F9F8F2] relative lg:h-[90svh] lg:max-h-[850px] flex flex-col pt-4 pb-8 lg:pb-12 overflow-hidden">
+        <section className="w-full bg-[#F9F8F2] relative lg:h-[90svh] lg:min-h-[850px] flex flex-col py-12 lg:py-20 overflow-hidden">
             <div className="max-w-[1700px] mx-auto px-6 lg:px-10 relative z-10 w-full h-full flex flex-col">
 
                 {/* CONTENT GRID - Optimized for laptop viewports */}
@@ -180,8 +243,8 @@ export default function ServiceSelectorSection() {
                                         className={`
                                             relative p-6 lg:p-8 rounded-[2rem] text-left transition-all group flex flex-col h-full items-start
                                             ${selectedOption === option.id
-                                                ? 'bg-white border-transparent shadow-2xl shadow-[#024653]/10 z-10 scale-[1.01]'
-                                                : 'bg-white/60 border-transparent hover:bg-white hover:shadow-xl'
+                                                ? 'bg-white ring-1 ring-[#024653]/10 shadow-2xl shadow-[#024653]/10 z-10 scale-[1.01]'
+                                                : 'bg-white shadow-sm hover:shadow-xl hover:ring-1 hover:ring-[#024653]/5'
                                             }
                                         `}
                                     >
@@ -194,32 +257,45 @@ export default function ServiceSelectorSection() {
                                             </span>
                                         )}
 
-                                        <div className="mt-4 mb-auto w-full">
+                                        <div className="mt-4 w-full">
                                             <h5 className={`font-bold text-sm lg:text-base xl:text-lg leading-tight mb-2 ${selectedOption === option.id ? 'text-[#024653]' : 'text-slate-600'}`}>
                                                 {option.label}
                                             </h5>
                                             <div className={`h-[1.5px] w-8 rounded-full ${selectedOption === option.id ? 'bg-[#05D16E]' : 'bg-slate-200'}`} />
+
+                                            <p className="mt-4 text-[10px] lg:text-[11px] text-slate-400 font-normal leading-relaxed line-clamp-2">
+                                                {option.shortDesc}
+                                            </p>
                                         </div>
 
-                                        <div className="flex flex-col items-start gap-3 mt-6 w-full">
+                                        <div className="flex flex-col items-start gap-1 mt-6 w-full mb-auto">
                                             <span className="text-[9px] lg:text-[10px] font-normal text-slate-400 uppercase tracking-widest font-medium">
                                                 {option.price}
                                             </span>
+                                        </div>
 
-                                            <div className="absolute bottom-6 right-6 lg:bottom-8 lg:right-8">
-                                                <AnimatePresence>
-                                                    {selectedOption === option.id && (
-                                                        <motion.div
-                                                            initial={{ scale: 0, opacity: 0 }}
-                                                            animate={{ scale: 1, opacity: 1 }}
-                                                            exit={{ scale: 0, opacity: 0 }}
-                                                            className="w-8 h-8 rounded-lg bg-[#05D16E] flex items-center justify-center shadow-lg shadow-[#05D16E]/20"
-                                                        >
-                                                            <CheckCircle2 size={16} className="text-white" />
-                                                        </motion.div>
-                                                    )}
-                                                </AnimatePresence>
-                                            </div>
+                                        {/* Image Container - 1/4 of card height */}
+                                        <div className="mt-6 w-full aspect-[4/1.5] relative rounded-xl overflow-hidden bg-slate-50 border border-slate-100/50">
+                                            <img
+                                                src={option.image}
+                                                alt={option.label}
+                                                className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity"
+                                            />
+                                        </div>
+
+                                        <div className="absolute top-8 right-8">
+                                            <AnimatePresence>
+                                                {selectedOption === option.id && (
+                                                    <motion.div
+                                                        initial={{ scale: 0, opacity: 0 }}
+                                                        animate={{ scale: 1, opacity: 1 }}
+                                                        exit={{ scale: 0, opacity: 0 }}
+                                                        className="w-8 h-8 rounded-lg bg-[#05D16E] flex items-center justify-center shadow-lg shadow-[#05D16E]/20"
+                                                    >
+                                                        <CheckCircle2 size={16} className="text-white" />
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
                                         </div>
                                     </motion.button>
                                 ))}

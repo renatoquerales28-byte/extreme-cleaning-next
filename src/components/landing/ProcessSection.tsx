@@ -103,12 +103,10 @@ export default function ProcessSection() {
                                 transition={{ delay: 0.5 }}
                                 className="relative lg:ml-[-10px]"
                             >
-                                <div className="absolute inset-0 bg-[#05D16E]/20 blur-xl rounded-full scale-110" />
                                 <div
-                                    className="w-16 h-18 bg-white shadow-lg border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-all duration-300"
-                                    style={{ clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)" }}
+                                    className="w-14 h-14 bg-white shadow-lg rounded-2xl flex items-center justify-center text-[#085560] relative z-20 hover:scale-110 transition-all duration-300"
                                 >
-                                    <ClipboardList size={24} />
+                                    <ClipboardList size={22} />
                                 </div>
                             </motion.div>
                         </div>
@@ -123,12 +121,10 @@ export default function ProcessSection() {
                                 transition={{ delay: 0.8 }}
                                 className="mb-12 lg:mb-20 lg:-translate-y-[100px]"
                             >
-                                <div className="absolute inset-0 bg-[#05D16E]/20 blur-xl rounded-full scale-110" />
                                 <div
-                                    className="w-16 h-18 bg-white shadow-lg border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-all duration-300"
-                                    style={{ clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)" }}
+                                    className="w-14 h-14 bg-white shadow-lg rounded-2xl flex items-center justify-center text-[#085560] relative z-20 hover:scale-110 transition-all duration-300"
                                 >
-                                    <CircleDollarSign size={24} />
+                                    <CircleDollarSign size={22} />
                                 </div>
                             </motion.div>
 
@@ -156,12 +152,10 @@ export default function ProcessSection() {
                                 transition={{ delay: 1.1 }}
                                 className="mb-12 lg:mb-20 lg:translate-x-[-40px] lg:translate-y-[45px]"
                             >
-                                <div className="absolute inset-0 bg-[#05D16E]/20 blur-xl rounded-full scale-110" />
                                 <div
-                                    className="w-16 h-18 bg-white shadow-lg border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-all duration-300"
-                                    style={{ clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)" }}
+                                    className="w-14 h-14 bg-white shadow-lg rounded-2xl flex items-center justify-center text-[#085560] relative z-20 hover:scale-110 transition-all duration-300"
                                 >
-                                    <Sparkles size={24} />
+                                    <Sparkles size={22} />
                                 </div>
                             </motion.div>
 

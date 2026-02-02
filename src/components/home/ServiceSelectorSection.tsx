@@ -131,16 +131,16 @@ export default function ServiceSelectorSection() {
     };
 
     return (
-        <section className="w-full bg-[#F9F8F2] relative lg:h-[100svh] lg:max-h-[1000px] flex flex-col overflow-hidden">
-            <div className="max-w-[1700px] mx-auto px-6 lg:px-10 relative z-10 w-full h-full flex items-center py-6 lg:py-10">
+        <section className="w-full bg-[#F9F8F2] relative lg:h-[100svh] lg:max-h-[1000px] flex flex-col items-center justify-center overflow-hidden">
+            <div className="max-w-[1700px] w-full h-full mx-auto px-6 lg:px-10 relative z-10 flex items-center py-8 lg:py-12">
 
                 {/* CONTENT GRID - Optimized for laptop viewports to match Hero's visual balance */}
-                <div className="flex-1 w-full h-[95%] grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
+                <div className="w-full h-[85%] lg:h-[80%] grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
 
                     {/* LEFT: INFO CARD (Compact) */}
                     <motion.div
                         layout
-                        className="lg:col-span-4 bg-[#024653] rounded-2xl lg:rounded-3xl p-6 lg:p-8 text-white flex flex-col relative overflow-hidden h-full shadow-2xl shadow-[#024653]/30"
+                        className="lg:col-span-4 bg-[#024653] rounded-2xl lg:rounded-3xl p-6 lg:p-10 text-white flex flex-col relative overflow-hidden h-full shadow-2xl shadow-[#024653]/30"
                     >
                         {/* Blob Decoration */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/2 mix-blend-overlay" />
@@ -148,13 +148,13 @@ export default function ServiceSelectorSection() {
                         <div className="relative z-10 flex flex-col h-full">
 
                             {/* INTEGRATED SERVICE SWITCHER - Text only, compact */}
-                            <div className="inline-flex bg-white/5 p-1 rounded-full relative border border-white/10 mb-6 lg:mb-8 shadow-inner w-full">
+                            <div className="inline-flex bg-white/5 p-1 rounded-full relative border border-white/10 mb-8 lg:mb-10 shadow-inner w-full">
                                 {(['residential', 'commercial', 'pm'] as ServiceType[]).map((tab) => (
                                     <button
                                         key={tab}
                                         onClick={() => { setActiveTab(tab); setSelectedOption(null); }}
                                         className={`
-                                            relative flex-1 py-2 rounded-full text-[8.5px] lg:text-[9.5px] font-bold uppercase tracking-[0.15em] transition-all z-10
+                                            relative flex-1 py-2.5 rounded-full text-[8.5px] lg:text-[9.5px] font-bold uppercase tracking-[0.15em] transition-all z-10
                                             ${activeTab === tab ? 'text-[#024653]' : 'text-white/40 hover:text-white/60'}
                                         `}
                                     >
@@ -179,11 +179,11 @@ export default function ServiceSelectorSection() {
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col h-full"
                                 >
-                                    <p className="text-white/70 leading-relaxed mb-6 lg:mb-8 font-normal text-xs lg:text-sm">
+                                    <p className="text-white/70 leading-relaxed mb-auto font-normal text-xs lg:text-sm">
                                         {activeContent.description}
                                     </p>
 
-                                    <ul className="space-y-3 mb-auto">
+                                    <ul className="space-y-4 mb-auto pt-8">
                                         {activeContent.benefits.map((benefit, idx) => (
                                             <li key={idx} className="flex items-center gap-3">
                                                 <div className="p-0.5 rounded-full bg-white/20 shrink-0">
@@ -195,7 +195,7 @@ export default function ServiceSelectorSection() {
                                     </ul>
 
                                     {/* ACTION BUTTON - Elevated & Compact */}
-                                    <div className="mt-6 relative pt-6 border-t border-white/5 shrink-0 min-h-[70px] flex items-center">
+                                    <div className="mt-8 relative pt-8 border-t border-white/5 shrink-0 min-h-[70px] flex items-center">
                                         <motion.div
                                             className="w-full"
                                             initial={false}
@@ -219,7 +219,7 @@ export default function ServiceSelectorSection() {
                                             <motion.div
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 1 }}
-                                                className="absolute inset-0 flex items-center justify-center pt-6"
+                                                className="absolute inset-0 flex items-center justify-center pt-8"
                                             >
                                                 <p className="text-[9px] uppercase tracking-widest text-white/30 italic font-medium">Select a plan to proceed</p>
                                             </motion.div>
@@ -242,7 +242,7 @@ export default function ServiceSelectorSection() {
                                         exit={{ opacity: 0, scale: 0.98 }}
                                         onClick={() => setSelectedOption(option.id)}
                                         className={`
-                                            relative p-6 lg:p-8 rounded-2xl lg:rounded-3xl text-left transition-all group flex flex-col h-full items-start
+                                            relative p-6 lg:p-10 rounded-2xl lg:rounded-3xl text-left transition-all group flex flex-col h-full items-start
                                             ${selectedOption === option.id
                                                 ? 'bg-white ring-1 ring-[#024653]/10 shadow-2xl shadow-[#024653]/10 z-10 scale-[1.01]'
                                                 : 'bg-white shadow-sm hover:shadow-xl hover:ring-1 hover:ring-[#024653]/5'
@@ -251,50 +251,40 @@ export default function ServiceSelectorSection() {
                                     >
                                         {option.tag && (
                                             <span className={`
-                                                absolute -top-2.5 left-6 px-3 py-1 text-[8px] font-bold uppercase tracking-widest rounded-full shadow-sm
+                                                absolute -top-2.5 left-8 px-3 py-1 text-[8px] font-bold uppercase tracking-widest rounded-full shadow-sm
                                                 ${selectedOption === option.id ? 'bg-[#024653] text-white' : 'bg-slate-200 text-slate-500'}
                                             `}>
                                                 {option.tag}
                                             </span>
                                         )}
 
-                                        <div className="mt-4 w-full">
+                                        <div className="mt-4 w-full h-full flex flex-col">
                                             <h5 className={`font-bold text-sm lg:text-base xl:text-lg leading-tight mb-2 ${selectedOption === option.id ? 'text-[#024653]' : 'text-slate-600'}`}>
                                                 {option.label}
                                             </h5>
                                             <div className={`h-[1.5px] w-8 rounded-full ${selectedOption === option.id ? 'bg-[#05D16E]' : 'bg-slate-200'}`} />
 
-                                            <p className="mt-4 text-[10px] lg:text-[11px] text-slate-400 font-normal leading-relaxed line-clamp-2">
+                                            <p className="mt-6 text-[11px] lg:text-[12px] text-slate-400 font-normal leading-relaxed">
                                                 {option.shortDesc}
                                             </p>
+
+                                            <div className="mt-auto pt-6 flex flex-col items-start gap-1">
+                                                <span className="text-[10px] lg:text-[11px] font-bold text-[#024653] uppercase tracking-widest">
+                                                    {option.price}
+                                                </span>
+                                            </div>
                                         </div>
 
-                                        <div className="flex flex-col items-start gap-1 mt-6 w-full mb-auto">
-                                            <span className="text-[9px] lg:text-[10px] font-normal text-slate-400 uppercase tracking-widest font-medium">
-                                                {option.price}
-                                            </span>
-                                        </div>
-
-                                        {/* Image Container - Exactly 1/4 of card height */}
-                                        <div className="mt-6 w-full h-1/4 relative rounded-xl overflow-hidden bg-slate-50 border border-slate-100/50 flex-shrink-0">
-                                            <Image
-                                                src={option.image}
-                                                alt={option.label}
-                                                fill
-                                                className="object-cover opacity-60 group-hover:opacity-100 transition-opacity"
-                                            />
-                                        </div>
-
-                                        <div className="absolute top-8 right-8">
+                                        <div className="absolute top-10 right-10">
                                             <AnimatePresence>
                                                 {selectedOption === option.id && (
                                                     <motion.div
                                                         initial={{ scale: 0, opacity: 0 }}
                                                         animate={{ scale: 1, opacity: 1 }}
                                                         exit={{ scale: 0, opacity: 0 }}
-                                                        className="w-8 h-8 rounded-lg bg-[#05D16E] flex items-center justify-center shadow-lg shadow-[#05D16E]/20"
+                                                        className="w-10 h-10 rounded-xl bg-[#05D16E] flex items-center justify-center shadow-lg shadow-[#05D16E]/20"
                                                     >
-                                                        <CheckCircle2 size={16} className="text-white" />
+                                                        <CheckCircle2 size={20} className="text-white" />
                                                     </motion.div>
                                                 )}
                                             </AnimatePresence>

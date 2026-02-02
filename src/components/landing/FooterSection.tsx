@@ -12,7 +12,7 @@ export default function FooterSection() {
         <footer id="footer" className="w-full bg-[#F9F8F2] text-[#024653] relative z-10 overflow-hidden pt-[85px] pb-16">
 
             {/* --- SOCIAL PROOF MARQUEE --- */}
-            <div className="w-full bg-transparent pb-12 -mt-[30px]">
+            <div className="w-full bg-transparent pb-12 -mt-[60px]">
                 <div className="max-w-[1700px] mx-auto px-6 lg:px-10">
                     <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
                         {/* Title Block */}

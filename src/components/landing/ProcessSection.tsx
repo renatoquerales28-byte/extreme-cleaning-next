@@ -1,10 +1,15 @@
 "use client";
 
-import React from "react";
-import Link from "next/link";
-import { ArrowRight, CheckCircle2 } from "lucide-react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { ArrowRight, MapPin, Sparkles } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function ProcessSection() {
+    const router = useRouter();
+    const [zipCode, setZipCode] = useState("");
+    const [isFocused, setIsFocused] = useState(false);
+
     const steps = [
         {
             num: "01",
@@ -23,48 +28,107 @@ export default function ProcessSection() {
         }
     ];
 
+    const handleStart = (e?: React.FormEvent) => {
+        if (e) e.preventDefault();
+        if (zipCode.length === 5) {
+            router.push(`/quote?zip=${zipCode}`);
+        }
+    };
+
     return (
-        <section className="py-24 bg-[#024653] text-white relative overflow-hidden snap-start scroll-mt-[60px]" id="process">
-            {/* Background Line Animation - Premium Teal Accent */}
-            <div className="absolute top-1/2 left-0 w-full h-px bg-[#0E6168] -translate-y-1/2 hidden md:block" />
+        <section className="w-full bg-transparent py-20 lg:py-32 relative overflow-hidden snap-start scroll-mt-[60px]" id="process">
+            <div className="max-w-[1700px] mx-auto px-6 lg:px-10 relative z-10">
 
-            <div className="container px-4 mx-auto relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-8 lg:px-6">
-                    <div className="space-y-4 max-w-xl">
-                        <span className="text-[#05D16E] font-black tracking-[0.2em] text-xs uppercase">Simplicity First</span>
-                        <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-white leading-[0.9]">
-                            From Chaos to <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#05D16E] to-[#1D7F7F]">Calm in 3 Steps.</span>
-                        </h2>
-                    </div>
-                </div>
+                {/* Section Title - Matching Hero Typography */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                    className="mb-16 lg:mb-24"
+                >
+                    <h2 className="text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-normal leading-[1.1] tracking-tight text-[#024653]">
+                        How <span className="italic font-light text-[#05D16E]">ECS</span> <br />
+                        Works?
+                    </h2>
+                </motion.div>
 
-                <div className="grid md:grid-cols-3 gap-12 relative lg:px-6">
+                {/* Steps Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10 mb-16 lg:mb-24">
                     {steps.map((step, i) => (
-                        <div key={i} className="relative group">
-                            {/* Number Background */}
-                            <span className="absolute -top-10 -left-6 text-[140px] font-black text-white/[0.03] select-none z-0 transition-all duration-700 group-hover:text-white/[0.08] group-hover:-translate-y-2">
+                        <motion.div
+                            key={i}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: i * 0.2 }}
+                            className="group bg-white rounded-[2.5rem] p-10 lg:p-12 shadow-[0_15px_45px_rgba(2,70,83,0.04)] border border-white relative overflow-hidden flex flex-col items-center text-center hover:shadow-[0_20px_60px_rgba(2,70,83,0.08)] transition-all duration-500"
+                        >
+                            {/* Decorative Sparkle */}
+                            <div className="absolute top-6 right-6 opacity-0 group-hover:opacity-20 transition-opacity duration-500 text-[#05D16E]">
+                                <Sparkles size={24} />
+                            </div>
+
+                            {/* Step Number */}
+                            <span className="text-6xl lg:text-8xl font-black text-[#024653]/5 mb-8 select-none group-hover:text-[#05D16E]/10 transition-colors duration-500">
                                 {step.num}
                             </span>
 
-                            <div className="relative z-10 pt-12 md:pt-16">
-                                <div className="w-6 h-6 rounded-full bg-[#05D16E] border-4 border-[#024653] mb-8 relative md:absolute md:-top-3 md:left-0 md:transform md:-translate-y-1/2 shadow-xl shadow-[#05D16E]/20" />
-
-                                <h3 className="text-2xl font-black tracking-tight mb-4 uppercase">{step.title}</h3>
-                                <p className="text-white/40 font-medium leading-relaxed mb-6 max-w-xs font-opensans">
-                                    {step.desc}
-                                </p>
-                            </div>
-                        </div>
+                            <h3 className="text-2xl lg:text-3xl font-normal text-[#024653] mb-4 tracking-tight">
+                                {step.title}
+                            </h3>
+                            <p className="text-base lg:text-lg text-[#024653]/60 font-light leading-relaxed max-w-[260px]">
+                                {step.desc}
+                            </p>
+                        </motion.div>
                     ))}
                 </div>
 
-                <div className="mt-20 flex justify-center">
-                    <Link href="/quote" className="btn-accent px-12 py-5 shadow-2xl shadow-[#05D16E]/10 flex items-center gap-3">
-                        Start Your Quote <ArrowRight size={20} className="transition-transform group-hover:translate-x-1" />
-                    </Link>
-                </div>
+                {/* Bottom Action Row - Wireframe Implementation */}
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                    className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6 items-center"
+                >
+                    {/* Zipcode & Send Integrated Block */}
+                    <div className="lg:col-span-5 flex gap-4">
+                        <div className={`flex-grow flex items-center bg-white rounded-full px-6 py-4 shadow-[0_10px_30px_rgba(2,70,83,0.05)] border border-gray-100 transition-all duration-500 ${isFocused ? 'shadow-[0_12px_40px_rgba(2,70,83,0.1)] border-[#05D16E]/30' : ''}`}>
+                            <MapPin size={20} className={isFocused ? 'text-[#05D16E]' : 'text-[#024653]/40'} />
+                            <input
+                                type="text"
+                                value={zipCode}
+                                onChange={(e) => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))}
+                                onFocus={() => setIsFocused(true)}
+                                onBlur={() => setIsFocused(false)}
+                                placeholder="Zipcode"
+                                className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-medium placeholder:text-[#024653]/30 text-lg ml-3"
+                            />
+                        </div>
+                        <button
+                            onClick={handleStart}
+                            className="bg-white px-10 rounded-2xl text-[#024653] font-bold uppercase tracking-widest text-xs border border-gray-100 shadow-[0_10px_30px_rgba(2,70,83,0.05)] hover:bg-[#024653] hover:text-white transition-all duration-300"
+                        >
+                            Send
+                        </button>
+                    </div>
+
+                    {/* Main CTA Button */}
+                    <div className="lg:col-span-7">
+                        <button
+                            onClick={() => router.push('/quote')}
+                            className="w-full bg-[#024653] group text-white py-4 lg:py-5 rounded-2xl lg:rounded-3xl font-bold uppercase tracking-[0.2em] text-sm lg:text-base flex items-center justify-center gap-4 hover:bg-[#02333d] transition-all duration-500 hover:shadow-[0_20px_50px_rgba(2,70,83,0.2)] hover:-translate-y-1"
+                        >
+                            Start Your Transformation <ArrowRight size={20} className="transition-transform group-hover:translate-x-2" />
+                        </button>
+                    </div>
+                </motion.div>
+
             </div>
+
+            {/* Background Ambient Glow */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-[#05D16E]/5 rounded-full blur-[120px] pointer-events-none z-0" />
         </section>
     );
 }

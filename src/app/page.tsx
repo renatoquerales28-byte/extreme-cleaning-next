@@ -126,10 +126,10 @@ export default function Home() {
             {/* NEW STRATEGIC SECTIONS */}
             <SocialProofSection />
             <ServiceSelectorSection />
+            <ProcessSection />
 
             <ProblemSolutionSection />
             <ServicesSection />
-            <div id="process"><ProcessSection /></div>
             <div id="reviews"><LegacySocialProof /></div>
             <FooterSection />
         </main>

@@ -19,17 +19,17 @@ export default function ProcessSection() {
 
     const steps = [
         {
-            num: "01.",
+            num: "01",
             title: "Share Your\nSpace Details",
             desc: "Tell us about your property in 60 seconds. Select your service type and let us know your specific needs."
         },
         {
-            num: "02.",
+            num: "02",
             title: "Get Instant\nPricing",
             desc: "Receive a transparent, upfront quote immediately. No hidden fees, no surprises—just honest pricing."
         },
         {
-            num: "03.",
+            num: "03",
             title: "Enjoy Your\nClean Space",
             desc: "Our expert team arrives on time, fully equipped, and ready to transform your space to perfection."
         }
@@ -37,7 +37,7 @@ export default function ProcessSection() {
 
     return (
         <section
-            className="w-full bg-transparent h-screen flex flex-col justify-center py-12 lg:py-0 relative translate-y-[30px]"
+            className="w-full bg-transparent h-screen flex flex-col justify-center py-12 lg:py-0 relative translate-y-[70px]"
             id="process"
         >
             <div className="max-w-[1000px] mx-auto px-6 lg:px-8 w-full">
@@ -73,7 +73,7 @@ export default function ProcessSection() {
                     {steps.map((step, i) => (
                         <div key={i} className="text-center">
                             {/* Number */}
-                            <div className="text-3xl lg:text-4xl font-light text-[#024653] mb-2 lg:mb-3">
+                            <div className="text-3xl lg:text-4xl font-semibold text-[#024653] mb-2 lg:mb-3">
                                 {step.num}
                             </div>
 

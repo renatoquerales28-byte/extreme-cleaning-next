@@ -166,7 +166,7 @@ export default function FooterSection() {
                                         <p className="pt-1">{loc.phone}</p>
                                     </div>
                                 </div>
-                                <button className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#0BAA53] text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all">
+                                <button className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#024653] text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all">
                                     ROUTE <span className="text-lg leading-none translate-y-[-1px]">→</span>
                                 </button>
                             </div>

@@ -34,7 +34,7 @@ export default function Home() {
     }, []);
 
     return (
-        <main className="min-h-screen bg-[#F9F8F2] selection:bg-accent selection:text-white">
+        <main className="min-h-screen bg-[#F9F8F2] selection:bg-accent selection:text-white light">
             {/* Conventional Header - 60px version */}
             <header
                 className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[60px] bg-[#F9F8F2]/80 backdrop-blur-xl border-b border-white/20 ${scrolled

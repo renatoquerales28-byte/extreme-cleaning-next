@@ -22,15 +22,15 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning className="snap-y snap-proximity scroll-smooth">
-            <body className={`${openSans.variable} font-opensans antialiased`}>
+        <html lang="en" suppressHydrationWarning className="scroll-smooth">
+            <body className={`${openSans.variable} font-opensans antialiased snap-y snap-mandatory overflow-x-hidden`}>
                 <ThemeProvider
                     attribute="class"
                     defaultTheme="system"
                     enableSystem
                     disableTransitionOnChange
                 >
-                    <main className="relative z-10 min-h-screen">
+                    <main className="relative z-10 w-full">
                         {children}
                     </main>
                 </ThemeProvider>

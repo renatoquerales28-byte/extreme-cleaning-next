@@ -129,31 +129,31 @@ export default function ServiceSelectorSection() {
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col h-full"
                                 >
-                                    <div className="w-12 h-12 lg:w-14 lg:h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-4 lg:mb-6 backdrop-blur-sm">
+                                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-2xl flex items-center justify-center mb-3 lg:mb-4 backdrop-blur-sm shrink-0">
                                         {activeContent.icon}
                                     </div>
 
-                                    <h3 className="text-2xl lg:text-3xl font-bold mb-3 tracking-tight">{activeContent.title}</h3>
-                                    <p className="text-white/80 leading-relaxed mb-6 font-medium text-base lg:text-lg">
+                                    <h3 className="text-lg lg:text-xl font-bold mb-2 tracking-tight">{activeContent.title}</h3>
+                                    <p className="text-white/80 leading-relaxed mb-4 font-medium text-[13px] lg:text-sm">
                                         {activeContent.description}
                                     </p>
 
-                                    <ul className="space-y-3 mb-auto">
+                                    <ul className="space-y-2 mb-auto">
                                         {activeContent.benefits.map((benefit, idx) => (
-                                            <li key={idx} className="flex items-center gap-3">
-                                                <div className="p-1 rounded-full bg-white/20">
-                                                    <CheckCircle2 size={16} className="text-white" />
+                                            <li key={idx} className="flex items-center gap-2.5">
+                                                <div className="p-0.5 rounded-full bg-white/20 shrink-0">
+                                                    <CheckCircle2 size={12} className="text-white" />
                                                 </div>
-                                                <span className="font-bold text-white/90">{benefit}</span>
+                                                <span className="font-bold text-white/90 text-[11px] lg:text-xs">{benefit}</span>
                                             </li>
                                         ))}
                                     </ul>
                                 </motion.div>
                             </AnimatePresence>
 
-                            <div className="relative z-10 mt-8 pt-6 border-t border-white/10">
-                                <p className="text-[10px] font-black uppercase tracking-widest text-white/50 mb-2">Need a Custom Plan?</p>
-                                <a href="/contact" className="text-sm font-bold underline decoration-white/30 underline-offset-4 hover:decoration-white transition-all text-white">
+                            <div className="relative z-10 mt-6 pt-4 border-t border-white/10">
+                                <p className="text-[9px] font-black uppercase tracking-widest text-white/50 mb-1">Need a Custom Plan?</p>
+                                <a href="/contact" className="text-[11px] lg:text-xs font-bold underline decoration-white/30 underline-offset-4 hover:decoration-white transition-all text-white">
                                     Contact our team directly →
                                 </a>
                             </div>

@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
@@ -23,24 +22,21 @@ const SERVICE_CONTENT = {
                 label: 'Standard Clean',
                 price: 'From $150',
                 tag: 'Most Popular',
-                shortDesc: "Comprehensive surface cleaning for your primary living spaces.",
-                image: "/brand/service-residential.png"
+                shortDesc: "Comprehensive surface cleaning for your primary living spaces."
             },
             {
                 id: 'deep',
                 label: 'Deep Clean',
                 price: 'From $250',
                 tag: 'Best Value',
-                shortDesc: "Intensive restoration cleaning, targeting every corner and hidden detail.",
-                image: "/brand/service-residential.png"
+                shortDesc: "Intensive restoration cleaning, targeting every corner and hidden detail."
             },
             {
                 id: 'move',
                 label: 'Move In / Out',
                 price: 'Custom Quote',
                 tag: null,
-                shortDesc: "Stress-free turnover cleaning to ensure your new or old home is pristine.",
-                image: "/brand/service-residential.png"
+                shortDesc: "Stress-free turnover cleaning to ensure your new or old home is pristine."
             },
         ]
     },
@@ -58,24 +54,21 @@ const SERVICE_CONTENT = {
                 label: 'Office Maintenance',
                 price: 'Custom Quote',
                 tag: 'Daily/Weekly',
-                shortDesc: "Reliable daily or weekly upkeep for a consistently professional workplace.",
-                image: "/brand/service-residential.png"
+                shortDesc: "Reliable daily or weekly upkeep for a consistently professional workplace."
             },
             {
                 id: 'deep',
                 label: 'Deep Sanitization',
                 price: 'Custom Quote',
                 tag: null,
-                shortDesc: "Heavy-duty disinfection and deep cleaning for high-traffic office areas.",
-                image: "/brand/service-residential.png"
+                shortDesc: "Heavy-duty disinfection and deep cleaning for high-traffic office areas."
             },
             {
                 id: 'post-construction',
                 label: 'Post Construction',
                 price: 'Custom Quote',
                 tag: 'Heavy Duty',
-                shortDesc: "Expert dust and debris removal after renovations or new builds.",
-                image: "/brand/service-residential.png"
+                shortDesc: "Expert dust and debris removal after renovations or new builds."
             },
         ]
     },
@@ -93,24 +86,21 @@ const SERVICE_CONTENT = {
                 label: 'Tenant Turnover',
                 price: 'Flat Rates',
                 tag: 'Priority',
-                shortDesc: "Speedy, thorough cleans to get your units listed and rented faster.",
-                image: "/brand/service-residential.png"
+                shortDesc: "Speedy, thorough cleans to get your units listed and rented faster."
             },
             {
                 id: 'common',
                 label: 'Common Areas',
                 price: 'Contract',
                 tag: null,
-                shortDesc: "Consistent maintenance for lobbies, hallways, and shared building spaces.",
-                image: "/brand/service-residential.png"
+                shortDesc: "Consistent maintenance for lobbies, hallways, and shared building spaces."
             },
             {
                 id: 'eviction',
                 label: 'Trash Out',
                 price: 'Heavy Duty',
                 tag: null,
-                shortDesc: "Full unit clearing and sanitization after evictions or move-outs.",
-                image: "/brand/service-residential.png"
+                shortDesc: "Full unit clearing and sanitization after evictions or move-outs."
             },
         ]
     }

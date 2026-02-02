@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, CheckCircle2, Sparkles, Building2, Home, Briefcase } from "lucide-react";
+import { ArrowRight, CheckCircle2, Building2, Home, Briefcase } from "lucide-react";
 
 type ServiceType = 'residential' | 'commercial' | 'pm';
 
@@ -73,11 +73,11 @@ export default function ServiceSelectorSection() {
     };
 
     return (
-        <section className="w-full bg-[#F9F8F2] relative overflow-hidden lg:h-[100svh] lg:max-h-[950px] flex flex-col pt-16 pb-8 lg:pt-20 lg:pb-8 border-t border-[#024653]/5">
+        <section className="w-full bg-[#F9F8F2] relative overflow-hidden lg:h-[80svh] lg:max-h-[850px] flex flex-col pt-8 pb-12 lg:pt-10 lg:pb-16">
             <div className="max-w-[1700px] mx-auto px-6 lg:px-10 relative z-10 w-full h-full flex flex-col">
 
                 {/* HEADLINE & TABS - Fixed Height portion */}
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4 lg:mb-6 shrink-0">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4 lg:mb-8 shrink-0">
                     <h2 className="text-3xl lg:text-4xl xl:text-5xl font-normal tracking-tight text-[#024653] text-center md:text-left leading-[1.1]">
                         Cleaning Solutions <br /> <span className="font-light italic opacity-60">Tailored to You</span>
                     </h2>
@@ -109,12 +109,12 @@ export default function ServiceSelectorSection() {
                 </div>
 
                 {/* CONTENT GRID - Fills remaining space */}
-                <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-8 min-h-0">
+                <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 min-h-0">
 
                     {/* LEFT: INFO CARD (Dynamic) - Dark Navy Card */}
                     <motion.div
                         layout
-                        className="lg:col-span-4 bg-[#024653] rounded-[2rem] p-8 lg:p-10 text-white flex flex-col relative overflow-hidden h-full shadow-2xl shadow-[#024653]/10"
+                        className="lg:col-span-4 bg-[#024653] rounded-[2rem] px-8 py-10 lg:px-10 lg:py-12 text-white flex flex-col relative overflow-hidden h-full shadow-2xl shadow-[#024653]/10"
                     >
                         {/* Blob Decoration */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/2 mix-blend-overlay" />
@@ -129,115 +129,111 @@ export default function ServiceSelectorSection() {
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col h-full"
                                 >
-                                    <div className="flex items-center gap-4 mb-4 lg:mb-5 shrink-0">
+                                    <div className="flex items-center gap-4 mb-4 lg:mb-6 shrink-0">
                                         <div className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm shrink-0">
                                             {activeContent.icon}
                                         </div>
                                         <h3 className="text-lg lg:text-xl font-bold tracking-tight">{activeContent.title}</h3>
                                     </div>
 
-                                    <p className="text-white/80 leading-relaxed mb-5 font-normal text-[13px] lg:text-sm">
+                                    <p className="text-white/80 leading-relaxed mb-6 lg:mb-8 font-normal text-[13px] lg:text-sm xl:text-base">
                                         {activeContent.description}
                                     </p>
 
-                                    <ul className="space-y-3 mb-auto">
+                                    <ul className="space-y-3 lg:space-y-4 mb-auto">
                                         {activeContent.benefits.map((benefit, idx) => (
                                             <li key={idx} className="flex items-center gap-3">
                                                 <div className="p-0.5 rounded-full bg-white/20 shrink-0">
                                                     <CheckCircle2 size={12} className="text-white" />
                                                 </div>
-                                                <span className="font-normal text-white/90 text-[11px] lg:text-xs">{benefit}</span>
+                                                <span className="font-normal text-white/90 text-[11px] lg:text-xs xl:text-sm">{benefit}</span>
                                             </li>
                                         ))}
                                     </ul>
+
+                                    {/* DYNAMIC ACTION BUTTON */}
+                                    <AnimatePresence>
+                                        {selectedOption && (
+                                            <motion.div
+                                                initial={{ opacity: 0, x: 20 }}
+                                                animate={{ opacity: 1, x: 0 }}
+                                                exit={{ opacity: 0, x: 20 }}
+                                                className="mt-8 pt-6"
+                                            >
+                                                <Link
+                                                    href={getWizardLink()}
+                                                    className="inline-flex w-full items-center justify-between gap-4 px-6 lg:px-8 py-4 lg:py-5 bg-white text-[#024653] rounded-full font-normal text-[10px] lg:text-xs uppercase tracking-widest shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all"
+                                                >
+                                                    <span>Continue to Booking</span>
+                                                    <ArrowRight size={16} />
+                                                </Link>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
                                 </motion.div>
                             </AnimatePresence>
-
-                            <div className="relative z-10 mt-6 pt-4 border-t border-white/10">
-                                <p className="text-[9px] font-normal uppercase tracking-widest text-white/50 mb-1">Need a Custom Plan?</p>
-                                <a href="/contact" className="text-[11px] lg:text-xs font-normal underline decoration-white/30 underline-offset-4 hover:decoration-white transition-all text-white">
-                                    Contact our team directly →
-                                </a>
-                            </div>
                         </div>
                     </motion.div>
 
-                    {/* RIGHT: INTERACTIVE SELECTION - Directly on Section Background */}
-                    <div className="lg:col-span-8 flex flex-col h-full min-h-0 relative">
-                        <div className="mb-4 flex items-center justify-between shrink-0 px-2">
-                            <h4 className="text-lg lg:text-xl font-bold text-[#024653] flex items-center gap-2">
-                                <Sparkles className="text-[#05D16E]" size={20} />
-                                Select Your Service Class
-                            </h4>
-                        </div>
-
-                        {/* Options Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-4 flex-1 min-h-0">
+                    {/* RIGHT: INTERACTIVE SELECTION */}
+                    <div className="lg:col-span-8 flex flex-col h-full min-h-0">
+                        {/* Options Grid - Matches Left Card Height */}
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-4 h-full">
                             <AnimatePresence mode="wait">
                                 {activeContent.options.map((option) => (
                                     <motion.button
                                         key={`${activeTab}-${option.id}`}
-                                        initial={{ opacity: 0, scale: 0.95 }}
+                                        initial={{ opacity: 0, scale: 0.98 }}
                                         animate={{ opacity: 1, scale: 1 }}
-                                        exit={{ opacity: 0, scale: 0.95 }}
+                                        exit={{ opacity: 0, scale: 0.98 }}
                                         onClick={() => setSelectedOption(option.id)}
                                         className={`
-                                            relative p-4 lg:p-5 rounded-[1.25rem] text-left border-2 transition-all group flex flex-col h-full justify-between
+                                            relative p-5 lg:p-8 rounded-[2rem] text-center border-2 transition-all group flex flex-col h-full justify-center
                                             ${selectedOption === option.id
-                                                ? 'bg-white border-transparent shadow-xl shadow-[#024653]/5 z-10'
-                                                : 'bg-white border-transparent hover:border-slate-200 shadow-sm hover:shadow-md'
+                                                ? 'bg-white border-transparent shadow-2xl shadow-[#024653]/5 z-10'
+                                                : 'bg-white/40 border-transparent hover:bg-white hover:shadow-xl'
                                             }
                                         `}
                                     >
                                         {option.tag && (
                                             <span className={`
-                                                absolute -top-2.5 left-4 px-2.5 py-1 text-[8px] font-normal uppercase tracking-widest rounded-full shadow-sm
+                                                absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1.5 text-[8px] lg:text-[9px] font-normal uppercase tracking-widest rounded-full shadow-sm
                                                 ${selectedOption === option.id ? 'bg-[#024653] text-white' : 'bg-slate-200 text-slate-500'}
                                             `}>
                                                 {option.tag}
                                             </span>
                                         )}
 
-                                        <div className="mt-2">
-                                            <h5 className={`font-bold text-base lg:text-lg leading-tight mb-1 ${selectedOption === option.id ? 'text-[#024653]' : 'text-slate-700'}`}>
+                                        <div className="mb-4">
+                                            <h5 className={`font-bold text-base lg:text-xl leading-tight mb-2 ${selectedOption === option.id ? 'text-[#024653]' : 'text-slate-600'}`}>
                                                 {option.label}
                                             </h5>
-                                            <div className={`h-1 w-6 rounded-full ${selectedOption === option.id ? 'bg-[#05D16E]' : 'bg-slate-200'}`} />
+                                            <div className="flex justify-center">
+                                                <div className={`h-[2px] w-8 rounded-full ${selectedOption === option.id ? 'bg-[#05D16E]' : 'bg-slate-200'}`} />
+                                            </div>
                                         </div>
 
-                                        <div className="flex items-end justify-between mt-4">
-                                            <span className="text-[11px] lg:text-xs font-normal text-slate-400 block uppercase tracking-wider">{option.price}</span>
-                                            <div className={`
-                                                w-6 h-6 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors
-                                                ${selectedOption === option.id ? 'border-transparent bg-[#05D16E]' : 'border-slate-100'}
-                                            `}>
-                                                {selectedOption === option.id && <CheckCircle2 size={12} className="text-white" />}
-                                            </div>
+                                        <div className="flex flex-col items-center gap-3">
+                                            <span className="text-[11px] lg:text-xs font-normal text-slate-400 uppercase tracking-widest">
+                                                {option.price}
+                                            </span>
+                                            {selectedOption === option.id && (
+                                                <motion.div
+                                                    initial={{ scale: 0 }}
+                                                    animate={{ scale: 1 }}
+                                                    className="w-8 h-8 rounded-full bg-[#05D16E] flex items-center justify-center shadow-lg shadow-[#05D16E]/20"
+                                                >
+                                                    <CheckCircle2 size={16} className="text-white" />
+                                                </motion.div>
+                                            )}
                                         </div>
                                     </motion.button>
                                 ))}
                             </AnimatePresence>
                         </div>
-
-                        {/* ACTION AREA */}
-                        <div className="flex justify-end mt-4 lg:mt-6 shrink-0">
-                            <Link
-                                href={selectedOption ? getWizardLink() : '#'}
-                                className={`
-                                    inline-flex items-center gap-3 px-8 py-3.5 rounded-full font-normal text-[10px] uppercase tracking-widest transition-all
-                                    ${selectedOption
-                                        ? 'bg-[#024653] text-white shadow-lg hover:-translate-y-0.5 hover:shadow-xl hover:bg-[#02333d]'
-                                        : 'bg-slate-200 text-slate-400 cursor-not-allowed'
-                                    }
-                                `}
-                                onClick={(e) => !selectedOption && e.preventDefault()}
-                            >
-                                <span>Continue to Booking</span>
-                                <ArrowRight size={14} />
-                            </Link>
-                        </div>
                     </div>
                 </div>
+
             </div>
         </section>
     );

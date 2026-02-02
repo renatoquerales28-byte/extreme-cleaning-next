@@ -34,7 +34,7 @@ function CountdownTimer() {
 export default function SocialProofSection() {
     return (
         // SECTION CONTAINER: Adjusted spacing (reduced top padding), Background #F9F8F2
-        <section className="w-full bg-[#F9F8F2] relative flex items-center overflow-hidden pt-8 pb-10 lg:pt-12 lg:pb-16">
+        <section className="w-full bg-[#F9F8F2] relative flex items-center overflow-hidden pt-8 pb-10 lg:pt-12 lg:pb-16 snap-start scroll-mt-[60px]">
 
             {/* CONTAINER: Max width of 1700px to match Hero */}
             <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-4 items-stretch justify-center">

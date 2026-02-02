@@ -33,7 +33,7 @@ export default function SocialProofSection() {
     ];
 
     return (
-        <section className="py-24 bg-white relative overflow-hidden" id="reviews">
+        <section className="py-24 bg-white relative overflow-hidden snap-start scroll-mt-[60px]" id="reviews">
             {/* Decor - Soft Cream Contrast */}
             {/* Decor - Soft Cream Contrast */}
             {/* Removed cream background decor to keep it clean white */}

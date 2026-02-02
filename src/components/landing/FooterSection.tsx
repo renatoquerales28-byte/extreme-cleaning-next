@@ -7,7 +7,7 @@ import { ArrowRight, Instagram, Facebook, Twitter } from "lucide-react";
 
 export default function FooterSection() {
     return (
-        <footer className="bg-white pt-24 pb-8 border-t border-slate-100">
+        <footer className="bg-white pt-24 pb-8 border-t border-slate-100 snap-start">
             <div className="container px-4 mx-auto">
                 <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
                     <div className="space-y-6 max-w-xl">

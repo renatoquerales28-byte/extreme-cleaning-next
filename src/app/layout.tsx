@@ -22,7 +22,7 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" suppressHydrationWarning>
+        <html lang="en" suppressHydrationWarning className="snap-y snap-proximity scroll-smooth">
             <body className={`${openSans.variable} font-opensans antialiased`}>
                 <ThemeProvider
                     attribute="class"

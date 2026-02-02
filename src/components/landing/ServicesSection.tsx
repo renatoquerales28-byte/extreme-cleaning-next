@@ -35,7 +35,7 @@ export default function ServicesSection() {
     ];
 
     return (
-        <section className="py-24 relative overflow-hidden" id="services">
+        <section className="py-24 relative overflow-hidden snap-start scroll-mt-[60px]" id="services">
             <div className="container px-4 mx-auto">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
                     <div className="max-w-xl space-y-4">

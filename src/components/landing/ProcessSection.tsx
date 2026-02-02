@@ -24,7 +24,7 @@ export default function ProcessSection() {
     ];
 
     return (
-        <section className="py-24 bg-[#024653] text-white relative overflow-hidden" id="process">
+        <section className="py-24 bg-[#024653] text-white relative overflow-hidden snap-start scroll-mt-[60px]" id="process">
             {/* Background Line Animation - Premium Teal Accent */}
             <div className="absolute top-1/2 left-0 w-full h-px bg-[#0E6168] -translate-y-1/2 hidden md:block" />
 

@@ -50,15 +50,9 @@ export default function ProcessSection() {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-10 lg:mb-12"
                 >
-                    {/* Eyebrow */}
-                    <p className="text-xs uppercase tracking-[0.3em] text-[#024653]/50 mb-3 lg:mb-4">
-                        Our Process
-                    </p>
-
                     {/* Main Headline */}
                     <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-normal leading-[1.15] tracking-tight text-[#024653] mb-4 lg:mb-5">
-                        Premium Cleaning Services,<br />
-                        From <span className="font-bold">Chaos to Calm</span>
+                        <span className="font-bold">Simplicity</span> Redefined.
                     </h2>
 
                     {/* Subtitle */}
@@ -79,7 +73,7 @@ export default function ProcessSection() {
                     {steps.map((step, i) => (
                         <div key={i} className="text-center">
                             {/* Number */}
-                            <div className="text-3xl lg:text-4xl font-light text-[#05D16E] mb-2 lg:mb-3">
+                            <div className="text-3xl lg:text-4xl font-light text-[#024653] mb-2 lg:mb-3">
                                 {step.num}
                             </div>
 

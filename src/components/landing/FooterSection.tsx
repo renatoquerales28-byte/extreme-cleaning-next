@@ -3,75 +3,146 @@
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Instagram, Facebook, Twitter } from "lucide-react";
+import { Instagram, Facebook, Linkedin, Twitter, ArrowRight } from "lucide-react";
 
 export default function FooterSection() {
     return (
-        <footer className="bg-white pt-24 pb-8 border-t border-slate-100 snap-start">
-            <div className="container px-4 mx-auto">
-                <div className="grid md:grid-cols-2 gap-12 items-center mb-24">
-                    <div className="space-y-6 max-w-xl">
-                        <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-[#024653] leading-[0.85]">
-                            Ready for the <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#024653] via-[#0E6168] to-[#05D16E]">Upgrade?</span>
+        <footer className="w-full bg-[#F9F8F2] pt-20 pb-10 text-[#024653]">
+            <div className="max-w-[1700px] mx-auto px-6 lg:px-10">
+
+                {/* TOP SECTION: Newsletter & Large Logo */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-start">
+
+                    {/* Newsletter Side */}
+                    <div className="space-y-8">
+                        <h2 className="text-4xl lg:text-5xl font-light leading-tight tracking-tight">
+                            ECS Excellence in <br />
+                            <span className="font-black italic underline decoration-[#05D16E] decoration-4 underline-offset-8">your mailbox</span>
                         </h2>
-                        <p className="text-lg text-[#024653]/60 font-medium leading-relaxed">Join happy customers in Spokane who have reclaimed their time.</p>
-                    </div>
-                    <div className="flex justify-start md:justify-end">
-                        <Link href="/quote" className="btn-accent px-12 py-6 text-xl shadow-2xl shadow-[#05D16E]/20 flex items-center gap-4 group">
-                            Book Now <ArrowRight size={24} strokeWidth={3} className="transition-transform group-hover:translate-x-2" />
-                        </Link>
-                    </div>
-                </div>
 
-                <div className="grid md:grid-cols-4 gap-12 py-12 border-t border-slate-100">
-                    <div className="col-span-1 md:col-span-1 space-y-6">
-                        <Link href="/" className="block w-32 opacity-80 hover:opacity-100 transition-opacity">
-                            <Image src="/brand/logo.png" alt="ECS" width={100} height={100} className="object-contain" />
-                        </Link>
-                        <p className="text-xs text-slate-400 font-medium leading-relaxed">
-                            Top-tier professionalism, attention to detail, and reliable results. Serving Spokane, WA.
-                        </p>
-                    </div>
-
-                    <div>
-                        <h4 className="font-black text-[#024653] uppercase tracking-widest text-[10px] mb-8 opacity-40">Company</h4>
-                        <ul className="space-y-5 text-sm font-black text-[#024653]/60 uppercase tracking-widest">
-                            <li><Link href="#" className="hover:text-[#05D16E] transition-all">About Us</Link></li>
-                            <li><Link href="#" className="hover:text-[#05D16E] transition-all">Careers</Link></li>
-                            <li><Link href="#" className="hover:text-[#05D16E] transition-all">Privacy Policy</Link></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 className="font-black text-[#024653] uppercase tracking-widest text-[10px] mb-8 opacity-40">Services</h4>
-                        <ul className="space-y-5 text-sm font-black text-[#024653]/60 uppercase tracking-widest">
-                            <li><Link href="/quote?type=residential" className="hover:text-[#05D16E] transition-all">Residential</Link></li>
-                            <li><Link href="/quote?type=commercial" className="hover:text-[#05D16E] transition-all">Commercial</Link></li>
-                            <li><Link href="/quote?type=residential&intensity=move" className="hover:text-[#05D16E] transition-all">Move In/Out</Link></li>
-                        </ul>
-                    </div>
-
-                    <div>
-                        <h4 className="font-black text-[#024653] uppercase tracking-widest text-[10px] mb-8 opacity-40">Connect</h4>
-                        <div className="flex gap-4">
-                            <a href="#" className="w-12 h-12 rounded-2xl bg-[#024653]/5 border border-[#024653]/5 flex items-center justify-center text-[#024653]/40 hover:text-white hover:bg-[#024653] transition-all shadow-sm">
-                                <Instagram size={20} />
-                            </a>
-                            <a href="#" className="w-12 h-12 rounded-2xl bg-[#024653]/5 border border-[#024653]/5 flex items-center justify-center text-[#024653]/40 hover:text-white hover:bg-[#024653] transition-all shadow-sm">
-                                <Facebook size={20} />
-                            </a>
+                        <div className="space-y-4">
+                            <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#024653]/60">
+                                <div className="w-1.5 h-1.5 rounded-full bg-[#05D16E]" />
+                                Email address
+                            </div>
+                            <div className="relative group max-w-md">
+                                <input
+                                    type="email"
+                                    placeholder="name@example.com"
+                                    className="w-full bg-white/50 border border-[#024653]/10 px-6 py-4 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#05D16E]/20 transition-all"
+                                />
+                                <button className="absolute right-1.5 top-1.5 bottom-1.5 px-6 bg-[#024653] text-white rounded-full text-xs font-bold uppercase tracking-widest hover:bg-[#0E6168] transition-all">
+                                    Send
+                                </button>
+                            </div>
+                            <label className="flex items-center gap-3 cursor-pointer group">
+                                <input type="checkbox" className="w-4 h-4 rounded border-[#024653]/10 accent-[#024653]" />
+                                <span className="text-[10px] font-medium text-[#024653]/40 group-hover:text-[#024653]/60 transition-colors">
+                                    I agree to the <Link href="/privacy" className="underline underline-offset-2">privacy statement</Link>
+                                </span >
+                            </label>
                         </div>
                     </div>
-                </div>
 
-                <div className="py-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p className="text-[10px] font-black text-slate-300 uppercase tracking-widest">© 2025 Extreme Cleaning 509 LLC. All rights reserved.</p>
-                    <div className="flex items-center gap-1.5 grayscale opacity-30">
-                        <span className="text-[10px] font-black text-slate-300 uppercase tracking-widest">Designed by</span>
-                        <Image src="/brand/logo.png" alt="ECS" width={20} height={20} className="object-contain" />
+                    {/* Logo Side */}
+                    <div className="flex flex-col items-start lg:items-end lg:text-right space-y-2 pt-4">
+                        <div className="relative h-20 w-48 md:w-64 opacity-90">
+                            <Image
+                                src="/brand/logo-full.png"
+                                alt="ECS Logo"
+                                fill
+                                className="object-contain object-left lg:object-right"
+                                style={{
+                                    filter: 'brightness(0) saturate(100%) invert(18%) sepia(87%) saturate(464%) hue-rotate(142deg) brightness(91%) contrast(97%)'
+                                }}
+                            />
+                        </div>
+                        <p className="text-xs font-black uppercase tracking-[0.3em] text-[#024653]/40">
+                            Premium <br /> Cleaning <br /> Professionals
+                        </p>
                     </div>
                 </div>
+
+                {/* MIDDLE SECTION: Links & Contact */}
+                <div className="border-t border-[#024653]/10 pt-16 pb-12">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
+
+                        {/* Nav Links Column */}
+                        <div className="lg:col-span-2 grid grid-cols-2 gap-4">
+                            <div className="space-y-6">
+                                <h4 className="text-[10px] font-black uppercase tracking-widest text-[#024653]/30">Explore</h4>
+                                <nav className="flex flex-col gap-4 text-sm font-bold">
+                                    <Link href="#services" className="hover:translate-x-1 transition-transform">Services</Link>
+                                    <Link href="#process" className="hover:translate-x-1 transition-transform">Process</Link>
+                                    <Link href="#reviews" className="hover:translate-x-1 transition-transform">Reviews</Link>
+                                </nav>
+                            </div>
+                            <div className="space-y-6 pt-10">
+                                <nav className="flex flex-col gap-4 text-sm font-bold">
+                                    <Link href="/about" className="hover:translate-x-1 transition-transform">About Us</Link>
+                                    <Link href="/contact" className="hover:translate-x-1 transition-transform">Contact</Link>
+                                    <Link href="/quote" className="hover:translate-x-1 transition-transform text-[#05D16E]">Get Quote</Link>
+                                </nav>
+                            </div>
+                        </div>
+
+                        {/* Location Column 1 */}
+                        <div className="space-y-6">
+                            <h4 className="text-[10px] font-black uppercase tracking-widest text-[#024653]/30">ECS Spokane</h4>
+                            <div className="text-xs space-y-1 font-medium leading-relaxed opacity-60">
+                                <p>509 N Howard St</p>
+                                <p>Spokane, WA 99201</p>
+                                <p>United States</p>
+                                <p className="pt-2 font-bold opacity-100">+1 (509) 123-4567</p>
+                            </div>
+                            <Link href="#" className="inline-flex items-center gap-2 px-6 py-3 bg-[#05D16E]/10 text-[#024653] rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-[#05D16E]/20 transition-all">
+                                Route <ArrowRight size={14} />
+                            </Link>
+                        </div>
+
+                        {/* Location Column 2 (Placeholder or another area) */}
+                        <div className="space-y-6">
+                            <h4 className="text-[10px] font-black uppercase tracking-widest text-[#024653]/30">Service Area</h4>
+                            <div className="text-xs space-y-1 font-medium leading-relaxed opacity-60">
+                                <p>Greater Spokane Area</p>
+                                <p>Liberty Lake, WA</p>
+                                <p>Cheney, WA</p>
+                                <p className="pt-2 font-bold opacity-100">info@ecscleaningspot.com</p>
+                            </div>
+                            <Link href="/quote" className="inline-flex items-center gap-2 px-6 py-3 bg-[#05D16E]/10 text-[#024653] rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-[#05D16E]/20 transition-all">
+                                Get Clean <ArrowRight size={14} />
+                            </Link>
+                        </div>
+
+                    </div>
+                </div>
+
+                {/* BOTTOM SECTION: Socials & Email */}
+                <div className="border-t border-[#024653]/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-6">
+                    <div className="flex items-center gap-2 text-xs font-bold">
+                        <div className="w-1.5 h-1.5 rounded-full bg-[#05D16E]" />
+                        info@ecscleaningspot.com
+                    </div>
+
+                    <div className="flex items-center gap-10">
+                        <div className="flex items-center gap-6 text-[#024653]/40">
+                            <Link href="#" className="hover:text-[#024653] transition-colors"><Linkedin size={18} /></Link>
+                            <Link href="#" className="hover:text-[#024653] transition-colors"><Instagram size={18} /></Link>
+                            <Link href="#" className="hover:text-[#024653] transition-colors"><Facebook size={18} /></Link>
+                        </div>
+                        <Link href="/privacy" className="text-[10px] font-bold uppercase tracking-widest text-[#024653]/30 hover:text-[#024653] transition-colors">
+                            Privacy Policy
+                        </Link>
+                    </div>
+                </div>
+
+                {/* Copyright */}
+                <div className="pt-8 text-center">
+                    <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#024653]/20">
+                        © 2025 Extreme Cleaning 509 LLC. All rights reserved.
+                    </p>
+                </div>
+
             </div>
         </footer>
     );

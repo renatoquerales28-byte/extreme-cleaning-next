@@ -37,7 +37,7 @@ export default function ProcessSection() {
 
     return (
         <section
-            className="w-full bg-transparent h-screen flex flex-col justify-center py-12 lg:py-0 relative translate-y-[70px]"
+            className="w-full bg-transparent h-screen flex flex-col justify-center py-12 lg:py-0 relative -translate-y-[30px]"
             id="process"
         >
             <div className="max-w-[1000px] mx-auto px-6 lg:px-8 w-full -translate-y-[30px]">

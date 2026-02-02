@@ -17,7 +17,7 @@ const SERVICE_CONTENT = {
             "100% Satisfaction Guarantee",
             "Customizable Checklists"
         ],
-        icon: <Home size={24} />,
+        icon: <Home size={18} />,
         options: [
             { id: 'standard', label: 'Standard Clean', price: 'From $150', tag: 'Most Popular' },
             { id: 'deep', label: 'Deep Clean', price: 'From $250', tag: 'Best Value' },
@@ -33,7 +33,7 @@ const SERVICE_CONTENT = {
             "Customized Frequency",
             "Supply Management"
         ],
-        icon: <Building2 size={24} />,
+        icon: <Building2 size={18} />,
         options: [
             { id: 'standard', label: 'Office Maintenance', price: 'Custom Quote', tag: 'Daily/Weekly' },
             { id: 'deep', label: 'Deep Sanitization', price: 'Custom Quote', tag: null },
@@ -49,7 +49,7 @@ const SERVICE_CONTENT = {
             "Key Management Secure",
             "Volume Discounts"
         ],
-        icon: <Briefcase size={24} />,
+        icon: <Briefcase size={18} />,
         options: [
             { id: 'turnover', label: 'Tenant Turnover', price: 'Flat Rates', tag: 'Priority' },
             { id: 'common', label: 'Common Areas', price: 'Contract', tag: null },
@@ -73,65 +73,58 @@ export default function ServiceSelectorSection() {
     };
 
     return (
-        <section className="w-full bg-[#F9F8F2] relative lg:h-[85svh] lg:max-h-[900px] flex flex-col pt-4 lg:pt-6 pb-12 lg:pb-16 overflow-hidden">
+        <section className="w-full bg-[#F9F8F2] relative lg:h-[85svh] lg:max-h-[900px] flex flex-col pt-4 lg:pt-8 pb-12 lg:pb-16 overflow-hidden">
             <div className="max-w-[1700px] mx-auto px-6 lg:px-10 relative z-10 w-full h-full flex flex-col">
 
-                {/* TABS - Repositioned and Compact */}
-                <div className="flex justify-center md:justify-end mb-8 lg:mb-12 shrink-0">
-                    <div className="inline-flex bg-white/50 p-1 rounded-full relative border border-slate-200 shrink-0 shadow-sm">
-                        {(['residential', 'commercial', 'pm'] as ServiceType[]).map((tab) => (
-                            <button
-                                key={tab}
-                                onClick={() => { setActiveTab(tab); setSelectedOption(null); }}
-                                className={`
-                                    relative px-5 py-2 rounded-full text-[9px] lg:text-[10px] font-bold uppercase tracking-widest transition-all z-10
-                                    ${activeTab === tab ? 'text-[#024653]' : 'text-slate-400 hover:text-slate-600'}
-                                `}
-                            >
-                                {activeTab === tab && (
-                                    <motion.div
-                                        layoutId="activeTab"
-                                        className="absolute inset-0 bg-white rounded-full shadow-sm"
-                                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                                    />
-                                )}
-                                <span className="relative z-10">
-                                    {tab === 'pm' ? 'Property Mgmt' : tab}
-                                </span>
-                            </button>
-                        ))}
-                    </div>
-                </div>
+                {/* CONTENT GRID - Optimized for high visibility */}
+                <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 lg:pt-4">
 
-                {/* CONTENT GRID - Architectural & Balanced */}
-                <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-
-                    {/* LEFT: INFO CARD (Hero Image Proportion Sync) */}
+                    {/* LEFT: INFO CARD (With Integrated Switcher) */}
                     <motion.div
                         layout
-                        className="lg:col-span-4 bg-[#024653] rounded-[2rem] p-8 lg:p-10 text-white flex flex-col relative overflow-hidden h-full shadow-2xl shadow-[#024653]/10"
+                        className="lg:col-span-4 bg-[#024653] rounded-[2rem] p-8 lg:p-10 text-white flex flex-col relative overflow-hidden h-full shadow-2xl shadow-[#024653]/20"
                     >
                         {/* Blob Decoration */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/2 mix-blend-overlay" />
 
                         <div className="relative z-10 flex flex-col h-full">
+
+                            {/* INTEGRATED SERVICE SWITCHER - Replaces Header */}
+                            <div className="inline-flex bg-white/5 p-1 rounded-full relative border border-white/10 mb-8 lg:mb-10 shadow-inner w-full">
+                                {(['residential', 'commercial', 'pm'] as ServiceType[]).map((tab) => (
+                                    <button
+                                        key={tab}
+                                        onClick={() => { setActiveTab(tab); setSelectedOption(null); }}
+                                        className={`
+                                            relative flex-1 py-2.5 rounded-full text-[8.5px] lg:text-[9.5px] font-bold uppercase tracking-widest transition-all z-10
+                                            ${activeTab === tab ? 'text-[#024653]' : 'text-white/40 hover:text-white/60'}
+                                        `}
+                                    >
+                                        {activeTab === tab && (
+                                            <motion.div
+                                                layoutId="activeTabIntegrated"
+                                                className="absolute inset-0 bg-white rounded-full shadow-sm"
+                                                transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                            />
+                                        )}
+                                        <span className="relative z-10 flex items-center justify-center gap-2">
+                                            {activeTab === tab && <span>{SERVICE_CONTENT[activeTab].icon}</span>}
+                                            {tab === 'pm' ? 'Property Mgmt' : tab}
+                                        </span>
+                                    </button>
+                                ))}
+                            </div>
+
                             <AnimatePresence mode="wait">
                                 <motion.div
                                     key={activeTab}
-                                    initial={{ opacity: 0, x: -10 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    exit={{ opacity: 0, x: 10 }}
+                                    initial={{ opacity: 0, y: 5 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    exit={{ opacity: 0, y: -5 }}
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col h-full"
                                 >
-                                    <div className="flex items-center gap-4 mb-6 lg:mb-8 shrink-0">
-                                        <div className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-xl flex items-center justify-center backdrop-blur-sm shrink-0">
-                                            {activeContent.icon}
-                                        </div>
-                                        <h3 className="text-lg lg:text-xl font-bold tracking-tight">{activeContent.title}</h3>
-                                    </div>
-
-                                    <p className="text-white/70 leading-relaxed mb-6 lg:mb-8 font-normal text-xs lg:text-sm">
+                                    <p className="text-white/70 leading-relaxed mb-8 lg:mb-10 font-normal text-xs lg:text-sm">
                                         {activeContent.description}
                                     </p>
 
@@ -146,14 +139,14 @@ export default function ServiceSelectorSection() {
                                         ))}
                                     </ul>
 
-                                    {/* ACTION BUTTON - Compact & Premium */}
-                                    <div className="mt-8 relative pt-6 lg:pt-8 border-t border-white/5 shrink-0 min-h-[80px] flex items-center">
+                                    {/* ACTION BUTTON - Elevated for total visibility */}
+                                    <div className="mt-10 relative pt-8 border-t border-white/5 shrink-0 min-h-[80px] flex items-center">
                                         <motion.div
                                             className="w-full"
                                             initial={false}
                                             animate={{
                                                 opacity: selectedOption ? 1 : 0,
-                                                y: selectedOption ? 0 : 10,
+                                                y: selectedOption ? 0 : 5,
                                                 pointerEvents: selectedOption ? "auto" : "none"
                                             }}
                                             transition={{ duration: 0.4, ease: "easeOut" }}
@@ -171,7 +164,7 @@ export default function ServiceSelectorSection() {
                                             <motion.div
                                                 initial={{ opacity: 0 }}
                                                 animate={{ opacity: 1 }}
-                                                className="absolute inset-0 flex items-center justify-center"
+                                                className="absolute inset-0 flex items-center justify-center pt-8"
                                             >
                                                 <p className="text-[9px] uppercase tracking-widest text-white/30 italic font-medium">Select a plan to proceed</p>
                                             </motion.div>
@@ -182,7 +175,7 @@ export default function ServiceSelectorSection() {
                         </div>
                     </motion.div>
 
-                    {/* RIGHT: SERVICE OPTIONS - Left Aligned */}
+                    {/* RIGHT: SERVICE OPTIONS - Maintains Left Alignment */}
                     <div className="lg:col-span-8 flex flex-col h-full min-h-0">
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6 h-full">
                             <AnimatePresence mode="wait">
@@ -222,7 +215,6 @@ export default function ServiceSelectorSection() {
                                                 {option.price}
                                             </span>
 
-                                            {/* Corner Selection Indicator */}
                                             <div className="absolute bottom-6 right-6 lg:bottom-8 lg:right-8">
                                                 <AnimatePresence>
                                                     {selectedOption === option.id && (

@@ -11,7 +11,7 @@ export default function FooterSection() {
     return (
         <footer id="footer" className="w-full bg-[#F9F8F2] text-[#024653] lg:h-screen min-h-[850px] flex flex-col justify-start relative z-10 overflow-hidden snap-start">
 
-            {/* --- SOCIAL PROOF MARQUEE (Increased to clear fixed header) --- */}
+            {/* --- SOCIAL PROOF MARQUEE --- */}
             <div className="w-full bg-transparent pt-[85px] pb-6">
                 <div className="max-w-[1700px] mx-auto px-6 lg:px-10">
                     <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
@@ -64,8 +64,8 @@ export default function FooterSection() {
                 </div>
             </div>
 
-            {/* --- MAIN FOOTER CONTENT (Optimized vertical spacing for single frame) --- */}
-            <div className="max-w-[1700px] w-full mx-auto px-6 lg:px-10 flex flex-col justify-between flex-1 pb-10 pt-4">
+            {/* --- MAIN FOOTER CONTENT (Unified Gap Control) --- */}
+            <div className="max-w-[1700px] w-full mx-auto px-6 lg:px-10 flex flex-col gap-12 lg:gap-20 pb-16 pt-4">
 
                 {/* --- TOP SECTION --- */}
                 <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-0">
@@ -120,8 +120,8 @@ export default function FooterSection() {
                     </div>
                 </div>
 
-                {/* --- BOTTOM SECTION: Links & Right-Aligned Locations (Reduced top gap) --- */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 pt-6 items-end">
+                {/* --- BOTTOM SECTION: Links & Right-Aligned Locations --- */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-end">
 
                     {/* Links Section (Left) - Takes 4 columns */}
                     <div className="lg:col-span-4 grid grid-cols-2 gap-6">

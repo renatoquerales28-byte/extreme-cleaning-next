@@ -73,30 +73,30 @@ export default function ServiceSelectorSection() {
     };
 
     return (
-        <section className="w-full bg-[#024653] relative overflow-hidden lg:h-[100svh] lg:max-h-[1000px] flex flex-col pt-24 pb-12 lg:pt-28 lg:pb-12 border-t border-white/5">
+        <section className="w-full bg-white relative overflow-hidden lg:h-[100svh] lg:max-h-[1000px] flex flex-col pt-24 pb-12 lg:pt-28 lg:pb-12 border-t border-slate-100">
             <div className="max-w-[1700px] mx-auto px-6 lg:px-10 relative z-10 w-full h-full flex flex-col">
 
                 {/* HEADLINE & TABS - Fixed Height portion */}
                 <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-8 lg:mb-10 shrink-0">
-                    <h2 className="text-3xl lg:text-5xl font-normal tracking-tight text-white text-center md:text-left leading-[1.1]">
-                        Cleaning Solutions <br /> <span className="font-light italic opacity-80">Tailored to You</span>
+                    <h2 className="text-3xl lg:text-5xl font-normal tracking-tight text-[#024653] text-center md:text-left leading-[1.1]">
+                        Cleaning Solutions <br /> <span className="font-light italic opacity-60">Tailored to You</span>
                     </h2>
 
                     {/* TOGGLE PILL */}
-                    <div className="inline-flex bg-white/5 p-1.5 rounded-full relative backdrop-blur-sm border border-white/10">
+                    <div className="inline-flex bg-slate-100 p-1.5 rounded-full relative border border-slate-200">
                         {(['residential', 'commercial', 'pm'] as ServiceType[]).map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => { setActiveTab(tab); setSelectedOption(null); }}
                                 className={`
                                     relative px-5 py-2.5 rounded-full text-[11px] font-bold uppercase tracking-widest transition-all z-10
-                                    ${activeTab === tab ? 'text-[#024653]' : 'text-white/60 hover:text-white'}
+                                    ${activeTab === tab ? 'text-[#024653]' : 'text-slate-400 hover:text-slate-600'}
                                 `}
                             >
                                 {activeTab === tab && (
                                     <motion.div
                                         layoutId="activeTab"
-                                        className="absolute inset-0 bg-white rounded-full shadow-lg"
+                                        className="absolute inset-0 bg-white rounded-full shadow-sm"
                                         transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                                     />
                                 )}
@@ -111,13 +111,13 @@ export default function ServiceSelectorSection() {
                 {/* CONTENT GRID - Fills remaining space */}
                 <div className="flex-1 grid grid-cols-1 lg:grid-cols-12 gap-6 min-h-0">
 
-                    {/* LEFT: INFO CARD (Dynamic) - Green Card */}
+                    {/* LEFT: INFO CARD (Dynamic) - Dark Navy Card */}
                     <motion.div
                         layout
-                        className="lg:col-span-4 bg-[#05D16E] rounded-[2.5rem] p-8 lg:p-10 text-[#024653] flex flex-col relative overflow-hidden h-full shadow-2xl shadow-black/10"
+                        className="lg:col-span-4 bg-[#024653] rounded-[2.5rem] p-8 lg:p-10 text-white flex flex-col relative overflow-hidden h-full shadow-2xl shadow-[#024653]/10"
                     >
                         {/* Blob Decoration */}
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/20 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/2 mix-blend-overlay" />
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/2 mix-blend-overlay" />
 
                         <div className="relative z-10 flex flex-col h-full">
                             <AnimatePresence mode="wait">
@@ -129,12 +129,12 @@ export default function ServiceSelectorSection() {
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col h-full"
                                 >
-                                    <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mb-6 backdrop-blur-sm">
+                                    <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-6 backdrop-blur-sm">
                                         {activeContent.icon}
                                     </div>
 
                                     <h3 className="text-3xl font-bold mb-4 tracking-tight">{activeContent.title}</h3>
-                                    <p className="text-[#024653]/80 leading-relaxed mb-8 font-medium text-lg">
+                                    <p className="text-white/80 leading-relaxed mb-8 font-medium text-lg">
                                         {activeContent.description}
                                     </p>
 
@@ -142,18 +142,18 @@ export default function ServiceSelectorSection() {
                                         {activeContent.benefits.map((benefit, idx) => (
                                             <li key={idx} className="flex items-center gap-3">
                                                 <div className="p-1 rounded-full bg-white/20">
-                                                    <CheckCircle2 size={16} className="text-[#024653]" />
+                                                    <CheckCircle2 size={16} className="text-white" />
                                                 </div>
-                                                <span className="font-bold text-[#024653]/90">{benefit}</span>
+                                                <span className="font-bold text-white/90">{benefit}</span>
                                             </li>
                                         ))}
                                     </ul>
                                 </motion.div>
                             </AnimatePresence>
 
-                            <div className="relative z-10 mt-8 pt-6 border-t border-[#024653]/10">
-                                <p className="text-[10px] font-black uppercase tracking-widest text-[#024653]/60 mb-2">Need a Custom Plan?</p>
-                                <a href="/contact" className="text-sm font-bold underline decoration-[#024653]/30 underline-offset-4 hover:decoration-[#024653] transition-all text-[#024653]">
+                            <div className="relative z-10 mt-8 pt-6 border-t border-white/10">
+                                <p className="text-[10px] font-black uppercase tracking-widest text-white/50 mb-2">Need a Custom Plan?</p>
+                                <a href="/contact" className="text-sm font-bold underline decoration-white/30 underline-offset-4 hover:decoration-white transition-all text-white">
                                     Contact our team directly →
                                 </a>
                             </div>
@@ -162,7 +162,7 @@ export default function ServiceSelectorSection() {
 
                     {/* RIGHT: INTERACTIVE SELECTION - White Card */}
                     <div className="lg:col-span-8 flex flex-col h-full min-h-0">
-                        <div className="bg-[#F9F8F2] rounded-[2.5rem] p-8 lg:p-10 h-full w-full border border-white/10 flex flex-col shadow-2xl shadow-black/20 overflow-hidden relative">
+                        <div className="bg-[#F9F8F2] rounded-[2.5rem] p-8 lg:p-10 h-full w-full border border-slate-100 flex flex-col shadow-2xl shadow-black/5 overflow-hidden relative">
 
                             <div className="mb-6 flex items-center justify-between shrink-0">
                                 <h4 className="text-xl font-bold text-[#024653] flex items-center gap-3">
@@ -171,7 +171,7 @@ export default function ServiceSelectorSection() {
                                 </h4>
                             </div>
 
-                            {/* Options Grid - Scrollable if needed but designed to fit */}
+                            {/* Options Grid - Designed to fit */}
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1 min-h-0 overflow-y-auto pr-1 pb-1">
                                 <AnimatePresence mode="wait">
                                     {activeContent.options.map((option) => (

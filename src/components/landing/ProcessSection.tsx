@@ -60,86 +60,93 @@ export default function ProcessSection() {
                 </motion.div>
 
                 {/* VISUAL PROCESS FLOW - Wavy Line & Floating Steps */}
-                <div className="relative min-h-[500px] mb-20 lg:mb-32">
+                <div className="relative min-h-[550px] mb-20 lg:mb-32 flex items-center">
 
                     {/* The Connecting Wave - SVG Line */}
-                    <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 hidden lg:block overflow-visible pointer-events-none">
-                        <svg width="100%" height="300" viewBox="0 0 1200 300" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full">
+                    <div className="absolute top-0 left-0 w-full h-full hidden lg:block overflow-visible pointer-events-none">
+                        <svg width="100%" height="100%" viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
                             <motion.path
-                                d="M0 200C150 200 250 100 400 100C550 100 650 250 800 250C950 250 1050 150 1200 150"
-                                stroke="#024653"
-                                strokeWidth="2"
-                                strokeDasharray="8 8"
+                                d="M0 300C150 300 300 250 400 250C500 250 550 100 700 100C850 100 950 150 1100 150L1200 150"
+                                stroke="#085560"
+                                strokeWidth="2.5"
+                                strokeDasharray="10 10"
                                 initial={{ pathLength: 0, opacity: 0 }}
-                                whileInView={{ pathLength: 1, opacity: 0.2 }}
+                                whileInView={{ pathLength: 1, opacity: 0.3 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 2, ease: "easeInOut" }}
+                                transition={{ duration: 2.5, ease: "easeInOut" }}
                             />
                         </svg>
                     </div>
 
                     {/* Step Nodes & Content */}
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-0 h-full">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-24 lg:gap-0 w-full relative z-10 pt-10">
 
-                        {/* STEP 1 */}
+                        {/* STEP 1: Content ABOVE the line (y=250 approx) */}
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
-                            className="relative flex flex-col items-center lg:items-start lg:translate-y-[100px]"
+                            className="relative flex flex-col items-center lg:items-start lg:translate-x-12 lg:-translate-y-8"
                         >
-                            <div className="absolute -top-12 lg:-top-20 lg:left-8 text-[120px] lg:text-[180px] font-black text-[#024653]/5 leading-none pointer-events-none">1</div>
-                            <div className="relative z-10 space-y-4 max-w-xs text-center lg:text-left lg:mb-12">
-                                <h3 className="text-2xl lg:text-3xl font-normal text-[#024653] tracking-tight">General concept</h3>
-                                <p className="text-[#024653]/60 font-light leading-relaxed">Select your service type and tell us about your space in 60 seconds.</p>
+                            <div className="absolute -top-16 lg:-top-24 lg:left-0 text-[140px] lg:text-[180px] font-black text-[#024653]/5 leading-none pointer-events-none">1</div>
+
+                            {/* Content Above */}
+                            <div className="relative z-10 space-y-3 max-w-xs text-center lg:text-left mb-10">
+                                <h3 className="text-2xl lg:text-3xl font-normal text-[#024653] tracking-tight italic">General concept</h3>
+                                <p className="text-[#024653]/60 font-light leading-relaxed text-sm lg:text-base">Select your service type and tell us about your space in 60 seconds.</p>
                             </div>
-                            {/* The Node */}
-                            <div className="w-16 h-16 rounded-2xl bg-white shadow-xl shadow-[#024653]/5 border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-transform duration-300">
+
+                            {/* Node on the line */}
+                            <div className="w-16 h-16 rounded-2xl bg-white shadow-xl shadow-[#024653]/5 border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-transform duration-300 lg:translate-y-[15px]">
                                 <ClipboardList size={24} />
-                                <div className="absolute -bottom-2 translate-y-full hidden lg:block w-px h-12 bg-gradient-to-b from-[#024653]/10 to-transparent" />
+                                <div className="absolute -top-2 -translate-y-full hidden lg:block w-px h-12 bg-gradient-to-t from-[#024653]/10 to-transparent" />
                             </div>
                         </motion.div>
 
-                        {/* STEP 2 */}
+                        {/* STEP 2: Content BELOW the line (y=100 approx) */}
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.3 }}
-                            className="relative flex flex-col items-center lg:translate-y-[-50px]"
+                            className="relative flex flex-col items-center lg:-translate-y-24"
                         >
-                            <div className="absolute -top-12 lg:-top-24 text-[120px] lg:text-[180px] font-black text-[#024653]/5 leading-none pointer-events-none">2</div>
+                            <div className="absolute -top-16 lg:top-12 text-[140px] lg:text-[180px] font-black text-[#024653]/5 leading-none pointer-events-none">2</div>
 
-                            {/* The Node */}
-                            <div className="w-16 h-16 rounded-2xl bg-white shadow-xl shadow-[#024653]/5 border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-transform duration-300 mb-8 lg:mb-12">
+                            {/* Node on the line */}
+                            <div className="w-16 h-16 rounded-2xl bg-white shadow-xl shadow-[#024653]/5 border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-transform duration-300 mb-10">
                                 <CircleDollarSign size={24} />
-                                <div className="absolute -top-2 -translate-y-full hidden lg:block w-px h-12 bg-gradient-to-t from-[#024653]/10 to-transparent" />
+                                <div className="absolute -bottom-2 translate-y-full hidden lg:block w-px h-12 bg-gradient-to-b from-[#024653]/10 to-transparent" />
                             </div>
 
-                            <div className="relative z-10 space-y-4 max-w-xs text-center">
-                                <h3 className="text-2xl lg:text-3xl font-normal text-[#024653] tracking-tight">Post product</h3>
-                                <p className="text-[#024653]/60 font-light leading-relaxed">Get an instant transparent price. No hidden fees, ever.</p>
+                            {/* Content Below */}
+                            <div className="relative z-10 space-y-3 max-w-xs text-center">
+                                <h3 className="text-2xl lg:text-3xl font-normal text-[#024653] tracking-tight italic">Post product</h3>
+                                <p className="text-[#024653]/60 font-light leading-relaxed text-sm lg:text-base">Get an instant transparent price. No hidden fees, ever.</p>
                             </div>
                         </motion.div>
 
-                        {/* STEP 3 */}
+                        {/* STEP 3: Content BELOW the line (y=150 approx) */}
                         <motion.div
                             initial={{ opacity: 0, y: 30 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.8, delay: 0.6 }}
-                            className="relative flex flex-col items-center lg:items-end lg:translate-y-[50px]"
+                            className="relative flex flex-col items-center lg:items-end lg:-translate-x-12 lg:-translate-y-[15px]"
                         >
-                            <div className="absolute -top-12 lg:-top-20 lg:right-8 text-[120px] lg:text-[180px] font-black text-[#024653]/5 leading-none pointer-events-none text-right">3</div>
-                            <div className="relative z-10 space-y-4 max-w-xs text-center lg:text-right lg:mb-12">
-                                <h3 className="text-2xl lg:text-3xl font-normal text-[#024653] tracking-tight">Design process</h3>
-                                <p className="text-[#024653]/60 font-light leading-relaxed">We arrive on time, equipped, and ready to transform your space.</p>
-                            </div>
-                            {/* The Node */}
-                            <div className="w-16 h-16 rounded-2xl bg-white shadow-xl shadow-[#024653]/5 border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-transform duration-300">
+                            <div className="absolute -top-16 lg:top-8 lg:right-0 text-[140px] lg:text-[180px] font-black text-[#024653]/5 leading-none pointer-events-none text-right">3</div>
+
+                            {/* Node on the line */}
+                            <div className="w-16 h-16 rounded-2xl bg-white shadow-xl shadow-[#024653]/5 border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-transform duration-300 mb-10">
                                 <Sparkles size={24} />
                                 <div className="absolute -bottom-2 translate-y-full hidden lg:block w-px h-12 bg-gradient-to-b from-[#024653]/10 to-transparent" />
+                            </div>
+
+                            {/* Content Below */}
+                            <div className="relative z-10 space-y-3 max-w-xs text-center lg:text-right">
+                                <h3 className="text-2xl lg:text-3xl font-normal text-[#024653] tracking-tight italic">Design process</h3>
+                                <p className="text-[#024653]/60 font-light leading-relaxed text-sm lg:text-base">We arrive on time, equipped, and ready to transform your space.</p>
                             </div>
                         </motion.div>
 

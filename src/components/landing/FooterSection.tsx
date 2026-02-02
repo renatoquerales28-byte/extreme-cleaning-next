@@ -64,8 +64,8 @@ export default function FooterSection() {
                 </div>
             </div>
 
-            {/* --- MAIN FOOTER CONTENT --- */}
-            <div className="max-w-[1700px] w-full mx-auto px-6 lg:px-10 flex flex-col justify-between flex-1 pb-16 pt-8">
+            {/* --- MAIN FOOTER CONTENT (Optimized vertical spacing for single frame) --- */}
+            <div className="max-w-[1700px] w-full mx-auto px-6 lg:px-10 flex flex-col justify-between flex-1 pb-10 pt-4">
 
                 {/* --- TOP SECTION --- */}
                 <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-0">
@@ -120,8 +120,8 @@ export default function FooterSection() {
                     </div>
                 </div>
 
-                {/* --- BOTTOM SECTION: Links & Right-Aligned Locations --- */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 pt-12 items-end">
+                {/* --- BOTTOM SECTION: Links & Right-Aligned Locations (Reduced top gap) --- */}
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 pt-6 items-end">
 
                     {/* Links Section (Left) - Takes 4 columns */}
                     <div className="lg:col-span-4 grid grid-cols-2 gap-6">

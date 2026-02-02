@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 export default function SocialProofSection() {
     return (
         // SECTION: Horizontal Ribbon Layout
-        <section className="w-full bg-transparent relative py-8 lg:py-12 snap-start scroll-mt-[90px] translate-y-[30px] overflow-hidden">
+        <section className="w-full bg-transparent relative py-8 lg:py-12 snap-start scroll-mt-[90px] -translate-y-[70px]">
 
             {/* CONTAINER: Single Row Layout */}
             <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10">
@@ -32,7 +32,7 @@ export default function SocialProofSection() {
                     {/* RIGHT: Scrolling Reviews Marquee */}
                     <div className="flex-1 relative overflow-visible">
                         {/* Extra padding for shadow overflow */}
-                        <div className="py-4 -my-4 overflow-hidden">
+                        <div className="py-6 -my-6 overflow-hidden">
                             <motion.div
                                 className="flex gap-5"
                                 animate={{ x: ["0%", "-50%"] }}

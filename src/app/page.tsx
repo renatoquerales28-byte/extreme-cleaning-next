@@ -124,9 +124,9 @@ export default function Home() {
             <HeroSection />
 
             {/* NEW STRATEGIC SECTIONS */}
-            <SocialProofSection />
             <ServiceSelectorSection />
             <ProcessSection />
+            <SocialProofSection />
 
             <ProblemSolutionSection />
             <ServicesSection />

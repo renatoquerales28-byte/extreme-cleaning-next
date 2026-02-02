@@ -73,7 +73,7 @@ export default function ServiceSelectorSection() {
     };
 
     return (
-        <section className="w-full bg-[#F9F8F2] relative lg:h-[85svh] lg:max-h-[900px] flex flex-col pt-8 lg:pt-12 pb-12 lg:pb-16 overflow-hidden">
+        <section className="w-full bg-[#F9F8F2] relative lg:h-[85svh] lg:max-h-[900px] flex flex-col pt-4 lg:pt-6 pb-12 lg:pb-16 overflow-hidden">
             <div className="max-w-[1700px] mx-auto px-6 lg:px-10 relative z-10 w-full h-full flex flex-col">
 
                 {/* TABS - Repositioned and Compact */}

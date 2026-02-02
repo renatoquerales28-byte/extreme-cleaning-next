@@ -37,7 +37,7 @@ export default function Home() {
         <main className="min-h-screen bg-[#F9F8F2] selection:bg-accent selection:text-white light">
             {/* Conventional Header - 60px version */}
             <header
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 h-[60px] bg-[#F9F8F2]/40 backdrop-blur-[40px] border-b border-white/40 ${scrolled
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 h-[60px] bg-[#F9F8F2]/10 backdrop-blur-[40px] border-b border-white/40 ${scrolled
                     ? "shadow-[0_8px_32px_0_rgba(2,70,83,0.03)]"
                     : ""
                     }`}

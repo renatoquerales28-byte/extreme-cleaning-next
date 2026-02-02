@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
@@ -130,16 +131,16 @@ export default function ServiceSelectorSection() {
     };
 
     return (
-        <section className="w-full bg-[#F9F8F2] relative lg:h-[90svh] lg:min-h-[850px] flex flex-col py-12 lg:py-20 overflow-hidden">
-            <div className="max-w-[1700px] mx-auto px-6 lg:px-10 relative z-10 w-full h-full flex flex-col">
+        <section className="w-full bg-[#F9F8F2] relative lg:h-[100svh] lg:max-h-[1000px] flex flex-col overflow-hidden">
+            <div className="max-w-[1700px] mx-auto px-6 lg:px-10 relative z-10 w-full h-full flex items-center py-6 lg:py-10">
 
-                {/* CONTENT GRID - Optimized for laptop viewports */}
-                <div className="flex-1 min-h-0 grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8 lg:pt-4">
+                {/* CONTENT GRID - Optimized for laptop viewports to match Hero's visual balance */}
+                <div className="flex-1 w-full h-[95%] grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-8">
 
                     {/* LEFT: INFO CARD (Compact) */}
                     <motion.div
                         layout
-                        className="lg:col-span-4 bg-[#024653] rounded-[2rem] p-6 lg:p-8 text-white flex flex-col relative overflow-hidden h-full shadow-2xl shadow-[#024653]/30"
+                        className="lg:col-span-4 bg-[#024653] rounded-2xl lg:rounded-3xl p-6 lg:p-8 text-white flex flex-col relative overflow-hidden h-full shadow-2xl shadow-[#024653]/30"
                     >
                         {/* Blob Decoration */}
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/2 mix-blend-overlay" />
@@ -241,7 +242,7 @@ export default function ServiceSelectorSection() {
                                         exit={{ opacity: 0, scale: 0.98 }}
                                         onClick={() => setSelectedOption(option.id)}
                                         className={`
-                                            relative p-6 lg:p-8 rounded-[2rem] text-left transition-all group flex flex-col h-full items-start
+                                            relative p-6 lg:p-8 rounded-2xl lg:rounded-3xl text-left transition-all group flex flex-col h-full items-start
                                             ${selectedOption === option.id
                                                 ? 'bg-white ring-1 ring-[#024653]/10 shadow-2xl shadow-[#024653]/10 z-10 scale-[1.01]'
                                                 : 'bg-white shadow-sm hover:shadow-xl hover:ring-1 hover:ring-[#024653]/5'
@@ -274,12 +275,13 @@ export default function ServiceSelectorSection() {
                                             </span>
                                         </div>
 
-                                        {/* Image Container - 1/4 of card height */}
-                                        <div className="mt-6 w-full aspect-[4/1.5] relative rounded-xl overflow-hidden bg-slate-50 border border-slate-100/50">
-                                            <img
+                                        {/* Image Container - Exactly 1/4 of card height */}
+                                        <div className="mt-6 w-full h-1/4 relative rounded-xl overflow-hidden bg-slate-50 border border-slate-100/50 flex-shrink-0">
+                                            <Image
                                                 src={option.image}
                                                 alt={option.label}
-                                                className="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity"
+                                                fill
+                                                className="object-cover opacity-60 group-hover:opacity-100 transition-opacity"
                                             />
                                         </div>
 

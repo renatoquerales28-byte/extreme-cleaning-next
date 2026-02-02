@@ -137,7 +137,7 @@ export default function ServiceSelectorSection() {
 
                         <div className="relative z-10 flex flex-col h-full">
 
-                            {/* INTEGRATED SERVICE SWITCHER - Text only, compact */}
+                            {/* OFFICIAL VERSION - INTEGRATED SERVICE SWITCHER - Text only, compact */}
                             <div className="inline-flex bg-white/5 p-1 rounded-full relative border border-white/10 mb-8 lg:mb-10 shadow-inner w-full">
                                 {(['residential', 'commercial', 'pm'] as ServiceType[]).map((tab) => (
                                     <button

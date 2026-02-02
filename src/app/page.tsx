@@ -11,6 +11,7 @@ import SocialProofSection from "@/components/home/SocialProofSection";
 import ServiceSelectorSection from "@/components/home/ServiceSelectorSection";
 import LegacySocialProof from "@/components/landing/SocialProofSection"; // Renaming old to avoid collision if still needed
 import ProcessSection from "@/components/landing/ProcessSection";
+import AboutSection from "@/components/landing/AboutSection";
 import FooterSection from "@/components/landing/FooterSection";
 import { AnimatePresence, motion } from "framer-motion";
 
@@ -127,6 +128,7 @@ export default function Home() {
             <ServiceSelectorSection />
             <ProcessSection />
             <SocialProofSection />
+            <AboutSection />
 
             <ProblemSolutionSection />
             <ServicesSection />

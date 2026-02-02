@@ -74,7 +74,7 @@ export default function FooterSection() {
                     <div className="space-y-6 max-w-xl">
                         <h2 className="text-4xl lg:text-5xl font-light leading-tight tracking-tight">
                             ECS Excellence in <br />
-                            your mailbox
+                            your mailbox!
                         </h2>
 
                         <div className="space-y-4">

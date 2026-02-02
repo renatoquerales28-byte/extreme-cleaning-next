@@ -129,22 +129,24 @@ export default function ServiceSelectorSection() {
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col h-full"
                                 >
-                                    <div className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-2xl flex items-center justify-center mb-3 lg:mb-4 backdrop-blur-sm shrink-0">
-                                        {activeContent.icon}
+                                    <div className="flex items-center gap-4 mb-4 lg:mb-5 shrink-0">
+                                        <div className="w-10 h-10 lg:w-12 lg:h-12 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-sm shrink-0">
+                                            {activeContent.icon}
+                                        </div>
+                                        <h3 className="text-lg lg:text-xl font-bold tracking-tight">{activeContent.title}</h3>
                                     </div>
 
-                                    <h3 className="text-lg lg:text-xl font-bold mb-2 tracking-tight">{activeContent.title}</h3>
-                                    <p className="text-white/80 leading-relaxed mb-4 font-medium text-[13px] lg:text-sm">
+                                    <p className="text-white/80 leading-relaxed mb-5 font-normal text-[13px] lg:text-sm">
                                         {activeContent.description}
                                     </p>
 
-                                    <ul className="space-y-2 mb-auto">
+                                    <ul className="space-y-3 mb-auto">
                                         {activeContent.benefits.map((benefit, idx) => (
-                                            <li key={idx} className="flex items-center gap-2.5">
+                                            <li key={idx} className="flex items-center gap-3">
                                                 <div className="p-0.5 rounded-full bg-white/20 shrink-0">
                                                     <CheckCircle2 size={12} className="text-white" />
                                                 </div>
-                                                <span className="font-bold text-white/90 text-[11px] lg:text-xs">{benefit}</span>
+                                                <span className="font-normal text-white/90 text-[11px] lg:text-xs">{benefit}</span>
                                             </li>
                                         ))}
                                     </ul>
@@ -152,8 +154,8 @@ export default function ServiceSelectorSection() {
                             </AnimatePresence>
 
                             <div className="relative z-10 mt-6 pt-4 border-t border-white/10">
-                                <p className="text-[9px] font-black uppercase tracking-widest text-white/50 mb-1">Need a Custom Plan?</p>
-                                <a href="/contact" className="text-[11px] lg:text-xs font-bold underline decoration-white/30 underline-offset-4 hover:decoration-white transition-all text-white">
+                                <p className="text-[9px] font-normal uppercase tracking-widest text-white/50 mb-1">Need a Custom Plan?</p>
+                                <a href="/contact" className="text-[11px] lg:text-xs font-normal underline decoration-white/30 underline-offset-4 hover:decoration-white transition-all text-white">
                                     Contact our team directly →
                                 </a>
                             </div>

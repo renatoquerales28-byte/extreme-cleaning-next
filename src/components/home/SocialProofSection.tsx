@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 export default function SocialProofSection() {
     return (
         // SECTION: Horizontal Ribbon Layout
-        <section className="w-full bg-transparent relative py-8 lg:py-12 snap-start scroll-mt-[90px] -translate-y-[70px]">
+        <section className="w-full bg-transparent relative py-8 lg:py-12 snap-start scroll-mt-[90px] -translate-y-[100px]">
 
             {/* CONTAINER: Single Row Layout */}
             <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10">
@@ -47,7 +47,7 @@ export default function SocialProofSection() {
                                 {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, i) => (
                                     <div
                                         key={`${review.id}-${i}`}
-                                        className="bg-white p-5 rounded-2xl shadow-lg shadow-[#024653]/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative group w-[260px] md:w-[300px] shrink-0 border border-[#024653]/5"
+                                        className="bg-white p-5 rounded-2xl shadow-md shadow-[#024653]/8 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 relative group w-[260px] md:w-[300px] shrink-0 border border-[#024653]/5"
                                     >
                                         <Quote className="absolute top-4 right-5 text-[#024653]/5 transform rotate-180 group-hover:scale-110 transition-transform" size={32} />
 

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-// Deployment version bump
+// Deployment trigger: Intense Glassmorphism v2
 import Image from "next/image";
 import HeroSection from "@/components/landing/HeroSection";
 import SocialProofSection from "@/components/home/SocialProofSection";

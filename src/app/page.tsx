@@ -5,11 +5,8 @@ import Link from "next/link";
 // Deployment version bump
 import Image from "next/image";
 import HeroSection from "@/components/landing/HeroSection";
-import ProblemSolutionSection from "@/components/landing/ProblemSolutionSection";
-import ServicesSection from "@/components/landing/ServicesSection";
 import SocialProofSection from "@/components/home/SocialProofSection";
 import ServiceSelectorSection from "@/components/home/ServiceSelectorSection";
-import LegacySocialProof from "@/components/landing/SocialProofSection"; // Renaming old to avoid collision if still needed
 import ProcessSection from "@/components/landing/ProcessSection";
 import AboutSection from "@/components/landing/AboutSection";
 import FooterSection from "@/components/landing/FooterSection";
@@ -130,9 +127,6 @@ export default function Home() {
             <SocialProofSection />
             <AboutSection />
 
-            <ProblemSolutionSection />
-            <ServicesSection />
-            <div id="reviews"><LegacySocialProof /></div>
             <FooterSection />
         </main>
     );

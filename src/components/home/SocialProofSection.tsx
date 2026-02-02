@@ -1,145 +1,79 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import Image from "next/image";
-import { Star, ChevronRight, Gift, Clock, Bell, Quote } from "lucide-react";
+import { Star, Quote } from "lucide-react";
 import { GOOGLE_REVIEWS } from "@/lib/data/reviews_mock";
-import Link from "next/link";
 import { motion } from "framer-motion";
-
-function CountdownTimer() {
-    const [timeLeft, setTimeLeft] = useState(15 * 60); // 15 minutes in seconds
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            setTimeLeft((prev) => (prev > 0 ? prev - 1 : 0));
-        }, 1000);
-        return () => clearInterval(timer);
-    }, []);
-
-    const minutes = Math.floor(timeLeft / 60);
-    const seconds = timeLeft % 60;
-
-    return (
-        <div className="flex flex-col items-center">
-            <Clock size={14} className="text-[#024653]/60 mb-1" />
-            <span className="text-[9px] uppercase tracking-widest text-[#024653]/40 font-bold">Expires in</span>
-            <span className="font-mono text-xl font-bold text-[#024653] tracking-wider">
-                {String(minutes).padStart(2, '0')}:{String(seconds).padStart(2, '0')}
-            </span>
-        </div>
-    );
-}
 
 export default function SocialProofSection() {
     return (
-        // SECTION CONTAINER: No parent cards, transparent background
-        <section className="w-full bg-transparent relative flex items-center pt-4 pb-6 lg:pt-8 lg:pb-12 snap-start scroll-mt-[90px] translate-y-[30px]">
+        // SECTION: Horizontal Ribbon Layout
+        <section className="w-full bg-transparent relative py-8 lg:py-12 snap-start scroll-mt-[90px] translate-y-[30px] overflow-hidden">
 
-            {/* CONTAINER: Max width of 1700px to match Hero */}
-            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-6 lg:gap-8 items-stretch justify-center">
+            {/* CONTAINER: Single Row Layout */}
+            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10">
 
-                {/* LEFT COLUMN: REVIEWS (60% -> 3/5 cols) - NO PARENT CARD */}
-                <div className="w-full lg:col-span-3 flex flex-col justify-center relative">
+                <div className="flex flex-col lg:flex-row lg:items-center gap-6 lg:gap-10">
 
-                    {/* Header for Reviews */}
-                    <div className="mb-6 md:mb-8 pl-4 border-l-4 border-[#024653] relative z-10">
-                        <h3 className="text-2xl md:text-4xl font-light text-[#024653] mb-2 leading-tight">
-                            What our <br /> <span className="font-black">Clients Say.</span>
-                        </h3>
-                        <div className="flex items-center gap-2">
-                            <div className="flex text-[#F4B400]">
-                                {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} fill="currentColor" />)}
+                    {/* LEFT: Title Block (Fixed Width) */}
+                    <div className="shrink-0 lg:w-[280px] xl:w-[320px]">
+                        <div className="pl-4 border-l-4 border-[#024653]">
+                            <h3 className="text-2xl md:text-3xl lg:text-4xl font-light text-[#024653] mb-2 leading-tight">
+                                What our <br /> <span className="font-black">Clients Say.</span>
+                            </h3>
+                            <div className="flex items-center gap-2">
+                                <div className="flex text-[#F4B400]">
+                                    {[1, 2, 3, 4, 5].map(i => <Star key={i} size={14} fill="currentColor" />)}
+                                </div>
+                                <span className="text-xs font-medium text-[#024653]/60">5.0 on Google</span>
                             </div>
-                            <span className="text-sm font-medium text-[#024653]/60">5.0 on Google</span>
                         </div>
                     </div>
 
-                    {/* Horizontal Marquee Container */}
-                    <div className="relative w-full overflow-hidden mask-horizontal-fade py-4">
-                        <motion.div
-                            className="flex gap-5 pl-4"
-                            animate={{ x: ["0%", "-50%"] }}
-                            transition={{
-                                repeat: Infinity,
-                                ease: "linear",
-                                duration: 40
-                            }}
-                            style={{ width: "max-content" }}
-                        >
-                            {/* Duplicate list for loop */}
-                            {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, i) => (
-                                <div
-                                    key={`${review.id}-${i}`}
-                                    className="bg-white p-6 rounded-[2rem] shadow-lg shadow-[#024653]/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative group w-[280px] md:w-[360px] shrink-0 border border-[#024653]/5"
-                                >
-                                    <Quote className="absolute top-6 right-8 text-[#024653]/5 transform rotate-180 group-hover:scale-110 transition-transform" size={40} />
+                    {/* RIGHT: Scrolling Reviews Marquee */}
+                    <div className="flex-1 relative overflow-visible">
+                        {/* Extra padding for shadow overflow */}
+                        <div className="py-4 -my-4 overflow-hidden">
+                            <motion.div
+                                className="flex gap-5"
+                                animate={{ x: ["0%", "-50%"] }}
+                                transition={{
+                                    repeat: Infinity,
+                                    ease: "linear",
+                                    duration: 35
+                                }}
+                                style={{ width: "max-content" }}
+                            >
+                                {/* Duplicate list for seamless loop */}
+                                {[...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS, ...GOOGLE_REVIEWS].map((review, i) => (
+                                    <div
+                                        key={`${review.id}-${i}`}
+                                        className="bg-white p-5 rounded-2xl shadow-lg shadow-[#024653]/5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative group w-[260px] md:w-[300px] shrink-0 border border-[#024653]/5"
+                                    >
+                                        <Quote className="absolute top-4 right-5 text-[#024653]/5 transform rotate-180 group-hover:scale-110 transition-transform" size={32} />
 
-                                    <div className="flex items-center gap-4 mb-4">
-                                        <div className="w-11 h-11 rounded-full bg-[#F9F8F2] flex items-center justify-center text-[#024653] font-black text-base shadow-sm">
-                                            {review.name.charAt(0)}
+                                        <div className="flex items-center gap-3 mb-3">
+                                            <div className="w-10 h-10 rounded-full bg-[#F9F8F2] flex items-center justify-center text-[#024653] font-black text-sm shadow-sm">
+                                                {review.name.charAt(0)}
+                                            </div>
+                                            <div>
+                                                <h4 className="font-bold text-[#024653] text-sm">{review.name}</h4>
+                                                <span className="text-[9px] text-[#024653]/40 font-bold uppercase tracking-widest">{review.date}</span>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <h4 className="font-bold text-[#024653] text-sm md:text-base">{review.name}</h4>
-                                            <span className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest">{review.date}</span>
-                                        </div>
+
+                                        <p className="text-[#024653]/80 text-sm font-light leading-relaxed italic relative z-10 line-clamp-3">
+                                            &quot;{review.text}&quot;
+                                        </p>
                                     </div>
+                                ))}
+                            </motion.div>
+                        </div>
 
-                                    <p className="text-[#024653]/80 text-sm md:text-base font-light leading-relaxed italic relative z-10 line-clamp-4">
-                                        &quot;{review.text}&quot;
-                                    </p>
-                                </div>
-                            ))}
-                        </motion.div>
-                        {/* Gradient Masks for Horizontal Fade - Match cream background */}
-                        <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-[#F9F8F2] to-transparent z-10 pointer-events-none" />
+                        {/* Gradient Masks - Match cream background */}
+                        <div className="absolute top-0 left-0 w-16 h-full bg-gradient-to-r from-[#F9F8F2] to-transparent z-10 pointer-events-none" />
                         <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-[#F9F8F2] to-transparent z-10 pointer-events-none" />
                     </div>
-                </div>
 
-                {/* RIGHT COLUMN: PROMO (40% -> 2/5 cols) - SINGLE WHITE CARD */}
-                <div className="w-full lg:col-span-2 flex flex-col justify-center items-center lg:items-end relative h-full">
-
-                    <div className="w-full max-w-md bg-white rounded-[2.5rem] p-6 lg:p-8 shadow-xl shadow-[#024653]/5 border border-[#024653]/5 relative overflow-hidden">
-
-                        {/* Timer Row */}
-                        <div className="flex items-center justify-between mb-6 pb-6 border-b border-[#024653]/5">
-                            <div>
-                                <h4 className="font-black text-[#024653] text-base uppercase tracking-tight mb-0.5">Winter Special</h4>
-                                <p className="text-xs text-[#024653]/70 font-medium whitespace-nowrap">Limited Offer</p>
-                            </div>
-                            <div className="pl-4 lg:pl-6">
-                                <CountdownTimer />
-                            </div>
-                        </div>
-
-                        {/* Main Offer Content */}
-                        <div className="text-center">
-                            <span className="inline-block px-4 py-1.5 rounded-full bg-[#05D16E]/10 text-[#024653] text-[10px] font-black uppercase tracking-widest mb-4">
-                                Exclusive Deal
-                            </span>
-
-                            <h3 className="text-4xl font-normal text-[#024653] mb-2 tracking-tight">
-                                15% <span className="font-black">OFF</span>
-                            </h3>
-
-                            <p className="text-sm text-[#024653]/60 mb-6 font-medium mx-auto">
-                                Book your first <strong>Deep Clean</strong> today.
-                            </p>
-
-                            <Link
-                                href="/wizard?type=residential&intensity=deep&promo=WELCOME15"
-                                className="w-full flex items-center justify-center gap-3 py-4 bg-[#024653] text-white rounded-2xl font-black text-xs uppercase tracking-[0.15em] hover:bg-[#02333d] transition-all transform hover:-translate-y-1 shadow-lg shadow-[#024653]/20"
-                            >
-                                Get Clean <ChevronRight size={16} />
-                            </Link>
-
-                            <p className="text-[10px] text-[#024653]/30 mt-5 font-bold uppercase tracking-widest">
-                                100% Refundable if not used!
-                            </p>
-                        </div>
-
-                    </div>
                 </div>
 
             </div>

@@ -73,12 +73,12 @@ export default function ServiceSelectorSection() {
     };
 
     return (
-        <section className="w-full bg-white relative overflow-hidden lg:h-[100svh] lg:max-h-[1000px] flex flex-col pt-24 pb-12 lg:pt-28 lg:pb-12 border-t border-slate-100">
+        <section className="w-full bg-white relative overflow-hidden lg:h-[100svh] lg:max-h-[950px] flex flex-col pt-16 pb-8 lg:pt-20 lg:pb-8 border-t border-slate-100">
             <div className="max-w-[1700px] mx-auto px-6 lg:px-10 relative z-10 w-full h-full flex flex-col">
 
                 {/* HEADLINE & TABS - Fixed Height portion */}
-                <div className="flex flex-col md:flex-row items-center justify-between gap-8 mb-8 lg:mb-10 shrink-0">
-                    <h2 className="text-3xl lg:text-5xl font-normal tracking-tight text-[#024653] text-center md:text-left leading-[1.1]">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-4 lg:mb-6 shrink-0">
+                    <h2 className="text-3xl lg:text-4xl xl:text-5xl font-normal tracking-tight text-[#024653] text-center md:text-left leading-[1.1]">
                         Cleaning Solutions <br /> <span className="font-light italic opacity-60">Tailored to You</span>
                     </h2>
 
@@ -129,16 +129,16 @@ export default function ServiceSelectorSection() {
                                     transition={{ duration: 0.3 }}
                                     className="flex flex-col h-full"
                                 >
-                                    <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-6 backdrop-blur-sm">
+                                    <div className="w-12 h-12 lg:w-14 lg:h-14 bg-white/10 rounded-2xl flex items-center justify-center mb-4 lg:mb-6 backdrop-blur-sm">
                                         {activeContent.icon}
                                     </div>
 
-                                    <h3 className="text-3xl font-bold mb-4 tracking-tight">{activeContent.title}</h3>
-                                    <p className="text-white/80 leading-relaxed mb-8 font-medium text-lg">
+                                    <h3 className="text-2xl lg:text-3xl font-bold mb-3 tracking-tight">{activeContent.title}</h3>
+                                    <p className="text-white/80 leading-relaxed mb-6 font-medium text-base lg:text-lg">
                                         {activeContent.description}
                                     </p>
 
-                                    <ul className="space-y-4 mb-auto">
+                                    <ul className="space-y-3 mb-auto">
                                         {activeContent.benefits.map((benefit, idx) => (
                                             <li key={idx} className="flex items-center gap-3">
                                                 <div className="p-1 rounded-full bg-white/20">
@@ -164,15 +164,15 @@ export default function ServiceSelectorSection() {
                     <div className="lg:col-span-8 flex flex-col h-full min-h-0">
                         <div className="bg-[#F9F8F2] rounded-[2.5rem] p-8 lg:p-10 h-full w-full border border-slate-100 flex flex-col shadow-2xl shadow-black/5 overflow-hidden relative">
 
-                            <div className="mb-6 flex items-center justify-between shrink-0">
-                                <h4 className="text-xl font-bold text-[#024653] flex items-center gap-3">
-                                    <Sparkles className="text-[#05D16E]" size={24} />
+                            <div className="mb-4 flex items-center justify-between shrink-0">
+                                <h4 className="text-lg lg:text-xl font-bold text-[#024653] flex items-center gap-2">
+                                    <Sparkles className="text-[#05D16E]" size={20} />
                                     Select Your Service Class
                                 </h4>
                             </div>
 
-                            {/* Options Grid - Designed to fit */}
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 flex-1 min-h-0 overflow-y-auto pr-1 pb-1">
+                            {/* Options Grid - Optimized to fit without scrolling */}
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-3 lg:gap-4 flex-1 min-h-0">
                                 <AnimatePresence mode="wait">
                                     {activeContent.options.map((option) => (
                                         <motion.button
@@ -182,36 +182,36 @@ export default function ServiceSelectorSection() {
                                             exit={{ opacity: 0, scale: 0.95 }}
                                             onClick={() => setSelectedOption(option.id)}
                                             className={`
-                                                relative p-6 rounded-[1.5rem] text-left border-2 transition-all group flex flex-col h-full min-h-[220px] justify-between
+                                                relative p-4 lg:p-5 rounded-[1.25rem] text-left border-2 transition-all group flex flex-col h-full justify-between
                                                 ${selectedOption === option.id
-                                                    ? 'bg-white border-[#05D16E] shadow-xl shadow-[#05D16E]/10 ring-4 ring-[#05D16E]/5 z-10'
-                                                    : 'bg-white border-transparent hover:border-slate-200 shadow-sm hover:shadow-lg'
+                                                    ? 'bg-white border-[#05D16E] shadow-lg shadow-[#05D16E]/10 ring-2 ring-[#05D16E]/5 z-10'
+                                                    : 'bg-white border-transparent hover:border-slate-200 shadow-sm hover:shadow-md'
                                                 }
                                             `}
                                         >
                                             {option.tag && (
                                                 <span className={`
-                                                    absolute -top-3 left-6 px-3 py-1 text-[9px] font-black uppercase tracking-widest rounded-full shadow-sm
+                                                    absolute -top-2.5 left-4 px-2.5 py-1 text-[8px] font-black uppercase tracking-widest rounded-full shadow-sm
                                                     ${selectedOption === option.id ? 'bg-[#024653] text-white' : 'bg-slate-100 text-slate-500'}
                                                 `}>
                                                     {option.tag}
                                                 </span>
                                             )}
 
-                                            <div className="mt-4">
-                                                <h5 className={`font-bold text-xl leading-tight mb-2 ${selectedOption === option.id ? 'text-[#024653]' : 'text-slate-700'}`}>
+                                            <div className="mt-2">
+                                                <h5 className={`font-bold text-base lg:text-lg leading-tight mb-1 ${selectedOption === option.id ? 'text-[#024653]' : 'text-slate-700'}`}>
                                                     {option.label}
                                                 </h5>
-                                                <div className={`h-1 w-8 rounded-full ${selectedOption === option.id ? 'bg-[#05D16E]' : 'bg-slate-200'}`} />
+                                                <div className={`h-1 w-6 rounded-full ${selectedOption === option.id ? 'bg-[#05D16E]' : 'bg-slate-200'}`} />
                                             </div>
 
-                                            <div className="flex items-end justify-between mt-6">
-                                                <span className="text-sm font-bold text-slate-400 block">{option.price}</span>
+                                            <div className="flex items-end justify-between mt-4">
+                                                <span className="text-[11px] lg:text-xs font-bold text-slate-400 block uppercase tracking-wider">{option.price}</span>
                                                 <div className={`
-                                                    w-8 h-8 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors
+                                                    w-6 h-6 shrink-0 rounded-full border-2 flex items-center justify-center transition-colors
                                                     ${selectedOption === option.id ? 'border-[#05D16E] bg-[#05D16E]' : 'border-slate-200'}
                                                 `}>
-                                                    {selectedOption === option.id && <CheckCircle2 size={16} className="text-white" />}
+                                                    {selectedOption === option.id && <CheckCircle2 size={12} className="text-white" />}
                                                 </div>
                                             </div>
                                         </motion.button>
@@ -220,26 +220,25 @@ export default function ServiceSelectorSection() {
                             </div>
 
                             {/* ACTION AREA - Fixed at bottom */}
-                            <div className="flex justify-end mt-8 shrink-0 pt-6 border-t border-[#024653]/5">
+                            <div className="flex justify-end mt-4 lg:mt-6 shrink-0 pt-4 border-t border-[#024653]/5">
                                 <Link
                                     href={selectedOption ? getWizardLink() : '#'}
                                     className={`
-                                        inline-flex items-center gap-4 px-10 py-5 rounded-full font-black text-xs uppercase tracking-widest transition-all
+                                        inline-flex items-center gap-3 px-8 py-3.5 rounded-full font-black text-[10px] uppercase tracking-widest transition-all
                                         ${selectedOption
-                                            ? 'bg-[#024653] text-white shadow-xl hover:-translate-y-1 hover:shadow-2xl hover:bg-[#02333d]'
-                                            : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+                                            ? 'bg-[#024653] text-white shadow-lg hover:-translate-y-0.5 hover:shadow-xl hover:bg-[#02333d]'
+                                            : 'bg-slate-100 text-slate-300 cursor-not-allowed'
                                         }
                                     `}
                                     onClick={(e) => !selectedOption && e.preventDefault()}
                                 >
                                     <span>Continue to Booking</span>
-                                    <ArrowRight size={18} />
+                                    <ArrowRight size={14} />
                                 </Link>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
         </section>
     );

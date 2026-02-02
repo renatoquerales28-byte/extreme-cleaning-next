@@ -37,7 +37,7 @@ export default function ProcessSection() {
 
     return (
         <section
-            className="w-full bg-transparent h-screen flex flex-col justify-center py-12 lg:py-0 relative"
+            className="w-full bg-transparent h-screen flex flex-col justify-center py-12 lg:py-0 relative translate-y-[30px]"
             id="process"
         >
             <div className="max-w-[1000px] mx-auto px-6 lg:px-8 w-full">
@@ -77,7 +77,7 @@ export default function ProcessSection() {
                     className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-10 mb-10 lg:mb-12"
                 >
                     {steps.map((step, i) => (
-                        <div key={i} className="text-center md:text-left">
+                        <div key={i} className="text-center">
                             {/* Number */}
                             <div className="text-3xl lg:text-4xl font-light text-[#05D16E] mb-2 lg:mb-3">
                                 {step.num}
@@ -89,7 +89,7 @@ export default function ProcessSection() {
                             </h3>
 
                             {/* Divider */}
-                            <div className="w-10 h-px bg-[#024653]/10 mb-3 lg:mb-4 mx-auto md:mx-0" />
+                            <div className="w-10 h-px bg-[#024653]/10 mb-3 lg:mb-4 mx-auto" />
 
                             {/* Description */}
                             <p className="text-[#024653]/60 font-light text-xs lg:text-sm leading-relaxed">

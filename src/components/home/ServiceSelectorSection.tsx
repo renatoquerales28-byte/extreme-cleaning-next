@@ -121,7 +121,7 @@ export default function ServiceSelectorSection() {
     };
 
     return (
-        <section className="w-full bg-transparent relative lg:h-[100svh] lg:max-h-[1000px] flex flex-col items-center justify-center overflow-hidden snap-start scroll-mt-[90px] translate-y-[30px]">
+        <section className="w-full bg-transparent relative lg:h-[100svh] lg:max-h-[1000px] flex flex-col items-center justify-center snap-start scroll-mt-[90px] translate-y-[30px]">
             <div className="max-w-[1700px] w-full h-full mx-auto px-6 lg:px-10 relative z-10 flex items-center justify-center py-0">
 
                 {/* CONTENT GRID - Optimized for laptop viewports to match Hero's visual balance */}

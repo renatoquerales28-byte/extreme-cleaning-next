@@ -34,10 +34,10 @@ function CountdownTimer() {
 export default function SocialProofSection() {
     return (
         // SECTION CONTAINER: Adjusted spacing (reduced top padding), Background #F9F8F2
-        <section className="w-full bg-transparent relative flex items-center overflow-hidden pt-4 pb-6 lg:pt-8 lg:pb-12 snap-start scroll-mt-[60px]">
+        <section className="w-full bg-transparent relative flex items-center pt-4 pb-6 lg:pt-8 lg:pb-12 snap-start scroll-mt-[90px] translate-y-[30px]">
 
             {/* CONTAINER: Max width of 1700px to match Hero */}
-            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-4 items-stretch justify-center translate-y-[30px]">
+            <div className="w-full max-w-[1700px] mx-auto px-6 lg:px-10 grid grid-cols-1 lg:grid-cols-5 gap-4 items-stretch justify-center">
 
                 {/* LEFT COLUMN: REVIEWS (60% -> 3/5 cols) - NOW ENCLOSED IN WHITE CARD */}
                 <div className="w-full lg:col-span-3 flex flex-col justify-center relative">

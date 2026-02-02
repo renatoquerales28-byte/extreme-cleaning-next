@@ -11,8 +11,8 @@ export default function FooterSection() {
     return (
         <footer id="footer" className="w-full bg-[#F9F8F2] text-[#024653] lg:h-screen min-h-[850px] flex flex-col justify-start relative z-10 overflow-hidden snap-start">
 
-            {/* --- SOCIAL PROOF MARQUEE (Reduced top padding further) --- */}
-            <div className="w-full bg-transparent pt-8 pb-6">
+            {/* --- SOCIAL PROOF MARQUEE (Increased to clear fixed header) --- */}
+            <div className="w-full bg-transparent pt-[85px] pb-6">
                 <div className="max-w-[1700px] mx-auto px-6 lg:px-10">
                     <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
                         {/* Title Block */}
@@ -71,8 +71,8 @@ export default function FooterSection() {
                 <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-0">
 
                     {/* Newsletter Side */}
-                    <div className="space-y-8 max-w-xl">
-                        <h2 className="text-4xl lg:text-7xl font-light leading-tight tracking-tight">
+                    <div className="space-y-6 max-w-xl">
+                        <h2 className="text-4xl lg:text-5xl font-light leading-tight tracking-tight">
                             ECS Excellence in <br />
                             your mailbox
                         </h2>

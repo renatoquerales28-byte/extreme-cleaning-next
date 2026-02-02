@@ -7,24 +7,24 @@ import { Instagram, Facebook, Linkedin, Twitter, ArrowRight } from "lucide-react
 
 export default function FooterSection() {
     return (
-        <footer className="w-full bg-[#F9F8F2] text-[#024653] h-screen min-h-[700px] flex flex-col justify-center snap-start relative z-10 overflow-hidden">
-            <div className="max-w-[1700px] w-full mx-auto px-6 lg:px-10 flex flex-col justify-between h-[85%] lg:h-[75%]">
+        <footer className="w-full bg-[#F9F8F2] text-[#024653] lg:h-screen min-h-[800px] flex flex-col justify-center relative z-10 overflow-hidden pt-[100px] pb-12">
+            <div className="max-w-[1700px] w-full mx-auto px-6 lg:px-10 flex flex-col justify-between h-full lg:max-h-[85%]">
 
                 {/* --- TOP ROW --- */}
-                <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-0">
+                <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-0 mt-8 mb-4">
                     {/* Newsletter Side */}
-                    <div className="space-y-6 max-w-xl">
+                    <div className="space-y-8 max-w-xl">
                         <h2 className="text-4xl lg:text-5xl font-light leading-tight tracking-tight">
                             ECS Excellence in <br />
                             your mailbox
                         </h2>
 
-                        <div className="space-y-4">
+                        <div className="space-y-5">
                             <div className="flex items-center gap-2 text-[10px] font-normal uppercase tracking-widest text-[#024653]/60">
                                 <div className="w-1.5 h-1.5 rounded-full bg-[#05D16E]" />
                                 Email address
                             </div>
-                            <div className="relative group w-[320px] md:w-[400px]">
+                            <div className="relative group w-full max-w-[400px]">
                                 <input
                                     type="email"
                                     placeholder="name@example.com"
@@ -44,7 +44,7 @@ export default function FooterSection() {
                     </div>
 
                     {/* Big Agency Logo Style */}
-                    <div className="flex flex-col items-start lg:items-end lg:text-right space-y-1">
+                    <div className="flex flex-col items-start lg:items-end lg:text-right space-y-2 pt-6 lg:pt-0">
                         <div className="relative h-16 w-48 md:w-64">
                             <Image
                                 src="/brand/logo-full.png"
@@ -56,22 +56,22 @@ export default function FooterSection() {
                                 }}
                             />
                         </div>
-                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#024653] leading-tight">
+                        <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#024653] leading-tight opacity-30">
                             PREMIUM <br /> CLEANING <br /> AGENCY
                         </p>
                     </div>
                 </div>
 
                 {/* --- SEPARATOR LINE --- */}
-                <div className="w-full h-px bg-[#024653]/10" />
+                <div className="w-full h-px bg-[#024653]/10 my-8" />
 
                 {/* --- MIDDLE ROW --- */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 h-fit">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-0 flex-grow">
                     {/* Primary Links */}
-                    <div className="lg:col-span-5 grid grid-cols-2 gap-8">
+                    <div className="lg:col-span-5 grid grid-cols-2 gap-8 items-start">
                         <div className="space-y-6">
                             <h4 className="text-[10px] font-normal uppercase tracking-widest text-[#024653]/30">Directly to</h4>
-                            <nav className="flex flex-col gap-4 text-sm font-normal">
+                            <nav className="flex flex-col gap-5 text-sm font-normal">
                                 <Link href="#vision" className="hover:opacity-60 transition-opacity">Vision</Link>
                                 <Link href="#cases" className="hover:opacity-60 transition-opacity">Cases</Link>
                                 <Link href="#solutions" className="group flex items-center gap-2 hover:opacity-60 transition-opacity">
@@ -80,7 +80,7 @@ export default function FooterSection() {
                             </nav>
                         </div>
                         <div className="space-y-6 pt-10">
-                            <nav className="flex flex-col gap-4 text-sm font-normal">
+                            <nav className="flex flex-col gap-5 text-sm font-normal">
                                 <Link href="/about" className="hover:opacity-60 transition-opacity">About ECS</Link>
                                 <Link href="/updates" className="hover:opacity-60 transition-opacity">Updates</Link>
                                 <Link href="/work" className="group flex items-center gap-2 hover:opacity-60 transition-opacity">
@@ -91,23 +91,23 @@ export default function FooterSection() {
                     </div>
 
                     {/* Locations Grid */}
-                    <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-4">
+                    <div className="lg:col-span-7 grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-4 items-start">
                         {[
-                            { name: "ECS Spokane", addr: "509 N Howard St", city: "Spokane, WA 99201", country: "United States", phone: "+1 (509) 123-4567" },
-                            { name: "ECS Liberty", addr: "8017 Liberty Lake", city: "Spokane, WA 99019", country: "United States", phone: "+1 (509) 123-4568" },
-                            { name: "ECS Valley", addr: "1013 BC Broadway", city: "Spokane, WA 99206", country: "United States", phone: "+1 (509) 123-4569" }
+                            { name: "ECS Spokane", addr: "509 N Howard St", city: "Spokane, WA 99201", country: "USA", phone: "+1 (509) 123-4567" },
+                            { name: "ECS Liberty", addr: "8017 Liberty Lake", city: "Spokane, WA 99019", country: "USA", phone: "+1 (509) 123-4568" },
+                            { name: "ECS Valley", addr: "1013 BC Broadway", city: "Spokane, WA 99206", country: "USA", phone: "+1 (509) 123-4569" }
                         ].map((loc, i) => (
-                            <div key={i} className="space-y-5">
+                            <div key={i} className="space-y-6">
                                 <div className="space-y-1">
-                                    <h4 className="text-[10px] font-bold text-[#024653]">{loc.name}</h4>
-                                    <div className="text-[10px] space-y-0.5 font-normal leading-relaxed opacity-60">
+                                    <h4 className="text-[10px] font-bold text-[#024653] opacity-80">{loc.name}</h4>
+                                    <div className="text-[10px] space-y-0.5 font-normal leading-relaxed opacity-50">
                                         <p>{loc.addr}</p>
                                         <p>{loc.city}</p>
                                         <p>{loc.country}</p>
                                         <p className="pt-1">{loc.phone}</p>
                                     </div>
                                 </div>
-                                <button className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#E1F724] text-[#024653] rounded-full text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all">
+                                <button className="inline-flex items-center gap-2 px-6 py-3 bg-[#E1F724] text-[#024653] rounded-full text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all">
                                     Route <span className="text-lg leading-none">→</span>
                                 </button>
                             </div>
@@ -116,10 +116,10 @@ export default function FooterSection() {
                 </div>
 
                 {/* --- SEPARATOR LINE --- */}
-                <div className="w-full h-px bg-[#024653]/10" />
+                <div className="w-full h-px bg-[#024653]/10 my-8" />
 
                 {/* --- BOTTOM ROW --- */}
-                <div className="flex flex-col md:flex-row justify-between items-center gap-6">
+                <div className="flex flex-col md:flex-row justify-between items-center gap-6 mt-4">
                     <div className="flex items-center gap-2 text-xs font-normal">
                         <div className="w-1.5 h-1.5 rounded-full bg-[#E1F724]" />
                         <span className="opacity-80">info@ecscleaningspot.com</span>
@@ -128,7 +128,7 @@ export default function FooterSection() {
                     <div className="flex items-center gap-8">
                         <div className="flex items-center gap-3">
                             {[Linkedin, Instagram, Twitter].map((Icon, i) => (
-                                <Link key={i} href="#" className="w-8 h-8 rounded-full border border-[#024653]/10 flex items-center justify-center hover:bg-[#024653] hover:text-white transition-all">
+                                <Link key={i} href="#" className="w-8 h-8 rounded-full border border-[#024653]/10 flex items-center justify-center hover:bg-[#024653] hover:text-white transition-all text-[#024653]/60">
                                     <Icon size={14} />
                                 </Link>
                             ))}
@@ -141,7 +141,7 @@ export default function FooterSection() {
 
             </div>
 
-            {/* Fixed copyright at the very bottom edge */}
+            {/* Copyright edge */}
             <div className="absolute bottom-6 left-0 right-0 text-center opacity-10">
                 <p className="text-[8px] font-normal uppercase tracking-[0.3em]">
                     © 2025 Extreme Cleaning 509 LLC. All rights reserved.

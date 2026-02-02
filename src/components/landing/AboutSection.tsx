@@ -12,11 +12,11 @@ export default function AboutSection() {
     ];
 
     return (
-        <section className="w-full bg-[#024653] relative py-20 lg:py-28 -translate-y-[80px]">
+        <section className="w-full bg-[#024653] relative py-20 lg:py-28 -translate-y-[40px]">
             <div className="max-w-[1700px] mx-auto px-6 lg:px-10">
 
                 {/* Main Content */}
-                <div className="max-w-4xl">
+                <div className="max-w-4xl mx-auto text-center">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -24,7 +24,7 @@ export default function AboutSection() {
                         transition={{ duration: 0.8 }}
                     >
                         {/* Rating Badge */}
-                        <div className="flex items-center gap-2 mb-8">
+                        <div className="flex items-center justify-center gap-2 mb-8">
                             <div className="flex text-[#05D16E]">
                                 {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} fill="currentColor" />)}
                             </div>
@@ -39,7 +39,7 @@ export default function AboutSection() {
                         </h2>
 
                         {/* Description */}
-                        <p className="text-white/50 font-light text-base lg:text-lg leading-relaxed max-w-2xl mb-16">
+                        <p className="text-white/50 font-light text-base lg:text-lg leading-relaxed max-w-2xl mx-auto mb-16">
                             From Spokane with love. Our dedicated team combines years of expertise
                             with genuine care for every space we touch. We don&apos;t just clean —
                             we transform.
@@ -55,7 +55,7 @@ export default function AboutSection() {
                         className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12 pt-8 border-t border-white/10"
                     >
                         {stats.map((stat, i) => (
-                            <div key={i} className="space-y-1">
+                            <div key={i} className="space-y-1 text-center">
                                 <div className="text-3xl lg:text-4xl font-bold text-[#05D16E]">
                                     {stat.value}
                                 </div>

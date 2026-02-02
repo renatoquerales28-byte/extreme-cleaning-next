@@ -9,10 +9,10 @@ import { motion } from "framer-motion";
 
 export default function FooterSection() {
     return (
-        <footer className="w-full bg-[#F9F8F2] text-[#024653] lg:h-screen min-h-[950px] flex flex-col justify-start relative z-10 overflow-hidden">
+        <footer id="footer" className="w-full bg-[#F9F8F2] text-[#024653] h-screen min-h-[850px] flex flex-col justify-start relative z-10 overflow-hidden snap-start">
 
-            {/* --- NEW: SOCIAL PROOF MARQUEE AT THE VERY TOP --- */}
-            <div className="w-full bg-transparent pt-12 pb-6 border-b border-[#024653]/5">
+            {/* --- SOCIAL PROOF MARQUEE (Top of Footer, no separation line) --- */}
+            <div className="w-full bg-transparent pt-[120px] pb-6">
                 <div className="max-w-[1700px] mx-auto px-6 lg:px-10">
                     <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-12">
                         {/* Title Block */}
@@ -57,7 +57,6 @@ export default function FooterSection() {
                                     </div>
                                 ))}
                             </motion.div>
-                            {/* Gradients to fade edges */}
                             <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-[#F9F8F2] to-transparent z-10 pointer-events-none" />
                             <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-[#F9F8F2] to-transparent z-10 pointer-events-none" />
                         </div>
@@ -65,15 +64,15 @@ export default function FooterSection() {
                 </div>
             </div>
 
-            {/* --- MAIN FOOTER CONTENT --- */}
-            <div className="max-w-[1700px] w-full mx-auto px-6 lg:px-10 flex flex-col justify-between flex-1 py-16 lg:py-24">
+            {/* --- MAIN FOOTER CONTENT (Perfectly centered in remaining space) --- */}
+            <div className="max-w-[1700px] w-full mx-auto px-6 lg:px-10 flex flex-col justify-between flex-1 pb-16 pt-8">
 
-                {/* --- TOP SECTION: Newsletter & Brand --- */}
+                {/* --- TOP SECTION --- */}
                 <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-0">
 
-                    {/* Left: Newsletter */}
+                    {/* Newsletter Side */}
                     <div className="space-y-8 max-w-xl">
-                        <h2 className="text-4xl lg:text-5xl font-light leading-tight tracking-tight">
+                        <h2 className="text-4xl lg:text-7xl font-light leading-tight tracking-tight">
                             ECS Excellence in <br />
                             your mailbox
                         </h2>
@@ -83,7 +82,7 @@ export default function FooterSection() {
                                 <div className="w-1.5 h-1.5 rounded-full bg-[#05D16E]" />
                                 Email address
                             </div>
-                            <div className="relative group w-full max-w-[380px]">
+                            <div className="relative group w-full max-w-[400px]">
                                 <input
                                     type="email"
                                     placeholder="name@example.com"
@@ -102,9 +101,9 @@ export default function FooterSection() {
                         </div>
                     </div>
 
-                    {/* Right: Brand Block */}
+                    {/* Brand Block */}
                     <div className="flex flex-col items-start lg:items-end lg:text-right space-y-1">
-                        <div className="relative h-14 w-44 md:w-56 overflow-hidden">
+                        <div className="relative h-14 w-44 md:w-56">
                             <Image
                                 src="/brand/logo-full.png"
                                 alt="ECS Logo"
@@ -122,9 +121,7 @@ export default function FooterSection() {
                 </div>
 
                 {/* --- BOTTOM SECTION: Links & Locations --- */}
-                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-6 pb-8">
-
-                    {/* Col 1: Links Left */}
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-6 pt-12">
                     <div className="space-y-6">
                         <h4 className="text-[9px] font-normal uppercase tracking-widest text-[#024653]/30">DIRECTLY TO</h4>
                         <nav className="flex flex-col gap-4 text-sm font-normal">
@@ -136,7 +133,6 @@ export default function FooterSection() {
                         </nav>
                     </div>
 
-                    {/* Col 2: Links Right */}
                     <div className="space-y-6 lg:pt-8">
                         <nav className="flex flex-col gap-4 text-sm font-normal pt-1.5">
                             <Link href="/about" className="hover:opacity-60 transition-opacity">About ECS</Link>
@@ -147,11 +143,10 @@ export default function FooterSection() {
                         </nav>
                     </div>
 
-                    {/* Locations Grid */}
                     {[
-                        { name: "ECS Spokane", addr: "509 N Howard St", city: "Spokane, WA 99201", country: "USA", phone: "+1 (509) 123-4567" },
-                        { name: "ECS Liberty", addr: "8017 Liberty Lake", city: "Spokane, WA 99019", country: "USA", phone: "+1 (509) 123-4568" },
-                        { name: "ECS Valley", addr: "1013 BC Broadway", city: "Spokane, WA 99206", country: "USA", phone: "+1 (509) 123-4569" }
+                        { name: "ECS Spokane", addr: "509 N Howard St", city: "Spokane, WA", phone: "+1 (509) 123-4567" },
+                        { name: "ECS Liberty", addr: "8017 Liberty Lake", city: "Spokane, WA", phone: "+1 (509) 123-4568" },
+                        { name: "ECS Valley", addr: "1013 BC Broadway", city: "Spokane, WA", phone: "+1 (509) 123-4569" }
                     ].map((loc, i) => (
                         <div key={i} className="space-y-6">
                             <div className="space-y-1">
@@ -159,12 +154,11 @@ export default function FooterSection() {
                                 <div className="text-[10px] space-y-0.5 font-normal leading-relaxed opacity-40">
                                     <p>{loc.addr}</p>
                                     <p>{loc.city}</p>
-                                    <p>{loc.country}</p>
                                     <p className="pt-1">{loc.phone}</p>
                                 </div>
                             </div>
-                            <button className="inline-flex items-center gap-2 px-6 py-2 bg-[#E1F724] text-[#024653] rounded-full text-[9px] font-bold uppercase tracking-widest hover:scale-105 transition-all">
-                                ROUTE <span className="text-base leading-none translate-y-[-1px]">→</span>
+                            <button className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#E1F724] text-[#024653] rounded-full text-[10px] font-bold uppercase tracking-widest hover:scale-105 transition-all">
+                                ROUTE <span className="text-lg leading-none translate-y-[-1px]">→</span>
                             </button>
                         </div>
                     ))}

@@ -60,18 +60,18 @@ export default function ProcessSection() {
                 </motion.div>
 
                 {/* VISUAL PROCESS FLOW - Wavy Line & Floating Steps */}
-                <div className="relative min-h-[550px] mb-20 lg:mb-32 flex items-center">
+                <div className="relative min-h-[600px] mb-24 lg:mb-32">
 
-                    {/* The Connecting Wave - SVG Line */}
-                    <div className="absolute top-0 left-0 w-full h-full hidden lg:block overflow-visible pointer-events-none">
+                    {/* The Connecting Wave - Solid Smooth Path */}
+                    <div className="absolute inset-0 hidden lg:block overflow-visible pointer-events-none">
                         <svg width="100%" height="100%" viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full">
                             <motion.path
-                                d="M0 300C150 300 300 250 400 250C500 250 550 100 700 100C850 100 950 150 1100 150L1200 150"
+                                d="M0 280C100 280 150 280 200 280C350 280 450 100 600 100C750 100 850 250 1000 250C1050 250 1150 200 1200 200"
                                 stroke="#085560"
-                                strokeWidth="2.5"
-                                strokeDasharray="10 10"
+                                strokeWidth="3"
+                                strokeLinecap="round"
                                 initial={{ pathLength: 0, opacity: 0 }}
-                                whileInView={{ pathLength: 1, opacity: 0.3 }}
+                                whileInView={{ pathLength: 1, opacity: 0.4 }}
                                 viewport={{ once: true }}
                                 transition={{ duration: 2.5, ease: "easeInOut" }}
                             />
@@ -79,76 +79,105 @@ export default function ProcessSection() {
                     </div>
 
                     {/* Step Nodes & Content */}
-                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-24 lg:gap-0 w-full relative z-10 pt-10">
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-32 lg:gap-0 w-full relative z-10 pt-20">
 
-                        {/* STEP 1: Content ABOVE the line (y=250 approx) */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8 }}
-                            className="relative flex flex-col items-center lg:items-start lg:translate-x-12 lg:-translate-y-8"
-                        >
-                            <div className="absolute -top-16 lg:-top-24 lg:left-0 text-[140px] lg:text-[180px] font-black text-[#024653]/5 leading-none pointer-events-none">1</div>
+                        {/* STEP 1: Content ABOVE the line */}
+                        <div className="relative flex flex-col items-center lg:items-start lg:pl-20">
+                            {/* Text Group */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                className="relative z-10 mb-12 lg:mb-32"
+                            >
+                                <div className="absolute -right-12 -top-12 text-[140px] font-thin text-[#024653]/5 leading-none select-none">1</div>
+                                <h3 className="text-2xl lg:text-3xl font-normal text-[#024653] tracking-tight italic mb-3">General concept</h3>
+                                <p className="text-[#024653]/60 font-light leading-relaxed text-sm lg:text-base max-w-[240px]">Select your service type and tell us about your space in 60 seconds.</p>
+                            </motion.div>
 
-                            {/* Content Above */}
-                            <div className="relative z-10 space-y-3 max-w-xs text-center lg:text-left mb-10">
-                                <h3 className="text-2xl lg:text-3xl font-normal text-[#024653] tracking-tight italic">General concept</h3>
-                                <p className="text-[#024653]/60 font-light leading-relaxed text-sm lg:text-base">Select your service type and tell us about your space in 60 seconds.</p>
-                            </div>
+                            {/* Hex Node */}
+                            <motion.div
+                                initial={{ scale: 0 }}
+                                whileInView={{ scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.5 }}
+                                className="relative lg:ml-[-10px]"
+                            >
+                                <div className="absolute inset-0 bg-[#05D16E]/20 blur-xl rounded-full scale-110" />
+                                <div
+                                    className="w-16 h-18 bg-white shadow-lg border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-all duration-300"
+                                    style={{ clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)" }}
+                                >
+                                    <ClipboardList size={24} />
+                                </div>
+                            </motion.div>
+                        </div>
 
-                            {/* Node on the line */}
-                            <div className="w-16 h-16 rounded-2xl bg-white shadow-xl shadow-[#024653]/5 border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-transform duration-300 lg:translate-y-[15px]">
-                                <ClipboardList size={24} />
-                                <div className="absolute -top-2 -translate-y-full hidden lg:block w-px h-12 bg-gradient-to-t from-[#024653]/10 to-transparent" />
-                            </div>
-                        </motion.div>
+                        {/* STEP 2: Content BELOW the line (Peak Node) */}
+                        <div className="relative flex flex-col items-center">
+                            {/* Hex Node (On Peak) */}
+                            <motion.div
+                                initial={{ scale: 0 }}
+                                whileInView={{ scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.8 }}
+                                className="mb-12 lg:mb-20 lg:-translate-y-[100px]"
+                            >
+                                <div className="absolute inset-0 bg-[#05D16E]/20 blur-xl rounded-full scale-110" />
+                                <div
+                                    className="w-16 h-18 bg-white shadow-lg border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-all duration-300"
+                                    style={{ clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)" }}
+                                >
+                                    <CircleDollarSign size={24} />
+                                </div>
+                            </motion.div>
 
-                        {/* STEP 2: Content BELOW the line (y=100 approx) */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.3 }}
-                            className="relative flex flex-col items-center lg:-translate-y-24"
-                        >
-                            <div className="absolute -top-16 lg:top-12 text-[140px] lg:text-[180px] font-black text-[#024653]/5 leading-none pointer-events-none">2</div>
+                            {/* Text Group */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 1 }}
+                                className="relative z-10 lg:-translate-y-[40px]"
+                            >
+                                <div className="absolute -right-16 -top-8 text-[140px] font-thin text-[#024653]/5 leading-none select-none">2</div>
+                                <h3 className="text-2xl lg:text-3xl font-normal text-[#024653] tracking-tight italic mb-3">Post product</h3>
+                                <p className="text-[#024653]/60 font-light leading-relaxed text-sm lg:text-base max-w-[240px] text-center">Get an instant transparent price. No hidden fees, ever.</p>
+                            </motion.div>
+                        </div>
 
-                            {/* Node on the line */}
-                            <div className="w-16 h-16 rounded-2xl bg-white shadow-xl shadow-[#024653]/5 border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-transform duration-300 mb-10">
-                                <CircleDollarSign size={24} />
-                                <div className="absolute -bottom-2 translate-y-full hidden lg:block w-px h-12 bg-gradient-to-b from-[#024653]/10 to-transparent" />
-                            </div>
+                        {/* STEP 3: Content BELOW the line */}
+                        <div className="relative flex flex-col items-center lg:items-end lg:pr-20">
+                            {/* Hex Node */}
+                            <motion.div
+                                initial={{ scale: 0 }}
+                                whileInView={{ scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 1.1 }}
+                                className="mb-12 lg:mb-20 lg:translate-x-[-40px] lg:translate-y-[45px]"
+                            >
+                                <div className="absolute inset-0 bg-[#05D16E]/20 blur-xl rounded-full scale-110" />
+                                <div
+                                    className="w-16 h-18 bg-white shadow-lg border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-all duration-300"
+                                    style={{ clipPath: "polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)" }}
+                                >
+                                    <Sparkles size={24} />
+                                </div>
+                            </motion.div>
 
-                            {/* Content Below */}
-                            <div className="relative z-10 space-y-3 max-w-xs text-center">
-                                <h3 className="text-2xl lg:text-3xl font-normal text-[#024653] tracking-tight italic">Post product</h3>
-                                <p className="text-[#024653]/60 font-light leading-relaxed text-sm lg:text-base">Get an instant transparent price. No hidden fees, ever.</p>
-                            </div>
-                        </motion.div>
-
-                        {/* STEP 3: Content BELOW the line (y=150 approx) */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.6 }}
-                            className="relative flex flex-col items-center lg:items-end lg:-translate-x-12 lg:-translate-y-[15px]"
-                        >
-                            <div className="absolute -top-16 lg:top-8 lg:right-0 text-[140px] lg:text-[180px] font-black text-[#024653]/5 leading-none pointer-events-none text-right">3</div>
-
-                            {/* Node on the line */}
-                            <div className="w-16 h-16 rounded-2xl bg-white shadow-xl shadow-[#024653]/5 border border-white flex items-center justify-center text-[#05D16E] relative z-20 hover:scale-110 transition-transform duration-300 mb-10">
-                                <Sparkles size={24} />
-                                <div className="absolute -bottom-2 translate-y-full hidden lg:block w-px h-12 bg-gradient-to-b from-[#024653]/10 to-transparent" />
-                            </div>
-
-                            {/* Content Below */}
-                            <div className="relative z-10 space-y-3 max-w-xs text-center lg:text-right">
-                                <h3 className="text-2xl lg:text-3xl font-normal text-[#024653] tracking-tight italic">Design process</h3>
-                                <p className="text-[#024653]/60 font-light leading-relaxed text-sm lg:text-base">We arrive on time, equipped, and ready to transform your space.</p>
-                            </div>
-                        </motion.div>
+                            {/* Text Group */}
+                            <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 1.3 }}
+                                className="relative z-10 lg:translate-y-[80px]"
+                            >
+                                <div className="absolute -right-8 -top-8 text-[140px] font-thin text-[#024653]/5 leading-none select-none">3</div>
+                                <h3 className="text-2xl lg:text-3xl font-normal text-[#024653] tracking-tight italic mb-3">Design process</h3>
+                                <p className="text-[#024653]/60 font-light leading-relaxed text-sm lg:text-base max-w-[240px] text-right">We arrive on time, equipped, and ready to transform your space.</p>
+                            </motion.div>
+                        </div>
 
                     </div>
                 </div>

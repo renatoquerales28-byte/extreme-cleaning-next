@@ -105,16 +105,55 @@ export default function Home() {
             <AnimatePresence>
                 {mobileMenuOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="fixed inset-x-6 top-32 z-40 bg-white rounded-[2.5rem] p-8 shadow-2xl lg:hidden flex flex-col gap-6"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[60] bg-[#F9F8F2] flex flex-col items-center justify-center lg:hidden"
                     >
-                        <Link href="#services" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-black text-[#024653]">Services</Link>
-                        <Link href="#process" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-black text-[#024653]">Process</Link>
-                        <Link href="#reviews" onClick={() => setMobileMenuOpen(false)} className="text-2xl font-black text-[#024653]">Reviews</Link>
-                        <div className="h-px bg-[#024653]/10" />
-                        <Link href="/quote" onClick={() => setMobileMenuOpen(false)} className="w-full py-5 bg-[#08BF5F] text-[#024653] rounded-2xl font-black uppercase text-center shadow-lg shadow-[#08BF5F]/20">Get My Quote</Link>
+                        {/* Close Button */}
+                        <button
+                            onClick={() => setMobileMenuOpen(false)}
+                            className="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-[#024653]/5 text-[#024653]"
+                        >
+                            <div className="w-6 h-6 flex flex-col items-center justify-center gap-1.5 relative">
+                                <span className="absolute w-full h-0.5 bg-current rotate-45" />
+                                <span className="absolute w-full h-0.5 bg-current -rotate-45" />
+                            </div>
+                        </button>
+
+                        <nav className="flex flex-col items-center gap-10 text-[#024653]">
+                            <Link
+                                href="#services"
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="text-4xl font-normal tracking-tight hover:scale-105 transition-transform"
+                            >
+                                Services
+                            </Link>
+                            <Link
+                                href="#process"
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="text-4xl font-normal tracking-tight hover:scale-105 transition-transform"
+                            >
+                                Process
+                            </Link>
+                            <Link
+                                href="#reviews"
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="text-4xl font-normal tracking-tight hover:scale-105 transition-transform"
+                            >
+                                Reviews
+                            </Link>
+
+                            <div className="w-16 h-px bg-[#024653]/10 my-4" />
+
+                            <Link
+                                href="/quote"
+                                onClick={() => setMobileMenuOpen(false)}
+                                className="px-10 py-4 bg-[#05D16E] text-[#024653] rounded-2xl text-xl font-bold uppercase tracking-widest shadow-xl shadow-[#05D16E]/20 hover:scale-105 transition-all"
+                            >
+                                Get Quote
+                            </Link>
+                        </nav>
                     </motion.div>
                 )}
             </AnimatePresence>

@@ -78,7 +78,7 @@ export default function CleaningTypeStep({ onNext }: CleaningTypeStepProps) {
     }, [selectedType, setAction, onNext]);
 
     const handleSelect = (typeId: string) => {
-        setValue("cleaningType", typeId);
+        setValue("cleaningType", typeId as any);
     };
 
     return (

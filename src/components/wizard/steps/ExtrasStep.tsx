@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { useWizardAction } from "../WizardActionContext";
@@ -15,7 +15,8 @@ interface ExtrasStepProps {
 export default function ExtrasStep({ onNext }: ExtrasStepProps) {
     const { watch, setValue } = useFormContext<WizardData>();
     const { setAction } = useWizardAction();
-    const extras = watch("extras") || [];
+    const watchedExtras = watch("extras");
+    const extras = useMemo(() => watchedExtras || [], [watchedExtras]);
 
     const toggleExtra = (id: string) => {
         const current = [...extras];

@@ -1,10 +1,9 @@
-"use client";
-
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
-import { ArrowRight, CheckCircle2, AlertCircle, User } from "lucide-react";
+import { MapPin, CheckCircle2, AlertCircle, User, ArrowRight } from "lucide-react";
 import { useWizardAction } from "../WizardActionContext";
+import { motion } from "framer-motion";
 
 interface ZipStepProps {
     onNext: () => void;
@@ -16,29 +15,15 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     const { setAction } = useWizardAction();
     const zipCode = watch("zipCode") || "";
 
-    const [status, setStatus] = React.useState<'idle' | 'active' | 'coming_soon' | 'unavailable'>('idle');
-    const [city, setCity] = React.useState<string | undefined>();
-    const [isChecking, setIsChecking] = React.useState(false);
+    const [status, setStatus] = useState<'idle' | 'active' | 'coming_soon' | 'unavailable'>('idle');
+    const [city, setCity] = useState<string | undefined>();
+    const [isChecking, setIsChecking] = useState(false);
 
-    // Reset status when user types
-    React.useEffect(() => {
+    useEffect(() => {
         if (status !== 'idle' && status !== 'active') setStatus('idle');
-        // If we have a valid length zip but idle (back navigation), we might want to prompt check or auto-recover
-        // For now, let's just leave it idle to force re-check, OR better:
-        // If we really want to persist 'active', we need to store 'zipStatus' in form data too, not just local state.
-        // But the user complained about "inputs deleting". preserving text is mostly what they want.
-        // Actually, let's auto-trigger check if it's 5 digits on mount? No, that might spam API.
-        // Let's just trust valid structure.
     }, [zipCode, status]);
 
-    // Auto-recover visual state on mount if zip is already 5 chars (likely from back nav)
-    // We can't know if it was 'active' for sure without API, but we can assume 'idle' is safe.
-    // However, the issue was "part where inputs appear is deleted" -> This was the White Screen issue.
-    // The "inputs disappearing" inside the box was likely the white screen too.
-    // Let's stick to the white screen fix first.
-
-
-    const checkAvailability = React.useCallback(async () => {
+    const checkAvailability = useCallback(async () => {
         setIsChecking(true);
         try {
             const { checkZipAvailability } = await import("@/app/actions/location");
@@ -68,93 +53,102 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     }, [zipCode, isChecking, checkAvailability, setAction]);
 
     return (
-        <div className="h-full w-full relative flex flex-col">
-            {/* SCROLLABLE CONTENT AREA */}
-            <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
-                <div className="max-w-xl mx-auto space-y-6">
-                    <div className="text-center space-y-2 md:hidden">
-                        <h2 className="text-3xl font-black tracking-tighter text-[#024653] leading-tight text-balance">
-                            Where is the <br /> <span className="text-[#05D16E]">Sparkle Needed?</span>
-                        </h2>
-                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full px-4">
-                            Enter your zip code to check availability in the Spokane area.
-                        </p>
+        <div className="h-full w-full flex flex-col items-center justify-center p-6 md:p-0">
+            <div className="w-full max-w-lg space-y-12">
+
+                {/* Visual Context */}
+                <div className="flex justify-center">
+                    <div className="w-20 h-20 rounded-3xl bg-[#05D16E]/10 flex items-center justify-center text-[#05D16E]">
+                        <MapPin size={40} strokeWidth={1.5} />
+                    </div>
+                </div>
+
+                {/* Input Container */}
+                <div className="space-y-6">
+                    <div className="relative group">
+                        <input
+                            {...register("zipCode")}
+                            type="text"
+                            maxLength={5}
+                            placeholder="00000"
+                            autoComplete="postal-code"
+                            className={`
+                                w-full pb-6 text-center text-6xl font-normal tracking-[0.2em] text-[#024653] 
+                                border-b-2 outline-none transition-all bg-transparent 
+                                placeholder:text-[#024653]/10
+                                focus:border-[#05D16E]
+                                zip-input
+                                ${status === 'unavailable' ? 'border-red-200' : status === 'active' ? 'border-[#05D16E]' : 'border-[#024653]/10'}
+                            `}
+                        />
+                        <style jsx>{`
+                            .zip-input:-webkit-autofill,
+                            .zip-input:-webkit-autofill:hover, 
+                            .zip-input:-webkit-autofill:focus, 
+                            .zip-input:-webkit-autofill:active {
+                                -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+                                -webkit-text-fill-color: #024653 !important;
+                                font-size: 3.75rem !important;
+                                font-weight: 400 !important;
+                                background-color: transparent !important;
+                                transition: background-color 5000s ease-in-out 0s;
+                            }
+                        `}</style>
+
+                        {status === 'active' && (
+                            <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                className="absolute -right-4 bottom-8 text-[#05D16E]"
+                            >
+                                <CheckCircle2 size={32} />
+                            </motion.div>
+                        )}
                     </div>
 
-                    <div className="bg-white border-2 border-slate-50 p-8 rounded-[2rem] shadow-sm space-y-6">
-                        <div className="relative">
-                            <input
-                                {...register("zipCode")}
-                                type="text"
-                                maxLength={5}
-                                placeholder="Enter Zip Code"
-                                autoComplete="postal-code"
-                                className={`
-                                    w-full p-6 text-center text-4xl font-black tracking-[0.2em] text-[#024653] 
-                                    border-b-4 outline-none transition-all bg-transparent 
-                                    placeholder:text-slate-200 placeholder:tracking-normal placeholder:font-medium
-                                    focus:border-[#05D16E]
-                                    zip-input
-                                    ${status === 'unavailable' ? 'border-red-200' : status === 'active' ? 'border-[#05D16E]' : 'border-slate-100'}
-                                `}
-                                style={{
-                                    caretColor: "#05D16E"
-                                }}
-                            />
-                            <style jsx>{`
-                                .zip-input:-webkit-autofill,
-                                .zip-input:-webkit-autofill:hover, 
-                                .zip-input:-webkit-autofill:focus, 
-                                .zip-input:-webkit-autofill:active {
-                                    -webkit-box-shadow: 0 0 0 1000px white inset !important;
-                                    -webkit-text-fill-color: #024653 !important;
-                                    font-size: 2.25rem !important;
-                                    font-weight: 900 !important;
-                                    background-color: transparent !important;
-                                    background-clip: content-box !important;
-                                }
-                            `}</style>
-
-                            {status === 'active' && (
-                                <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[#05D16E] animate-in fade-in zoom-in">
-                                    <CheckCircle2 size={32} strokeWidth={3} />
-                                </div>
-                            )}
-                        </div>
-
+                    {/* Messages */}
+                    <div className="h-12 flex items-center justify-center">
                         {status === 'unavailable' && (
-                            <div className="p-4 bg-red-50 border border-red-100 rounded-xl flex items-center gap-3 animate-in slide-in-from-top-2">
-                                <AlertCircle className="text-red-500 shrink-0" size={20} />
-                                <p className="text-xs font-bold text-red-600">Sorry, we don&apos;t service this area yet.</p>
-                            </div>
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="flex items-center gap-2 text-red-500 font-medium text-sm"
+                            >
+                                <AlertCircle size={16} />
+                                <span>We don&apos;t service this area yet.</span>
+                            </motion.div>
                         )}
 
                         {status === 'coming_soon' && (
-                            <div className="p-4 bg-yellow-50 border border-yellow-100 rounded-xl text-center space-y-2 animate-in slide-in-from-top-2">
-                                <p className="text-xs font-bold text-yellow-700">
-                                    We are coming to <span className="uppercase">{city || zipCode}</span> very soon!
+                            <motion.div
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                className="text-center"
+                            >
+                                <p className="text-[#024653]/60 font-medium text-sm">
+                                    Coming soon to <span className="text-[#024653] font-bold">{city || zipCode}</span>!
                                 </p>
-                                <p className="text-[10px] font-medium text-yellow-600">Join our waitlist to get notified.</p>
-                            </div>
+                            </motion.div>
                         )}
                     </div>
-
-                    {/* Returning Customer Link */}
-                    <button onClick={onReturning} className="w-full group">
-                        <div className="flex items-center justify-between p-4 rounded-xl border border-dashed border-[#024653]/10 hover:border-[#05D16E]/50 hover:bg-[#05D16E]/5 transition-all">
-                            <div className="flex items-center gap-3">
-                                <div className="w-8 h-8 rounded-full bg-[#024653]/5 flex items-center justify-center text-[#024653]">
-                                    <User size={14} strokeWidth={2.5} />
-                                </div>
-                                <div className="text-left">
-                                    <p className="text-[#024653] font-black text-xs uppercase tracking-wider">Returning Customer?</p>
-                                    <span className="block text-[10px] text-[#024653]/50 font-bold uppercase tracking-widest">Log in here</span>
-                                </div>
-                            </div>
-                            <ArrowRight size={16} className="text-[#05D16E] group-hover:translate-x-1 transition-transform" strokeWidth={2.5} />
-                        </div>
-                    </button>
                 </div>
+
+                {/* Returning Customer Link */}
+                <button
+                    onClick={onReturning}
+                    className="w-full py-6 rounded-[2.5rem] border border-dashed border-[#024653]/20 hover:border-[#05D16E] hover:bg-white transition-all group"
+                >
+                    <div className="flex items-center justify-center gap-4">
+                        <div className="w-10 h-10 rounded-full bg-[#024653]/5 flex items-center justify-center text-[#024653]/60 group-hover:bg-[#05D16E]/10 group-hover:text-[#05D16E] transition-colors">
+                            <User size={18} />
+                        </div>
+                        <div className="text-left">
+                            <p className="text-[#024653]/40 text-[10px] font-bold uppercase tracking-widest leading-none mb-1 group-hover:text-[#05D16E] transition-colors">Returning Customer?</p>
+                            <p className="text-[#024653] font-bold text-sm leading-none">Access your profile here</p>
+                        </div>
+                        <ArrowRight size={16} className="text-[#05D16E] opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all" />
+                    </div>
+                </button>
             </div>
         </div>
     );

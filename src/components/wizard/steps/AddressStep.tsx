@@ -1,13 +1,12 @@
-"use client";
-
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { useWizardAction } from "../WizardActionContext";
 import { useEffect, useState } from "react";
-import { CheckCircle, MapPin } from "lucide-react";
+import { Check, MapPin, Phone, Building2 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
 import { warmUpServer } from "@/app/actions/admin";
+import { motion } from "framer-motion";
 
 interface AddressStepProps {
     onSubmit: (data: WizardData) => void;
@@ -19,7 +18,6 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
     const data = watch();
     const [isSubmitting, setIsSubmitting] = useState(false);
 
-    // Pre-warm server connection for faster final submission
     useEffect(() => {
         warmUpServer();
     }, []);
@@ -35,39 +33,32 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
                 setIsSubmitting(true);
                 try {
                     if (!leadId) {
-                        console.error("No leadId found");
                         onSubmit(d);
                         return;
                     }
 
                     const { updateLead } = await import("@/app/actions/admin");
                     const res = await updateLead(Number(leadId), {
-                        details: d, // Save full wizard state into details
-                        // Status remains draft until review
+                        details: d,
                     });
 
                     if (res.success) {
                         onSubmit(d);
                     } else {
-                        console.error("Failed to update lead", res.error || "Unknown error");
-                        // Fallback: Proceed to success step anyway so user isn't stuck
                         onSubmit(d);
                     }
                 } catch (error) {
-                    console.error(error);
-                    onSubmit(d); // Fallback on crash
+                    onSubmit(d);
                 } finally {
                     setIsSubmitting(false);
                 }
-            }, (errors) => {
-                const firstError = Object.values(errors)[0];
-                const msg = firstError?.message || "Please check required fields";
-                toast.error(`Validation: ${msg}`);
-                console.error("Validation errors:", errors);
+            }, (errs) => {
+                const firstError = Object.values(errs)[0];
+                toast.error(`Validation: ${firstError?.message || "Please check required fields"}`);
             }),
-            icon: <CheckCircle size={18} strokeWidth={2.5} />,
+            icon: <Check size={18} strokeWidth={4} />,
             secondaryContent: (
-                <p className="pointer-events-auto text-[7px] text-center text-[#024653]/40 font-black uppercase tracking-[0.2em] max-w-sm leading-relaxed mb-4">
+                <p className="pointer-events-auto text-[8px] text-center text-[#024653]/40 font-bold uppercase tracking-[0.2em] max-w-sm leading-relaxed mb-4 px-6">
                     By confirming, you agree to our <Link href="#" className="text-[#05D16E] hover:underline">Terms</Link> & <Link href="#" className="text-[#05D16E] hover:underline">Privacy</Link>.
                 </p>
             )
@@ -75,64 +66,75 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
     }, [isSubmitting, handleSubmit, onSubmit, setAction, leadId]);
 
     return (
-        <div className="h-full w-full relative flex flex-col">
-            {/* SCROLLABLE CONTENT AREA */}
-            <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
-                <div className="max-w-xl mx-auto space-y-8">
-                    <div className="text-center space-y-2 md:hidden">
-                        <h2 className="text-3xl font-black tracking-tighter text-[#024653] leading-tight">
-                            Where do <br /> <span className="text-[#05D16E]">we go?</span>
-                        </h2>
-                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Enter the service address</p>
+        <div className="h-full w-full flex items-center justify-center p-6 md:p-0">
+            <div className="w-full max-w-2xl bg-white p-8 md:p-12 rounded-[2.5rem] border border-[#024653]/5 shadow-sm space-y-8">
+
+                <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-[#024653]/5 flex items-center justify-center text-[#024653]">
+                        <Building2 size={24} />
+                    </div>
+                    <div>
+                        <h3 className="text-2xl font-bold text-[#024653]">Service Address</h3>
+                        <p className="text-sm text-[#024653]/40">Where should we perform the magic?</p>
+                    </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Full Address */}
+                    <div className="md:col-span-2 space-y-2">
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-[#024653]/40 ml-1">Street Address</label>
+                        <div className="relative">
+                            <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-[#024653]/20" size={18} />
+                            <input
+                                {...register("address")}
+                                placeholder="123 Ocean Drive"
+                                className={`w-full pl-12 pr-4 py-4 bg-[#F9F8F2] rounded-2xl font-bold text-[#024653] border-none outline-none focus:ring-2 transition-all placeholder:text-[#024653]/10 ${errors.address ? 'ring-2 ring-rose-400/20' : 'focus:ring-[#05D16E]/20'}`}
+                            />
+                        </div>
                     </div>
 
-                    <div className="bg-white border-2 border-slate-50 p-8 rounded-[2rem] shadow-sm space-y-6">
-                        <div className="space-y-4">
-                            <label className="text-[10px] font-black uppercase tracking-wider text-[#024653]">Address Line 1</label>
-                            <div className="relative">
-                                <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 text-[#024653]/20" size={20} />
-                                <input
-                                    {...register("address")}
-                                    placeholder="123 Main St"
-                                    className={`w-full pl-12 p-4 bg-slate-50 border-2 rounded-xl font-bold text-[#024653] outline-none transition-all ${errors.address ? 'border-rose-400' : 'border-slate-100 focus:border-[#05D16E]'}`}
-                                />
-                            </div>
-                            {errors.address && <p className="text-[8px] text-rose-500 font-bold ml-4 uppercase tracking-widest">{errors.address.message}</p>}
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase tracking-wider text-[#024653]">City</label>
-                                <input
-                                    {...register("city")}
-                                    placeholder="Miami"
-                                    className={`w-full p-4 bg-slate-50 border-2 rounded-xl font-bold text-[#024653] outline-none transition-all ${errors.city ? 'border-rose-400' : 'border-slate-100 focus:border-[#05D16E]'}`}
-                                />
-                                {errors.city && <p className="text-[8px] text-rose-500 font-bold ml-4 uppercase tracking-widest">{errors.city.message}</p>}
-                            </div>
-                            <div className="space-y-2">
-                                <label className="text-[10px] font-black uppercase tracking-wider text-[#024653]">Zip</label>
-                                <input
-                                    {...register("zipCode")}
-                                    readOnly
-                                    className="w-full p-4 bg-slate-100 border-2 border-slate-100 rounded-xl font-bold text-[#024653]/50 outline-none cursor-not-allowed"
-                                />
-                                {errors.zipCode && <p className="text-[8px] text-rose-500 font-bold ml-4 uppercase tracking-widest">{errors.zipCode.message}</p>}
-                            </div>
-                        </div>
+                    {/* City */}
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-[#024653]/40 ml-1">City</label>
+                        <input
+                            {...register("city")}
+                            placeholder="Miami"
+                            className={`w-full px-4 py-4 bg-[#F9F8F2] rounded-2xl font-bold text-[#024653] border-none outline-none focus:ring-2 transition-all placeholder:text-[#024653]/10 ${errors.city ? 'ring-2 ring-rose-400/20' : 'focus:ring-[#05D16E]/20'}`}
+                        />
+                    </div>
 
-                        <div className="space-y-4">
-                            <label className="text-[10px] font-black uppercase tracking-wider text-[#024653]">Phone Number</label>
+                    {/* Zip (ReadOnly as it's from first step) */}
+                    <div className="space-y-2">
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-[#024653]/40 ml-1">Zip Code</label>
+                        <input
+                            {...register("zipCode")}
+                            readOnly
+                            className="w-full px-4 py-4 bg-[#024653]/5 rounded-2xl font-bold text-[#024653]/30 border-none outline-none cursor-not-allowed"
+                        />
+                    </div>
+
+                    {/* Phone Number */}
+                    <div className="md:col-span-2 space-y-2">
+                        <label className="text-[10px] font-bold uppercase tracking-widest text-[#024653]/40 ml-1">Phone Number</label>
+                        <div className="relative">
+                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-[#024653]/20" size={18} />
                             <input
                                 {...register("phone")}
                                 type="tel"
-                                placeholder="(555) 123-4567"
-                                className={`w-full p-4 bg-slate-50 border-2 rounded-xl font-bold text-[#024653] outline-none transition-all ${errors.phone ? 'border-rose-400' : 'border-slate-100 focus:border-[#05D16E]'}`}
+                                placeholder="(305) 555-0123"
+                                className={`w-full pl-12 pr-4 py-4 bg-[#F9F8F2] rounded-2xl font-bold text-[#024653] border-none outline-none focus:ring-2 transition-all placeholder:text-[#024653]/10 ${errors.phone ? 'ring-2 ring-rose-400/20' : 'focus:ring-[#05D16E]/20'}`}
                             />
-                            {errors.phone && <p className="text-[8px] text-rose-500 font-bold ml-4 uppercase tracking-widest">{errors.phone.message}</p>}
                         </div>
                     </div>
                 </div>
             </div>
+
+            <style jsx>{`
+                input:-webkit-autofill {
+                    -webkit-box-shadow: 0 0 0 1000px #F9F8F2 inset !important;
+                    -webkit-text-fill-color: #024653 !important;
+                }
+            `}</style>
         </div>
     );
 }

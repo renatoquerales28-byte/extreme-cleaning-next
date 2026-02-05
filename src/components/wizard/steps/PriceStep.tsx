@@ -2,9 +2,10 @@
 
 import { useWizardAction } from "../WizardActionContext";
 import { useEffect } from "react";
-import { ArrowRight, CheckCircle2, ShieldCheck, Star } from "lucide-react";
+import { ArrowRight, Check, ShieldCheck, Star } from "lucide-react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
+import { motion } from "framer-motion";
 
 function getInclusions(type: 'regular' | 'deep' | 'move', service: 'residential' | 'commercial' | 'property_mgmt') {
     if (service === 'commercial') return [
@@ -23,18 +24,15 @@ function getInclusions(type: 'regular' | 'deep' | 'move', service: 'residential'
         "Deep Bathroom Scrub"
     ];
 
-    // Residential Defaults
     const common = ["Eco-Friendly Supplies", "Vetted & Insured Team"];
-
     if (type === 'deep') return [
         ...common,
         "Baseboards & Door Frames",
         "Inside Oven & Fridge",
-        "Interior Windows (Reachable)",
+        "Interior Windows",
         "Deep Scrub Bathrooms",
         "Light Switches & Fixtures"
     ];
-
     if (type === 'move') return [
         ...common,
         "Inside Cabinets & Drawers",
@@ -43,8 +41,6 @@ function getInclusions(type: 'regular' | 'deep' | 'move', service: 'residential'
         "Deep Scrub All Surfaces",
         "Closets & Shelves"
     ];
-
-    // Regular
     return [
         ...common,
         "Dusting All Surfaces",
@@ -67,84 +63,100 @@ export default function PriceStep({ onNext, totalPrice }: PriceStepProps) {
 
     useEffect(() => {
         setAction({
-            label: "Proceed to Booking", // Soft commit
+            label: "Proceed to Booking",
             disabled: false,
             isLoading: false,
             onClick: onNext,
-            icon: <ArrowRight size={18} strokeWidth={2.5} />
+            icon: <ArrowRight size={18} strokeWidth={4} />
         });
     }, [setAction, onNext]);
 
     return (
-        <div className="h-full w-full relative flex flex-col">
-            {/* SCROLLABLE CONTENT AREA */}
-            <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
-                <div className="max-w-xl mx-auto space-y-8">
-                    <div className="text-center space-y-2 md:hidden">
-                        <h2 className="text-3xl font-black tracking-tighter text-[#024653] leading-tight">
-                            Your <br /> <span className="text-[#05D16E]">Estimate</span>
-                        </h2>
-                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Based on your selection</p>
+        <div className="h-full w-full flex items-center justify-center p-6 md:p-0">
+            <div className="w-full max-w-2xl grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-6 items-stretch">
+
+                {/* Main Quote Card */}
+                <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="bg-white p-10 md:p-14 rounded-[2.5rem] border border-[#024653]/5 shadow-sm space-y-10 relative overflow-hidden flex flex-col justify-between"
+                >
+                    <div className="space-y-6 relative z-10">
+                        <div className="space-y-2">
+                            <span className="inline-block px-4 py-1.5 bg-[#05D16E] text-[#024653] rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm">
+                                Guaranteed Quote
+                            </span>
+                            <h3 className="text-3xl font-bold text-[#024653]">Your Cleaning Estimate</h3>
+                        </div>
+
+                        <div className="flex items-baseline gap-2">
+                            <span className="text-3xl font-bold text-[#024653]">$</span>
+                            <span className="text-8xl font-bold text-[#024653] tracking-tighter leading-none">{totalPrice}</span>
+                            <span className="text-sm font-bold text-[#024653]/40 uppercase tracking-widest ml-2">Total</span>
+                        </div>
                     </div>
 
-                    <div className="bg-white border-2 border-slate-50 p-8 rounded-[2rem] shadow-sm space-y-8 relative overflow-hidden">
-                        {/* Decorative Background Blob */}
-                        <div className="absolute -top-20 -right-20 w-40 h-40 bg-[#05D16E]/10 rounded-full blur-3xl pointer-events-none" />
-
-                        <div className="text-center space-y-4 relative z-10">
-                            <span className="inline-block px-3 py-1 bg-[#05D16E]/10 text-[#05D16E] rounded-full text-[10px] font-black uppercase tracking-widest">
-                                Instant Quote
-                            </span>
-                            <div className="flex items-center justify-center gap-1">
-                                <span className="text-2xl font-bold text-[#024653] self-start mt-2">$</span>
-                                <span className="text-7xl font-black text-[#024653] tracking-tighter">{totalPrice}</span>
+                    <div className="space-y-4 pt-8 border-t border-[#024653]/5">
+                        <div className="flex items-center gap-3 text-[#024653]">
+                            <div className="w-8 h-8 rounded-full bg-[#05D16E]/10 flex items-center justify-center text-[#05D16E]">
+                                <ShieldCheck size={18} />
                             </div>
-                            <p className="text-slate-400 text-xs font-bold uppercase tracking-wider">Per Service</p>
+                            <span className="text-[11px] font-bold uppercase tracking-widest opacity-60">100% Satisfaction Guaranteed</span>
                         </div>
+                    </div>
 
-                        {/* Dynamic Inclusions List */}
-                        <div className="bg-slate-50/50 rounded-2xl p-6 border border-slate-100">
-                            <h4 className="text-xs font-black uppercase tracking-widest text-[#024653] mb-4 text-center border-b border-slate-200 pb-2">
-                                included in {data.cleaningType || "Standard"} Clean
-                            </h4>
-                            <div className="grid grid-cols-1 gap-2">
-                                {getInclusions(data.cleaningType as any, data.serviceType as any).map((item, idx) => (
-                                    <div key={idx} className="flex items-center gap-3 text-[#024653]/80">
-                                        <div className="p-1 bg-[#05D16E]/20 rounded-full shrink-0">
-                                            <CheckCircle2 size={12} className="text-[#024653]" strokeWidth={3} />
-                                        </div>
-                                        <span className="text-[11px] font-bold leading-tight">{item}</span>
-                                    </div>
-                                ))}
-                            </div>
+                    {/* Subtle aesthetic background element */}
+                    <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-[#F9F8F2] rounded-full blur-3xl opacity-50" />
+                </motion.div>
+
+                {/* Inclusions Card */}
+                <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    className="bg-[#024653] p-10 rounded-[2.5rem] text-white space-y-8 flex flex-col"
+                >
+                    <div>
+                        <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#05D16E] mb-2">
+                            What&apos;s Included
+                        </h4>
+                        <div className="text-xl font-bold opacity-90 border-b border-white/10 pb-4">
+                            {data.cleaningType || "Standard"} Treatment
                         </div>
+                    </div>
 
-                        {/* Breakdown / Value Props */}
-                        <div className="space-y-3 pt-6 border-t border-slate-100">
-                            <div className="flex items-center gap-3 text-[#024653]/80">
-                                <ShieldCheck size={16} className="text-[#05D16E]" />
-                                <span className="text-xs font-bold">100% Satisfaction Guarantee</span>
-                            </div>
-                        </div>
+                    <div className="flex-1 space-y-4 overflow-y-auto pr-2 custom-scrollbar">
+                        {getInclusions(data.cleaningType as any, data.serviceType as any).map((item, idx) => (
+                            <motion.div
+                                key={idx}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                transition={{ delay: idx * 0.05 }}
+                                className="flex items-center gap-4 group"
+                            >
+                                <div className="w-5 h-5 rounded-full bg-[#05D16E] shrink-0 flex items-center justify-center text-[#024653]">
+                                    <Check size={12} strokeWidth={4} />
+                                </div>
+                                <span className="text-xs font-bold tracking-tight opacity-70 group-hover:opacity-100 transition-opacity">{item}</span>
+                            </motion.div>
+                        ))}
+                    </div>
 
-                        {/* Trust Badge */}
-                        <div className="bg-slate-50 rounded-xl p-4 flex items-center justify-center gap-3">
+                    <div className="pt-6 border-t border-white/10">
+                        <div className="flex items-center gap-3">
                             <div className="flex -space-x-1">
                                 {[1, 2, 3, 4, 5].map((i) => (
-                                    <Star key={i} size={12} className="fill-yellow-400 text-yellow-400" />
+                                    <Star key={i} size={10} className="fill-[#05D16E] text-[#05D16E]" />
                                 ))}
                             </div>
-                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wide">Top Rated in Spokane</span>
+                            <span className="text-[9px] font-bold uppercase tracking-widest text-white/40">Verified Local Service</span>
                         </div>
                     </div>
-
-                    <div className="text-center">
-                        <p className="text-[10px] text-slate-300 font-medium max-w-xs mx-auto leading-relaxed">
-                            *This is an estimate. Final price may vary slightly based on actual property condition.
-                        </p>
-                    </div>
-                </div>
+                </motion.div>
             </div>
+
+            <p className="fixed bottom-6 text-[9px] text-[#024653]/30 font-bold uppercase tracking-[0.2em] text-center w-full hidden md:block">
+                *Final price may vary based on property condition
+            </p>
         </div>
     );
 }

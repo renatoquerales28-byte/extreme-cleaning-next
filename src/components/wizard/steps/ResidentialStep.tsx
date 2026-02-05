@@ -1,11 +1,9 @@
-"use client";
-
-import React from "react";
-import { useFormContext } from "react-hook-form";
-import { type WizardData } from "@/lib/schemas/wizard";
+import { Minus, Plus } from "lucide-react";
 import { useWizardAction } from "../WizardActionContext";
 import { useEffect } from "react";
-import { ArrowRight } from "lucide-react";
+import { motion } from "framer-motion";
+import { useFormContext } from "react-hook-form";
+import { type WizardData } from "@/lib/schemas/wizard";
 
 interface ResidentialStepProps {
     onNext: () => void;
@@ -34,84 +32,61 @@ export default function ResidentialStep({ onNext }: ResidentialStepProps) {
     };
 
     return (
-        <div className="h-full w-full relative flex flex-col">
-            {/* SCROLLABLE CONTENT AREA */}
-            <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
-                <div className="max-w-xl mx-auto space-y-8">
-                    <div className="text-center space-y-2 lg:hidden">
-                        <h2 className="text-3xl font-black tracking-tighter text-[#024653] leading-tight">
-                            Tell us about <br /> <span className="text-[#05D16E]">your home</span>
-                        </h2>
-                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Customize your cleaning requirements</p>
-                    </div>
+        <div className="h-full w-full flex items-center justify-center p-6 md:p-0">
+            <div className="w-full max-w-2xl space-y-8">
 
-                    <div className="bg-white border-2 border-slate-50 p-8 rounded-[2rem] shadow-sm space-y-8">
-                        {/* Bedrooms */}
-                        <div className="flex items-center justify-between">
+                {/* Residential Counters */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[
+                        { label: "Bedrooms", field: "bedrooms", value: bedrooms, sub: "Sleeping areas" },
+                        { label: "Bathrooms", field: "bathrooms", value: bathrooms, sub: "Washrooms" }
+                    ].map((item) => (
+                        <div key={item.field} className="bg-white p-8 rounded-[2.5rem] border border-[#024653]/5 shadow-sm flex flex-col justify-between h-56">
                             <div>
-                                <h3 className="text-xl font-black text-[#024653]">Bedrooms</h3>
-                                <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest">Living spaces</p>
+                                <h3 className="text-xl font-bold text-[#024653]">{item.label}</h3>
+                                <p className="text-sm text-[#024653]/40">{item.sub}</p>
                             </div>
-                            <div className="flex items-center gap-6 bg-slate-50 p-2 rounded-2xl">
-                                <button
-                                    onClick={() => handleDecrement("bedrooms", bedrooms)}
-                                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-white shadow-sm border border-slate-100 text-[#024653] font-black hover:bg-[#024653] hover:text-white transition-colors"
+
+                            <div className="flex items-center justify-between bg-[#F9F8F2] p-2 rounded-2xl">
+                                <motion.button
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={() => handleDecrement(item.field as any, item.value)}
+                                    className="w-12 h-12 flex items-center justify-center rounded-xl bg-white shadow-sm text-[#024653] hover:bg-white hover:text-red-500 transition-colors"
                                 >
-                                    -
-                                </button>
-                                <span className="text-2xl font-black text-[#024653] w-4 text-center">{bedrooms}</span>
-                                <button
-                                    onClick={() => handleIncrement("bedrooms", bedrooms)}
-                                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-white shadow-sm border border-slate-100 text-[#024653] font-black hover:bg-[#05D16E] hover:text-white transition-colors"
+                                    <Minus size={20} />
+                                </motion.button>
+                                <span className="text-3xl font-bold text-[#024653]">{item.value}</span>
+                                <motion.button
+                                    whileTap={{ scale: 0.95 }}
+                                    onClick={() => handleIncrement(item.field as any, item.value)}
+                                    className="w-12 h-12 flex items-center justify-center rounded-xl bg-white shadow-sm text-[#024653] hover:bg-[#05D16E] hover:text-white transition-colors"
                                 >
-                                    +
-                                </button>
+                                    <Plus size={20} />
+                                </motion.button>
                             </div>
                         </div>
+                    ))}
+                </div>
 
-                        <div className="h-px bg-slate-100 w-full" />
-
-                        {/* Bathrooms */}
-                        <div className="flex items-center justify-between">
-                            <div>
-                                <h3 className="text-xl font-black text-[#024653]">Bathrooms</h3>
-                                <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest">Washrooms</p>
-                            </div>
-                            <div className="flex items-center gap-6 bg-slate-50 p-2 rounded-2xl">
-                                <button
-                                    onClick={() => handleDecrement("bathrooms", bathrooms)}
-                                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-white shadow-sm border border-slate-100 text-[#024653] font-black hover:bg-[#024653] hover:text-white transition-colors"
-                                >
-                                    -
-                                </button>
-                                <span className="text-2xl font-black text-[#024653] w-4 text-center">{bathrooms}</span>
-                                <button
-                                    onClick={() => handleIncrement("bathrooms", bathrooms)}
-                                    className="w-10 h-10 flex items-center justify-center rounded-xl bg-white shadow-sm border border-slate-100 text-[#024653] font-black hover:bg-[#05D16E] hover:text-white transition-colors"
-                                >
-                                    +
-                                </button>
-                            </div>
+                {/* Sq Ft Input */}
+                <div className="bg-white p-8 rounded-[2.5rem] border border-[#024653]/5 shadow-sm space-y-4">
+                    <div className="flex items-center justify-between">
+                        <div>
+                            <h3 className="text-xl font-bold text-[#024653]">Approx Size</h3>
+                            <p className="text-sm text-[#024653]/40">Square Footage</p>
                         </div>
-
-                        <div className="h-px bg-slate-100 w-full" />
-
-                        {/* Sq Ft */}
-                        <div className="space-y-4">
-                            <div>
-                                <h3 className="text-xl font-black text-[#024653]">Approx Size</h3>
-                                <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest">Square Footage</p>
-                            </div>
+                        <div className="relative max-w-[200px]">
                             <input
                                 {...register("sqFt", { valueAsNumber: true })}
                                 type="number"
-                                placeholder="e.g. 1000"
-                                className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all placeholder:text-[#024653]/20"
+                                placeholder="1000"
+                                className="w-full text-right py-4 pr-12 text-3xl font-bold text-[#024653] bg-transparent border-b-2 border-[#024653]/10 focus:border-[#05D16E] outline-none transition-all placeholder:text-[#024653]/10"
                             />
+                            <span className="absolute right-0 bottom-5 text-[10px] font-bold uppercase tracking-widest text-[#024653]/40">sqft</span>
                         </div>
                     </div>
                 </div>
             </div>
-        </div >
+        </div>
     );
 }

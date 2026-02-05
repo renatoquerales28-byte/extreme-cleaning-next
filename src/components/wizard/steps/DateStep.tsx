@@ -1,14 +1,13 @@
-"use client";
-
 import { useFormContext, Controller } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { useWizardAction } from "../WizardActionContext";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { format } from "date-fns";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { Check, Loader2, Calendar as CalendarIcon, Clock } from "lucide-react";
 import { SimpleCalendar } from "@/components/ui/SimpleCalendar";
 import { getAvailableSlots } from "@/app/actions/calendar";
 import { toast } from "sonner";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface DateStepProps {
     onNext: () => void;
@@ -31,13 +30,9 @@ export default function DateStep({ onNext }: DateStepProps) {
     // Date validation: block past dates
     const today = useMemo(() => {
         const d = new Date();
-        d.setHours(0, 0, 0, 0); // Normalize to midnight
+        d.setHours(0, 0, 0, 0);
         return d;
     }, []);
-
-    const isDateDisabled = (date: Date) => {
-        return date < today;
-    };
 
     // Fetch slots when date changes
     useEffect(() => {
@@ -75,10 +70,8 @@ export default function DateStep({ onNext }: DateStepProps) {
     }, [selectedDate]);
 
     const handleContinue = useCallback(async () => {
-        // Preventive validation
         if (!selectedDate || !selectedTime) { return; }
 
-        // Validate date format and past date
         const dateObj = new Date(selectedDate);
         if (isNaN(dateObj.getTime()) || dateObj < today) {
             toast.error("Please select a valid future date");
@@ -90,9 +83,6 @@ export default function DateStep({ onNext }: DateStepProps) {
 
         try {
             if (!leadId) {
-                // If checking logic mode: Alert user.
-                // But for seamless wizard flow, we might want to proceed and let ReviewStep create.
-                console.warn("No lead ID found at DateStep");
                 toast.dismiss(toastId);
                 onNext();
                 return;
@@ -108,11 +98,9 @@ export default function DateStep({ onNext }: DateStepProps) {
                 toast.success("Schedule saved", { id: toastId });
                 onNext();
             } else {
-                console.error("Failed to update lead:", res.error);
                 toast.error("Failed to save schedule: " + (res.error || "Unknown error"), { id: toastId });
             }
         } catch (error) {
-            console.error("Unexpected error:", error);
             toast.error("An unexpected error occurred", { id: toastId });
         } finally {
             setIsSubmitting(false);
@@ -125,17 +113,25 @@ export default function DateStep({ onNext }: DateStepProps) {
             disabled: !selectedDate || !selectedTime || isSubmitting,
             onClick: handleContinue,
             secondaryContent: selectedDate && selectedTime && (
-                <div className="pointer-events-auto flex items-center justify-center gap-2 px-6 py-2 bg-[#05D16E]/10 border-2 border-[#05D16E]/20 rounded-full w-fit">
-                    <CheckCircle2 size={12} className="text-[#05D16E]" />
-                    <span className="text-[#024653] font-black text-[9px] uppercase tracking-widest">
-                        {format(new Date(selectedDate), "MMM do")} at {selectedTime}
-                    </span>
-                </div>
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="pointer-events-auto flex items-center justify-center gap-3 px-6 py-3 bg-white shadow-sm border border-[#024653]/5 rounded-2xl w-fit"
+                >
+                    <div className="w-8 h-8 rounded-full bg-[#05D16E]/10 flex items-center justify-center text-[#05D16E]">
+                        <Check size={14} strokeWidth={4} />
+                    </div>
+                    <div>
+                        <p className="text-[#024653]/40 text-[9px] font-bold uppercase tracking-widest leading-none">Booking for</p>
+                        <p className="text-[#024653] font-bold text-xs">
+                            {format(new Date(selectedDate), "MMM do")} at {selectedTime}
+                        </p>
+                    </div>
+                </motion.div>
             )
         });
     }, [selectedDate, selectedTime, isSubmitting, setAction, handleContinue]);
 
-    // Helper to format time for display (24h -> 12h)
     const formatTimeDisplay = (time: string) => {
         try {
             const [hours, minutes] = time.split(':');
@@ -148,80 +144,98 @@ export default function DateStep({ onNext }: DateStepProps) {
     };
 
     return (
-        <div className="h-full w-full relative flex flex-col">
-            {/* SCROLLABLE CONTENT AREA */}
-            <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
-                <div className="max-w-xl mx-auto space-y-8">
-                    <div className="text-center space-y-2 md:hidden">
-                        <h2 className="text-3xl font-black tracking-tighter text-[#024653] leading-tight">
-                            When should <br /> <span className="text-[#05D16E]">we Clean?</span>
-                        </h2>
-                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Select your preferred date and time for the service.</p>
+        <div className="h-full w-full flex items-center justify-center p-6 md:p-0">
+            <div className="w-full max-w-2xl grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+
+                {/* Left: Calendar Card */}
+                <div className="bg-white p-8 rounded-[2.5rem] border border-[#024653]/5 shadow-sm space-y-6">
+                    <div className="flex items-center gap-3 mb-2">
+                        <div className="w-10 h-10 rounded-2xl bg-[#024653]/5 flex items-center justify-center text-[#024653]">
+                            <CalendarIcon size={20} />
+                        </div>
+                        <h3 className="text-xl font-bold text-[#024653]">Select Date</h3>
+                    </div>
+                    <div className="relative">
+                        <Controller
+                            control={control}
+                            name="serviceDate"
+                            render={({ field }) => (
+                                <SimpleCalendar
+                                    selected={field.value ? new Date(field.value) : undefined}
+                                    onSelect={(date) => {
+                                        field.onChange(date);
+                                        setValue("serviceTime", undefined);
+                                    }}
+                                    className="border-none shadow-none p-0 w-full"
+                                />
+                            )}
+                        />
+                        {isSubmitting && (
+                            <div className="absolute inset-0 bg-white/80 flex items-center justify-center rounded-2xl">
+                                <Loader2 className="animate-spin text-[#024653]" size={32} />
+                            </div>
+                        )}
+                    </div>
+                </div>
+
+                {/* Right: Time Card */}
+                <div className="bg-white p-8 rounded-[2.5rem] border border-[#024653]/5 shadow-sm space-y-6 h-full min-h-[400px] md:min-h-0">
+                    <div className="flex items-center gap-3 mb-2">
+                        <div className="w-10 h-10 rounded-2xl bg-[#024653]/5 flex items-center justify-center text-[#024653]">
+                            <Clock size={20} />
+                        </div>
+                        <h3 className="text-xl font-bold text-[#024653]">Select Time</h3>
                     </div>
 
-                    <div className="flex flex-col gap-6">
-                        {/* Calendar */}
-                        <div className="bg-white p-6 rounded-[2rem] border-2 border-slate-50 shadow-sm flex justify-center relative">
-                            <Controller
-                                control={control}
-                                name="serviceDate"
-                                render={({ field }) => (
-                                    <SimpleCalendar
-                                        selected={field.value ? new Date(field.value) : undefined}
-                                        onSelect={(date) => {
-                                            field.onChange(date);
-                                            setValue("serviceTime", undefined); // Limpiar hora al cambiar fecha
-                                        }}
-                                        className="border-none shadow-none p-0"
-                                    />
+                    <AnimatePresence mode="wait">
+                        {isLoadingSlots ? (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="grid grid-cols-2 gap-3"
+                            >
+                                {[1, 2, 3, 4, 5, 6].map((i) => (
+                                    <div key={i} className="h-12 bg-[#F9F8F2] rounded-xl animate-pulse" />
+                                ))}
+                            </motion.div>
+                        ) : !selectedDate ? (
+                            <motion.div
+                                initial={{ opacity: 0, scale: 0.95 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                className="flex flex-col items-center justify-center h-48 md:h-64 text-center border border-dashed border-[#024653]/10 rounded-3xl"
+                            >
+                                <p className="text-[#024653]/30 text-sm font-medium">Please select a date <br /> to see available times</p>
+                            </motion.div>
+                        ) : (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="grid grid-cols-2 gap-3"
+                            >
+                                {availableSlots.map((time) => (
+                                    <motion.button
+                                        key={time}
+                                        whileHover={{ scale: 1.02 }}
+                                        whileTap={{ scale: 0.98 }}
+                                        onClick={() => setValue("serviceTime", time)}
+                                        className={`py-4 rounded-xl text-xs font-bold uppercase tracking-widest transition-all ${selectedTime === time
+                                            ? "bg-[#024653] text-white shadow-md"
+                                            : "bg-[#F9F8F2] text-[#024653]/60 hover:bg-[#05D16E]/10 hover:text-[#05D16E]"
+                                            }`}
+                                    >
+                                        {formatTimeDisplay(time)}
+                                    </motion.button>
+                                ))}
+
+                                {availableSlots.length === 0 && !isLoadingSlots && (
+                                    <div className="col-span-2 py-12 text-center text-[#024653]/40">
+                                        No slots available for this date
+                                    </div>
                                 )}
-                            />
-                            {isSubmitting && (
-                                <div className="absolute inset-0 bg-white/80 flex items-center justify-center rounded-[2rem]">
-                                    <div className="animate-spin h-8 w-8 border-4 border-[#024653] border-t-transparent rounded-full" />
-                                </div>
-                            )}
-                        </div>
-
-                        {/* Times */}
-                        <div className="min-h-[200px]">
-                            {isLoadingSlots ? (
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3 animate-pulse">
-                                    {[1, 2, 3, 4, 5, 6].map((i) => (
-                                        <div key={i} className="h-10 bg-slate-100 rounded-xl" />
-                                    ))}
-                                </div>
-                            ) : slotError ? (
-                                <div className="flex flex-col items-center justify-center h-full p-4 text-center border-2 border-slate-50 border-dashed rounded-xl bg-slate-50/50">
-                                    <p className="text-[#024653] font-bold mb-1">Unavailable</p>
-                                    <p className="text-xs text-slate-500">{slotError}</p>
-                                </div>
-                            ) : availableSlots.length === 0 && selectedDate ? (
-                                <div className="flex flex-col items-center justify-center p-8 text-center bg-slate-50 rounded-xl text-slate-400 text-sm">
-                                    No available slots for this date
-                                </div>
-                            ) : !selectedDate ? (
-                                <div className="flex flex-col items-center justify-center p-8 text-center bg-slate-50 rounded-xl text-slate-400 text-sm">
-                                    Select a date first
-                                </div>
-                            ) : (
-                                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                                    {availableSlots.map((time) => (
-                                        <button
-                                            key={time}
-                                            onClick={() => setValue("serviceTime", time)}
-                                            className={`p-3 rounded-xl border-2 text-xs font-bold uppercase tracking-wider transition-all ${selectedTime === time
-                                                ? "bg-[#024653] border-[#024653] text-white"
-                                                : "bg-white border-slate-50 text-[#024653]/60 hover:border-[#05D16E]"
-                                                }`}
-                                        >
-                                            {formatTimeDisplay(time)}
-                                        </button>
-                                    ))}
-                                </div>
-                            )}
-                        </div>
-                    </div>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
             </div>
         </div>

@@ -4,7 +4,8 @@ import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { useWizardAction } from "../WizardActionContext";
 import { useEffect } from "react";
-import { ArrowRight } from "lucide-react";
+import { Building2, Minus, Plus } from "lucide-react";
+import { motion } from "framer-motion";
 
 interface CommercialStepProps {
     onNext: () => void;
@@ -19,7 +20,7 @@ export default function CommercialStep({ onNext }: CommercialStepProps) {
 
     useEffect(() => {
         setAction({
-            label: "Review Estimate",
+            label: "Review Quote",
             disabled: !businessType || !commSqFt,
             onClick: onNext
         });
@@ -34,60 +35,77 @@ export default function CommercialStep({ onNext }: CommercialStepProps) {
     };
 
     return (
-        <div className="h-full w-full relative flex flex-col">
-            {/* SCROLLABLE CONTENT AREA */}
-            <div className="flex-1 overflow-y-auto w-full px-6 pt-8 pb-32 no-scrollbar">
-                <div className="max-w-xl mx-auto space-y-8">
-                    <div className="text-center space-y-2 md:hidden">
-                        <h2 className="text-3xl font-black tracking-tighter text-[#024653] leading-tight">
-                            Business <br /> <span className="text-[#05D16E]">Details</span>
-                        </h2>
-                        <p className="text-[10px] text-[#024653]/40 font-bold uppercase tracking-widest text-center w-full">Tell us about your facility</p>
+        <div className="h-full w-full flex items-center justify-center p-6 md:p-0">
+            <div className="w-full max-w-2xl space-y-8">
+
+                <div className="flex flex-col md:flex-row gap-6">
+                    {/* Facility Type Picker */}
+                    <div className="flex-1 bg-white p-8 rounded-[2.5rem] border border-[#024653]/5 shadow-sm space-y-6">
+                        <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 rounded-2xl bg-[#024653]/5 flex items-center justify-center text-[#024653]">
+                                <Building2 size={20} />
+                            </div>
+                            <h3 className="text-xl font-bold text-[#024653]">Facility Type</h3>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                            {businessTypes.map((type) => (
+                                <button
+                                    key={type}
+                                    onClick={() => setValue("businessType", type)}
+                                    className={`p-4 rounded-2xl border text-[10px] font-bold uppercase tracking-widest transition-all ${businessType === type
+                                        ? "bg-[#024653] border-[#024653] text-white"
+                                        : "bg-[#F9F8F2] border-transparent text-[#024653]/40 hover:border-[#024653]/20"
+                                        }`}
+                                >
+                                    {type}
+                                </button>
+                            ))}
+                        </div>
                     </div>
 
-                    <div className="bg-white border-2 border-slate-50 p-8 rounded-[2rem] shadow-sm space-y-6">
-                        {/* Type */}
-                        <div className="space-y-4">
-                            <label className="block text-xs font-black uppercase tracking-wider text-[#024653]">Facility Type</label>
-                            <div className="grid grid-cols-2 gap-3">
-                                {businessTypes.map((type) => (
-                                    <button
-                                        key={type}
-                                        onClick={() => setValue("businessType", type)}
-                                        className={`p-3 rounded-xl border-2 text-xs font-bold uppercase tracking-wider transition-all ${businessType === type
-                                            ? "bg-[#024653] border-[#024653] text-white shadow-lg"
-                                            : "bg-slate-50 border-slate-100 text-[#024653]/60 hover:border-[#05D16E]"
-                                            }`}
-                                    >
-                                        {type}
-                                    </button>
-                                ))}
-                            </div>
+                    {/* Floor Counter */}
+                    <div className="md:w-64 bg-white p-8 rounded-[2.5rem] border border-[#024653]/5 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 className="text-xl font-bold text-[#024653]">Floors</h3>
+                            <p className="text-sm text-[#024653]/40">Vertical Levels</p>
                         </div>
-
-                        {/* Sq Ft */}
-                        <div className="space-y-4">
-                            <label className="block text-xs font-black uppercase tracking-wider text-[#024653]">Approx Sq. Ft.</label>
-                            <input
-                                {...register("commSqFt")}
-                                type="number"
-                                placeholder="e.g. 2500"
-                                className="w-full p-4 bg-slate-50 border-2 border-slate-100 rounded-xl font-bold text-[#024653] focus:border-[#05D16E] outline-none transition-all"
-                            />
-                        </div>
-
-                        {/* Floors */}
-                        <div className="space-y-4">
-                            <label className="block text-xs font-black uppercase tracking-wider text-[#024653]">Number of Floors</label>
-                            <div className="flex items-center gap-4">
-                                <button onClick={() => handleFloor(floors - 1)} className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center font-black text-[#024653] hover:bg-[#024653] hover:text-white transition-colors">-</button>
-                                <span className="text-2xl font-black text-[#024653] w-8 text-center">{floors}</span>
-                                <button onClick={() => handleFloor(floors + 1)} className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center font-black text-[#024653] hover:bg-[#05D16E] hover:text-white transition-colors">+</button>
-                            </div>
+                        <div className="flex items-center justify-between bg-[#F9F8F2] p-2 rounded-2xl mt-8">
+                            <motion.button whileTap={{ scale: 0.95 }} onClick={() => handleFloor(floors - 1)} className="w-10 h-10 flex items-center justify-center rounded-xl bg-white shadow-sm text-[#024653] hover:text-red-500 transition-colors">
+                                <Minus size={18} />
+                            </motion.button>
+                            <span className="text-2xl font-bold text-[#024653]">{floors}</span>
+                            <motion.button whileTap={{ scale: 0.95 }} onClick={() => handleFloor(floors + 1)} className="w-10 h-10 flex items-center justify-center rounded-xl bg-white shadow-sm text-[#024653] hover:text-[#05D16E] transition-colors">
+                                <Plus size={18} />
+                            </motion.button>
                         </div>
                     </div>
                 </div>
+
+                {/* Sq Ft Input */}
+                <div className="bg-white p-8 md:p-12 rounded-[2.5rem] border border-[#024653]/5 shadow-sm flex items-center justify-between">
+                    <div className="space-y-1">
+                        <h3 className="text-2xl font-bold text-[#024653]">Estimated Area</h3>
+                        <p className="text-sm text-[#024653]/40">Approximate Square Footage</p>
+                    </div>
+                    <div className="relative max-w-[200px]">
+                        <input
+                            {...register("commSqFt")}
+                            type="number"
+                            placeholder="2500"
+                            className="w-full text-right py-4 pr-12 text-4xl font-bold text-[#024653] bg-transparent border-b-2 border-[#024653]/10 focus:border-[#05D16E] outline-none transition-all placeholder:text-[#024653]/10"
+                        />
+                        <span className="absolute right-0 bottom-5 text-[10px] font-bold uppercase tracking-widest text-[#024653]/40">sqft</span>
+                    </div>
+                </div>
             </div>
+
+            <style jsx>{`
+                input:-webkit-autofill {
+                    -webkit-box-shadow: 0 0 0 1000px white inset !important;
+                    -webkit-text-fill-color: #024653 !important;
+                }
+            `}</style>
         </div>
     );
 }

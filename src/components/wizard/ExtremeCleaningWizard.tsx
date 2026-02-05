@@ -7,17 +7,17 @@ import { wizardSchema, type WizardData } from "@/lib/schemas/wizard";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { calculateTotal } from "@/lib/utils/pricing";
-import { Inter } from "next/font/google";
+import { Open_Sans } from "next/font/google";
 import { useSearchParams } from "next/navigation";
 import { useWizardAction, WizardActionProvider } from './WizardActionContext';
-import { ArrowRight, Loader2 } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Loader2, X } from 'lucide-react';
 import { Toaster } from "sonner";
 
 // NEW ARCHITECTURE IMPORTS
 import { useWizardEngine } from "@/hooks/useWizardEngine";
 import { StepId } from "@/lib/wizard/config";
 
-const inter = Inter({ subsets: ["latin"] });
+const openSans = Open_Sans({ subsets: ["latin"] });
 
 export default function ExtremeCleaningWizard() {
     const searchParams = useSearchParams();
@@ -84,8 +84,6 @@ function WizardContent() {
         isFirstStep
     } = useWizardEngine(initialStep);
 
-    // Handle deep linking / initial routing (Cleanup: removed the flash-causing useEffect)
-
     // Database Warm-up
     useEffect(() => {
         const warmUp = async () => {
@@ -142,11 +140,11 @@ function WizardContent() {
     const handleClose = () => window.location.href = '/';
 
     return (
-        <div className={`w-full h-screen fixed inset-0 flex flex-col lg:flex-row bg-[#F9F8F2] overflow-hidden ${inter.className}`}>
+        <div className={`w-full h-screen fixed inset-0 flex flex-col lg:flex-row bg-[#F9F8F2] overflow-hidden text-[#024653] ${openSans.className}`}>
             <HelpCallbackModal open={isHelpOpen} onOpenChange={setIsHelpOpen} />
 
-            {/* LEFT PANEL */}
-            <div className="hidden lg:flex w-1/3 bg-[#024653] relative flex-col justify-between p-12 text-white overflow-hidden shrink-0 border-r-4 border-[#10f081]">
+            {/* LEFT SIDE: Information & Branding */}
+            <div className="hidden lg:flex w-[40%] bg-[#F9F8F2] relative flex-col justify-between p-16 xl:p-24 overflow-hidden shrink-0">
                 <AnimatePresence mode="wait">
                     <motion.div
                         key={stepId}
@@ -156,100 +154,122 @@ function WizardContent() {
                         className="relative z-10 flex flex-col h-full justify-between"
                     >
                         <div>
-                            <div className="w-24 mb-10">
-                                <Image src="/brand/logo-full.png" alt="Logo" width={200} height={60} className="object-contain brightness-0 invert" />
+                            {/* Logo */}
+                            <div className="w-32 mb-16 cursor-pointer" onClick={() => window.location.href = '/'}>
+                                <Image src="/brand/logo-full.png" alt="Logo" width={200} height={60} className="object-contain" />
                             </div>
-                            <h2 className="text-5xl font-black tracking-tighter leading-tight mb-6 uppercase text-white">
-                                {stepId === 'returning_select' && returningData?.customer?.firstName ? (
-                                    <>
-                                        Welcome <br /> <span className="text-[#10f081]">{returningData.customer.firstName}</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        {stepConfig.title} <br /> <span className="text-[#10f081]">{stepConfig.accent}</span>
-                                    </>
-                                )}
-                            </h2>
-                            <p className="text-white/80 font-medium text-base leading-relaxed max-w-xs">{stepConfig.description}</p>
+
+                            <div className="space-y-6">
+                                <h2 className="text-4xl xl:text-5xl font-normal tracking-tight leading-[1.1]">
+                                    {stepId === 'returning_select' && returningData?.customer?.firstName ? (
+                                        <>
+                                            Welcome back, <br />
+                                            <span className="italic font-light">{returningData.customer.firstName}</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            {stepConfig.title} <br />
+                                            <span className="italic font-light">{stepConfig.accent}</span>
+                                        </>
+                                    )}
+                                </h2>
+                                <p className="text-[#024653]/70 font-normal text-lg leading-relaxed max-w-sm">
+                                    {stepConfig.description}
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* Desktop Help Trigger - Refined */}
+                        <div className="relative z-10 pt-8 border-t border-[#024653]/10">
+                            <button
+                                onClick={() => setIsHelpOpen(true)}
+                                className="flex items-center gap-4 group"
+                            >
+                                <div className="w-12 h-12 rounded-full bg-white shadow-sm flex items-center justify-center group-hover:bg-[#05D16E] transition-all duration-300">
+                                    <span className="text-xl">👋</span>
+                                </div>
+                                <div className="text-left">
+                                    <p className="text-[10px] uppercase tracking-widest font-bold text-[#05D16E]">Need Assistance?</p>
+                                    <p className="text-base font-medium opacity-60 group-hover:opacity-100 transition-opacity text-[#024653]">Text us right now</p>
+                                </div>
+                            </button>
                         </div>
                     </motion.div>
                 </AnimatePresence>
-
-                {/* Desktop Help Trigger */}
-                <div className="relative z-10 pt-8 border-t border-white/10">
-                    <button
-                        onClick={() => setIsHelpOpen(true)}
-                        className="flex items-center gap-3 group"
-                    >
-                        <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:bg-[#05D16E] transition-colors">
-                            <span className="text-lg">👋</span>
-                        </div>
-                        <div className="text-left">
-                            <p className="text-xs font-bold uppercase tracking-widest text-[#05D16E]">Need Help?</p>
-                            <p className="text-sm font-medium text-white/80 group-hover:text-white transition-colors">Text us now</p>
-                        </div>
-                    </button>
-                </div>
             </div>
 
-            {/* RIGHT PANEL */}
-            <div className="flex-1 w-full lg:w-2/3 h-screen bg-[#F9F8F2] relative flex flex-col overflow-hidden">
+            {/* RIGHT SIDE: Wizard Content area */}
+            <div className="flex-1 w-full lg:w-[60%] h-full bg-white/50 lg:bg-[#F9F8F2] relative flex flex-col overflow-hidden">
 
-                {/* Header */}
-                <div className="shrink-0 w-full px-6 py-6 md:px-12 grid grid-cols-[1fr_auto_1fr] items-center bg-[#F9F8F2] z-50 relative">
+                {/* Header: Controls & Progress */}
+                <div className="shrink-0 w-full px-8 py-8 md:px-16 grid grid-cols-2 md:grid-cols-[1fr_2fr_1fr] items-center z-50 relative">
+                    {/* Back Button */}
                     <div className="flex justify-start">
                         {!isFirstStep && stepId !== 'success' && (
-                            <button onClick={goBack} className="flex items-center gap-2 text-[11px] font-black uppercase tracking-[0.2em] text-[#024653]/60 hover:text-[#024653] transition-colors group py-2">
-                                <ArrowRight className="rotate-180 group-hover:-translate-x-1 transition-transform" size={16} strokeWidth={3} /> Back
+                            <button
+                                onClick={goBack}
+                                className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#024653]/50 hover:text-[#024653] transition-colors group"
+                            >
+                                <ArrowLeft className="group-hover:-translate-x-1 transition-transform" size={14} />
+                                Back
                             </button>
                         )}
                     </div>
-                    <div className="flex justify-center w-full">
-                        {stepId !== 'success' && (
-                            <div className="flex flex-col items-center gap-1">
-                                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#024653]/30">Progress</span>
-                                <div className="w-24 h-1 bg-[#024653]/5 rounded-full overflow-hidden">
-                                    <div className="h-full bg-[#05D16E] transition-all duration-500" style={{ width: `${progress}%` }} />
-                                </div>
-                            </div>
-                        )}
+
+                    {/* Progress Indicator */}
+                    <div className="hidden md:flex justify-center flex-col items-center gap-2">
+                        <div className="w-48 h-1 bg-[#024653]/5 rounded-full overflow-hidden">
+                            <motion.div
+                                className="h-full bg-[#05D16E]"
+                                initial={{ width: 0 }}
+                                animate={{ width: `${progress}%` }}
+                                transition={{ duration: 0.5, ease: "easeOut" }}
+                            />
+                        </div>
+                        <span className="text-[9px] uppercase tracking-[0.2em] font-bold text-[#024653]/30">Step Progress</span>
                     </div>
+
+                    {/* Close Button */}
                     <div className="flex justify-end">
-                        <button onClick={handleClose} className="w-8 h-8 rounded-full bg-[#024653]/5 flex items-center justify-center hover:bg-[#024653]/10 transition-colors cursor-pointer active:scale-95">
-                            <span className="text-lg font-bold text-[#024653] mb-1">×</span>
+                        <button
+                            onClick={handleClose}
+                            className="w-10 h-10 rounded-full bg-white shadow-sm border border-[#024653]/5 flex items-center justify-center hover:bg-[#024653]/5 transition-all active:scale-95 group"
+                        >
+                            <X size={18} className="text-[#024653] opacity-40 group-hover:opacity-100 transition-opacity" />
                         </button>
                     </div>
                 </div>
 
-                {/* Content Area */}
-                <AnimatePresence mode="wait" initial={false}>
-                    <motion.div
-                        key={stepId}
-                        initial={{ x: 20, opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: -20, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: "easeInOut" }}
-                        className="flex-1 w-full relative overflow-hidden"
-                    >
-                        <CurrentStepComponent
-                            onNext={goNext}
-                            onBack={goBack}
-                            onReturning={() => goToStep('returning_lookup')}
-                            onFound={handleReturningFound}
-                            onSelect={handlePropertySelect}
-                            onEditStep={(id: StepId) => goToStep(id)}
-                            totalPrice={totalPrice}
-                            onSubmit={goNext}
-                            // Returning Customer props
-                            properties={returningData?.properties || []}
-                            customerName={returningData?.customer?.firstName || "Customer"}
-                        />
-                    </motion.div>
-                </AnimatePresence>
+                {/* Main Step Transition Area */}
+                <div className="flex-1 w-full h-full relative overflow-y-auto overflow-x-hidden md:px-16 pb-32">
+                    <AnimatePresence mode="wait" initial={false}>
+                        <motion.div
+                            key={stepId}
+                            initial={{ opacity: 0, y: 15 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -15 }}
+                            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                            className="h-full"
+                        >
+                            <CurrentStepComponent
+                                onNext={goNext}
+                                onBack={goBack}
+                                onReturning={() => goToStep('returning_lookup')}
+                                onFound={handleReturningFound}
+                                onSelect={handlePropertySelect}
+                                onEditStep={(id: StepId) => goToStep(id)}
+                                totalPrice={totalPrice}
+                                onSubmit={goNext}
+                                // Returning Customer props
+                                properties={returningData?.properties || []}
+                                customerName={returningData?.customer?.firstName || "Customer"}
+                            />
+                        </motion.div>
+                    </AnimatePresence>
+                </div>
 
-                {/* Footer (Actions) */}
+                {/* Footer: Main CTA */}
                 <WizardFooter onHelp={() => setIsHelpOpen(true)} />
-
             </div>
         </div>
     );
@@ -260,29 +280,17 @@ function WizardFooter({ onHelp }: { onHelp: () => void }) {
     const hideMain = (action as any)?.hideMainButton;
 
     return (
-        <div className="shrink-0 w-full bg-white border-t border-slate-100 p-6 md:px-12 pb-8 z-50">
-            <div className="max-w-xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-
-                {/* Mobile Help Trigger */}
-                <button
-                    onClick={onHelp}
-                    className="md:hidden text-[10px] font-black uppercase tracking-widest text-[#05D16E] hover:text-[#024653] transition-colors py-2"
-                >
-                    Need Help? Call us.
-                </button>
-
-                <div className="hidden md:block">
-                    {action?.secondaryContent}
-                </div>
+        <div className="absolute bottom-0 left-0 w-full p-8 md:px-16 md:pb-12 z-50 pointer-events-none">
+            <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-end pointer-events-auto">
                 {!hideMain && (
                     <button
                         onClick={action?.onClick}
                         disabled={action?.disabled || action?.isLoading}
                         className={`
-                            w-full md:w-auto px-8 py-4 rounded-full font-black text-xs uppercase tracking-[0.15em] transition-all flex items-center justify-center gap-3 shadow-lg hover:shadow-xl hover:-translate-y-0.5
+                            w-full md:w-auto px-10 py-4 rounded-2xl font-bold text-xs uppercase tracking-[0.2em] transition-all flex items-center justify-center gap-3 shadow-sm hover:shadow-md hover:-translate-y-0.5
                             ${action?.disabled
-                                ? "bg-slate-100 text-slate-400 cursor-not-allowed shadow-none"
-                                : "bg-[#024653] text-white hover:bg-[#02333d] shadow-[#024653]/20"
+                                ? "bg-gray-100 text-[#024653]/20 cursor-not-allowed"
+                                : "bg-[#05D16E] text-[#024653] hover:bg-[#04bd63]"
                             }
                         `}
                     >
@@ -291,7 +299,7 @@ function WizardFooter({ onHelp }: { onHelp: () => void }) {
                         ) : (
                             <>
                                 {action?.label || "Continue"}
-                                {!action?.disabled && (action?.icon || <ArrowRight size={16} strokeWidth={3} />)}
+                                {!action?.disabled && (action?.icon || <ArrowRight size={16} className="stroke-[3px]" />)}
                             </>
                         )}
                     </button>

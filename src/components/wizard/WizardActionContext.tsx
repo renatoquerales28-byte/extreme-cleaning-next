@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 interface WizardActionConfig {
     label: string;
     disabled?: boolean;
-    onClick: () => void;
+    onClick?: () => void | Promise<void>;
     isLoading?: boolean;
     loadingLabel?: string;
     secondaryContent?: ReactNode; // For links or extra info above the button

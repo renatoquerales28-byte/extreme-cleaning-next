@@ -138,27 +138,39 @@ export default function ProcessSection() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.4 }}
-                    className="flex gap-3 justify-center items-center w-full max-w-2xl"
+                    className="flex justify-center w-full"
                 >
-                    <div className={`flex items-center bg-white rounded-full px-4 py-3 shadow-[0_4px_20px_rgba(2,70,83,0.06)] border transition-all duration-300 sm:min-w-[200px] ${isFocused ? 'border-[#05D16E]/40 shadow-[0_4px_25px_rgba(5,209,110,0.1)]' : 'border-gray-100'}`}>
-                        <MapPin size={16} className={isFocused ? 'text-[#05D16E]' : 'text-[#024653]/30'} />
-                        <input
-                            type="text"
-                            value={zipCode}
-                            onChange={(e) => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))}
-                            onFocus={() => setIsFocused(true)}
-                            onBlur={() => setIsFocused(false)}
-                            placeholder="Enter Zipcode"
-                            className="bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-medium placeholder:text-[#024653]/30 text-sm ml-2 w-full"
-                        />
-                    </div>
-                    <button
-                        onClick={() => router.push('/quote')}
-                        className="bg-[#024653] group text-white px-6 py-3 rounded-full font-semibold text-sm flex items-center justify-center gap-2 hover:bg-[#02333d] transition-all duration-300 hover:shadow-[0_10px_30px_rgba(2,70,83,0.2)] whitespace-nowrap"
+                    <form
+                        onSubmit={(e) => {
+                            e.preventDefault();
+                            if (zipCode.length === 5) {
+                                router.push(`/quote?zip=${zipCode}`);
+                            } else {
+                                router.push('/quote');
+                            }
+                        }}
+                        className="flex gap-3 justify-center items-center w-full max-w-2xl"
                     >
-                        Get Your Free Quote
-                        <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                    </button>
+                        <div className={`flex items-center bg-white rounded-full px-4 py-3 shadow-[0_4px_20px_rgba(2,70,83,0.06)] border transition-all duration-300 sm:min-w-[200px] ${isFocused ? 'border-[#05D16E]/40 shadow-[0_4px_25px_rgba(5,209,110,0.1)]' : 'border-gray-100'}`}>
+                            <MapPin size={16} className={isFocused ? 'text-[#05D16E]' : 'text-[#024653]/30'} />
+                            <input
+                                type="text"
+                                value={zipCode}
+                                onChange={(e) => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))}
+                                onFocus={() => setIsFocused(true)}
+                                onBlur={() => setIsFocused(false)}
+                                placeholder="Enter Zipcode"
+                                className="bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-medium placeholder:text-[#024653]/30 text-sm ml-2 w-full"
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            className="bg-[#024653] group text-white px-6 py-3 rounded-full font-semibold text-sm flex items-center justify-center gap-2 hover:bg-[#02333d] transition-all duration-300 hover:shadow-[0_10px_30px_rgba(2,70,83,0.2)] whitespace-nowrap"
+                        >
+                            Get Your Free Quote
+                            <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
+                        </button>
+                    </form>
                 </motion.div>
             </div>
         </section>

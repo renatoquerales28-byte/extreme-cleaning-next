@@ -72,33 +72,33 @@ export default function PriceStep({ onNext, totalPrice }: PriceStepProps) {
     }, [setAction, onNext]);
 
     return (
-        <div className="h-full w-full flex items-center justify-center p-6 md:p-0">
-            <div className="w-full max-w-2xl grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-6 items-stretch">
+        <div className="h-full w-full flex items-start justify-center p-6 md:p-0 md:pt-10 overflow-y-auto">
+            <div className="w-full max-w-2xl grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-6 items-stretch pb-32">
 
                 {/* Main Quote Card */}
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="bg-white p-10 md:p-14 rounded-[2.5rem] border border-[#024653]/5 shadow-sm space-y-10 relative overflow-hidden flex flex-col justify-between"
+                    className="bg-white p-8 md:p-10 rounded-xl border border-[#024653]/5 shadow-sm space-y-8 relative overflow-hidden flex flex-col justify-between"
                 >
                     <div className="space-y-6 relative z-10">
                         <div className="space-y-2">
-                            <span className="inline-block px-4 py-1.5 bg-[#05D16E] text-[#024653] rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm">
+                            <span className="inline-block px-3 py-1 bg-[#05D16E] text-[#024653] rounded-md text-[9px] font-bold uppercase tracking-widest shadow-sm">
                                 Guaranteed Quote
                             </span>
-                            <h3 className="text-3xl font-bold text-[#024653]">Your Cleaning Estimate</h3>
+                            <h3 className="text-2xl font-bold text-[#024653]">Your Cleaning Estimate</h3>
                         </div>
 
-                        <div className="flex items-baseline gap-2">
-                            <span className="text-3xl font-bold text-[#024653]">$</span>
-                            <span className="text-8xl font-bold text-[#024653] tracking-tighter leading-none">{totalPrice}</span>
-                            <span className="text-sm font-bold text-[#024653]/40 uppercase tracking-widest ml-2">Total</span>
+                        <div className="flex items-baseline gap-1.5">
+                            <span className="text-2xl font-bold text-[#024653]">$</span>
+                            <span className="text-7xl font-bold text-[#024653] tracking-tighter leading-none">{totalPrice}</span>
+                            <span className="text-xs font-bold text-[#024653]/40 uppercase tracking-widest ml-2">Total</span>
                         </div>
                     </div>
 
                     <div className="space-y-4 pt-8 border-t border-[#024653]/5">
                         <div className="flex items-center gap-3 text-[#024653]">
-                            <div className="w-8 h-8 rounded-full bg-[#05D16E]/10 flex items-center justify-center text-[#05D16E]">
+                            <div className="w-8 h-8 rounded-lg bg-[#05D16E]/10 flex items-center justify-center text-[#05D16E]">
                                 <ShieldCheck size={18} />
                             </div>
                             <span className="text-[11px] font-bold uppercase tracking-widest opacity-60">100% Satisfaction Guaranteed</span>
@@ -113,7 +113,7 @@ export default function PriceStep({ onNext, totalPrice }: PriceStepProps) {
                 <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="bg-[#024653] p-10 rounded-[2.5rem] text-white space-y-8 flex flex-col"
+                    className="bg-[#024653] p-8 rounded-xl text-white space-y-6 flex flex-col"
                 >
                     <div>
                         <h4 className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#05D16E] mb-2">
@@ -124,7 +124,7 @@ export default function PriceStep({ onNext, totalPrice }: PriceStepProps) {
                         </div>
                     </div>
 
-                    <div className="flex-1 space-y-4 overflow-y-auto pr-2 custom-scrollbar">
+                    <div className="flex-1 space-y-3 overflow-y-auto pr-2 custom-scrollbar">
                         {getInclusions(data.cleaningType as any, data.serviceType as any).map((item, idx) => (
                             <motion.div
                                 key={idx}
@@ -133,7 +133,7 @@ export default function PriceStep({ onNext, totalPrice }: PriceStepProps) {
                                 transition={{ delay: idx * 0.05 }}
                                 className="flex items-center gap-4 group"
                             >
-                                <div className="w-5 h-5 rounded-full bg-[#05D16E] shrink-0 flex items-center justify-center text-[#024653]">
+                                <div className="w-5 h-5 rounded bg-[#05D16E] shrink-0 flex items-center justify-center text-[#024653]">
                                     <Check size={12} strokeWidth={4} />
                                 </div>
                                 <span className="text-xs font-bold tracking-tight opacity-70 group-hover:opacity-100 transition-opacity">{item}</span>

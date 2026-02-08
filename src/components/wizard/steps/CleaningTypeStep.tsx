@@ -82,8 +82,8 @@ export default function CleaningTypeStep({ onNext }: CleaningTypeStepProps) {
     };
 
     return (
-        <div className="h-full w-full flex items-center justify-center p-6 md:p-0">
-            <div className="w-full max-w-2xl grid grid-cols-1 gap-4">
+        <div className="h-full w-full flex items-start justify-center p-6 md:p-0 md:pt-10 overflow-y-auto">
+            <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-3 pb-32">
                 {cleaningTypes.map((type) => {
                     const isSelected = selectedType === type.id;
                     const Icon = type.icon;
@@ -96,69 +96,57 @@ export default function CleaningTypeStep({ onNext }: CleaningTypeStepProps) {
                             whileTap={{ scale: 0.99 }}
                             onClick={() => handleSelect(type.id)}
                             className={`
-                                group relative p-8 rounded-[2.5rem] text-left transition-all duration-500 border
-                                flex flex-col md:flex-row items-start md:items-center gap-8 w-full
+                                group relative p-5 rounded-xl text-left transition-all duration-500 border
+                                flex flex-col gap-4 w-full h-full
                                 ${isSelected
-                                    ? "bg-[#024653] border-[#024653] shadow-xl text-white"
+                                    ? "bg-[#024653] border-[#024653] shadow-lg text-white"
                                     : "bg-white border-[#024653]/5 hover:border-[#024653]/20 shadow-sm text-[#024653]"
                                 }
                             `}
                         >
                             {type.popular && (
                                 <span className={`
-                                    absolute -top-3 right-10 px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm
+                                    absolute -top-3 right-6 px-4 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-widest shadow-sm z-10
                                     ${isSelected ? "bg-[#05D16E] text-[#024653]" : "bg-[#05D16E] text-white"}
                                 `}>
-                                    Popular Choice
+                                    Popular
                                 </span>
                             )}
 
-                            <div className={`
-                                w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 transition-colors
-                                ${isSelected ? "bg-white/10 text-white" : "bg-[#05D16E]/10 text-[#05D16E]"}
-                            `}>
-                                <Icon size={28} />
+                            <div className="flex items-center justify-between w-full">
+                                <div className="flex items-center gap-3">
+                                    <div className={`
+                                        w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors
+                                        ${isSelected ? "bg-white/10 text-white" : "bg-[#05D16E]/10 text-[#05D16E]"}
+                                    `}>
+                                        <Icon size={20} />
+                                    </div>
+                                    <h3 className={`text-lg font-bold tracking-tight ${isSelected ? "text-white" : "text-[#024653]"}`}>
+                                        {type.label}
+                                    </h3>
+                                </div>
                             </div>
 
-                            <div className="flex-1 w-full space-y-4">
-                                <div>
-                                    <div className="flex items-center justify-between mb-1">
-                                        <h3 className={`text-xl font-bold tracking-tight ${isSelected ? "text-white" : "text-[#024653]"}`}>
-                                            {type.label}
-                                        </h3>
-                                        {isSelected && (
-                                            <motion.div
-                                                initial={{ scale: 0 }}
-                                                animate={{ scale: 1 }}
-                                                className="w-6 h-6 rounded-full bg-[#05D16E] flex items-center justify-center text-[#024653]"
-                                            >
-                                                <Check size={14} strokeWidth={4} />
-                                            </motion.div>
-                                        )}
-                                    </div>
-                                    <p className={`text-sm leading-relaxed opacity-60 ${isSelected ? "text-white" : "text-[#024653]"}`}>
-                                        {type.description}
-                                    </p>
-                                </div>
+                            <p className={`text-[12px] leading-snug opacity-60 min-h-[2.5rem] ${isSelected ? "text-white" : "text-[#024653]"}`}>
+                                {type.description}
+                            </p>
 
-                                {/* Features Grid */}
-                                <div className="grid grid-cols-2 gap-y-2 gap-x-6 pt-2 border-t border-current border-opacity-5">
-                                    {type.features.map((feature: any, i) => (
-                                        <div key={i} className="flex items-center gap-2">
-                                            {feature.included ? (
-                                                <Check size={12} className={`${isSelected ? "text-[#05D16E]" : "text-[#05D16E]"}`} strokeWidth={3} />
-                                            ) : (
-                                                <X size={12} className={`${isSelected ? "text-white/20" : "text-[#024653]/10"}`} strokeWidth={3} />
-                                            )}
-                                            <span className={`text-[10px] font-bold uppercase tracking-wider ${isSelected
-                                                ? (feature.included ? "text-white" : "text-white/20 line-through")
-                                                : (feature.included ? "text-[#024653]/70" : "text-[#024653]/10 line-through")
-                                                }`}>
-                                                {feature.name}
-                                            </span>
-                                        </div>
-                                    ))}
-                                </div>
+                            <div className="grid grid-cols-2 gap-y-1.5 gap-x-3 pt-3 border-t border-current border-opacity-5 mt-auto">
+                                {type.features.map((feature, i) => (
+                                    <div key={i} className="flex items-center gap-1.5 leading-none">
+                                        {feature.included ? (
+                                            <Check size={10} className={`${isSelected ? "text-[#05D16E]" : "text-[#05D16E]"}`} strokeWidth={4} />
+                                        ) : (
+                                            <X size={10} className={`${isSelected ? "text-white/20" : "text-[#024653]/10"}`} strokeWidth={4} />
+                                        )}
+                                        <span className={`text-[9px] font-bold uppercase tracking-wider whitespace-nowrap overflow-hidden text-ellipsis ${isSelected
+                                            ? (feature.included ? "text-white" : "text-white/20 line-through")
+                                            : (feature.included ? "text-[#024653]/70" : "text-[#024653]/10 line-through")
+                                            }`}>
+                                            {feature.name}
+                                        </span>
+                                    </div>
+                                ))}
                             </div>
                         </motion.button>
                     );

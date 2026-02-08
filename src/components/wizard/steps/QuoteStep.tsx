@@ -117,89 +117,33 @@ export default function QuoteStep({ onNext }: QuoteStepProps) {
     }, [data.firstName, data.lastName, data.email, isSubmitting, setAction, handleNext]);
 
     return (
-        <div className="h-full w-full flex items-center justify-center p-6 md:p-0">
-            <div className="w-full max-w-2xl grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
-
+        <div className="h-full w-full flex items-start justify-center p-6 md:p-0 md:pt-10">
+            <div className="w-full max-w-lg pb-32">
                 {/* Contact Form */}
-                <div className="bg-white p-8 rounded-[2.5rem] border border-[#024653]/5 shadow-sm space-y-8 flex flex-col justify-center">
+                <div className="bg-white p-8 rounded-xl border border-[#024653]/5 shadow-sm space-y-6 flex flex-col justify-center">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-2xl bg-[#024653]/5 flex items-center justify-center text-[#024653]">
+                        <div className="w-10 h-10 rounded-xl bg-[#024653]/5 flex items-center justify-center text-[#024653]">
                             <User size={20} />
                         </div>
                         <h3 className="text-xl font-bold text-[#024653]">Your Info</h3>
                     </div>
 
-                    <div className="space-y-6">
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="space-y-2">
+                    <div className="space-y-4">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div className="space-y-1.5">
                                 <label className="text-[10px] font-bold uppercase tracking-widest text-[#024653]/40">First Name</label>
-                                <input {...register("firstName")} placeholder="Jane" className="w-full bg-[#F9F8F2] p-4 rounded-2xl font-bold text-[#024653] border-none outline-none focus:ring-2 focus:ring-[#05D16E]/20 transition-all placeholder:text-[#024653]/10" />
+                                <input {...register("firstName")} placeholder="Jane" className="w-full bg-[#F9F8F2] p-4 rounded-xl font-bold text-[#024653] border-none outline-none focus:ring-2 focus:ring-[#05D16E]/20 transition-all placeholder:text-[#024653]/10" />
                             </div>
-                            <div className="space-y-2">
+                            <div className="space-y-1.5">
                                 <label className="text-[10px] font-bold uppercase tracking-widest text-[#024653]/40">Last Name</label>
-                                <input {...register("lastName")} placeholder="Doe" className="w-full bg-[#F9F8F2] p-4 rounded-2xl font-bold text-[#024653] border-none outline-none focus:ring-2 focus:ring-[#05D16E]/20 transition-all placeholder:text-[#024653]/10" />
+                                <input {...register("lastName")} placeholder="Doe" className="w-full bg-[#F9F8F2] p-4 rounded-xl font-bold text-[#024653] border-none outline-none focus:ring-2 focus:ring-[#05D16E]/20 transition-all placeholder:text-[#024653]/10" />
                             </div>
                         </div>
-                        <div className="space-y-2">
+                        <div className="space-y-1.5">
                             <label className="text-[10px] font-bold uppercase tracking-widest text-[#024653]/40">Email Address</label>
-                            <input {...register("email")} type="email" placeholder="jane@example.com" className="w-full bg-[#F9F8F2] p-4 rounded-2xl font-bold text-[#024653] border-none outline-none focus:ring-2 focus:ring-[#05D16E]/20 transition-all placeholder:text-[#024653]/10" />
+                            <input {...register("email")} type="email" placeholder="jane@example.com" className="w-full bg-[#F9F8F2] p-4 rounded-xl font-bold text-[#024653] border-none outline-none focus:ring-2 focus:ring-[#05D16E]/20 transition-all placeholder:text-[#024653]/10" />
                         </div>
-                    </div>
-                </div>
-
-                {/* Promo & Extra Section */}
-                <div className="flex flex-col gap-6">
-                    {/* Promo Code Card */}
-                    <div className="bg-white p-8 rounded-[2.5rem] border border-[#024653]/5 shadow-sm space-y-6 flex-1 flex flex-col justify-center">
-                        <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-2xl bg-[#05D16E]/10 flex items-center justify-center text-[#05D16E]">
-                                <Gift size={20} />
-                            </div>
-                            <h3 className="text-xl font-bold text-[#024653]">Special Offer?</h3>
-                        </div>
-
-                        {FEATURE_FLAGS.ENABLE_PROMOTIONS && (
-                            <div className="space-y-4">
-                                <div className="relative group">
-                                    <input
-                                        type="text"
-                                        value={promoCode}
-                                        onChange={(e) => { setPromoCode(e.target.value); setPromoError(null); }}
-                                        disabled={!!appliedDiscount}
-                                        placeholder="PROMO CODE"
-                                        className="w-full bg-[#F9F8F2] pl-4 pr-16 py-4 rounded-2xl font-bold text-[#024653] border-none outline-none focus:ring-2 focus:ring-[#05D16E]/20 transition-all uppercase placeholder:normal-case placeholder:font-medium placeholder:text-[#024653]/10"
-                                    />
-                                    {appliedDiscount ? (
-                                        <button onClick={() => { setAppliedDiscount(null); setPromoCode(""); }} className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-xl bg-red-50 text-red-500 flex items-center justify-center">
-                                            <X size={18} />
-                                        </button>
-                                    ) : (
-                                        <button onClick={handleApplyPromo} disabled={!promoCode || isCheckingPromo} className="absolute right-3 top-1/2 -translate-y-1/2 bg-[#024653] text-white px-4 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-[#05D16E] transition-all disabled:opacity-30">
-                                            Apply
-                                        </button>
-                                    )}
-                                </div>
-                                <AnimatePresence>
-                                    {promoError && (
-                                        <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-xs font-bold text-red-500 flex items-center gap-1">
-                                            <AlertCircle size={14} /> {promoError}
-                                        </motion.p>
-                                    )}
-                                    {appliedDiscount && (
-                                        <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} className="flex items-center justify-between bg-[#05D16E]/10 p-4 rounded-2xl border border-[#05D16E]/20">
-                                            <div className="flex items-center gap-2 text-[#05D16E]">
-                                                <CheckCircle2 size={16} />
-                                                <span className="text-xs font-bold uppercase tracking-widest">SAVINGS APPLIED</span>
-                                            </div>
-                                            <span className="text-lg font-bold text-[#024653]">
-                                                {appliedDiscount.type === 'percent' ? `${appliedDiscount.value}%` : `$${appliedDiscount.value}`} OFF
-                                            </span>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </div>
-                        )}
-                        <p className="text-xs text-[#024653]/40 leading-relaxed italic">
+                        <p className="text-xs text-[#024653]/40 leading-relaxed italic pt-2">
                             * Your final quote is calculated based on home size and selected frequency.
                         </p>
                     </div>

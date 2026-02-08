@@ -1,7 +1,8 @@
-import { Home, Building2, LayoutGrid, Check } from "lucide-react";
+"use client";
+
+import { Home, Building2, LayoutGrid, ArrowRight, Target, ShieldCheck } from "lucide-react";
 import { useWizardAction } from "../WizardActionContext";
 import { useEffect } from "react";
-import { motion } from "framer-motion";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 
@@ -9,68 +10,111 @@ interface ServiceStepProps {
     onNext: () => void;
 }
 
+const services = [
+    {
+        id: "residential",
+        label: "Residential",
+        desc: "Private homes & apartments",
+        icon: Home
+    },
+    {
+        id: "commercial",
+        label: "Commercial",
+        desc: "Offices & business spaces",
+        icon: Building2
+    },
+    {
+        id: "property_mgmt",
+        label: "Property Mgmt",
+        desc: "Portfolios & unit turns",
+        icon: LayoutGrid
+    }
+];
+
 export default function ServiceStep({ onNext }: ServiceStepProps) {
     const { watch, setValue } = useFormContext<WizardData>();
     const { setAction } = useWizardAction();
-    const selectedService = watch("serviceType");
+    const selected = watch("serviceType");
+
+    const handleSelect = (id: "residential" | "commercial" | "property_mgmt") => {
+        setValue("serviceType", id);
+    };
 
     useEffect(() => {
         setAction({
             label: "Continue",
-            disabled: !selectedService,
-            onClick: () => selectedService && onNext()
+            disabled: !selected,
+            onClick: onNext,
+            icon: <ArrowRight size={18} strokeWidth={4} />
         });
-    }, [selectedService, onNext, setAction]);
-
-    const handleSelect = (value: "residential" | "commercial" | "property_mgmt") => {
-        setValue("serviceType", value);
-    };
-
-    const options = [
-        { id: "residential", icon: Home, label: "Residential", sub: "For houses, apartments, and personal living spaces." },
-        { id: "commercial", icon: Building2, label: "Commercial", sub: "For offices, retail stores, and business facilities." },
-        { id: "property_mgmt", icon: LayoutGrid, label: "Property Management", sub: "For multi-unit complexes and recurring rentals." }
-    ];
+    }, [selected, onNext, setAction]);
 
     return (
-        <div className="h-full w-full flex items-center justify-center p-6 md:p-0">
-            <div className="w-full max-w-2xl grid grid-cols-1 md:grid-cols-2 gap-4 auto-rows-fr">
-                {options.map((option) => (
-                    <motion.button
-                        key={option.id}
-                        whileHover={{ y: -4 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => handleSelect(option.id as any)}
-                        className={`group relative p-8 rounded-[2.5rem] transition-all duration-500 text-left flex flex-col justify-between h-full border ${selectedService === option.id
-                            ? "bg-[#024653] border-[#024653] shadow-xl text-white"
-                            : "bg-white border-[#024653]/5 hover:border-[#024653]/20 shadow-sm text-[#024653]"
-                            }`}
-                    >
-                        <div className="space-y-6">
-                            <div className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-colors ${selectedService === option.id ? "bg-white/10 text-white" : "bg-[#05D16E]/10 text-[#05D16E]"
-                                }`}>
-                                <option.icon size={24} />
-                            </div>
+        <div className="w-full flex-1 flex flex-col justify-center py-4">
+            <div className="max-w-5xl mx-auto w-full px-6 space-y-4">
 
-                            <div className="space-y-2">
-                                <h3 className={`text-xl font-bold tracking-tight ${selectedService === option.id ? "text-white" : "text-[#024653]"
-                                    }`}>{option.label}</h3>
-                                <p className={`text-sm leading-relaxed opacity-60 ${selectedService === option.id ? "text-white" : "text-[#024653]"
-                                    }`}>{option.sub}</p>
-                            </div>
-                        </div>
+                {/* Section Header */}
+                <div className="flex items-center gap-3 ml-1">
+                    <div className="w-5 h-5 rounded-md bg-[#024653] flex items-center justify-center shadow-lg shadow-[#024653]/10">
+                        <Target size={12} className="text-white" />
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#024653]">Select Service Division</span>
+                </div>
 
-                        {selectedService === option.id && (
-                            <motion.div
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                className="absolute top-6 right-6 w-6 h-6 rounded-full bg-[#05D16E] flex items-center justify-center text-[#024653]"
-                            >
-                                <Check size={14} strokeWidth={4} />
-                            </motion.div>
-                        )}
-                    </motion.button>
-                ))}
+                {/* Grid Container */}
+                <div className="bg-[#F9F8F2] border border-[#024653]/10 rounded-xl p-4 lg:p-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {services.map((option) => {
+                            const isSelected = selected === option.id;
+                            const Icon = option.icon;
+
+                            return (
+                                <button
+                                    key={option.id}
+                                    type="button"
+                                    onClick={() => handleSelect(option.id as any)}
+                                    className={`
+                                        relative flex flex-col items-center p-8 lg:p-10 rounded-xl border-2 transition-all duration-500 group
+                                        ${isSelected
+                                            ? "bg-[#024653] border-[#024653] text-white shadow-2xl shadow-[#024653]/30 -translate-y-2 scale-[1.02]"
+                                            : "bg-white border-[#024653]/5 text-[#024653] hover:border-[#024653]/20 hover:shadow-xl hover:shadow-[#024653]/5"
+                                        }
+                                    `}
+                                >
+                                    {/* Selected Badge */}
+                                    {isSelected && (
+                                        <div className="absolute top-4 right-4 text-[#05D16E]">
+                                            <ShieldCheck size={20} />
+                                        </div>
+                                    )}
+
+                                    <div className={`
+                                        w-16 h-16 rounded-xl flex items-center justify-center mb-8 transition-all duration-500
+                                        ${isSelected ? "bg-white/10 text-[#05D16E]" : "bg-[#024653]/5 text-[#024653] group-hover:bg-[#024653]/10"}
+                                    `}>
+                                        <Icon size={28} />
+                                    </div>
+
+                                    <div className="text-center space-y-3">
+                                        <h4 className="font-black text-lg tracking-widest uppercase leading-none">{option.label}</h4>
+                                        <div className="space-y-1">
+                                            <p className={`text-[10px] font-bold uppercase tracking-widest opacity-40 leading-relaxed ${isSelected ? "text-[#05D16E]" : "text-[#024653]"}`}>
+                                                {option.desc}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                {/* Footer Info */}
+                <div className="flex justify-center pt-2">
+                    <p className="text-[9px] font-black uppercase tracking-[0.3em] text-[#024653]/20">
+                        Tailored expertise for every environment
+                    </p>
+                </div>
             </div>
         </div>
     );

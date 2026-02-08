@@ -9,7 +9,7 @@ import { motion } from "framer-motion";
 
 export default function FooterSection() {
     return (
-        <footer id="footer" className="w-full bg-[#F9F8F2] text-[#024653] relative z-10 overflow-hidden pt-[85px] pb-16 lg:pb-16">
+        <footer id="reviews" className="w-full bg-[#F9F8F2] text-[#024653] relative z-10 overflow-hidden pt-[85px] pb-16 lg:pb-16 scroll-mt-[60px]">
 
             {/* =========================================
                 FOOTER SOCIAL PROOF MARQUEE (Universal)

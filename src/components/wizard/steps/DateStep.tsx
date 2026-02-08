@@ -116,9 +116,9 @@ export default function DateStep({ onNext }: DateStepProps) {
                 <motion.div
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    className="pointer-events-auto flex items-center justify-center gap-3 px-6 py-3 bg-white shadow-sm border border-[#024653]/5 rounded-2xl w-fit"
+                    className="pointer-events-auto flex items-center justify-center gap-3 px-6 py-3 bg-white shadow-sm border border-[#024653]/5 rounded-xl w-fit"
                 >
-                    <div className="w-8 h-8 rounded-full bg-[#05D16E]/10 flex items-center justify-center text-[#05D16E]">
+                    <div className="w-8 h-8 rounded-lg bg-[#05D16E]/10 flex items-center justify-center text-[#05D16E]">
                         <Check size={14} strokeWidth={4} />
                     </div>
                     <div>
@@ -148,9 +148,9 @@ export default function DateStep({ onNext }: DateStepProps) {
             <div className="w-full max-w-2xl grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
 
                 {/* Left: Calendar Card */}
-                <div className="bg-white p-8 rounded-[2.5rem] border border-[#024653]/5 shadow-sm space-y-6">
+                <div className="bg-white p-8 rounded-xl border border-[#024653]/5 shadow-sm space-y-6">
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="w-10 h-10 rounded-2xl bg-[#024653]/5 flex items-center justify-center text-[#024653]">
+                        <div className="w-10 h-10 rounded-xl bg-[#024653]/5 flex items-center justify-center text-[#024653]">
                             <CalendarIcon size={20} />
                         </div>
                         <h3 className="text-xl font-bold text-[#024653]">Select Date</h3>
@@ -179,9 +179,9 @@ export default function DateStep({ onNext }: DateStepProps) {
                 </div>
 
                 {/* Right: Time Card */}
-                <div className="bg-white p-8 rounded-[2.5rem] border border-[#024653]/5 shadow-sm space-y-6 h-full min-h-[400px] md:min-h-0">
+                <div className="bg-white p-8 rounded-xl border border-[#024653]/5 shadow-sm space-y-6 h-full min-h-[400px] md:min-h-0">
                     <div className="flex items-center gap-3 mb-2">
-                        <div className="w-10 h-10 rounded-2xl bg-[#024653]/5 flex items-center justify-center text-[#024653]">
+                        <div className="w-10 h-10 rounded-xl bg-[#024653]/5 flex items-center justify-center text-[#024653]">
                             <Clock size={20} />
                         </div>
                         <h3 className="text-xl font-bold text-[#024653]">Select Time</h3>
@@ -203,7 +203,7 @@ export default function DateStep({ onNext }: DateStepProps) {
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.95 }}
                                 animate={{ opacity: 1, scale: 1 }}
-                                className="flex flex-col items-center justify-center h-48 md:h-64 text-center border border-dashed border-[#024653]/10 rounded-3xl"
+                                className="flex flex-col items-center justify-center h-48 md:h-64 text-center border border-dashed border-[#024653]/10 rounded-xl"
                             >
                                 <p className="text-[#024653]/30 text-sm font-medium">Please select a date <br /> to see available times</p>
                             </motion.div>

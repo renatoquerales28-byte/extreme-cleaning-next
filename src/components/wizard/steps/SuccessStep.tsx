@@ -1,93 +1,117 @@
-import React, { useEffect } from "react";
+"use client";
+
+import React from "react";
+import { Calendar, MapPin, ArrowRight, ShieldCheck, Target } from "lucide-react";
+import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
-import { useWizardAction } from "../WizardActionContext";
-import { Check, Calendar, MapPin, PartyPopper, ArrowRight } from "lucide-react";
-import { format } from "date-fns";
-import { motion } from "framer-motion";
 
 export default function SuccessStep() {
+    const router = useRouter();
     const { watch } = useFormContext<WizardData>();
-    const { setAction } = useWizardAction();
     const data = watch();
 
-    useEffect(() => {
-        setAction({
-            label: "Explore Our Quality",
-            disabled: false,
-            onClick: () => window.location.href = "/",
-            icon: <ArrowRight size={18} />,
-            secondaryContent: null
-        });
-    }, [setAction]);
-
-    const formattedDate = data.serviceDate ? format(new Date(data.serviceDate), "EEEE, MMMM do") : "";
-
     return (
-        <div className="h-full w-full flex items-center justify-center p-6 md:p-0">
-            <motion.div
-                initial={{ scale: 0.9, opacity: 0 }}
-                animate={{ scale: 1, opacity: 1 }}
-                className="max-w-md w-full bg-white rounded-[3rem] p-10 md:p-14 text-center space-y-10 border border-[#024653]/5 shadow-xl shadow-[#024653]/5"
-            >
-                {/* Celebratory Icon */}
-                <div className="relative mx-auto w-24 h-24">
+        <div className="w-full flex-1 flex flex-col justify-center py-4">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 max-w-6xl mx-auto w-full px-6 items-center">
+
+                {/* LEFT COLUMN: CELEBRATION */}
+                <div className="space-y-8 lg:space-y-12">
+                    <div className="space-y-6">
+                        {/* Status Badge */}
+                        <div className="inline-flex items-center gap-3 px-4 py-2 bg-[#05D16E]/5 border border-[#05D16E]/20 rounded-lg">
+                            <div className="w-2 h-2 rounded-full bg-[#05D16E] animate-pulse shadow-[0_0_10px_#05D16E]" />
+                            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-[#05D16E]">Protocol Secured</span>
+                        </div>
+
+                        {/* Big Celebration Text */}
+                        <div className="space-y-4">
+                            <h2 className="text-5xl lg:text-7xl font-normal tracking-tight text-[#024653] leading-[0.95]">
+                                Reservation <br />
+                                <span className="italic font-light">Confirmed.</span>
+                            </h2>
+                            <p className="text-base lg:text-lg font-light text-[#024653]/40 leading-relaxed max-w-md">
+                                Registration successful. Your elite cleaning team has been synchronized in our Spokane scheduling nexus.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Final Action - Adjusted for Desktop */}
+                    <div className="pt-4">
+                        <button
+                            onClick={() => router.push('/')}
+                            className="group flex items-center gap-4 text-[11px] font-black uppercase tracking-[0.3em] text-[#024653] hover:text-[#05D16E] transition-all"
+                        >
+                            <span>Return to Main Terminal</span>
+                            <div className="w-12 h-12 rounded-xl bg-[#024653] flex items-center justify-center text-white group-hover:bg-[#05D16E] group-hover:scale-110 transition-all shadow-lg shadow-[#024653]/20">
+                                <ArrowRight size={20} />
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                {/* RIGHT COLUMN: SECURE RECEIPT */}
+                <div className="relative group">
+                    <div className="absolute -top-3 left-6 px-3 py-1 bg-white border border-[#024653]/10 rounded flex items-center gap-2 z-10 shadow-sm">
+                        <Target size={12} className="text-[#05D16E]" />
+                        <span className="text-[9px] font-black uppercase tracking-[0.2em] text-[#024653]">Transmission Receipt</span>
+                    </div>
+
                     <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1.2, rotate: [0, 10, -10, 0] }}
-                        transition={{ delay: 0.2, type: "spring" }}
-                        className="w-full h-full bg-[#05D16E] rounded-[2rem] flex items-center justify-center text-white shadow-lg shadow-[#05D16E]/20"
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="bg-[#F9F8F2] border border-[#024653]/10 rounded-2xl p-8 lg:p-10 space-y-8 shadow-2xl shadow-[#024653]/5 relative overflow-hidden"
                     >
-                        <Check size={48} strokeWidth={4} />
+                        {/* Background Shield Watermark */}
+                        <div className="absolute -right-8 -bottom-8 opacity-[0.03] rotate-12">
+                            <ShieldCheck size={280} />
+                        </div>
+
+                        <div className="flex items-center justify-between border-b border-[#024653]/10 pb-8 relative z-10">
+                            <div className="space-y-2">
+                                <p className="text-[10px] font-black uppercase tracking-widest text-[#024653]/30">Vault ID</p>
+                                <p className="text-sm font-mono font-black text-[#024653]">#ECS-{Math.random().toString(36).substr(2, 6).toUpperCase()}</p>
+                            </div>
+                            <div className="text-right space-y-2">
+                                <p className="text-[10px] font-black uppercase tracking-widest text-[#024653]/30">Security Status</p>
+                                <div className="flex items-center gap-2 justify-end">
+                                    <div className="w-1.5 h-1.5 rounded-full bg-[#05D16E]" />
+                                    <p className="text-[10px] font-black text-[#024653] uppercase tracking-widest">Active Encryption</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-10 relative z-10">
+                            <div className="space-y-3 bg-white p-4 rounded-xl border border-[#024653]/5 shadow-sm">
+                                <div className="flex items-center gap-2 text-[#024653]/30">
+                                    <Calendar size={14} />
+                                    <span className="text-[9px] font-black uppercase tracking-widest">Service Window</span>
+                                </div>
+                                <p className="text-base font-black text-[#024653]">{data.serviceTime || "Morning Slot"}</p>
+                                <p className="text-[9px] font-bold text-[#05D16E] uppercase tracking-tighter italic">Precision Scheduled</p>
+                            </div>
+                            <div className="space-y-3 bg-white p-4 rounded-xl border border-[#024653]/5 shadow-sm">
+                                <div className="flex items-center gap-2 text-[#024653]/30">
+                                    <MapPin size={14} />
+                                    <span className="text-[9px] font-black uppercase tracking-widest">Identity Nexus</span>
+                                </div>
+                                <p className="text-base font-black text-[#024653] truncate">{data.city || "Spokane Valley"}</p>
+                                <p className="text-[9px] font-bold text-[#05D16E] uppercase tracking-tighter italic">Regional HQ Zone</p>
+                            </div>
+                        </div>
+
+                        <div className="pt-6 relative z-10">
+                            <div className="bg-[#024653] text-white p-4 rounded-xl text-center space-y-2">
+                                <p className="text-[9px] font-medium opacity-60 uppercase tracking-[0.3em]">
+                                    Confirmation Dispatched To
+                                </p>
+                                <p className="text-xs font-black tracking-widest truncate">{data.email || "recipient@terminal.com"}</p>
+                            </div>
+                        </div>
                     </motion.div>
-                    <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        className="absolute inset-x-[-15px] inset-y-[-15px] border-2 border-dashed border-[#05D16E]/20 rounded-[2.5rem]"
-                    />
                 </div>
-
-                <div className="space-y-4">
-                    <h2 className="text-4xl font-bold tracking-tighter text-[#024653]">
-                        It&apos;s <span className="text-[#05D16E]">Official!</span>
-                    </h2>
-                    <p className="text-[#024653]/60 text-sm leading-relaxed">
-                        We&apos;ve reserved your spot. A confirmation email is on its way to <br />
-                        <span className="text-[#024653] font-bold">{data.email}</span>
-                    </p>
-                </div>
-
-                {/* Booking Summary Card */}
-                <div className="bg-[#F9F8F2] rounded-[2.5rem] p-8 space-y-6 text-left border border-[#024653]/5">
-                    <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-[#024653] shadow-sm">
-                            <Calendar size={18} />
-                        </div>
-                        <div>
-                            <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#024653]/30">Arrival Window</p>
-                            <p className="font-bold text-[#024653]">{formattedDate} @ {data.serviceTime}</p>
-                        </div>
-                    </div>
-
-                    <div className="w-full h-px bg-[#024653]/5" />
-
-                    <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center text-[#024653] shadow-sm">
-                            <MapPin size={18} />
-                        </div>
-                        <div>
-                            <p className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#024653]/30">Location</p>
-                            <p className="font-bold text-[#024653] truncate max-w-[180px]">{data.address}</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div className="pt-2">
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-[#024653]/30">
-                        Need help? <span className="text-[#024653] underline cursor-pointer hover:text-[#05D16E] transition-colors">Contact Support</span>
-                    </p>
-                </div>
-            </motion.div>
+            </div>
         </div>
     );
 }

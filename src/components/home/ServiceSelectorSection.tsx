@@ -146,15 +146,32 @@ export default function ServiceSelectorSection() {
     };
 
     const getWizardLink = () => {
-        let url = `/wizard?type=${activeTab}`;
+        // Map tab names to schema types
+        const typeMap: any = {
+            'residential': 'residential',
+            'commercial': 'commercial',
+            'pm': 'property_mgmt'
+        };
+
+        // Map internal IDs to schema intensity
+        const intensityMap: any = {
+            'standard': 'standard',
+            'deep': 'deep',
+            'move': 'move_in_out',
+            'post-construction-res': 'post_construction',
+            'post-construction': 'post_construction',
+            'turnover': 'move_in_out'
+        };
+
+        let url = `/quote?type=${typeMap[activeTab] || activeTab}`;
         if (selectedOption) {
-            url += `&intensity=${selectedOption}`;
+            url += `&intensity=${intensityMap[selectedOption] || selectedOption}`;
         }
         return url;
     };
 
     return (
-        <section id="strategic-section" className="w-full bg-transparent relative h-auto py-20 lg:py-0 lg:h-[100svh] lg:max-h-[1000px] flex flex-col items-center justify-center snap-start scroll-mt-[130px] lg:-translate-y-[30px]">
+        <section id="services" className="w-full bg-transparent relative h-auto py-20 lg:py-0 lg:h-[100svh] lg:max-h-[1000px] flex flex-col items-center justify-center snap-start scroll-mt-[60px] lg:-translate-y-[30px]">
 
             {/* =========================================
                 MOBILE LAYOUT (lg:hidden)

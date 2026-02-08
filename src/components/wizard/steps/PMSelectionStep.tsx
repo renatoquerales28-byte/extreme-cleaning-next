@@ -4,12 +4,18 @@ import React, { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { useWizardAction } from "../WizardActionContext";
-import { Minus, Plus, Building, Check } from "lucide-react";
-import { motion } from "framer-motion";
+import { Minus, Plus, Building, Check, ArrowRight, Target, ShieldCheck, Briefcase } from "lucide-react";
 
 interface PMSelectionStepProps {
     onNext: () => void;
 }
+
+const needs = [
+    { id: "move-out", label: "Move-out clean" },
+    { id: "common", label: "Common areas" },
+    { id: "deep", label: "Deep clean" },
+    { id: "post-con", label: "Post-con" }
+];
 
 export default function PMSelectionStep({ onNext }: PMSelectionStepProps) {
     const { register, watch, setValue } = useFormContext<WizardData>();
@@ -19,79 +25,102 @@ export default function PMSelectionStep({ onNext }: PMSelectionStepProps) {
 
     useEffect(() => {
         setAction({
-            label: "Initialize Configuration",
-            disabled: !propertyCount,
-            onClick: () => propertyCount && onNext()
+            label: "Schedule Deployment",
+            disabled: !propertyCount || selectedNeeds.length === 0,
+            onClick: onNext,
+            icon: <ArrowRight size={18} strokeWidth={4} />
         });
-    }, [propertyCount, onNext, setAction]);
+    }, [propertyCount, selectedNeeds.length, onNext, setAction]);
 
     const handleCount = (val: number) => {
-        setValue("propertyCount", Math.max(0, val));
+        setValue("propertyCount", Math.max(1, val));
     };
 
-    const needs = [
-        { id: "move-out", label: "Move-out cleaning" },
-        { id: "common", label: "Common areas" },
-        { id: "deep", label: "Deep clean" }
-    ];
-
     return (
-        <div className="h-full w-full flex items-center justify-center p-6 md:p-0">
-            <div className="w-full max-w-2xl grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+        <div className="w-full h-full flex flex-col justify-center py-2">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto w-full px-6 items-stretch">
 
-                {/* Unit Counter Card */}
-                <div className="bg-white p-10 rounded-[2.5rem] border border-[#024653]/5 shadow-sm flex flex-col justify-between">
-                    <div>
-                        <div className="w-12 h-12 rounded-2xl bg-[#024653]/5 flex items-center justify-center text-[#024653] mb-6">
-                            <Building size={24} />
+                {/* 1. LEFT COLUMN: PORTFOLIO SCALE */}
+                <div className="flex flex-col space-y-3">
+                    <div className="flex items-center gap-2 ml-1">
+                        <div className="w-4 h-4 rounded-md bg-[#024653] flex items-center justify-center shadow-lg shadow-[#024653]/10">
+                            <Target size={10} className="text-white" />
                         </div>
-                        <h3 className="text-2xl font-bold text-[#024653]">Properties</h3>
-                        <p className="text-sm text-[#024653]/40">How many units in your portfolio?</p>
+                        <span className="text-[9px] font-black uppercase tracking-[0.25em] text-[#024653]">1. Portfolio Scaling</span>
                     </div>
 
-                    <div className="flex items-center justify-between bg-[#F9F8F2] p-2 rounded-2xl mt-12">
-                        <motion.button whileTap={{ scale: 0.95 }} onClick={() => handleCount(propertyCount - 1)} className="w-14 h-14 flex items-center justify-center rounded-xl bg-white shadow-sm text-[#024653] hover:text-red-500 transition-colors">
-                            <Minus size={24} />
-                        </motion.button>
-                        <span className="text-4xl font-bold text-[#024653] w-16 text-center">{propertyCount}</span>
-                        <motion.button whileTap={{ scale: 0.95 }} onClick={() => handleCount(propertyCount + 1)} className="w-14 h-14 flex items-center justify-center rounded-xl bg-white shadow-sm text-[#024653] hover:text-[#05D16E] transition-colors">
-                            <Plus size={24} />
-                        </motion.button>
+                    <div className="flex-1 bg-[#F9F8F2] border border-[#024653]/10 rounded-xl p-6 lg:p-8 flex flex-col justify-center">
+                        <div className="bg-white border-2 border-[#024653]/5 rounded-xl p-8 flex flex-col items-center gap-6 shadow-sm group hover:border-[#024653]/20 transition-all">
+                            <div className="flex items-center gap-3">
+                                <Building size={16} className="text-[#024653]/30" />
+                                <span className="text-[10px] font-black uppercase tracking-widest text-[#024653]/30">Active Units</span>
+                            </div>
+
+                            <div className="flex items-center gap-10">
+                                <button type="button" onClick={() => handleCount(propertyCount - 1)} className="w-12 h-12 flex items-center justify-center bg-[#024653]/5 rounded-xl text-[#024653] hover:text-red-500 transition-all active:scale-90">
+                                    <Minus size={18} />
+                                </button>
+                                <span className="text-7xl font-black text-[#024653] tabular-nums leading-none">{propertyCount}</span>
+                                <button type="button" onClick={() => handleCount(propertyCount + 1)} className="w-12 h-12 flex items-center justify-center bg-[#024653]/5 rounded-xl text-[#024653] hover:text-[#05D16E] transition-all active:scale-90">
+                                    <Plus size={18} />
+                                </button>
+                            </div>
+
+                            <p className="text-[9px] font-black uppercase tracking-widest text-[#05D16E] bg-[#05D16E]/5 px-4 py-1.5 rounded-full">
+                                {propertyCount > 5 ? 'Elite Portfolio Rates Active' : 'Standard Pro Pricing'}
+                            </p>
+                        </div>
                     </div>
                 </div>
 
-                {/* Service Needs Card */}
-                <div className="bg-white p-10 rounded-[2.5rem] border border-[#024653]/5 shadow-sm space-y-6">
-                    <div>
-                        <h3 className="text-xl font-bold text-[#024653]">Service Spectrum</h3>
-                        <p className="text-sm text-[#024653]/40">Select all that apply</p>
+                {/* 2. RIGHT COLUMN: OPERATIONAL NEEDS */}
+                <div className="flex flex-col space-y-3">
+                    <div className="flex items-center gap-2 ml-1">
+                        <div className="w-4 h-4 rounded-md bg-[#05D16E] flex items-center justify-center shadow-lg shadow-[#05D16E]/10">
+                            <Briefcase size={10} className="text-white" />
+                        </div>
+                        <span className="text-[9px] font-black uppercase tracking-[0.25em] text-[#024653]">2. Operational Protocol</span>
                     </div>
 
-                    <div className="space-y-3">
-                        {needs.map((need) => {
-                            const isSelected = selectedNeeds.includes(need.label);
-                            return (
-                                <label key={need.id} className={`group flex items-center justify-between p-5 rounded-2xl cursor-pointer transition-all border ${isSelected
-                                    ? "bg-[#024653] border-[#024653] text-white shadow-lg"
-                                    : "bg-[#F9F8F2] border-transparent text-[#024653]/60 hover:border-[#024653]/20"
-                                    }`}>
-                                    <span className={`font-bold text-xs uppercase tracking-widest ${isSelected ? "text-white" : "text-[#024653]/60"}`}>{need.label}</span>
-                                    <div className="relative">
-                                        <input
-                                            type="checkbox"
-                                            value={need.label}
-                                            {...register("serviceNeeds")}
-                                            className="sr-only"
-                                        />
-                                        <div className={`w-6 h-6 rounded-lg flex items-center justify-center transition-all ${isSelected ? "bg-[#05D16E] text-[#024653]" : "bg-white border border-[#024653]/10"}`}>
-                                            {isSelected && <Check size={14} strokeWidth={4} />}
+                    <div className="flex-1 bg-[#F9F8F2] border border-[#024653]/10 rounded-xl p-6 lg:p-8 flex flex-col justify-center">
+                        <div className="grid grid-cols-1 gap-2">
+                            {needs.map((need) => {
+                                const isSelected = selectedNeeds.includes(need.label);
+                                return (
+                                    <label
+                                        key={need.id}
+                                        className={`
+                                            group relative flex items-center justify-between p-5 rounded-xl border-2 cursor-pointer transition-all duration-300
+                                            ${isSelected
+                                                ? "bg-[#024653] border-[#024653] text-white shadow-xl shadow-[#024653]/20 -translate-y-1"
+                                                : "bg-white border-[#024653]/5 text-[#024653] hover:border-[#024653]/20 hover:shadow-md"
+                                            }
+                                        `}
+                                    >
+                                        <div className="flex items-center gap-4">
+                                            <div className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all ${isSelected ? 'bg-white/10 text-[#05D16E]' : 'bg-[#024653]/5 text-[#024653]'}`}>
+                                                <Target size={14} />
+                                            </div>
+                                            <span className="text-[10px] font-black uppercase tracking-[0.15em]">{need.label}</span>
                                         </div>
-                                    </div>
-                                </label>
-                            );
-                        })}
+                                        <div className={`w-6 h-6 rounded-lg flex items-center justify-center transition-all ${isSelected ? "bg-[#05D16E] text-[#024653]" : "bg-[#024653]/5 text-transparent"}`}>
+                                            <Check size={12} strokeWidth={4} />
+                                        </div>
+                                        <input type="checkbox" value={need.label} {...register("serviceNeeds")} className="sr-only" />
+                                    </label>
+                                );
+                            })}
+                        </div>
+
+                        <div className="pt-8 mt-auto border-t border-[#024653]/5 flex items-center justify-center gap-3 opacity-20">
+                            <ShieldCheck size={14} className="text-[#024653]" />
+                            <p className="text-[8px] font-black uppercase tracking-[0.3em] leading-tight text-center">
+                                High-Volume Operational Guarantee Active
+                            </p>
+                        </div>
                     </div>
                 </div>
+
             </div>
         </div>
     );

@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useEffect, useCallback, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { useWizardAction } from "../WizardActionContext";
 import { EXTRAS_LIST } from "@/lib/utils/pricing";
-import { Check, Plus } from "lucide-react";
-import { motion } from "framer-motion";
+import { ArrowRight, Sparkles, Target, ShieldPlus } from "lucide-react";
 
 interface ExtrasStepProps {
     onNext: () => void;
@@ -31,61 +30,86 @@ export default function ExtrasStep({ onNext }: ExtrasStepProps) {
 
     useEffect(() => {
         setAction({
-            label: "Select Frequency",
+            label: "Review Quote",
             onClick: onNext,
             disabled: false,
-            secondaryContent: extras.length > 0 && (
-                <div className="flex items-center gap-2 px-6 py-2 bg-white/80 rounded-full border border-[#024653]/5 shadow-sm backdrop-blur-sm animate-in fade-in zoom-in slide-in-from-bottom-2">
-                    <div className="w-2 h-2 rounded-full bg-[#05D16E]" />
-                    <span className="text-[10px] font-bold text-[#024653] uppercase tracking-widest">
-                        {extras.length} Extras Selected
-                    </span>
-                </div>
-            )
+            icon: <ArrowRight size={18} strokeWidth={4} />
         });
-    }, [extras, onNext, setAction]);
+    }, [onNext, setAction]);
 
     return (
-        <div className="h-full w-full flex items-center justify-center p-6 md:p-0">
-            <div className="w-full max-w-2xl grid grid-cols-2 md:grid-cols-3 gap-4 auto-rows-fr">
-                {EXTRAS_LIST.map((extra, idx) => {
-                    const isSelected = extras.includes(extra.id);
-                    return (
-                        <motion.button
-                            key={extra.id}
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: idx * 0.05 }}
-                            onClick={() => toggleExtra(extra.id)}
-                            className={`
-                                relative p-6 rounded-[2rem] border transition-all flex flex-col justify-between h-44 text-left group
-                                ${isSelected
-                                    ? "bg-[#024653] border-[#024653] text-white shadow-xl"
-                                    : "bg-white border-[#024653]/5 text-[#024653] shadow-sm hover:border-[#024653]/20"
-                                }
-                            `}
-                        >
-                            <div className="flex justify-between items-start">
-                                <span className="text-3xl filter saturate-[0.8] group-hover:saturate-100 transition-all">{extra.icon}</span>
-                                <div className={`
-                                    w-8 h-8 rounded-xl flex items-center justify-center transition-all
-                                    ${isSelected ? "bg-[#05D16E] text-[#024653]" : "bg-[#F9F8F2] text-[#024653]/20"}
-                                `}>
-                                    {isSelected ? <Check size={16} strokeWidth={4} /> : <Plus size={16} strokeWidth={3} />}
-                                </div>
-                            </div>
+        <div className="w-full flex-1 flex flex-col justify-center py-2">
+            <div className="max-w-6xl mx-auto w-full px-6 space-y-6">
 
-                            <div className="space-y-1">
-                                <h3 className={`text-[11px] font-bold uppercase tracking-widest leading-tight ${isSelected ? "text-white" : "text-[#024653]"}`}>
-                                    {extra.label}
-                                </h3>
-                                <div className={`text-[9px] font-bold uppercase tracking-tighter opacity-40 ${isSelected ? "text-white" : "text-[#024653]"}`}>
-                                    Premium Add-on
-                                </div>
-                            </div>
-                        </motion.button>
-                    );
-                })}
+                {/* Section Header */}
+                <div className="flex items-center justify-between px-1">
+                    <div className="flex items-center gap-3">
+                        <div className="w-5 h-5 rounded-md bg-[#05D16E] flex items-center justify-center shadow-lg shadow-[#05D16E]/20">
+                            <Sparkles size={12} className="text-white" />
+                        </div>
+                        <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#024653]">Premium Enhancements</span>
+                    </div>
+                    {extras.length > 0 && (
+                        <div className="flex items-center gap-2 px-3 py-1 bg-[#024653] rounded-full">
+                            <ShieldPlus size={10} className="text-[#05D16E]" />
+                            <span className="text-[9px] font-black uppercase text-white tracking-widest">{extras.length} Selected</span>
+                        </div>
+                    )}
+                </div>
+
+                {/* Bento Container */}
+                <div className="bg-[#F9F8F2] border border-[#024653]/10 rounded-xl p-4 lg:p-6">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                        {EXTRAS_LIST.map((extra) => {
+                            const isSelected = extras.includes(extra.id);
+                            return (
+                                <button
+                                    key={extra.id}
+                                    type="button"
+                                    onClick={() => toggleExtra(extra.id)}
+                                    className={`
+                                        relative p-5 lg:p-6 rounded-xl border-2 transition-all duration-300 flex flex-col items-center gap-4 group
+                                        ${isSelected
+                                            ? "bg-[#024653] border-[#024653] text-white shadow-xl shadow-[#024653]/20 -translate-y-1"
+                                            : "bg-white border-[#024653]/5 text-[#024653] hover:border-[#024653]/20 hover:shadow-md"
+                                        }
+                                    `}
+                                >
+                                    <div className={`
+                                        w-12 h-12 rounded-xl flex items-center justify-center text-2xl transition-all duration-500
+                                        ${isSelected ? "bg-white/10" : "bg-[#024653]/5 group-hover:bg-[#024653]/10"}
+                                    `}>
+                                        <span className={isSelected ? "saturate-100" : "grayscale opacity-40 group-hover:grayscale-0 group-hover:opacity-100"}>
+                                            {extra.icon}
+                                        </span>
+                                    </div>
+                                    <div className="text-center">
+                                        <span className="text-[10px] font-black uppercase tracking-tight block leading-none mb-1">
+                                            {extra.label}
+                                        </span>
+                                        <span className={`text-[7px] font-bold uppercase tracking-widest opacity-40 ${isSelected ? 'text-[#05D16E]' : ''}`}>
+                                            Elite Add-on
+                                        </span>
+                                    </div>
+
+                                    {isSelected && (
+                                        <div className="absolute top-2 right-2">
+                                            <div className="w-2 h-2 rounded-full bg-[#05D16E] shadow-[0_0_8px_#05D16E]" />
+                                        </div>
+                                    )}
+                                </button>
+                            );
+                        })}
+                    </div>
+                </div>
+
+                {/* Footer Insight */}
+                <div className="flex items-center justify-center gap-3 pt-2 opacity-20">
+                    <Target size={12} className="text-[#024653]" />
+                    <p className="text-[9px] font-black uppercase tracking-[0.4em] text-[#024653]">
+                        Tailored Perfection Protocol
+                    </p>
+                </div>
             </div>
         </div>
     );

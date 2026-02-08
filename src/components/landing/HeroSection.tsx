@@ -94,12 +94,13 @@ export default function HeroSection() {
                     {/* Mobile Content */}
                     <div className="space-y-5">
                         <h1 className="text-3xl font-normal leading-[1.1] tracking-tight">
-                            Illuminate in style: <br />
-                            <span className="italic font-light">extreme</span> cleaning solutions
+                            Professional Cleaning <br />
+                            <span className="italic font-light">Excellence</span> in Spokane <br />
+                            for your home
                         </h1>
 
                         <p className="text-[14px] font-light opacity-70 leading-[1.4] max-w-[300px] mx-auto">
-                            Experience the radiant transformation of your space <br className="hidden xs:block" /> with our premium services.
+                            Precision in every detail, reliability in every visit. <br className="hidden xs:block" /> We redefine maintenance across Spokane and surrounding areas.
                         </p>
 
                         {/* Mobile Delicate Input */}
@@ -208,13 +209,14 @@ export default function HeroSection() {
                             <div className="space-y-6 lg:space-y-6 xl:space-y-8">
                                 {/* Minimalist Headline */}
                                 <h1 className="text-4xl md:text-5xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-normal leading-[1.1] tracking-tight">
-                                    Illuminate in style: <br />
-                                    <span className="italic font-light">extreme</span> cleaning <br />
-                                    solutions
+                                    Professional Cleaning <br />
+                                    <span className="italic font-light">Excellence</span> in Spokane <br />
+                                    for your home
                                 </h1>
 
                                 <p className="text-lg font-light opacity-70 max-w-md leading-relaxed">
-                                    Explore our collection and uncover the radiant treasures that will add a touch of enchantment to your world.
+                                    Precision in every detail, reliability in every visit. <br />
+                                    We redefine maintenance across Spokane and surrounding areas.
                                 </p>
 
                                 {/* Premium Elevated Zip Code Input - Refined Shadow */}

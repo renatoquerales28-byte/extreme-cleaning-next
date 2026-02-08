@@ -1,11 +1,12 @@
 import * as z from "zod";
 
 export const serviceTypes = ["residential", "commercial", "property_mgmt"] as const;
-export const cleaningTypes = ["regular", "standard", "deep", "move", "post_construction"] as const;
+export const cleaningTypes = ["regular", "standard", "deep", "move_in_out", "post_construction"] as const;
 export const frequencies = ["weekly", "biweekly", "monthly", "onetime"] as const;
 
 export const wizardSchema = z.object({
-    step: z.number(),
+    // Navigation
+    step: z.number().optional(),
     zipCode: z.string().length(5, "ZIP code must be 5 digits").regex(/^\d+$/, "Must be digits only"),
     serviceType: z.enum(serviceTypes).optional(),
 
@@ -34,14 +35,14 @@ export const wizardSchema = z.object({
     })).default([]),
 
     // Contact
-    firstName: z.preprocess((val) => val === "" ? undefined : val, z.string().min(2, "Required").optional()),
-    lastName: z.preprocess((val) => val === "" ? undefined : val, z.string().min(2, "Required").optional()),
-    email: z.preprocess((val) => val === "" ? undefined : val, z.string().email("Invalid email").optional()),
-    phone: z.preprocess((val) => val === "" ? undefined : val, z.string().min(10, "Invalid phone").optional()),
+    firstName: z.preprocess((val) => val === "" ? undefined : val, z.string().min(2, "First identity required")),
+    lastName: z.preprocess((val) => val === "" ? undefined : val, z.string().min(2, "Last identity required")),
+    email: z.preprocess((val) => val === "" ? undefined : val, z.string().email("Invalid email")),
+    phone: z.preprocess((val) => val === "" ? undefined : val, z.string().min(10, "Valid contact number required")),
     notes: z.string().optional(),
 
     // Address (New Step)
-    address: z.preprocess((val) => val === "" ? undefined : val, z.string().min(5, "Full address required").optional()),
+    address: z.preprocess((val) => val === "" ? undefined : val, z.string().min(5, "Full service address required")),
     unit: z.string().optional(),
     city: z.string().default("Spokane"),
     state: z.string().default("WA"),

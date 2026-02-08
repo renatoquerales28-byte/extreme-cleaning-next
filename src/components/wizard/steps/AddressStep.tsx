@@ -67,10 +67,10 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
 
     return (
         <div className="h-full w-full flex items-center justify-center p-6 md:p-0">
-            <div className="w-full max-w-2xl bg-white p-8 md:p-12 rounded-[2.5rem] border border-[#024653]/5 shadow-sm space-y-8">
+            <div className="w-full max-w-2xl bg-white p-8 md:p-12 rounded-xl border border-[#024653]/5 shadow-sm space-y-8">
 
                 <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-[#024653]/5 flex items-center justify-center text-[#024653]">
+                    <div className="w-12 h-12 rounded-xl bg-[#024653]/5 flex items-center justify-center text-[#024653]">
                         <Building2 size={24} />
                     </div>
                     <div>
@@ -88,7 +88,7 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
                             <input
                                 {...register("address")}
                                 placeholder="123 Ocean Drive"
-                                className={`w-full pl-12 pr-4 py-4 bg-[#F9F8F2] rounded-2xl font-bold text-[#024653] border-none outline-none focus:ring-2 transition-all placeholder:text-[#024653]/10 ${errors.address ? 'ring-2 ring-rose-400/20' : 'focus:ring-[#05D16E]/20'}`}
+                                className={`w-full pl-12 pr-4 py-4 bg-[#F9F8F2] rounded-xl font-bold text-[#024653] border-none outline-none focus:ring-2 transition-all placeholder:text-[#024653]/10 ${errors.address ? 'ring-2 ring-rose-400/20' : 'focus:ring-[#05D16E]/20'}`}
                             />
                         </div>
                     </div>
@@ -99,7 +99,7 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
                         <input
                             {...register("city")}
                             placeholder="Miami"
-                            className={`w-full px-4 py-4 bg-[#F9F8F2] rounded-2xl font-bold text-[#024653] border-none outline-none focus:ring-2 transition-all placeholder:text-[#024653]/10 ${errors.city ? 'ring-2 ring-rose-400/20' : 'focus:ring-[#05D16E]/20'}`}
+                            className={`w-full px-4 py-4 bg-[#F9F8F2] rounded-xl font-bold text-[#024653] border-none outline-none focus:ring-2 transition-all placeholder:text-[#024653]/10 ${errors.city ? 'ring-2 ring-rose-400/20' : 'focus:ring-[#05D16E]/20'}`}
                         />
                     </div>
 
@@ -109,7 +109,7 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
                         <input
                             {...register("zipCode")}
                             readOnly
-                            className="w-full px-4 py-4 bg-[#024653]/5 rounded-2xl font-bold text-[#024653]/30 border-none outline-none cursor-not-allowed"
+                            className="w-full px-4 py-4 bg-[#024653]/5 rounded-xl font-bold text-[#024653]/30 border-none outline-none cursor-not-allowed"
                         />
                     </div>
 
@@ -122,7 +122,7 @@ export default function AddressStep({ onSubmit }: AddressStepProps) {
                                 {...register("phone")}
                                 type="tel"
                                 placeholder="(305) 555-0123"
-                                className={`w-full pl-12 pr-4 py-4 bg-[#F9F8F2] rounded-2xl font-bold text-[#024653] border-none outline-none focus:ring-2 transition-all placeholder:text-[#024653]/10 ${errors.phone ? 'ring-2 ring-rose-400/20' : 'focus:ring-[#05D16E]/20'}`}
+                                className={`w-full pl-12 pr-4 py-4 bg-[#F9F8F2] rounded-xl font-bold text-[#024653] border-none outline-none focus:ring-2 transition-all placeholder:text-[#024653]/10 ${errors.phone ? 'ring-2 ring-rose-400/20' : 'focus:ring-[#05D16E]/20'}`}
                             />
                         </div>
                     </div>

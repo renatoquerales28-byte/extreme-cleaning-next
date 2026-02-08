@@ -71,14 +71,17 @@ function WizardNavigation() {
         if (!stepConfig) return;
 
         // Step-specific validation
-        const fieldsToValidate: any = {
+        const validationMap: Record<string, any[]> = {
             zip: ["zipCode"],
             price_and_quote: ["firstName", "lastName", "email"],
             logistics: ["address", "city", "phone", "serviceDate", "serviceTime"],
             space_config: ["bedrooms", "bathrooms", "sqFt", "cleaningType", "frequency"],
             commercial_details: ["businessType", "commSqFt", "floors"],
-            pm_details: ["propertyCount"]
-        }[currentStep] || [];
+            pm_details: ["propertyCount"],
+            extras: []
+        };
+
+        const fieldsToValidate = (validationMap as any)[currentStep] || [];
 
         const isValid = await trigger(fieldsToValidate);
         if (!isValid) {

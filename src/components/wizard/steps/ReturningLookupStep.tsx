@@ -2,7 +2,7 @@
 
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
-import { Phone, Search, ArrowLeft, Target, ShieldLock, User } from "lucide-react";
+import { Phone, Search, ArrowLeft, Target, ShieldCheck, User } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
 import { useWizardAction } from "../WizardActionContext";
 import { motion, AnimatePresence } from "framer-motion";
@@ -88,7 +88,7 @@ export default function ReturningLookupStep({ onBack, onFound }: ReturningLookup
                                         className="absolute top-8 right-8"
                                     >
                                         <div className="w-10 h-10 rounded-full bg-[#05D16E] flex items-center justify-center text-white shadow-lg shadow-[#05D16E]/20">
-                                            <ShieldLock size={20} strokeWidth={4} />
+                                            <ShieldCheck size={20} strokeWidth={4} />
                                         </div>
                                     </motion.div>
                                 )}
@@ -129,7 +129,7 @@ export default function ReturningLookupStep({ onBack, onFound }: ReturningLookup
                     <div className="flex-1 bg-[#F9F8F2] border border-[#024653]/10 rounded-xl p-6 lg:p-8 flex flex-col justify-between">
                         <div className="space-y-4">
                             <div className="bg-white/50 border border-[#024653]/5 rounded-xl p-5 flex items-start gap-4">
-                                <ShieldLock className="text-[#024653]/20 shrink-0" size={24} />
+                                <ShieldCheck className="text-[#024653]/20 shrink-0" size={24} />
                                 <div className="space-y-1">
                                     <p className="text-[10px] font-black uppercase tracking-widest text-[#024653]">Secure Retrieval</p>
                                     <p className="text-[10px] font-bold text-[#024653]/40 leading-relaxed">

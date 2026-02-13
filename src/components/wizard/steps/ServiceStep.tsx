@@ -80,12 +80,8 @@ export default function ServiceStep({ onNext }: ServiceStepProps) {
                                     }
                                 `}
                             >
-                                {/* Selected Badge */}
-                                {isSelected && (
-                                    <div className="absolute top-5 right-5 text-[#05D16E]">
-                                        <ShieldCheck size={20} />
-                                    </div>
-                                )}
+                                {/* Selected State Visuals handled by background and shadow */}
+
 
                                 <div className={`
                                     w-16 h-16 rounded-2xl flex items-center justify-center mb-8 transition-all duration-500

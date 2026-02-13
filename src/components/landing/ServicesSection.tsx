@@ -1,0 +1,97 @@
+"use client";
+
+import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, Home, Building2, Key } from "lucide-react";
+import { motion } from "framer-motion";
+
+export default function ServicesSection() {
+    const services = [
+        {
+            id: "residential",
+            title: "Residential",
+            icon: Home,
+            description: "From routine maintenance to deep seasonality cleaning. Move-in/move-out services available.",
+            image: "/brand/service-residential.png",
+            link: "/quote?type=residential"
+        },
+        {
+            id: "commercial",
+            title: "Commercial",
+            icon: Building2,
+            description: "Offices, retail spaces, medical facilities, and banks. We work around your schedule.",
+            image: "/brand/service-commercial.png",
+            link: "/quote?type=commercial"
+        },
+        {
+            id: "move",
+            title: "Move In/Out",
+            icon: Key,
+            description: "Ensure every corner is spotless for the next chapter. Deep cleaning for smooth transitions.",
+            image: "/brand/service-airbnb.png",
+            link: "/quote?type=residential&intensity=move"
+        }
+    ];
+
+    return (
+        <section className="py-24 relative overflow-hidden snap-start scroll-mt-[60px]" id="services">
+            <div className="container px-4 mx-auto">
+                <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                    <div className="max-w-xl space-y-4">
+                        <span className="text-[#024653]/40 font-black tracking-[0.2em] text-xs uppercase">Our Expertise</span>
+                        <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-[#024653] leading-[0.9]">
+                            Curated Services <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#024653] via-[#0E6168] to-[#05D16E]">For Any Space.</span>
+                        </h2>
+                    </div>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-8">
+                    {services.map((service, index) => (
+                        <motion.div
+                            key={service.id}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1, duration: 0.5 }}
+                            viewport={{ once: true }}
+                            className="group relative h-[500px] rounded-[3rem] overflow-hidden cursor-pointer shadow-xl hover:shadow-2xl transition-all duration-500"
+                        >
+                            {/* Background Image */}
+                            <Image
+                                src={service.image}
+                                alt={service.title}
+                                fill
+                                className="object-cover transition-transform duration-1000 group-hover:scale-110"
+                            />
+
+                            {/* Gradient Overlay - Premium Botanical Blend */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-[#024653] via-[#024653]/40 to-transparent opacity-80 group-hover:opacity-70 transition-opacity duration-500" />
+
+                            {/* Content */}
+                            <div className="absolute inset-0 p-10 flex flex-col justify-end text-white">
+                                <div className="mb-auto opacity-0 group-hover:opacity-100 transition-all duration-500 -translate-y-4 group-hover:translate-y-0">
+                                    <div className="w-12 h-12 bg-white/20 backdrop-blur-md border border-white/20 rounded-2xl flex items-center justify-center shadow-xl">
+                                        <ArrowRight className="text-white" size={20} />
+                                    </div>
+                                </div>
+
+                                <div className="space-y-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                    <div className="flex items-center gap-4">
+                                        <div className="p-3 bg-[#05D16E]/20 backdrop-blur-xl border border-[#05D16E]/30 rounded-2xl">
+                                            <service.icon size={26} className="text-[#05D16E]" />
+                                        </div>
+                                        <h3 className="text-3xl font-black tracking-tight uppercase">{service.title}</h3>
+                                    </div>
+                                    <p className="text-white/70 font-medium leading-relaxed max-w-xs">{service.description}</p>
+                                </div>
+                            </div>
+
+                            <Link href={service.link} className="absolute inset-0 z-20" aria-label={`View ${service.title} services`} />
+                        </motion.div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}

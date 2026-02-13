@@ -62,51 +62,49 @@ export default function ServiceStep({ onNext }: ServiceStepProps) {
                 </div>
 
                 {/* Grid Container */}
-                <div className="bg-[#F9F8F2] border border-[#024653]/10 rounded-xl p-4 lg:p-6">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        {services.map((option) => {
-                            const isSelected = selected === option.id;
-                            const Icon = option.icon;
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-4">
+                    {services.map((option) => {
+                        const isSelected = selected === option.id;
+                        const Icon = option.icon;
 
-                            return (
-                                <button
-                                    key={option.id}
-                                    type="button"
-                                    onClick={() => handleSelect(option.id as any)}
-                                    className={`
-                                        relative flex flex-col items-center p-8 lg:p-10 rounded-xl border-2 transition-all duration-500 group
-                                        ${isSelected
-                                            ? "bg-[#024653] border-[#024653] text-white shadow-2xl shadow-[#024653]/30 -translate-y-2 scale-[1.02]"
-                                            : "bg-white border-[#024653]/5 text-[#024653] hover:border-[#024653]/20 hover:shadow-xl hover:shadow-[#024653]/5"
-                                        }
-                                    `}
-                                >
-                                    {/* Selected Badge */}
-                                    {isSelected && (
-                                        <div className="absolute top-4 right-4 text-[#05D16E]">
-                                            <ShieldCheck size={20} />
-                                        </div>
-                                    )}
-
-                                    <div className={`
-                                        w-16 h-16 rounded-xl flex items-center justify-center mb-8 transition-all duration-500
-                                        ${isSelected ? "bg-white/10 text-[#05D16E]" : "bg-[#024653]/5 text-[#024653] group-hover:bg-[#024653]/10"}
-                                    `}>
-                                        <Icon size={28} />
+                        return (
+                            <button
+                                key={option.id}
+                                type="button"
+                                onClick={() => handleSelect(option.id as any)}
+                                className={`
+                                    relative flex flex-col items-center p-8 lg:p-10 rounded-2xl border transition-all duration-500 group
+                                    ${isSelected
+                                        ? "bg-[#024653] border-[#024653] text-white shadow-2xl shadow-[#024653]/30 -translate-y-2 scale-[1.02]"
+                                        : "bg-white border-[#024653]/10 text-[#024653] hover:border-[#024653]/20 hover:shadow-xl hover:shadow-[#024653]/5"
+                                    }
+                                `}
+                            >
+                                {/* Selected Badge */}
+                                {isSelected && (
+                                    <div className="absolute top-5 right-5 text-[#05D16E]">
+                                        <ShieldCheck size={20} />
                                     </div>
+                                )}
 
-                                    <div className="text-center space-y-3">
-                                        <h4 className="font-black text-lg tracking-widest uppercase leading-none">{option.label}</h4>
-                                        <div className="space-y-1">
-                                            <p className={`text-[10px] font-bold uppercase tracking-widest opacity-40 leading-relaxed ${isSelected ? "text-[#05D16E]" : "text-[#024653]"}`}>
-                                                {option.desc}
-                                            </p>
-                                        </div>
+                                <div className={`
+                                    w-16 h-16 rounded-2xl flex items-center justify-center mb-8 transition-all duration-500
+                                    ${isSelected ? "bg-white/10 text-[#05D16E]" : "bg-[#024653]/5 text-[#024653] group-hover:bg-[#024653]/10"}
+                                `}>
+                                    <Icon size={28} />
+                                </div>
+
+                                <div className="text-center space-y-3">
+                                    <h4 className="font-black text-lg tracking-widest uppercase leading-none">{option.label}</h4>
+                                    <div className="space-y-1">
+                                        <p className={`text-[10px] font-bold uppercase tracking-widest opacity-40 leading-relaxed ${isSelected ? "text-[#05D16E]" : "text-[#024653]"}`}>
+                                            {option.desc}
+                                        </p>
                                     </div>
-                                </button>
-                            );
-                        })}
-                    </div>
+                                </div>
+                            </button>
+                        );
+                    })}
                 </div>
 
                 {/* Footer Info */}

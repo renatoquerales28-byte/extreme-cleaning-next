@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { useEffect, useState } from "react";
 import { Check, MapPin, Phone, Building2 } from "lucide-react";
 import Link from "next/link";

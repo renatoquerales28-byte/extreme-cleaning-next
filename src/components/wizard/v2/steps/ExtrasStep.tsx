@@ -3,7 +3,7 @@
 import React, { useEffect, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { EXTRAS_LIST } from "@/lib/utils/pricing";
 import { ArrowRight, Sparkles, Target, ShieldPlus } from "lucide-react";
 

@@ -3,7 +3,7 @@
 import React, { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { Minus, Plus, Building, Check, ArrowRight, Target, ShieldCheck, Briefcase } from "lucide-react";
 
 interface PMSelectionStepProps {

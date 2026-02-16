@@ -1,5 +1,5 @@
 import { Calendar, Check } from "lucide-react";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { useFormContext } from "react-hook-form";

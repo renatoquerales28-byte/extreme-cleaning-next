@@ -2,7 +2,7 @@
 
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { useEffect } from "react";
 import { Building2, Minus, Plus, ArrowRight, Layers, Target, Ruler, ShieldCheck } from "lucide-react";
 

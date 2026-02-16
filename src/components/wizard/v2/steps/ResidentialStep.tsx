@@ -1,7 +1,7 @@
 "use client";
 
 import { Minus, Plus, Sparkles, Zap, Box, HardHat, ArrowRight, Bed, Bath, Ruler, Target, ShieldCheck } from "lucide-react";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";

@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { MapPin, CheckCircle2, AlertCircle, User, ArrowRight, Scan, Target, Map } from "lucide-react";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ZipStepProps {

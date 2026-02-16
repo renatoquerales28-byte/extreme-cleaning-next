@@ -2,7 +2,7 @@
 
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { ShieldCheck, ArrowRight, Lock, User, Mail, DollarSign, Target } from "lucide-react";
 import { calculateTotal } from "@/lib/utils/pricing";

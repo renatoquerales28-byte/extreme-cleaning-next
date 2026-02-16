@@ -2,7 +2,7 @@
 
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { useEffect } from "react";
 import { Sparkles, Zap, Box, CalendarDays, CalendarClock, Calendar, Clock, Check, ArrowRight, Target, ShieldPlus } from "lucide-react";
 

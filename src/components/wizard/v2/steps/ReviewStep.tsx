@@ -2,7 +2,7 @@
 
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { useEffect, useMemo } from "react";
 import { Calendar, MapPin, User, CheckCircle2, Sparkles, Edit3, ArrowRight, ShieldCheck, Target } from "lucide-react";
 import { format } from "date-fns";

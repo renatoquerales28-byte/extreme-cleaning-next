@@ -1,7 +1,7 @@
 "use client";
 
 import { Home, Building2, LayoutGrid, ArrowRight, Target, ShieldCheck } from "lucide-react";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";

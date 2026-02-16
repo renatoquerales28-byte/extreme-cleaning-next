@@ -21,6 +21,21 @@ export default function PMSelectionStep({ onNext, onGoToStep }: PMSelectionStepP
     // The current property is stored in the root data (zipCode, cleaningType, etc.)
     // until the user clicks "Add Another" or "Proceed"
 
+    const handleSaveCurrent = React.useCallback(() => {
+        const newProperty = {
+            id: Date.now(),
+            name: `${data.cleaningType} @ ${data.zipCode}`,
+            bedrooms: data.bedrooms || 1,
+            bathrooms: data.bathrooms || 1,
+            sqFt: data.sqFt || 1000,
+            cleaningType: data.cleaningType || "regular",
+            address: data.address, // We need to ensure address is captured for each
+            city: data.city || "Spokane",
+            zipCode: data.zipCode
+        };
+        setValue("smallPortfolio", [...portfolio, newProperty as any]);
+    }, [data.cleaningType, data.zipCode, data.bedrooms, data.bathrooms, data.sqFt, data.address, data.city, portfolio, setValue]);
+
     useEffect(() => {
         const canAdvance = !!(data.address && data.city);
 
@@ -34,22 +49,7 @@ export default function PMSelectionStep({ onNext, onGoToStep }: PMSelectionStepP
             },
             icon: <ArrowRight size={18} strokeWidth={4} />
         });
-    }, [data.address, data.city, portfolio.length, onNext, setAction]);
-
-    const handleSaveCurrent = () => {
-        const newProperty = {
-            id: Date.now(),
-            name: `${data.cleaningType} @ ${data.zipCode}`,
-            bedrooms: data.bedrooms || 1,
-            bathrooms: data.bathrooms || 1,
-            sqFt: data.sqFt || 1000,
-            cleaningType: data.cleaningType || "regular",
-            address: data.address, // We need to ensure address is captured for each
-            city: data.city || "Spokane",
-            zipCode: data.zipCode
-        };
-        setValue("smallPortfolio", [...portfolio, newProperty as any]);
-    };
+    }, [data.address, data.city, portfolio.length, onNext, setAction, handleSaveCurrent]);
 
     const handleAddAnother = () => {
         if (!data.address || !data.city) {

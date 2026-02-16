@@ -4,7 +4,7 @@ import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { Phone, Search, ArrowLeft, Target, ShieldCheck, User } from "lucide-react";
 import { useState, useEffect, useCallback } from "react";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface ReturningLookupStepProps {

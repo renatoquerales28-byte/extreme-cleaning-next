@@ -51,7 +51,7 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
             setStatus('idle');
             setCity(undefined);
         }
-    }, [zipCode]); // Only depend on zipCode to prevent infinite loops
+    }, [zipCode, isChecking, checkAvailability]);
 
     useEffect(() => {
         const canCheck = zipCode.length === 5;

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect } from "react";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { Building2, MapPin, Plus, UserCircle2, ArrowRight, LogOut, Target, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 

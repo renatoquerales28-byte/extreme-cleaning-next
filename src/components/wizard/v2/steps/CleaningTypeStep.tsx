@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { motion } from "framer-motion";

@@ -1,6 +1,6 @@
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { useEffect, useState, useCallback, useMemo } from "react";
 import { Sparkles, X, AlertCircle, CheckCircle2, User, Gift } from "lucide-react";
 import { validatePromoCode, type ValidatePromoResult } from "@/app/actions/promotions";

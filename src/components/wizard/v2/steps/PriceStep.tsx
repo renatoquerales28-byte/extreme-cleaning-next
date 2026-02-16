@@ -1,6 +1,6 @@
 "use client";
 
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { useEffect } from "react";
 import { ArrowRight, Check, ShieldCheck, Star } from "lucide-react";
 import { useFormContext } from "react-hook-form";

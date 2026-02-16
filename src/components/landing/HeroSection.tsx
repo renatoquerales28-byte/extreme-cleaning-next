@@ -29,7 +29,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
             setWordIndex((prev) => (prev + 1) % words.length);
         }, 4000);
         return () => clearInterval(interval);
-    }, []);
+    }, [words.length]);
 
     useEffect(() => {
         const handleScroll = () => {

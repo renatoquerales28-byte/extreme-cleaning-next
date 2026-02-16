@@ -2,7 +2,7 @@
 
 import { useFormContext, Controller } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
-import { useWizardAction } from "../WizardActionContext";
+import { useWizardAction } from "../../WizardActionContext";
 import { useEffect, useState, useCallback } from "react";
 import { Calendar as CalendarIcon, Clock, MapPin, Loader2, ArrowRight, Target, ShieldCheck, Phone } from "lucide-react";
 import { SimpleCalendar } from "@/components/ui/SimpleCalendar";

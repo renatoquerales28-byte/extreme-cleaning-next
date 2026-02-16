@@ -39,19 +39,19 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
         }
     }, [zipCode]);
 
+    const lastValidatedZip = React.useRef<string>("");
+
     // Handle ZIP changes & Auto-validation
     useEffect(() => {
-        if (zipCode.length === 5) {
-            // Re-validate if we aren't currently checking
-            if (!isChecking) {
-                checkAvailability();
-            }
-        } else {
-            // Reset state if ZIP is incomplete
+        if (zipCode.length === 5 && zipCode !== lastValidatedZip.current) {
+            lastValidatedZip.current = zipCode;
+            checkAvailability();
+        } else if (zipCode.length !== 5) {
+            lastValidatedZip.current = "";
             setStatus('idle');
             setCity(undefined);
         }
-    }, [zipCode, isChecking, checkAvailability]);
+    }, [zipCode, checkAvailability]);
 
     useEffect(() => {
         const canCheck = zipCode.length === 5;

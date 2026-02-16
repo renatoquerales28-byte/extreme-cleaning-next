@@ -137,7 +137,7 @@ export default function FooterSection() {
                         <div className="space-y-1.5">
                             <h5 className="text-xs font-bold text-[#024653] uppercase tracking-tight">Career & Support</h5>
                             <div className="text-[11px] font-light opacity-60 leading-relaxed">
-                                <p>+1 (509) 123-4567</p>
+                                <p>+1 (509) 981-2337</p>
                                 <p className="font-medium mt-1">work@ecscleaning.com</p>
                             </div>
                         </div>
@@ -237,7 +237,7 @@ export default function FooterSection() {
                                 <div className="space-y-1.5">
                                     <p className="text-[10px] font-bold text-[#024653]">Career & Support</p>
                                     <div className="text-[10px] font-normal opacity-40 leading-relaxed">
-                                        <p>+1 (509) 123-4567</p>
+                                        <p>+1 (509) 981-2337</p>
                                         <p className="pt-0.5">work@ecscleaning.com</p>
                                     </div>
                                 </div>

@@ -128,7 +128,7 @@ const getMobileDesc = (id: string, label: string) => {
     return descs[id] || "Professional cleaning service tailored for you.";
 };
 
-export default function ServiceSelectorSection() {
+export default function ServiceSelectorSection({ onOpenWizard }: { onOpenWizard?: (type?: string, intensity?: string) => void }) {
     const [activeTab, setActiveTab] = useState<ServiceType>('residential');
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [startIndex, setStartIndex] = useState(0);
@@ -145,15 +145,15 @@ export default function ServiceSelectorSection() {
         setStartIndex((prev) => (prev + 1) % activeContent.options.length);
     };
 
-    const getWizardLink = () => {
-        // Map tab names to schema types
+    const handleContinue = (e?: React.MouseEvent) => {
+        if (e) e.preventDefault();
+
         const typeMap: any = {
             'residential': 'residential',
             'commercial': 'commercial',
             'pm': 'property_mgmt'
         };
 
-        // Map internal IDs to schema intensity
         const intensityMap: any = {
             'standard': 'standard',
             'deep': 'deep',
@@ -163,11 +163,23 @@ export default function ServiceSelectorSection() {
             'turnover': 'move_in_out'
         };
 
-        let url = `/quote?type=${typeMap[activeTab] || activeTab}`;
-        if (selectedOption) {
-            url += `&intensity=${intensityMap[selectedOption] || selectedOption}`;
+        const serviceType = typeMap[activeTab] || activeTab;
+        const intensity = selectedOption ? (intensityMap[selectedOption] || selectedOption) : undefined;
+
+        if (onOpenWizard) {
+            onOpenWizard(serviceType, intensity);
+
+            // Sync URL for marketing/analytics
+            const url = new URL(window.location.href);
+            url.searchParams.set('type', serviceType);
+            if (intensity) url.searchParams.set('intensity', intensity);
+            window.history.pushState({}, '', url);
+        } else {
+            // Fallback for safety
+            let url = `/quote?type=${serviceType}`;
+            if (intensity) url += `&intensity=${intensity}`;
+            window.location.href = url;
         }
-        return url;
     };
 
     return (
@@ -269,13 +281,13 @@ export default function ServiceSelectorSection() {
                                 animate={{ opacity: 1, scale: 1 }}
                                 exit={{ opacity: 0, scale: 0.95 }}
                             >
-                                <Link
-                                    href={getWizardLink()}
+                                <button
+                                    onClick={handleContinue}
                                     className="w-full flex items-center justify-center gap-3 py-5 bg-[#024653] text-white rounded-2xl font-normal text-xs uppercase tracking-widest shadow-xl active:scale-95 transition-all"
                                 >
                                     <span>Get Clean!</span>
                                     <ArrowRight size={18} className="text-white" />
-                                </Link>
+                                </button>
                                 <p className="text-center text-[10px] text-[#024653]/40 mt-3 font-medium">
                                     Appointments available 7 days a week
                                 </p>
@@ -331,10 +343,13 @@ export default function ServiceSelectorSection() {
                                         <AnimatePresence>
                                             {selectedOption ? (
                                                 <motion.div key="action" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="w-full">
-                                                    <Link href={getWizardLink()} className="inline-flex w-full items-center justify-between gap-4 px-8 py-4 bg-[#05D16E] text-[#024653] rounded-xl font-bold text-xs uppercase tracking-widest shadow-xl shadow-[#05D16E]/10 hover:-translate-y-0.5 transition-all">
+                                                    <button
+                                                        onClick={handleContinue}
+                                                        className="inline-flex w-full items-center justify-between gap-4 px-8 py-4 bg-[#05D16E] text-[#024653] rounded-xl font-bold text-xs uppercase tracking-widest shadow-xl shadow-[#05D16E]/10 hover:-translate-y-0.5 transition-all"
+                                                    >
                                                         <span>Continue to Booking</span>
                                                         <ArrowRight size={16} />
-                                                    </Link>
+                                                    </button>
                                                 </motion.div>
                                             ) : (
                                                 <motion.p key="hint" initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="w-full text-center text-[9px] uppercase tracking-widest text-white/30 italic font-medium">Select a plan to proceed</motion.p>

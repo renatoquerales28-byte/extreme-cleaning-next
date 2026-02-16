@@ -1,8 +1,8 @@
 import * as z from "zod";
 
 export const serviceTypes = ["residential", "commercial", "property_mgmt"] as const;
-export const cleaningTypes = ["regular", "standard", "deep", "move_in_out", "post_construction"] as const;
-export const frequencies = ["weekly", "biweekly", "monthly", "onetime"] as const;
+export const cleaningTypes = ["regular", "standard", "deep", "move_in_out", "post_construction", "first_cleaning", "office_maintenance", "deep_sanitization"] as const;
+export const frequencies = ["weekly", "biweekly", "monthly", "onetime", "daily"] as const;
 
 export const wizardSchema = z.object({
     // Navigation
@@ -31,10 +31,14 @@ export const wizardSchema = z.object({
         bedrooms: z.number(),
         bathrooms: z.number(),
         sqFt: z.number(),
-        cleaningType: z.enum(cleaningTypes)
+        cleaningType: z.enum(cleaningTypes),
+        address: z.string().optional(),
+        city: z.string().optional(),
+        zipCode: z.string().optional()
     })).default([]),
 
     // Contact
+    companyName: z.string().optional(),
     firstName: z.preprocess((val) => val === "" ? undefined : val, z.string().min(2, "First identity required")),
     lastName: z.preprocess((val) => val === "" ? undefined : val, z.string().min(2, "Last identity required")),
     email: z.preprocess((val) => val === "" ? undefined : val, z.string().email("Invalid email")),

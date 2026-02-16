@@ -1,156 +1,118 @@
-import React, { useEffect } from "react";
+"use client";
+
+import { Sparkles, Box, HardHat, ArrowRight, ShieldCheck, Building2, Briefcase } from "lucide-react";
 import { useWizardAction } from "../WizardActionContext";
+import { useEffect, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
-import { motion } from "framer-motion";
-import { Sparkles, Zap, Box, HardHat, Check, X } from "lucide-react";
 
 interface CleaningTypeStepProps {
     onNext: () => void;
 }
 
-const cleaningTypes = [
-    {
-        id: "standard",
-        label: "Standard Clean",
-        description: "Perfect for maintaining a tidy home.",
-        icon: Sparkles,
-        popular: true,
-        features: [
-            { name: "Dusting & Mopping", included: true },
-            { name: "Bathrooms & Kitchen", included: true },
-            { name: "Inside Microwave", included: false },
-            { name: "Baseboards & Doors", included: false }
-        ]
-    },
-    {
-        id: "deep",
-        label: "Deep Clean",
-        description: "Thorough cleaning for neglected spaces.",
-        icon: Zap,
-        popular: false,
-        features: [
-            { name: "Standard Clean Included", included: true },
-            { name: "Inside Microwave", included: true },
-            { name: "Baseboards & Doors", included: true },
-            { name: "Heavy Scrubbing", included: true }
-        ]
-    },
-    {
-        id: "move",
-        label: "Move In / Move Out",
-        description: "Get your deposit back or start fresh.",
-        icon: Box,
-        popular: false,
-        features: [
-            { name: "Deep Clean Scope", included: true },
-            { name: "Inside Cabinets", included: true },
-            { name: "Inside Fridge & Oven", included: true },
-            { name: "Trash Removal", included: true }
-        ]
-    },
-    {
-        id: "post_construction",
-        label: "Post Construction",
-        description: "Remove dust and debris after renovation.",
-        icon: HardHat,
-        popular: false,
-        features: [
-            { name: "Dust & Debris", included: true },
-            { name: "Paint Spot Removal", included: true },
-            { name: "Polishing", included: true },
-            { name: "Sanitization", included: true }
-        ]
-    }
-];
-
 export default function CleaningTypeStep({ onNext }: CleaningTypeStepProps) {
-    const { setValue, watch } = useFormContext<WizardData>();
+    const { watch, setValue } = useFormContext<WizardData>();
     const { setAction } = useWizardAction();
-    const selectedType = watch("cleaningType");
+    const data = watch();
+    const serviceType = data.serviceType || "residential";
+
+    const currentTypes = useMemo(() => {
+        if (serviceType === "commercial") {
+            return [
+                { id: "first_cleaning", label: "First Cleaning", icon: Sparkles, tag: "Introductory", desc: "Deep Initial Clean" },
+                { id: "office_maintenance", label: "Maintenance", icon: Building2, tag: "Daily/Weekly", desc: "Janitorial & Upkeep" },
+                { id: "post_construction", label: "Post Construction", icon: HardHat, tag: "Heavy Duty", desc: "Debris & Dust Removal" }
+            ];
+        }
+        if (serviceType === "property_mgmt") {
+            return [
+                { id: "first_cleaning", label: "First Cleaning", icon: Sparkles, tag: "Introductory", desc: "Deep Initial Clean" },
+                { id: "move_in_out", label: "Move In/Out", icon: Box, tag: "Empty Unit", desc: "Ready for Tenant" },
+                { id: "post_construction", label: "Post-Con", icon: HardHat, tag: "Heavy Duty", desc: "Construction Cleanup" }
+            ];
+        }
+        // Default Residential
+        return [
+            { id: "first_cleaning", label: "First Cleaning", icon: Sparkles, tag: "Introductory", desc: "Premium Deep Session" },
+            { id: "move_in_out", label: "Move In/Out", icon: Box, tag: "Empty House", desc: "Relocation Protocol" },
+            { id: "post_construction", label: "Post-Con", icon: HardHat, tag: "Dust Removal", desc: "After Reno Clean" }
+        ];
+    }, [serviceType]);
 
     useEffect(() => {
         setAction({
-            label: "Next Step",
-            disabled: !selectedType,
-            onClick: onNext
+            label: "Continue to Setup",
+            disabled: !data.cleaningType,
+            onClick: onNext,
+            icon: <ArrowRight size={18} strokeWidth={4} />
         });
-    }, [selectedType, setAction, onNext]);
-
-    const handleSelect = (typeId: string) => {
-        setValue("cleaningType", typeId as any);
-    };
+    }, [data.cleaningType, onNext, setAction]);
 
     return (
-        <div className="h-full w-full flex items-start justify-center p-6 md:p-0 md:pt-10 overflow-y-auto">
-            <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-3 pb-32">
-                {cleaningTypes.map((type) => {
-                    const isSelected = selectedType === type.id;
-                    const Icon = type.icon;
+        <div className="w-full h-full flex flex-col justify-center py-4">
+            <div className="max-w-5xl mx-auto w-full px-6 space-y-8">
 
-                    return (
-                        <motion.button
-                            type="button"
-                            key={type.id}
-                            whileHover={{ y: -2 }}
-                            whileTap={{ scale: 0.99 }}
-                            onClick={() => handleSelect(type.id)}
-                            className={`
-                                group relative p-5 rounded-xl text-left transition-all duration-500 border
-                                flex flex-col gap-4 w-full h-full
-                                ${isSelected
-                                    ? "bg-[#024653] border-[#024653] shadow-lg text-white"
-                                    : "bg-white border-[#024653]/5 hover:border-[#024653]/20 shadow-sm text-[#024653]"
-                                }
-                            `}
-                        >
-                            {type.popular && (
-                                <span className={`
-                                    absolute -top-3 right-6 px-4 py-1.5 rounded-md text-[10px] font-bold uppercase tracking-widest shadow-sm z-10
-                                    ${isSelected ? "bg-[#05D16E] text-[#024653]" : "bg-[#05D16E] text-white"}
-                                `}>
-                                    Popular
-                                </span>
-                            )}
+                <div className="flex items-center gap-3 ml-1 mb-2">
+                    <div className="w-5 h-5 rounded-md bg-[#05D16E] flex items-center justify-center shadow-lg shadow-[#05D16E]/20">
+                        <ShieldCheck size={12} className="text-white" />
+                    </div>
+                    <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#024653]">
+                        {serviceType === 'commercial' ? 'Commercial Protocol' : 'Service Protocol'}
+                    </span>
+                </div>
 
-                            <div className="flex items-center justify-between w-full">
-                                <div className="flex items-center gap-3">
+                <div className="bg-[#F9F8F2] border border-[#024653]/10 rounded-2xl p-6 lg:p-10">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                        {currentTypes.map((type) => {
+                            const isSelected = data.cleaningType === type.id;
+                            const Icon = type.icon;
+                            return (
+                                <button
+                                    key={type.id}
+                                    type="button"
+                                    onClick={() => setValue("cleaningType", type.id as any)}
+                                    className={`
+                                        p-8 rounded-2xl border-2 flex flex-col items-center gap-4 transition-all duration-300 group relative
+                                        ${isSelected
+                                            ? "bg-[#024653] border-[#024653] text-white shadow-2xl shadow-[#024653]/20 -translate-y-2 scale-[1.02]"
+                                            : "bg-white border-[#024653]/5 text-[#024653] hover:border-[#024653]/10 hover:shadow-xl hover:-translate-y-1"
+                                        }
+                                    `}
+                                >
+                                    {/* TAG */}
                                     <div className={`
-                                        w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors
-                                        ${isSelected ? "bg-white/10 text-white" : "bg-[#05D16E]/10 text-[#05D16E]"}
+                                        absolute top-4 left-4 px-2 py-0.5 rounded text-[7px] font-black uppercase tracking-widest
+                                        ${isSelected ? 'bg-white/10 text-[#05D16E]' : 'bg-[#024653]/5 text-[#024653]/30'}
                                     `}>
-                                        <Icon size={20} />
+                                        {type.tag}
                                     </div>
-                                    <h3 className={`text-lg font-bold tracking-tight ${isSelected ? "text-white" : "text-[#024653]"}`}>
-                                        {type.label}
-                                    </h3>
-                                </div>
-                            </div>
 
-                            <p className={`text-[12px] leading-snug opacity-60 min-h-[2.5rem] ${isSelected ? "text-white" : "text-[#024653]"}`}>
-                                {type.description}
-                            </p>
-
-                            <div className="grid grid-cols-2 gap-y-1.5 gap-x-3 pt-3 border-t border-current border-opacity-5 mt-auto">
-                                {type.features.map((feature, i) => (
-                                    <div key={i} className="flex items-center gap-1.5 leading-none">
-                                        {feature.included ? (
-                                            <Check size={10} className={`${isSelected ? "text-[#05D16E]" : "text-[#05D16E]"}`} strokeWidth={4} />
-                                        ) : (
-                                            <X size={10} className={`${isSelected ? "text-white/20" : "text-[#024653]/10"}`} strokeWidth={4} />
-                                        )}
-                                        <span className={`text-[9px] font-bold uppercase tracking-wider whitespace-nowrap overflow-hidden text-ellipsis ${isSelected
-                                            ? (feature.included ? "text-white" : "text-white/20 line-through")
-                                            : (feature.included ? "text-[#024653]/70" : "text-[#024653]/10 line-through")
-                                            }`}>
-                                            {feature.name}
-                                        </span>
+                                    <div className={`w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-500 ${isSelected ? 'bg-white/10 text-[#05D16E]' : 'bg-[#024653]/5 text-[#024653]'}`}>
+                                        <Icon size={32} />
                                     </div>
-                                ))}
-                            </div>
-                        </motion.button>
-                    );
-                })}
+                                    <div className="text-center">
+                                        <p className="text-xs font-black uppercase tracking-[0.2em] leading-none mb-2">{type.label}</p>
+                                        <p className={`text-[9px] font-bold uppercase tracking-widest opacity-40 leading-none ${isSelected ? "text-[#05D16E]" : ""}`}>
+                                            {type.desc}
+                                        </p>
+                                    </div>
+
+                                    {isSelected && (
+                                        <div className="absolute top-4 right-4">
+                                            <div className="w-2 h-2 rounded-full bg-[#05D16E] shadow-[0_0_12px_#05D16E]" />
+                                        </div>
+                                    )}
+                                </button>
+                            );
+                        })}
+                    </div>
+
+                    <div className="mt-10 pt-8 border-t border-[#024653]/5">
+                        <p className="text-[9px] font-black uppercase tracking-[0.3em] text-[#024653]/20 text-center">
+                            {serviceType === 'commercial' ? 'Elite Spokane Business Standards Applied' : 'Elite Professional Standards Apply to All Selections'}
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     );

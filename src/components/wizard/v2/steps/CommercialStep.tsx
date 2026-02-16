@@ -22,25 +22,18 @@ const businessTypes = [
 export default function CommercialStep({ onNext }: CommercialStepProps) {
     const { register, watch, setValue } = useFormContext<WizardData>();
     const { setAction } = useWizardAction();
-    const data = watch();
-    const businessType = data.businessType || "";
-    const commSqFt = data.commSqFt || "";
-    const floors = data.floors || 1;
+    const businessType = watch("businessType") || "";
+    const commSqFt = watch("commSqFt") || "";
+    const floors = watch("floors") || 1;
 
     useEffect(() => {
-        if (data.cleaningType === "post_construction" || data.cleaningType === "first_cleaning") {
-            setValue("frequency", "onetime");
-        }
-
-        const canAdvance = !!(businessType && commSqFt && commSqFt > 0);
-
         setAction({
             label: "Review Logistics",
-            disabled: !canAdvance,
+            disabled: !businessType || !commSqFt,
             onClick: onNext,
             icon: <ArrowRight size={18} strokeWidth={4} />
         });
-    }, [businessType, commSqFt, data.frequency, data.cleaningType, onNext, setAction, setValue]);
+    }, [businessType, commSqFt, onNext, setAction]);
 
     const handleFloor = (val: number) => {
         setValue("floors", Math.max(1, val));
@@ -152,50 +145,6 @@ export default function CommercialStep({ onNext }: CommercialStepProps) {
                 </div>
 
             </div>
-
-            {/* 3. BOTTOM: SERVICE FREQUENCY */}
-            {data.cleaningType !== "post_construction" && data.cleaningType !== "first_cleaning" && (
-                <div className="max-w-6xl mx-auto w-full px-6 mt-10">
-                    <div className="flex items-center gap-3 ml-1 mb-4">
-                        <div className="w-5 h-5 rounded-md bg-[#111111] flex items-center justify-center shadow-lg shadow-black/10">
-                            <ArrowRight size={12} className="text-white" />
-                        </div>
-                        <span className="text-[10px] font-black uppercase tracking-[0.25em] text-[#024653]">3. Operational Schedule</span>
-                    </div>
-
-                    <div className="bg-[#F9F8F2] border border-[#024653]/10 rounded-2xl p-2 relative overflow-hidden">
-                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 relative z-10">
-                            {[
-                                { id: "daily", label: "Daily", offer: "Priority" },
-                                { id: "weekly", label: "Weekly", offer: "Elite Upkeep" },
-                                { id: "biweekly", label: "Bi-Weekly", offer: "Standard" },
-                                { id: "onetime", label: "One-Time", offer: "Unique" }
-                            ].map((freq) => {
-                                const isSelected = watch("frequency") === freq.id;
-                                return (
-                                    <button
-                                        key={freq.id}
-                                        type="button"
-                                        onClick={() => setValue("frequency", freq.id as any)}
-                                        className={`
-                                            relative py-4 px-6 rounded-xl border-2 transition-all duration-300 flex flex-col items-center justify-center gap-1
-                                            ${isSelected
-                                                ? "bg-[#024653] border-[#024653] text-white shadow-xl -translate-y-1"
-                                                : "bg-white border-[#024653]/5 text-[#024653] hover:border-[#024653]/10"
-                                            }
-                                        `}
-                                    >
-                                        <span className="text-[10px] font-black uppercase tracking-widest">{freq.label}</span>
-                                        <span className={`text-[8px] font-bold uppercase tracking-tighter ${isSelected ? "text-[#05D16E]" : "text-[#024653]/30"}`}>
-                                            {freq.offer}
-                                        </span>
-                                    </button>
-                                );
-                            })}
-                        </div>
-                    </div>
-                </div>
-            )}
         </div>
     );
 }

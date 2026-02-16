@@ -11,7 +11,8 @@ interface ResidentialStepProps {
 }
 
 const cleaningTypes = [
-    { id: "first_cleaning", label: "First Cleaning", icon: Sparkles, desc: "Introductory" },
+    { id: "standard", label: "Standard", icon: Sparkles, desc: "Maintenance" },
+    { id: "deep", label: "Deep", icon: Zap, desc: "Intense" },
     { id: "move_in_out", label: "Move In/Out", icon: Box, desc: "Empty" },
     { id: "post_construction", label: "Post-Con", icon: HardHat, desc: "Dust" }
 ];

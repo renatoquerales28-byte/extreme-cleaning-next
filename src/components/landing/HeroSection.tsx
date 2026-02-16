@@ -5,8 +5,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Sparkles, MapPin, Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { toast } from "sonner";
 
-export default function HeroSection() {
+export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: string) => void }) {
     const router = useRouter();
     const [zipCode, setZipCode] = useState("");
     const [isFocused, setIsFocused] = useState(false);
@@ -49,7 +50,17 @@ export default function HeroSection() {
     const handleStart = (e?: React.FormEvent) => {
         if (e) e.preventDefault();
         if (zipCode.length === 5) {
-            router.push(`/quote?zip=${zipCode}`);
+            if (onOpenWizard) {
+                onOpenWizard(zipCode);
+                // Also update URL to keep things in sync if they share the link
+                const url = new URL(window.location.href);
+                url.searchParams.set('zip', zipCode);
+                window.history.pushState({}, '', url);
+            } else {
+                router.push(`/quote?zip=${zipCode}`);
+            }
+        } else {
+            toast.error("Please enter a valid 5-digit zip code");
         }
     };
 

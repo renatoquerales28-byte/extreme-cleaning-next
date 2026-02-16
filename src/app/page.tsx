@@ -13,26 +13,36 @@ import FooterSection from "@/components/landing/FooterSection";
 import { AnimatePresence, motion } from "framer-motion";
 
 import { Instagram, Facebook, Sparkles } from "lucide-react";
+import dynamic from "next/dynamic";
+
+const ExtremeCleaningWizard = dynamic(() => import("@/components/wizard/ExtremeCleaningWizard"), {
+    ssr: false,
+});
 
 export default function Home() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [isOverAbout, setIsOverAbout] = useState(false);
+    const [wizardOpen, setWizardOpen] = useState(false);
 
     useEffect(() => {
+        // Check for query params to auto-open wizard
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('quote') === 'true' || params.get('zip')) {
+            setWizardOpen(true);
+        }
+
         const handleScroll = () => {
             const heroSection = document.getElementById('hero-section');
             const aboutSection = document.getElementById('about');
 
             if (heroSection) {
                 const heroBottom = heroSection.getBoundingClientRect().bottom;
-                // Trigger when hero is 80% out of view
                 setScrolled(heroBottom < 150);
             }
 
             if (aboutSection) {
                 const rect = aboutSection.getBoundingClientRect();
-                // Header is 60px high, check if about section is under the header
                 setIsOverAbout(rect.top <= 60 && rect.bottom >= 60);
             }
         };
@@ -85,12 +95,12 @@ export default function Home() {
                                     transition={{ duration: 0.4, ease: "easeOut" }}
                                     className="flex items-center"
                                 >
-                                    <Link
-                                        href="/quote"
+                                    <button
+                                        onClick={() => setWizardOpen(true)}
                                         className="px-6 py-2 bg-[#024653] text-white rounded-xl text-[10px] font-normal uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#024653]/10 whitespace-nowrap"
                                     >
                                         Get Quote
-                                    </Link>
+                                    </button>
                                 </motion.div>
                             )}
                         </AnimatePresence>
@@ -174,13 +184,15 @@ export default function Home() {
                                             placeholder="Zip Code"
                                             className="flex-1 bg-transparent px-4 outline-none text-[#024653] text-sm font-medium"
                                         />
-                                        <Link
-                                            href="/quote"
-                                            onClick={() => setMobileMenuOpen(false)}
+                                        <button
+                                            onClick={() => {
+                                                setMobileMenuOpen(false);
+                                                setWizardOpen(true);
+                                            }}
                                             className="bg-[#024653] text-white px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest shadow-lg active:scale-95 transition-all"
                                         >
                                             Start
-                                        </Link>
+                                        </button>
                                     </div>
                                 </div>
 
@@ -201,14 +213,26 @@ export default function Home() {
                 )}
             </AnimatePresence>
 
-            <HeroSection />
+            <HeroSection onOpenWizard={(zip) => {
+                if (zip) setWizardOpen(true); // Simplified for now
+                setWizardOpen(true);
+            }} />
 
             {/* NEW STRATEGIC SECTIONS */}
-            <ServiceSelectorSection />
+            <ServiceSelectorSection onOpenWizard={(type, intensity) => {
+                setWizardOpen(true);
+                // The URL state is handled within the component's handleContinue
+            }} />
             <ProcessSection />
             <AboutSection />
 
             <FooterSection />
+
+            {/* INTEGRATED WIZARD MODAL */}
+            <ExtremeCleaningWizard
+                isOpen={wizardOpen}
+                onClose={() => setWizardOpen(false)}
+            />
         </main>
     );
 }

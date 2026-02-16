@@ -12,8 +12,8 @@ interface ZipStepProps {
     onReturning: () => void;
 }
 
-export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
-    const { register, watch, trigger, setValue } = useFormContext<WizardData>();
+export default function ZipStep({ onReturning }: ZipStepProps) {
+    const { register, watch } = useFormContext<WizardData>();
     const { setAction } = useWizardAction();
     const zipCode = watch("zipCode") || "";
 
@@ -21,56 +21,35 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     const [city, setCity] = useState<string | undefined>();
     const [isChecking, setIsChecking] = useState(false);
 
-    const checkAvailability = useCallback(async (codeToCheck?: string) => {
-        const targetZip = codeToCheck || zipCode;
-        if (targetZip.length !== 5) return;
+    useEffect(() => {
+        if (status !== 'idle' && status !== 'active') setStatus('idle');
+    }, [zipCode, status]);
 
+    const checkAvailability = useCallback(async () => {
+        if (zipCode.length !== 5) return;
         setIsChecking(true);
         try {
             const { checkZipAvailability } = await import("@/app/actions/location");
-            const res = await checkZipAvailability(targetZip);
+            const res = await checkZipAvailability(zipCode);
             setCity(res.city);
             setStatus(res.status);
         } catch (error) {
-            console.error("ZIP Check error:", error);
             setStatus('unavailable');
         } finally {
             setIsChecking(false);
         }
     }, [zipCode]);
 
-    // Handle ZIP changes & Auto-validation
-    useEffect(() => {
-        if (zipCode.length === 5) {
-            // Re-validate if we aren't currently checking
-            if (!isChecking) {
-                checkAvailability();
-            }
-        } else {
-            // Reset state if ZIP is incomplete
-            setStatus('idle');
-            setCity(undefined);
-        }
-    }, [zipCode]); // Only depend on zipCode to prevent infinite loops
-
     useEffect(() => {
         const canCheck = zipCode.length === 5;
-        const isActive = status === 'active';
-
         setAction({
-            label: isActive ? "Initialize Service" : (isChecking ? "Scanning Territory..." : "Verify Territory"),
-            disabled: zipCode.length < 5 || (isChecking && !isActive),
+            label: status === 'active' ? "Initialize Service" : (isChecking ? "Validating Signal..." : "Verify Territory"),
+            disabled: !canCheck || isChecking,
             isLoading: isChecking,
-            onClick: async () => {
-                if (isActive) {
-                    onNext();
-                } else {
-                    await checkAvailability();
-                }
-            },
+            onClick: status === 'active' ? undefined : checkAvailability,
             icon: <ArrowRight size={18} strokeWidth={4} />
         });
-    }, [zipCode, isChecking, checkAvailability, setAction, status, onNext]);
+    }, [zipCode, isChecking, checkAvailability, setAction, status]);
 
     return (
         <div className="w-full flex-1 flex flex-col justify-center py-4">

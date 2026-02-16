@@ -30,7 +30,7 @@ export default function ExtrasStep({ onNext }: ExtrasStepProps) {
 
     useEffect(() => {
         setAction({
-            label: "Continue",
+            label: "Review Quote",
             onClick: onNext,
             disabled: false,
             icon: <ArrowRight size={18} strokeWidth={4} />
@@ -59,8 +59,8 @@ export default function ExtrasStep({ onNext }: ExtrasStepProps) {
 
                 {/* Bento Container */}
                 <div className="bg-[#F9F8F2] border border-[#024653]/10 rounded-xl p-4 lg:p-6">
-                    <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-                        {EXTRAS_LIST.filter(e => ["oven", "fridge", "windows", "cabinets"].includes(e.id)).map((extra) => {
+                    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                        {EXTRAS_LIST.map((extra) => {
                             const isSelected = extras.includes(extra.id);
                             return (
                                 <button

@@ -14,6 +14,7 @@ export const DEFAULT_PRICING = {
     price_per_bathroom: 30,
     price_per_sq_ft: 0.015, // /1000 * 15 = 0.015
     multiplier_deep: 1.5,
+    multiplier_first_cleaning: 1.5,
     multiplier_move: 1.8,
     multiplier_post_construction: 2.0,
     commercial_min: 150,
@@ -45,8 +46,8 @@ export const calculateBasePrice = (beds: number, baths: number, sq: number, type
     base += baths * p.price_per_bathroom;
     base += sq * p.price_per_sq_ft;
 
-    if (type === "deep") base *= p.multiplier_deep;
-    if (type === "move") base *= p.multiplier_move;
+    if (type === "deep" || type === "first_cleaning") base *= p.multiplier_deep;
+    if (type === "move" || type === "move_in_out") base *= p.multiplier_move;
     if (type === "post_construction") base *= p.multiplier_post_construction;
 
     return base;

@@ -5,7 +5,7 @@ import { Star, Sparkles } from "lucide-react";
 
 export default function AboutSection() {
     const stats = [
-        { value: "500+", label: "Homes Cleaned", sublabel: "across Spokane" },
+        { value: "50+", label: "Homes Cleaned", sublabel: "across Spokane" },
         { value: "5.0", label: "Google Rating", sublabel: "verified reviews" },
         { value: "100%", label: "Satisfaction", sublabel: "guaranteed" },
         { value: "24h", label: "Response Time", sublabel: "or less" },
@@ -28,7 +28,7 @@ export default function AboutSection() {
                         <div className="flex text-[#05D16E]">
                             {[1, 2, 3, 4, 5].map(i => <Star key={i} size={14} fill="currentColor" />)}
                         </div>
-                        <span className="text-white/60 text-[12px] font-medium tracking-wide">5.0 | 100+ REAL REVIEWS</span>
+                        <span className="text-white/60 text-[12px] font-medium tracking-wide uppercase">5.0 | VERIFIED CUSTOMER SATISFACTION</span>
                     </div>
 
                     {/* Main Headline */}
@@ -107,7 +107,7 @@ export default function AboutSection() {
                             <div className="flex text-[#05D16E]">
                                 {[1, 2, 3, 4, 5].map(i => <Star key={i} size={16} fill="currentColor" />)}
                             </div>
-                            <span className="text-white/60 text-sm font-medium">5.0 from 100+ reviews</span>
+                            <span className="text-white/60 text-sm font-medium uppercase">5.0 | VERIFIED CUSTOMER SATISFACTION</span>
                         </div>
 
                         {/* Main Headline */}

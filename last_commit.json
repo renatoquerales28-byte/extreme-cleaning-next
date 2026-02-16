@@ -1,0 +1,101 @@
+{
+  "sha": "5f0c876317de6dd072d197daef83a1902e43d695",
+  "node_id": "C_kwDOQ_l0rNoAKDVmMGM4NzYzMTdkZTZkZDA3MmQxOTdkYWVmODNhMTkwMmU0M2Q2OTU",
+  "commit": {
+    "author": {
+      "name": "Renato Querales",
+      "email": "renatoquerales28@gmail.com",
+      "date": "2026-02-16T17:25:07Z"
+    },
+    "committer": {
+      "name": "Renato Querales",
+      "email": "renatoquerales28@gmail.com",
+      "date": "2026-02-16T17:25:07Z"
+    },
+    "message": "feat: update landing services - replace standard/deep with first cleaning and remove specific pricing",
+    "tree": {
+      "sha": "bef7d68640f2604512cedf9a1527eaf7c8de9e25",
+      "url": "https://api.github.com/repos/renatoquerales28-byte/extreme-cleaning-next/git/trees/bef7d68640f2604512cedf9a1527eaf7c8de9e25"
+    },
+    "url": "https://api.github.com/repos/renatoquerales28-byte/extreme-cleaning-next/git/commits/5f0c876317de6dd072d197daef83a1902e43d695",
+    "comment_count": 0,
+    "verification": {
+      "verified": false,
+      "reason": "unsigned",
+      "signature": null,
+      "payload": null,
+      "verified_at": null
+    }
+  },
+  "url": "https://api.github.com/repos/renatoquerales28-byte/extreme-cleaning-next/commits/5f0c876317de6dd072d197daef83a1902e43d695",
+  "html_url": "https://github.com/renatoquerales28-byte/extreme-cleaning-next/commit/5f0c876317de6dd072d197daef83a1902e43d695",
+  "comments_url": "https://api.github.com/repos/renatoquerales28-byte/extreme-cleaning-next/commits/5f0c876317de6dd072d197daef83a1902e43d695/comments",
+  "author": {
+    "login": "renatoquerales28-byte",
+    "id": 254816818,
+    "node_id": "U_kgDODzAyMg",
+    "avatar_url": "https://avatars.githubusercontent.com/u/254816818?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/renatoquerales28-byte",
+    "html_url": "https://github.com/renatoquerales28-byte",
+    "followers_url": "https://api.github.com/users/renatoquerales28-byte/followers",
+    "following_url": "https://api.github.com/users/renatoquerales28-byte/following{/other_user}",
+    "gists_url": "https://api.github.com/users/renatoquerales28-byte/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/renatoquerales28-byte/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/renatoquerales28-byte/subscriptions",
+    "organizations_url": "https://api.github.com/users/renatoquerales28-byte/orgs",
+    "repos_url": "https://api.github.com/users/renatoquerales28-byte/repos",
+    "events_url": "https://api.github.com/users/renatoquerales28-byte/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/renatoquerales28-byte/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "committer": {
+    "login": "renatoquerales28-byte",
+    "id": 254816818,
+    "node_id": "U_kgDODzAyMg",
+    "avatar_url": "https://avatars.githubusercontent.com/u/254816818?v=4",
+    "gravatar_id": "",
+    "url": "https://api.github.com/users/renatoquerales28-byte",
+    "html_url": "https://github.com/renatoquerales28-byte",
+    "followers_url": "https://api.github.com/users/renatoquerales28-byte/followers",
+    "following_url": "https://api.github.com/users/renatoquerales28-byte/following{/other_user}",
+    "gists_url": "https://api.github.com/users/renatoquerales28-byte/gists{/gist_id}",
+    "starred_url": "https://api.github.com/users/renatoquerales28-byte/starred{/owner}{/repo}",
+    "subscriptions_url": "https://api.github.com/users/renatoquerales28-byte/subscriptions",
+    "organizations_url": "https://api.github.com/users/renatoquerales28-byte/orgs",
+    "repos_url": "https://api.github.com/users/renatoquerales28-byte/repos",
+    "events_url": "https://api.github.com/users/renatoquerales28-byte/events{/privacy}",
+    "received_events_url": "https://api.github.com/users/renatoquerales28-byte/received_events",
+    "type": "User",
+    "user_view_type": "public",
+    "site_admin": false
+  },
+  "parents": [
+    {
+      "sha": "f79180fb79f71e3df9f44e734f43d631f6ec3dd6",
+      "url": "https://api.github.com/repos/renatoquerales28-byte/extreme-cleaning-next/commits/f79180fb79f71e3df9f44e734f43d631f6ec3dd6",
+      "html_url": "https://github.com/renatoquerales28-byte/extreme-cleaning-next/commit/f79180fb79f71e3df9f44e734f43d631f6ec3dd6"
+    }
+  ],
+  "stats": {
+    "total": 39,
+    "additions": 16,
+    "deletions": 23
+  },
+  "files": [
+    {
+      "sha": "c38a182f3e048a5b5e7c693b12eb44044b83f303",
+      "filename": "src/components/home/ServiceSelectorSection.tsx",
+      "status": "modified",
+      "additions": 16,
+      "deletions": 23,
+      "changes": 39,
+      "blob_url": "https://github.com/renatoquerales28-byte/extreme-cleaning-next/blob/5f0c876317de6dd072d197daef83a1902e43d695/src%2Fcomponents%2Fhome%2FServiceSelectorSection.tsx",
+      "raw_url": "https://github.com/renatoquerales28-byte/extreme-cleaning-next/raw/5f0c876317de6dd072d197daef83a1902e43d695/src%2Fcomponents%2Fhome%2FServiceSelectorSection.tsx",
+      "contents_url": "https://api.github.com/repos/renatoquerales28-byte/extreme-cleaning-next/contents/src%2Fcomponents%2Fhome%2FServiceSelectorSection.tsx?ref=5f0c876317de6dd072d197daef83a1902e43d695",
+      "patch": "@@ -18,17 +18,10 @@ const SERVICE_CONTENT = {\n         ],\n         options: [\n             {\n-                id: 'standard',\n-                label: 'Standard Clean',\n-                price: 'From $150',\n-                tag: 'Most Popular',\n-                shortDesc: \"Our essential maintenance service to keep your home consistently fresh. Includes vacuuming, mopping, dusting, and full sanitization of kitchens and bathrooms for everyday comfort.\"\n-            },\n-            {\n-                id: 'deep',\n-                label: 'Deep Clean',\n-                price: 'From $250',\n-                tag: 'Best Value',\n+                id: 'first_cleaning',\n+                label: 'First cleaning',\n+                price: 'Custom Quote',\n+                tag: 'Recommended',\n                 shortDesc: \"A comprehensive bottom-to-top restoration of your living space. We target overlooked areas like baseboards, behind appliances, interior windows, and heavy-duty lime scale removal.\"\n             },\n             {\n@@ -91,21 +84,21 @@ const SERVICE_CONTENT = {\n             {\n                 id: 'turnover',\n                 label: 'Tenant Turnover',\n-                price: 'Flat Rates',\n+                price: 'Custom Quote',\n                 tag: 'Priority',\n                 shortDesc: \"Fast-track your property listings with our high-efficiency turnover service. We specialize in getting units rent-ready within 24 hours while maintaining elite standards.\"\n             },\n             {\n                 id: 'common',\n                 label: 'Common Areas',\n-                price: 'Contract',\n+                price: 'Custom Quote',\n                 tag: null,\n                 shortDesc: \"Reliable maintenance for shared building amenities, lobbies, and corridors. We ensure first impressions for potential tenants are always impeccable and corridors remain spot-free.\"\n             },\n             {\n                 id: 'eviction',\n                 label: 'Trash Out',\n-                price: 'Heavy Duty',\n+                price: 'Custom Quote',\n                 tag: null,\n                 shortDesc: \"Complete debris removal and heavy-duty sanitization for challenging unit conditions. We handle full clear-outs and deep odor removal to restore units to market-ready condition.\"\n             },\n@@ -114,15 +107,16 @@ const SERVICE_CONTENT = {\n };\n \n // Helper for mobile descriptions - short & effective\n-const getMobileDesc = (id: string, label: string) => {\n+const getMobileDesc = (id: string, label: string, tab: ServiceType) => {\n     const descs: Record<string, string> = {\n-        'standard': \"Essential maintenance for a fresh and healthy home.\",\n-        'deep': \"Top-to-bottom detailed clean for maximum hygiene.\",\n+        'first_cleaning': \"Detailed top-to-bottom clean for your first visit.\",\n+        'standard': tab === 'commercial' ? \"Routine maintenance for your workspace.\" : \"Essential maintenance for a fresh home.\",\n+        'deep': tab === 'commercial' ? \"High-touch disinfection and deep sanitization.\" : \"Detailed restoration for maximum hygiene.\",\n         'move': \"Complete sanitization for a flawless move transition.\",\n-        'post-construction-res': \"Post-renovation dust and debris removal service.\",\n+        'post-construction-res': \"Post-renovation dust and debris removal.\",\n         'turnover': \"High-efficiency turnover for rent-ready units.\",\n-        'common': \"Pristine maintenance for lobbies and shared spaces.\",\n-        'eviction': \"Heavy-duty debris removal and deep sanitization.\",\n+        'common': \"Pristine maintenance for shared building spaces.\",\n+        'eviction': \"Heavy-duty debris removal and sanitization.\",\n         'post-construction': \"Expert build cleanup for immediate occupancy.\"\n     };\n     return descs[id] || \"Professional cleaning service tailored for you.\";\n@@ -155,8 +149,7 @@ export default function ServiceSelectorSection({ onOpenWizard }: { onOpenWizard?\n         };\n \n         const intensityMap: any = {\n-            'standard': 'standard',\n-            'deep': 'deep',\n+            'first_cleaning': 'first_cleaning',\n             'move': 'move_in_out',\n             'post-construction-res': 'post_construction',\n             'post-construction': 'post_construction',\n@@ -258,7 +251,7 @@ export default function ServiceSelectorSection({ onOpenWizard }: { onOpenWizard?\n                                     )}\n                                 </div>\n                                 <p className=\"text-[11px] text-[#024653]/60 font-light truncate\">\n-                                    {getMobileDesc(option.id, option.label)}\n+                                    {getMobileDesc(option.id, option.label, activeTab)}\n                                 </p>\n                             </div>\n "
+    }
+  ]
+}

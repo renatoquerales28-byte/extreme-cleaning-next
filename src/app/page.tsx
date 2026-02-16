@@ -199,11 +199,18 @@ export default function Home() {
                                 {/* Social Media & Copyright */}
                                 <div className="flex items-center justify-between border-t border-[#024653]/5 pt-8">
                                     <div className="flex gap-6 text-[#024653]">
-                                        {['Instagram', 'Facebook', 'TikTok', 'YouTube'].map((social) => (
-                                            <Link key={social} href="#" className="text-[10px] font-bold uppercase tracking-widest hover:opacity-50 transition-opacity">
-                                                {social.slice(0, 2)}
-                                            </Link>
-                                        ))}
+                                        <Link href="https://www.instagram.com/extremecleaning509/" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold uppercase tracking-widest hover:opacity-50 transition-opacity">
+                                            IG
+                                        </Link>
+                                        <Link href="https://www.facebook.com/profile.php?id=100076351471060" target="_blank" rel="noopener noreferrer" className="text-[10px] font-bold uppercase tracking-widest hover:opacity-50 transition-opacity">
+                                            FB
+                                        </Link>
+                                        <Link href="#" className="text-[10px] font-bold uppercase tracking-widest hover:opacity-50 transition-opacity">
+                                            TT
+                                        </Link>
+                                        <Link href="#" className="text-[10px] font-bold uppercase tracking-widest hover:opacity-50 transition-opacity">
+                                            YT
+                                        </Link>
                                     </div>
                                     <p className="text-[8px] font-medium uppercase tracking-widest text-[#024653]/30">© 2024 ECS</p>
                                 </div>

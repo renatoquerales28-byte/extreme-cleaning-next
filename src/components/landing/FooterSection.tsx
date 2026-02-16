@@ -122,8 +122,8 @@ export default function FooterSection() {
                     <div className="space-y-6">
                         <h4 className="text-[10px] font-black uppercase tracking-widest text-[#024653]/30">Social Media</h4>
                         <nav className="flex flex-col gap-4 text-sm font-light">
-                            <Link href="#" className="hover:opacity-60 transition-opacity">Instagram</Link>
-                            <Link href="#" className="hover:opacity-60 transition-opacity">Facebook</Link>
+                            <Link href="https://www.instagram.com/extremecleaning509/" target="_blank" rel="noopener noreferrer" className="hover:opacity-60 transition-opacity">Instagram</Link>
+                            <Link href="https://www.facebook.com/profile.php?id=100076351471060" target="_blank" rel="noopener noreferrer" className="hover:opacity-60 transition-opacity">Facebook</Link>
                             <Link href="#" className="hover:opacity-60 transition-opacity">TikTok</Link>
                             <Link href="#" className="hover:opacity-60 transition-opacity">YouTube</Link>
                         </nav>
@@ -223,8 +223,8 @@ export default function FooterSection() {
                         <div className="space-y-6">
                             <h4 className="text-[9px] font-bold uppercase tracking-[0.2em] text-[#024653]/30">Social Media</h4>
                             <nav className="flex flex-col gap-3 text-xs font-normal">
-                                <Link href="#" className="hover:opacity-60 transition-opacity">Instagram</Link>
-                                <Link href="#" className="hover:opacity-60 transition-opacity">Facebook</Link>
+                                <Link href="https://www.instagram.com/extremecleaning509/" target="_blank" rel="noopener noreferrer" className="hover:opacity-60 transition-opacity">Instagram</Link>
+                                <Link href="https://www.facebook.com/profile.php?id=100076351471060" target="_blank" rel="noopener noreferrer" className="hover:opacity-60 transition-opacity">Facebook</Link>
                                 <Link href="#" className="hover:opacity-60 transition-opacity">TikTok</Link>
                                 <Link href="#" className="hover:opacity-60 transition-opacity">YouTube</Link>
                             </nav>

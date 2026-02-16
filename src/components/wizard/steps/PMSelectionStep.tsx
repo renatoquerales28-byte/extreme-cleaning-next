@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { type WizardData } from "@/lib/schemas/wizard";
 import { useWizardAction } from "../WizardActionContext";
@@ -15,7 +15,7 @@ interface PMSelectionStepProps {
 export default function PMSelectionStep({ onNext, onGoToStep }: PMSelectionStepProps) {
     const { register, watch, setValue } = useFormContext<WizardData>();
     const { setAction } = useWizardAction();
-    const portfolio = watch("smallPortfolio") || [];
+    const portfolio = useMemo(() => watch("smallPortfolio") || [], [watch]);
     const data = watch();
 
     // The current property is stored in the root data (zipCode, cleaningType, etc.)

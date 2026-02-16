@@ -25,7 +25,7 @@ describe('Pricing Logic', () => {
 
     describe('calculateTotal', () => {
         it('applies weekly frequency discount (20%)', () => {
-            const data: WizardData = {
+            const data: Partial<WizardData> = {
                 serviceType: 'residential',
                 bedrooms: 1,
                 bathrooms: 1,
@@ -39,11 +39,11 @@ describe('Pricing Logic', () => {
                 smallPortfolio: []
             };
             // Base 165 * (1 - 0.20) = 165 * 0.8 = 132
-            expect(calculateTotal(data)).toBe(132);
+            expect(calculateTotal(data as WizardData)).toBe(132);
         });
 
         it('applies monthly frequency discount (10%)', () => {
-            const data: WizardData = {
+            const data: Partial<WizardData> = {
                 serviceType: 'residential',
                 bedrooms: 1,
                 bathrooms: 1,
@@ -57,7 +57,7 @@ describe('Pricing Logic', () => {
                 smallPortfolio: []
             };
             // Base 165 * (1 - 0.10) = 165 * 0.9 = 148.5 -> rounded to 149
-            expect(calculateTotal(data)).toBe(149);
+            expect(calculateTotal(data as WizardData)).toBe(149);
         });
 
         it('handles commercial per sqft pricing', () => {

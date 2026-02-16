@@ -8,8 +8,16 @@ const openSans = Open_Sans({
 });
 
 export const metadata: Metadata = {
-    title: "Extreme Cleaning | Spokane's Premium Cleaning Service",
-    description: "Experience the next level of clean with our premium residential and commercial cleaning wizard.",
+    title: {
+        default: "Extreme Cleaning | Premium Cleaning Services in Spokane",
+        template: "%s | Extreme Cleaning"
+    },
+    description: "Spokane's top-rated premium cleaning service. Expert residential, commercial, and property management cleaning specialized in deep restoration and turnover services.",
+    keywords: ["cleaning services Spokane", "residential cleaning", "commercial cleaning", "deep cleaning", "post-construction cleaning", "property management turnover"],
+    icons: {
+        icon: "/brand/logo.png",
+        apple: "/brand/logo.png",
+    }
 };
 
 import { ThemeProvider } from "@/components/theme-provider"

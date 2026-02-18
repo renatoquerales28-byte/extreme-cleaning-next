@@ -52,6 +52,15 @@ export default function Home() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    const handleOpenWizard = () => {
+        // Clear URL params to ensure wizard starts from step 1
+        const url = new URL(window.location.href);
+        url.searchParams.delete('zip');
+        url.searchParams.delete('quote');
+        window.history.pushState({}, '', url.pathname);
+        setWizardOpen(true);
+    };
+
     return (
         <main className="min-h-screen bg-[#F9F8F2] selection:bg-accent selection:text-white light">
             {/* Conventional Header - 60px version */}
@@ -96,7 +105,7 @@ export default function Home() {
                                     className="flex items-center"
                                 >
                                     <button
-                                        onClick={() => setWizardOpen(true)}
+                                        onClick={handleOpenWizard}
                                         className="px-6 py-2 bg-[#024653] text-white rounded-xl text-[10px] font-normal uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#024653]/10 whitespace-nowrap"
                                     >
                                         Get Quote
@@ -187,7 +196,7 @@ export default function Home() {
                                         <button
                                             onClick={() => {
                                                 setMobileMenuOpen(false);
-                                                setWizardOpen(true);
+                                                handleOpenWizard();
                                             }}
                                             className="bg-[#024653] text-white px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest shadow-lg active:scale-95 transition-all"
                                         >

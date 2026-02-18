@@ -169,7 +169,8 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                                 <AnimatePresence mode="wait">
                                     <motion.div
                                         key={`word-mobile-${wordIndex}`}
-                                        className="absolute left-0 right-0 top-0 text-[#024653] font-bold italic whitespace-nowrap flex items-baseline justify-center"
+                                        className="absolute left-0 right-0 top-0 text-[#024653] font-bold italic whitespace-nowrap flex items-baseline justify-center notranslate"
+                                        translate="no"
                                     >
                                         {words[wordIndex].split("").map((char, i) => (
                                             <motion.span
@@ -335,7 +336,8 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                                             <AnimatePresence mode="wait">
                                                 <motion.div
                                                     key={`word-${wordIndex}`}
-                                                    className="absolute left-0 bottom-[0.15em] text-[#024653] font-semibold italic whitespace-nowrap flex items-baseline"
+                                                    className="absolute left-0 bottom-[0.15em] text-[#024653] font-semibold italic whitespace-nowrap flex items-baseline notranslate"
+                                                    translate="no"
                                                 >
                                                     {words[wordIndex].split("").map((char, i) => (
                                                         <motion.span

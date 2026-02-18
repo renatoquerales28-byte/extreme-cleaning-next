@@ -20,6 +20,7 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     const [status, setStatus] = useState<'idle' | 'active' | 'coming_soon' | 'unavailable'>('idle');
     const [city, setCity] = useState<string | undefined>();
     const [isChecking, setIsChecking] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
 
     const checkAvailability = useCallback(async (codeToCheck?: string) => {
         const targetZip = codeToCheck || zipCode;
@@ -73,126 +74,116 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     }, [zipCode, isChecking, checkAvailability, setAction, status, onNext]);
 
     return (
-        <div className="w-full flex-1 flex flex-col justify-center py-4">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 max-w-5xl mx-auto w-full px-6 items-stretch">
+        <div className="w-full flex-1 flex flex-col justify-center py-8">
+            <div className="max-w-xl mx-auto w-full px-6 flex flex-col items-center space-y-12">
 
-                {/* LEFT COLUMN: SECURITY CLEARANCE */}
-                <div className="flex flex-col space-y-3">
-                    <div className="flex items-center gap-2 ml-1">
-                        <div className="w-4 h-4 rounded-md bg-[#024653] flex items-center justify-center shadow-lg shadow-[#024653]/10">
-                            <Target size={10} className="text-white" />
-                        </div>
-                        <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#024653]">1. Territory Clearance</span>
+                {/* Heading Section */}
+                <div className="text-center space-y-4">
+                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#024653]/5 border border-[#024653]/10">
+                        <Target size={12} className="text-[#024653]" />
+                        <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#024653]">Territory Clearance</span>
                     </div>
-
-                    <div className="flex-1 bg-[#F9F8F2] border border-[#024653]/10 rounded-xl p-6 lg:p-8 flex flex-col justify-center">
-                        <div className="bg-white border-2 border-[#024653]/5 rounded-xl p-6 shadow-sm group hover:border-[#024653]/20 transition-all relative">
-                            <div className="flex items-center gap-4 mb-4">
-                                <div className="w-10 h-10 rounded-lg bg-[#05D16E]/10 flex items-center justify-center text-[#05D16E]">
-                                    <MapPin size={20} />
-                                </div>
-                                <span className="text-[10px] font-semibold uppercase tracking-widest text-[#024653]/30">Enter Zip Code</span>
-                            </div>
-
-                            <input
-                                {...register("zipCode")}
-                                type="text"
-                                maxLength={5}
-                                autoFocus
-                                placeholder="00000"
-                                className="bg-transparent text-6xl font-bold text-[#024653] outline-none w-full tabular-nums tracking-widest placeholder:text-[#024653]/5"
-                            />
-
-                            <AnimatePresence>
-                                {status === 'active' && (
-                                    <motion.div
-                                        initial={{ scale: 0, opacity: 0 }}
-                                        animate={{ scale: 1, opacity: 1 }}
-                                        className="absolute top-6 right-6"
-                                    >
-                                        <div className="w-8 h-8 rounded-full bg-[#05D16E] flex items-center justify-center text-white shadow-lg shadow-[#05D16E]/20">
-                                            <CheckCircle2 size={16} strokeWidth={4} />
-                                        </div>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-
-                        {/* Feedback Slot */}
-                        <div className="h-6 mt-4">
-                            <AnimatePresence mode="wait">
-                                {status === 'unavailable' && (
-                                    <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} className="flex items-center gap-2 text-red-500 font-bold text-[9px] uppercase tracking-widest px-2">
-                                        <AlertCircle size={14} />
-                                        <span>Signal Lost: Outside Spokane Radius</span>
-                                    </motion.div>
-                                )}
-                                {status === 'active' && (
-                                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 px-2">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-[#05D16E] animate-pulse" />
-                                        <span className="text-[#05D16E] font-bold text-[9px] uppercase tracking-widest">
-                                            Operational Zone Confirmed: {city}
-                                        </span>
-                                    </motion.div>
-                                )}
-                                {isChecking && (
-                                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex items-center gap-2 px-2">
-                                        <div className="w-1.5 h-1.5 rounded-full bg-[#024653] animate-ping" />
-                                        <span className="text-[#024653]/40 font-bold text-[9px] uppercase tracking-widest">
-                                            Scanning Territory...
-                                        </span>
-                                    </motion.div>
-                                )}
-                            </AnimatePresence>
-                        </div>
-                    </div>
+                    <h2 className="text-3xl md:text-4xl font-normal text-[#024653] leading-tight">Where are we <br /><span className="italic font-light">cleaning?</span></h2>
+                    <p className="text-sm text-[#024653]/50 max-w-xs mx-auto font-light leading-relaxed">
+                        Precision starts here. Enter your zip code to verify operational status in your district.
+                    </p>
                 </div>
 
-                {/* RIGHT COLUMN: RECOGNITION & PORTAL */}
-                <div className="flex flex-col space-y-3">
-                    <div className="flex items-center gap-2 ml-1">
-                        <div className="w-4 h-4 rounded-md bg-[#05D16E] flex items-center justify-center shadow-lg shadow-[#05D16E]/10">
-                            <Scan size={10} className="text-white" />
+                {/* Input Capsule Centered */}
+                <div className="w-full max-w-md relative">
+                    <div className={`flex items-center bg-white rounded-[2rem] p-2 transition-all duration-500 border ${status === 'unavailable'
+                            ? 'border-red-500 shadow-[0_12px_30px_rgba(239,68,68,0.1)]'
+                            : isFocused
+                                ? 'border-gray-100 shadow-[0_12px_30px_rgba(2,70,83,0.12)] scale-[1.02]'
+                                : 'border-gray-100/50 shadow-[0_4px_12px_rgba(2,70,83,0.05)]'
+                        }`}>
+                        <div className={`pl-5 transition-colors duration-300 ${status === 'unavailable' ? 'text-red-500' : isFocused ? 'text-[#024653]' : 'text-[#024653]/40'}`}>
+                            <MapPin size={22} />
                         </div>
-                        <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#024653]">2. Access Hub</span>
+                        <input
+                            {...register("zipCode")}
+                            type="text"
+                            maxLength={5}
+                            autoFocus
+                            onFocus={() => setIsFocused(true)}
+                            onBlur={() => setIsFocused(false)}
+                            placeholder="00000"
+                            className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-bold tabular-nums text-2xl px-4 py-2 h-14 tracking-[0.1em] placeholder:text-[#024653]/5"
+                        />
+                        <button
+                            onClick={() => status === 'active' ? onNext() : checkAvailability()}
+                            disabled={isChecking || zipCode.length < 5}
+                            className={`${status === 'unavailable' ? 'bg-red-500' : 'bg-[#05D16E]'} text-white w-14 h-14 rounded-full flex items-center justify-center transition-all shrink-0 shadow-[0_4px_12px_rgba(5,209,110,0.2)] active:scale-95 disabled:opacity-50`}
+                        >
+                            {isChecking ? (
+                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                            ) : (
+                                <ArrowRight size={22} className="stroke-[3px]" />
+                            )}
+                        </button>
                     </div>
 
-                    <div className="flex-1 bg-[#F9F8F2] border border-[#024653]/10 rounded-xl p-6 lg:p-8 flex flex-col justify-between">
-                        <div className="space-y-4">
-                            <div className="bg-white/50 border border-[#024653]/5 rounded-xl p-5 flex items-start gap-4">
-                                <Map className="text-[#024653]/20 shrink-0" size={24} />
-                                <div className="space-y-1">
-                                    <p className="text-[10px] font-bold uppercase tracking-widest text-[#024653]">Elite Coverage</p>
-                                    <p className="text-[10px] font-normal text-[#024653]/40 leading-relaxed">
-                                        We currently operate within the Spokane core and surrounding elite residential districts.
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Returning Client Action */}
-                        <div className="pt-8">
-                            <button
-                                onClick={onReturning}
-                                className="w-full bg-white border border-[#024653]/10 rounded-xl p-5 flex items-center justify-between group hover:border-[#024653]/30 hover:shadow-xl hover:shadow-[#024653]/5 transition-all"
+                    {/* Feedback Messages - Absolute to prevent jump */}
+                    <AnimatePresence mode="wait">
+                        {status === 'unavailable' && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -5 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -5 }}
+                                className="absolute left-6 top-full mt-3 flex items-center gap-2 text-red-500 font-bold text-[10px] uppercase tracking-widest"
                             >
-                                <div className="flex items-center gap-4">
-                                    <div className="w-10 h-10 rounded-lg bg-[#024653] flex items-center justify-center text-white shadow-lg shadow-[#024653]/20">
-                                        <User size={18} />
-                                    </div>
-                                    <div className="text-left">
-                                        <p className="text-[10px] font-bold uppercase tracking-widest text-[#024653]">Returning Client?</p>
-                                        <p className="text-[9px] font-semibold text-[#05D16E] uppercase tracking-tighter">Access Saved Vault</p>
-                                    </div>
-                                </div>
-                                <div className="w-8 h-8 rounded-lg bg-[#024653]/5 flex items-center justify-center text-[#024653] group-hover:bg-[#024653] group-hover:text-white transition-all">
-                                    <ArrowRight size={14} />
-                                </div>
-                            </button>
-                        </div>
-                    </div>
+                                <AlertCircle size={14} />
+                                <span>Outside Spokane Radius</span>
+                            </motion.div>
+                        )}
+                        {status === 'active' && (
+                            <motion.div
+                                initial={{ opacity: 0, y: -5 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -5 }}
+                                className="absolute left-6 top-full mt-3 flex items-center gap-2"
+                            >
+                                <div className="w-2 h-2 rounded-full bg-[#05D16E] animate-pulse" />
+                                <span className="text-[#05D16E] font-bold text-[10px] uppercase tracking-widest">
+                                    Operational Zone: {city}
+                                </span>
+                            </motion.div>
+                        )}
+                        {isChecking && !status && (
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                className="absolute left-6 top-full mt-3 flex items-center gap-2"
+                            >
+                                <div className="w-2 h-2 rounded-full bg-[#024653]/20 animate-ping" />
+                                <span className="text-[#024653]/40 font-bold text-[10px] uppercase tracking-widest">
+                                    Scanning Territory...
+                                </span>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
 
+                {/* Returning Client Selection - Matches Aesthetic */}
+                <div className="pt-4 w-full max-w-sm">
+                    <button
+                        onClick={onReturning}
+                        className="w-full bg-[#024653]/5 hover:bg-[#024653]/10 border border-transparent rounded-[2rem] p-4 flex items-center justify-between group transition-all duration-300"
+                    >
+                        <div className="flex items-center gap-4">
+                            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#024653] shadow-sm group-hover:scale-110 transition-transform">
+                                <User size={18} />
+                            </div>
+                            <div className="text-left">
+                                <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#024653]/40">Existing Account?</p>
+                                <p className="text-[11px] font-semibold text-[#024653] uppercase tracking-widest">Access Saved Dashboard</p>
+                            </div>
+                        </div>
+                        <div className="pr-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
+                            <ArrowRight size={16} className="text-[#024653]" />
+                        </div>
+                    </button>
+                </div>
             </div>
         </div>
     );

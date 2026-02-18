@@ -91,11 +91,13 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
 
                 {/* Input Capsule Centered */}
                 <div className="w-full max-w-md relative">
-                    <div className={`flex items-center bg-white rounded-[2rem] p-2 transition-all duration-500 border ${status === 'unavailable'
-                            ? 'border-red-500 shadow-[0_12px_30px_rgba(239,68,68,0.1)]'
+                    <div className={`flex items-center bg-white rounded-[2rem] p-2 transition-all duration-300 border-2 ${status === 'unavailable'
+                        ? 'border-red-500'
+                        : status === 'active'
+                            ? 'border-[#05D16E]'
                             : isFocused
-                                ? 'border-gray-100 shadow-[0_12px_30px_rgba(2,70,83,0.12)] scale-[1.02]'
-                                : 'border-gray-100/50 shadow-[0_4px_12px_rgba(2,70,83,0.05)]'
+                                ? 'border-[#024653]/40'
+                                : 'border-[#024653]/10'
                         }`}>
                         <div className={`pl-5 transition-colors duration-300 ${status === 'unavailable' ? 'text-red-500' : isFocused ? 'text-[#024653]' : 'text-[#024653]/40'}`}>
                             <MapPin size={22} />

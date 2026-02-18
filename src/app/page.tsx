@@ -56,10 +56,10 @@ export default function Home() {
         <main className="min-h-screen bg-[#F9F8F2] selection:bg-accent selection:text-white light">
             {/* Conventional Header - 60px version */}
             <header
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[60px] border-b border-white/20 ${isOverAbout
-                    ? "bg-[#F9F8F2] shadow-md"
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 h-[60px] ${isOverAbout
+                    ? "bg-[#F9F8F2]"
                     : "bg-[#F9F8F2]/80 backdrop-blur-xl"
-                    } ${scrolled && !isOverAbout ? "shadow-sm" : ""}`}
+                    }`}
             >
                 <div className="max-w-[1700px] mx-auto h-full px-6 lg:px-10 flex items-center justify-between">
                     {/* Left: Logo (48px height) */}

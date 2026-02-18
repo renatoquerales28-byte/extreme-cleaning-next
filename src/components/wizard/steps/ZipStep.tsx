@@ -100,19 +100,8 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                             onBlur={() => setIsFocused(false)}
                             placeholder="Enter Zip Code"
                             autoComplete="off"
-                            className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-medium text-base md:text-lg px-4 py-2 h-14 placeholder:text-[#024653]/20 appearance-none selection:bg-[#05D16E]/20"
+                            className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-medium text-base md:text-lg px-4 py-2 pr-6 h-14 placeholder:text-[#024653]/20 appearance-none selection:bg-[#05D16E]/20"
                         />
-                        <button
-                            onClick={() => status === 'active' ? onNext() : checkAvailability()}
-                            disabled={isChecking || zipCode.length < 5}
-                            className={`${status === 'unavailable' ? 'bg-red-500' : 'bg-[#05D16E]'} text-white w-14 h-14 rounded-full flex items-center justify-center transition-all shrink-0 shadow-[0_4px_12px_rgba(5,209,110,0.2)] active:scale-95 disabled:opacity-50`}
-                        >
-                            {isChecking ? (
-                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                            ) : (
-                                <ArrowRight size={22} className="stroke-[3px]" />
-                            )}
-                        </button>
                     </div>
 
                     {/* Feedback Messages - Absolute to prevent jump */}

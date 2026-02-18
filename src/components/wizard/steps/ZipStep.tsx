@@ -74,20 +74,9 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     }, [zipCode, isChecking, checkAvailability, setAction, status, onNext]);
 
     return (
-        <div className="w-full flex-1 flex flex-col justify-center py-8">
-            <div className="max-w-xl mx-auto w-full px-6 flex flex-col items-center space-y-12">
+        <div className="w-full flex-1 flex flex-col justify-center py-12">
+            <div className="max-w-xl mx-auto w-full px-6 flex flex-col items-center space-y-16">
 
-                {/* Heading Section */}
-                <div className="text-center space-y-4">
-                    <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#024653]/5 border border-[#024653]/10">
-                        <Target size={12} className="text-[#024653]" />
-                        <span className="text-[9px] font-bold uppercase tracking-[0.25em] text-[#024653]">Territory Clearance</span>
-                    </div>
-                    <h2 className="text-3xl md:text-4xl font-normal text-[#024653] leading-tight">Where are we <br /><span className="italic font-light">cleaning?</span></h2>
-                    <p className="text-sm text-[#024653]/50 max-w-xs mx-auto font-light leading-relaxed">
-                        Precision starts here. Enter your zip code to verify operational status in your district.
-                    </p>
-                </div>
 
                 {/* Input Capsule Centered */}
                 <div className="w-full max-w-md relative">
@@ -109,8 +98,9 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                             autoFocus
                             onFocus={() => setIsFocused(true)}
                             onBlur={() => setIsFocused(false)}
-                            placeholder="00000"
-                            className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-bold tabular-nums text-2xl px-4 py-2 h-14 tracking-[0.1em] placeholder:text-[#024653]/5"
+                            placeholder="Enter Zip Code"
+                            autoComplete="off"
+                            className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-medium text-base md:text-lg px-4 py-2 h-14 placeholder:text-[#024653]/20 appearance-none selection:bg-[#05D16E]/20"
                         />
                         <button
                             onClick={() => status === 'active' ? onNext() : checkAvailability()}
@@ -167,7 +157,7 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                 </div>
 
                 {/* Returning Client Selection - Matches Aesthetic */}
-                <div className="pt-4 w-full max-w-sm">
+                <div className="pt-12 w-full max-w-sm">
                     <button
                         onClick={onReturning}
                         className="w-full bg-[#024653]/5 hover:bg-[#024653]/10 border border-transparent rounded-[2rem] p-4 flex items-center justify-between group transition-all duration-300"

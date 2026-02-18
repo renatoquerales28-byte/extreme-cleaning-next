@@ -14,17 +14,17 @@ export default function ProcessSection() {
         {
             num: "01",
             title: "Share Your Space Details",
-            desc: "Tell us about your property in 60 seconds. Select your service type and specific needs."
+            desc: "Tell us about your property and the type of service you need in under 60 seconds."
         },
         {
             num: "02",
-            title: "Get Instant Pricing",
-            desc: "Receive a transparent, upfront quote immediately. No hidden fees, no surprises."
+            title: "Coordination & Site Visit",
+            desc: "We will call you to schedule a technical visit. We evaluate your space in person to provide an exact quote based on your specific requirements."
         },
         {
             num: "03",
             title: "Enjoy Your Clean Space",
-            desc: "Our expert team arrives on time and transforms your space to absolute perfection."
+            desc: "Our expert team arrives on time to transform your environment and bring it to absolute perfection."
         }
     ];
 
@@ -109,8 +109,7 @@ export default function ProcessSection() {
                         <span className="font-bold">Simplicity</span> Redefined.
                     </h2>
                     <p className="text-[#024653]/60 font-light text-base max-w-xl mx-auto leading-relaxed">
-                        We specialize in providing top-tier cleaning solutions tailored to your needs. Our expertise spans
-                        residential deep cleaning, commercial maintenance, and specialized post-construction services.
+                        Our process is designed for precision and absolute clarity. From high-end residential first cleanings to specialized post-construction projects, we ensure every detail is tailored to your environment through an expert on-site evaluation.
                     </p>
                 </motion.div>
 

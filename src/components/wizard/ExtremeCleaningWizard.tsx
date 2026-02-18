@@ -68,8 +68,21 @@ function WizardNavigation({ onClose }: { onClose?: () => void }) {
         };
     }, []);
 
-    const [currentStep, setCurrentStep] = useState<StepId>("zip");
-    const [history, setHistory] = useState<StepId[]>([]);
+    // 1. Initialize logic to determine starting step
+    const getInitialStep = (): StepId => {
+        if (initialZip && initialZip.length === 5) {
+            if (initialType) {
+                if (initialType === 'commercial') return 'commercial_details';
+                return 'cleaning_type';
+            }
+            return 'service';
+        }
+        return 'zip';
+    };
+
+    const [currentStep, setCurrentStep] = useState<StepId>(getInitialStep);
+    const [isInitializing, setIsInitializing] = useState(!!(initialZip && initialZip.length === 5));
+    const [history, setHistory] = useState<StepId[]>(getInitialStep() !== 'zip' ? ["zip"] : []);
     const [customerData, setCustomerData] = useState<any>(null);
     const { action } = useWizardAction();
 
@@ -92,38 +105,26 @@ function WizardNavigation({ onClose }: { onClose?: () => void }) {
     const { watch, trigger } = methods;
 
     useEffect(() => {
-        const autoAdvance = async () => {
-            // Only auto-advance on the very first load (history is empty)
-            if (history.length === 0 && initialZip && initialZip.length === 5 && currentStep === "zip") {
+        const validateInitialState = async () => {
+            if (isInitializing && initialZip) {
                 try {
                     const { checkZipAvailability } = await import("@/app/actions/location");
                     const res = await checkZipAvailability(initialZip);
 
                     if (res.status === 'unavailable') {
-                        // If not available, we stay on the zip step to show the error
-                        return;
-                    }
-
-                    const currentServiceType = watch("serviceType");
-                    const finalType = initialType || currentServiceType;
-
-                    let nextStep: StepId = "service";
-                    if (finalType) {
-                        if (finalType === 'commercial') nextStep = 'commercial_details';
-                        else nextStep = 'cleaning_type';
-                    }
-
-                    if (nextStep !== (currentStep as string)) {
-                        setCurrentStep(nextStep);
-                        setHistory(["zip"]);
+                        // If it turns out to be invalid, go back to zip
+                        setCurrentStep("zip");
+                        setHistory([]);
                     }
                 } catch (error) {
-                    console.error("Auto-advance check failed:", error);
+                    console.error("Initial validation failed:", error);
+                } finally {
+                    setIsInitializing(false);
                 }
             }
         };
-        autoAdvance();
-    }, [initialZip, currentStep, initialType, watch, history.length]);
+        validateInitialState();
+    }, [isInitializing, initialZip]);
 
     const handleNext = async () => {
         const freshData = methods.getValues();
@@ -363,7 +364,16 @@ function WizardNavigation({ onClose }: { onClose?: () => void }) {
                                 <div className="w-full max-w-4xl mx-auto px-4 lg:px-10 py-4 lg:py-10 pb-20">
                                     {/* Active Stage (The Step) */}
                                     <div className="w-full">
-                                        {ActiveStep ? <ActiveStep {...stepProps} /> : <div>Component Stage Missing</div>}
+                                        {isInitializing ? (
+                                            <div className="flex flex-col items-center justify-center py-20">
+                                                <div className="w-8 h-8 border-2 border-[#024653]/10 border-t-[#05D16E] rounded-full animate-spin mb-4" />
+                                                <p className="text-[10px] font-bold uppercase tracking-widest text-[#024653]/30">Synchronizing...</p>
+                                            </div>
+                                        ) : ActiveStep ? (
+                                            <ActiveStep {...stepProps} />
+                                        ) : (
+                                            <div>Component Stage Missing</div>
+                                        )}
                                     </div>
                                 </div>
                             </div>

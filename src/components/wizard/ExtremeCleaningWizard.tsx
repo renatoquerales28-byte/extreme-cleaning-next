@@ -92,22 +92,37 @@ function WizardNavigation({ onClose }: { onClose?: () => void }) {
     const { watch, trigger } = methods;
 
     useEffect(() => {
-        // Only auto-advance on the very first load (history is empty)
-        if (history.length === 0 && initialZip && initialZip.length === 5 && currentStep === "zip") {
-            const currentServiceType = watch("serviceType");
-            const finalType = initialType || currentServiceType;
+        const autoAdvance = async () => {
+            // Only auto-advance on the very first load (history is empty)
+            if (history.length === 0 && initialZip && initialZip.length === 5 && currentStep === "zip") {
+                try {
+                    const { checkZipAvailability } = await import("@/app/actions/location");
+                    const res = await checkZipAvailability(initialZip);
 
-            let nextStep: StepId = "service";
-            if (finalType) {
-                if (finalType === 'commercial') nextStep = 'commercial_details';
-                else nextStep = 'cleaning_type';
-            }
+                    if (res.status === 'unavailable') {
+                        // If not available, we stay on the zip step to show the error
+                        return;
+                    }
 
-            if (nextStep !== (currentStep as string)) {
-                setCurrentStep(nextStep);
-                setHistory(["zip"]);
+                    const currentServiceType = watch("serviceType");
+                    const finalType = initialType || currentServiceType;
+
+                    let nextStep: StepId = "service";
+                    if (finalType) {
+                        if (finalType === 'commercial') nextStep = 'commercial_details';
+                        else nextStep = 'cleaning_type';
+                    }
+
+                    if (nextStep !== (currentStep as string)) {
+                        setCurrentStep(nextStep);
+                        setHistory(["zip"]);
+                    }
+                } catch (error) {
+                    console.error("Auto-advance check failed:", error);
+                }
             }
-        }
+        };
+        autoAdvance();
     }, [initialZip, currentStep, initialType, watch, history.length]);
 
     const handleNext = async () => {
@@ -134,6 +149,20 @@ function WizardNavigation({ onClose }: { onClose?: () => void }) {
             const firstError = Object.values(errors)[0];
             if (firstError) toast.error(`Please check: ${firstError.message || "Required fields"}`);
             return;
+        }
+
+        // ZIP Code DB Validation (Final catch-all)
+        if (currentStep === 'zip') {
+            try {
+                const { checkZipAvailability } = await import("@/app/actions/location");
+                const res = await checkZipAvailability(freshData.zipCode);
+                if (res.status === 'unavailable') {
+                    toast.error("Sorry, we don't service this area yet.");
+                    return;
+                }
+            } catch (error) {
+                console.error("ZIP check failed:", error);
+            }
         }
 
         // Progressive Lead Capture

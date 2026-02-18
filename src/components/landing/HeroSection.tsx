@@ -47,17 +47,30 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const handleStart = (e?: React.FormEvent) => {
+    const handleStart = async (e?: React.FormEvent) => {
         if (e) e.preventDefault();
         if (zipCode.length === 5) {
-            if (onOpenWizard) {
-                onOpenWizard(zipCode);
-                // Also update URL to keep things in sync if they share the link
-                const url = new URL(window.location.href);
-                url.searchParams.set('zip', zipCode);
-                window.history.pushState({}, '', url);
-            } else {
-                router.push(`/quote?zip=${zipCode}`);
+            try {
+                const { checkZipAvailability } = await import("@/app/actions/location");
+                const res = await checkZipAvailability(zipCode);
+
+                if (res.status === 'unavailable') {
+                    toast.error("Sorry, we don't service this area yet.");
+                    return;
+                }
+
+                if (onOpenWizard) {
+                    onOpenWizard(zipCode);
+                    // Also update URL to keep things in sync if they share the link
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('zip', zipCode);
+                    window.history.pushState({}, '', url);
+                } else {
+                    router.push(`/quote?zip=${zipCode}`);
+                }
+            } catch (error) {
+                console.error("ZIP check failed:", error);
+                toast.error("Something went wrong. Please try again.");
             }
         } else {
             toast.error("Please enter a valid 5-digit zip code");

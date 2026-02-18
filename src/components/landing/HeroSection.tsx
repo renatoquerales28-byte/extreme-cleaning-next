@@ -227,10 +227,10 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                             <AnimatePresence>
                                 {error && (
                                     <motion.p
-                                        initial={{ opacity: 0, y: -10 }}
+                                        initial={{ opacity: 0, y: -5 }}
                                         animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -10 }}
-                                        className="text-red-500 text-[11px] mt-2 font-medium"
+                                        exit={{ opacity: 0, y: -5 }}
+                                        className="absolute left-4 top-full mt-1 text-red-500 text-[11px] font-medium whitespace-nowrap"
                                     >
                                         {error}
                                     </motion.p>
@@ -406,10 +406,10 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                                         <AnimatePresence>
                                             {error && (
                                                 <motion.p
-                                                    initial={{ opacity: 0, y: -10 }}
+                                                    initial={{ opacity: 0, y: -5 }}
                                                     animate={{ opacity: 1, y: 0 }}
-                                                    exit={{ opacity: 0, y: -10 }}
-                                                    className="text-red-500 text-[12px] mt-2 ml-4 font-medium"
+                                                    exit={{ opacity: 0, y: -5 }}
+                                                    className="absolute left-5 top-full mt-1 text-red-500 text-[12px] font-medium whitespace-nowrap"
                                                 >
                                                     {error}
                                                 </motion.p>

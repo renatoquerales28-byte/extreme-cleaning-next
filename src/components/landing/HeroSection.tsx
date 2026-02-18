@@ -13,6 +13,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
     const [isFocused, setIsFocused] = useState(false);
     const [isStickyFocused, setIsStickyFocused] = useState(false);
     const [showSticky, setShowSticky] = useState(false);
+    const [error, setError] = useState<string | null>(null);
 
     const words = ["Home", "Business", "Office", "Medical Facility", "Building"];
     const heroImages = [
@@ -55,7 +56,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                 const res = await checkZipAvailability(zipCode);
 
                 if (res.status === 'unavailable') {
-                    toast.error("Sorry, we don't service this area yet.");
+                    setError("Sorry, we don't service this area yet.");
                     return;
                 }
 
@@ -73,7 +74,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                 toast.error("Something went wrong. Please try again.");
             }
         } else {
-            toast.error("Please enter a valid 5-digit zip code");
+            setError("Please enter a valid 5-digit zip code");
         }
     };
 
@@ -205,21 +206,36 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
 
                         {/* Mobile Delicate Input */}
                         <div className="max-w-md mx-auto relative group pt-2">
-                            <form onSubmit={handleStart} className="flex items-center bg-white rounded-2xl p-1 transition-all duration-500 border border-gray-100 shadow-[0_4px_15px_rgba(0,0,0,0.05)]">
-                                <div className="pl-4 text-[#024653]/40">
+                            <form onSubmit={handleStart} className={`flex items-center bg-white rounded-2xl p-1 transition-all duration-300 border ${error ? 'border-red-500 shadow-[0_0_10px_rgba(239,68,68,0.1)]' : 'border-gray-100 shadow-[0_4px_15px_rgba(0,0,0,0.05)]'}`}>
+                                <div className={`pl-4 ${error ? 'text-red-500' : 'text-[#024653]/40'}`}>
                                     <MapPin size={18} />
                                 </div>
                                 <input
                                     type="text"
                                     value={zipCode}
-                                    onChange={(e) => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))}
+                                    onChange={(e) => {
+                                        setError(null);
+                                        setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5));
+                                    }}
                                     placeholder="Enter Zip Code"
                                     className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-medium placeholder:text-[#024653]/30 text-base px-3 h-10"
                                 />
-                                <button type="submit" className="bg-[#05D16E] text-[#024653] w-10 h-10 rounded-xl flex items-center justify-center shrink-0">
+                                <button type="submit" className={`${error ? 'bg-red-500' : 'bg-[#05D16E]'} text-white w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors`}>
                                     <ArrowRight size={18} className="stroke-[3px]" />
                                 </button>
                             </form>
+                            <AnimatePresence>
+                                {error && (
+                                    <motion.p
+                                        initial={{ opacity: 0, y: -10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        exit={{ opacity: 0, y: -10 }}
+                                        className="text-red-500 text-[11px] mt-2 font-medium"
+                                    >
+                                        {error}
+                                    </motion.p>
+                                )}
+                            </AnimatePresence>
                         </div>
 
                         {/* Mobile Spacer & Ticker */}
@@ -260,12 +276,15 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                             <div className="flex flex-col gap-5">
                                 <div className="flex items-center gap-2 w-full">
                                     {/* Input side */}
-                                    <div className={`flex-1 flex items-center bg-white rounded-full px-4 h-12 shadow-[0_4px_20px_rgba(2,70,83,0.06)] border transition-all duration-300 ${isStickyFocused ? 'border-[#05D16E]/40 shadow-[0_4px_25px_rgba(5,209,110,0.1)]' : 'border-gray-100'}`}>
-                                        <MapPin size={16} className={`shrink-0 transition-colors ${isStickyFocused ? 'text-[#05D16E]' : 'text-[#024653]/30'}`} />
+                                    <div className={`flex-1 flex items-center bg-white rounded-full px-4 h-12 shadow-[0_4px_20px_rgba(2,70,83,0.06)] border transition-all duration-300 ${error ? 'border-red-500' : isStickyFocused ? 'border-[#05D16E]/40 shadow-[0_4px_25px_rgba(5,209,110,0.1)]' : 'border-gray-100'}`}>
+                                        <MapPin size={16} className={`shrink-0 transition-colors ${error ? 'text-red-500' : isStickyFocused ? 'text-[#05D16E]' : 'text-[#024653]/30'}`} />
                                         <input
                                             type="text"
                                             value={zipCode}
-                                            onChange={(e) => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))}
+                                            onChange={(e) => {
+                                                setError(null);
+                                                setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5));
+                                            }}
                                             onFocus={() => setIsStickyFocused(true)}
                                             onBlur={() => setIsStickyFocused(false)}
                                             placeholder="Zipcode"
@@ -356,17 +375,22 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                                 {/* Premium Elevated Zip Code Input - Refined Shadow */}
                                 <div className="max-w-md">
                                     <form onSubmit={handleStart} className="relative group">
-                                        <div className={`flex items-center bg-white rounded-2xl p-1.5 transition-all duration-500 border border-gray-100/50 ${isFocused
-                                            ? 'shadow-[0_12px_30px_rgba(2,70,83,0.12)] scale-[1.01]'
-                                            : 'shadow-[0_4px_12px_rgba(2,70,83,0.05)]'
+                                        <div className={`flex items-center bg-white rounded-2xl p-1.5 transition-all duration-500 border ${error
+                                            ? 'border-red-500 shadow-[0_12px_30px_rgba(239,68,68,0.1)]'
+                                            : isFocused
+                                                ? 'border-gray-100 shadow-[0_12px_30px_rgba(2,70,83,0.12)] scale-[1.01]'
+                                                : 'border-gray-100/50 shadow-[0_4px_12px_rgba(2,70,83,0.05)]'
                                             }`}>
-                                            <div className={`pl-5 transition-colors duration-300 ${isFocused ? 'text-[#024653]' : 'text-[#024653]/40'}`}>
+                                            <div className={`pl-5 transition-colors duration-300 ${error ? 'text-red-500' : isFocused ? 'text-[#024653]' : 'text-[#024653]/40'}`}>
                                                 <MapPin size={20} />
                                             </div>
                                             <input
                                                 type="text"
                                                 value={zipCode}
-                                                onChange={(e) => setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5))}
+                                                onChange={(e) => {
+                                                    setError(null);
+                                                    setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5));
+                                                }}
                                                 onFocus={() => setIsFocused(true)}
                                                 onBlur={() => setIsFocused(false)}
                                                 placeholder="Enter Zip Code"
@@ -374,11 +398,23 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                                             />
                                             <button
                                                 type="submit"
-                                                className="bg-[#05D16E] hover:bg-[#04bd63] text-[#024653] w-12 h-12 rounded-xl flex items-center justify-center transition-all shrink-0 shadow-[0_2px_4px_rgba(5,209,110,0.1)] active:scale-95"
+                                                className={`${error ? 'bg-red-500 hover:bg-red-600' : 'bg-[#05D16E] hover:bg-[#04bd63]'} text-white w-12 h-12 rounded-xl flex items-center justify-center transition-all shrink-0 shadow-[0_2px_4px_rgba(5,209,110,0.1)] active:scale-95`}
                                             >
                                                 <ArrowRight size={20} className="stroke-[3px]" />
                                             </button>
                                         </div>
+                                        <AnimatePresence>
+                                            {error && (
+                                                <motion.p
+                                                    initial={{ opacity: 0, y: -10 }}
+                                                    animate={{ opacity: 1, y: 0 }}
+                                                    exit={{ opacity: 0, y: -10 }}
+                                                    className="text-red-500 text-[12px] mt-2 ml-4 font-medium"
+                                                >
+                                                    {error}
+                                                </motion.p>
+                                            )}
+                                        </AnimatePresence>
                                     </form>
                                 </div>
 

@@ -5,7 +5,12 @@ export default function robots(): MetadataRoute.Robots {
         rules: {
             userAgent: '*',
             allow: '/',
-            disallow: '/admin/',
+            disallow: [
+                '/admin/',
+                '/portfolio/',
+                '/category/',
+                '/tag/',
+            ],
         },
         sitemap: 'https://extremecleaning509.com/sitemap.xml',
     }

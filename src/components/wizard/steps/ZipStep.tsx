@@ -57,15 +57,16 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
     useEffect(() => {
         const canCheck = zipCode.length === 5;
         const isActive = status === 'active';
+        const isUnavailable = status === 'unavailable';
 
         setAction({
-            label: isActive ? "Initialize Service" : (isChecking ? "Scanning Territory..." : "Verify Territory"),
-            disabled: zipCode.length < 5 || (isChecking && !isActive),
+            label: isActive ? "Initialize Service" : (isChecking ? "Scanning..." : "Verify Territory"),
+            disabled: zipCode.length < 5 || isChecking || isUnavailable,
             isLoading: isChecking,
             onClick: async () => {
                 if (isActive) {
                     onNext();
-                } else {
+                } else if (!isUnavailable) {
                     await checkAvailability();
                 }
             },

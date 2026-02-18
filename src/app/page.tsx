@@ -221,16 +221,29 @@ export default function Home() {
             </AnimatePresence>
 
             <HeroSection onOpenWizard={(zip) => {
-                if (zip) setWizardOpen(true); // Simplified for now
+                if (zip) {
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('zip', zip);
+                    window.history.pushState({}, '', url);
+                }
                 setWizardOpen(true);
             }} />
 
             {/* NEW STRATEGIC SECTIONS */}
-            <ServiceSelectorSection onOpenWizard={() => {
+            <ServiceSelectorSection onOpenWizard={(zip) => {
+                if (zip) {
+                    const url = new URL(window.location.href);
+                    url.searchParams.set('zip', zip);
+                    window.history.pushState({}, '', url);
+                }
                 setWizardOpen(true);
-                // The URL state is handled within the component's handleContinue
             }} />
-            <ProcessSection />
+            <ProcessSection onOpenWizard={(zip) => {
+                const url = new URL(window.location.href);
+                url.searchParams.set('zip', zip);
+                window.history.pushState({}, '', url);
+                setWizardOpen(true);
+            }} />
             <AboutSection />
 
             <FooterSection />

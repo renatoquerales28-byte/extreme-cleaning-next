@@ -110,7 +110,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                                 duration: 1.4,
                                 ease: [0.16, 1, 0.3, 1]
                             }}
-                            className="absolute inset-0 rounded-b-[2.5rem] overflow-hidden"
+                            className="absolute inset-0 rounded-none overflow-hidden"
                         >
                             <Image
                                 src={heroImages[wordIndex]}
@@ -125,7 +125,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                 </div>
 
                 {/* Mobile Content Card */}
-                <div className="relative z-20 -mt-10 rounded-t-[2.5rem] bg-[#F9F8F2] px-6 pt-16 pb-0 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] text-center">
+                <div className="relative z-20 -mt-10 rounded-t-[2.5rem] bg-[#F9F8F2] px-3 pt-16 pb-0 shadow-[0_-10px_40px_rgba(0,0,0,0.05)] text-center">
 
                     {/* Mobile Stamp - Centered on Edge */}
                     <div className="absolute left-1/2 -top-9 -translate-x-1/2 z-40 pointer-events-none">
@@ -162,10 +162,12 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
 
                     {/* Mobile Content */}
                     <div className="space-y-5">
-                        <h1 className="text-[28px] xs:text-3xl font-normal leading-[1.2] tracking-tight">
+                        <h1 className="text-[28px] xs:text-3xl font-normal leading-[1.1] tracking-tighter px-0">
                             Professional Cleaning <br />
-                            <span className="italic font-light">Excellence</span> in Spokane for your <br />
-                            <span className="relative inline-block overflow-visible min-h-[1.2em] w-full mt-1">
+                            <span className="inline-block">
+                                <span className="italic font-light">Excellence</span> in Spokane for your
+                            </span>
+                            <span className="relative inline-block overflow-visible min-h-[1.2em] w-full mt-0">
                                 <AnimatePresence mode="wait">
                                     <motion.div
                                         key={`word-mobile-${wordIndex}`}

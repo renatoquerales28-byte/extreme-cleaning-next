@@ -144,7 +144,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                                     <defs>
                                         <path id="circlePathMobile" d="M 100, 100 m -75, 0 a 75,75 0 1,1 150,0 a 75,75 0 1,1 -150,0" />
                                     </defs>
-                                    <text fill="#024653" fontSize="24" fontWeight="bold" textAnchor="middle" letterSpacing="8">
+                                    <text fill="#024653" fontSize="22" fontWeight="bold" textAnchor="middle" letterSpacing="6">
                                         <textPath href="#circlePathMobile" startOffset="25%">
                                             EXCELLENCE
                                         </textPath>

@@ -85,7 +85,6 @@ export const WIZARD_FLOW: Record<StepId, WizardStepConfig> = {
         accent: "Your Space.",
         description: "Configure your property details and add premium extras.",
         next: (data) => {
-            if (data.serviceType === 'property_mgmt') return 'portfolio_summary';
             return 'contact';
         },
         guard: (data) => !!data.cleaningType,
@@ -155,5 +154,5 @@ export const WIZARD_FLOW: Record<StepId, WizardStepConfig> = {
 export const INITIAL_STEP: StepId = 'zip';
 
 export const STEP_ORDER: StepId[] = [
-    'zip', 'service', 'cleaning_type', 'property_and_extras', 'portfolio_summary', 'contact'
+    'zip', 'service', 'cleaning_type', 'property_and_extras', 'contact'
 ];

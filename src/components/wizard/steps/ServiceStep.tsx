@@ -22,12 +22,6 @@ const services = [
         label: "Commercial",
         desc: "Offices & business spaces",
         icon: Building2
-    },
-    {
-        id: "property_mgmt",
-        label: "Property Mgmt",
-        desc: "Portfolios & unit turns",
-        icon: LayoutGrid
     }
 ];
 
@@ -62,7 +56,7 @@ export default function ServiceStep({ onNext }: ServiceStepProps) {
                 </div>
 
                 {/* Grid Container */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 py-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 py-4">
                     {services.map((option) => {
                         const isSelected = selected === option.id;
                         const Icon = option.icon;

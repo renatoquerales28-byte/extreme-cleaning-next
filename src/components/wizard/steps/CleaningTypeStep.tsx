@@ -24,13 +24,6 @@ export default function CleaningTypeStep({ onNext }: CleaningTypeStepProps) {
                 { id: "post_construction", label: "Post Construction", icon: HardHat, tag: "Heavy Duty", desc: "Debris & Dust Removal" }
             ];
         }
-        if (serviceType === "property_mgmt") {
-            return [
-                { id: "first_cleaning", label: "First Cleaning", icon: Sparkles, tag: "Introductory", desc: "Deep Initial Clean" },
-                { id: "move_in_out", label: "Move In/Out", icon: Box, tag: "Empty Unit", desc: "Ready for Tenant" },
-                { id: "post_construction", label: "Post-Con", icon: HardHat, tag: "Heavy Duty", desc: "Construction Cleanup" }
-            ];
-        }
         // Default Residential
         return [
             { id: "first_cleaning", label: "First Cleaning", icon: Sparkles, tag: "Introductory", desc: "Premium Deep Session" },

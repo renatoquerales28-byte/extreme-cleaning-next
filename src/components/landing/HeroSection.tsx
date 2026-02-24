@@ -15,13 +15,12 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
     const [showSticky, setShowSticky] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    const words = ["Home", "Business", "Office", "Medical Facility", "Building"];
+    const words = ["Home", "Business", "Office", "Building"];
     const heroImages = [
         "/brand/hero_woman_cleaning.png",
         "/brand/service-commercial.png",
         "/brand/hero_office_meeting.png",
-        "/brand/service-commercial.png", // Medical placeholder
-        "/brand/hero_industrial_cleaner.png"
+        "/brand/Gemini_Generated_Image_50y7wg50y7wg50y7 (1).png"
     ];
     const [wordIndex, setWordIndex] = useState(0);
 
@@ -320,7 +319,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
             <div className="hidden lg:block w-full h-full max-w-[1700px] mx-auto relative">
                 <div className="grid grid-cols-2 h-full gap-0">
                     {/* Left Column: Content & Conversion */}
-                    <div className="relative z-20 flex flex-col justify-center p-10 pr-0 h-full">
+                    <div className="relative z-40 flex flex-col justify-center p-10 pr-0 h-full">
                         <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}

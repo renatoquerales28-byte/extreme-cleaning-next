@@ -184,7 +184,7 @@ export default function ServiceSelectorSection({ onOpenWizard }: { onOpenWizard?
             <div className="lg:hidden w-full px-5 pt-[20px] pb-[15px] flex flex-col gap-8 bg-[#F9F8F2]">
                 {/* 1. Header Sector Switcher (Pill shape, rounded-full) */}
                 <div className="w-full bg-[#024653] p-1.5 rounded-full flex relative shadow-lg">
-                    {(['residential', 'commercial', 'pm'] as ServiceType[]).map((tab) => (
+                    {(['residential', 'commercial'] as ServiceType[]).map((tab) => (
                         <button
                             key={tab}
                             onClick={() => setActiveTab(tab)}
@@ -307,7 +307,7 @@ export default function ServiceSelectorSection({ onOpenWizard }: { onOpenWizard?
                         <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-[60px] -translate-y-1/2 translate-x-1/2 mix-blend-overlay" />
                         <div className="relative z-10 flex flex-col h-full">
                             <div className="inline-flex bg-white/5 p-1 rounded-full relative border border-white/10 mb-10 shadow-inner w-full">
-                                {(['residential', 'commercial', 'pm'] as ServiceType[]).map((tab) => (
+                                {(['residential', 'commercial'] as ServiceType[]).map((tab) => (
                                     <button
                                         key={tab}
                                         onClick={() => setActiveTab(tab)}
@@ -316,7 +316,7 @@ export default function ServiceSelectorSection({ onOpenWizard }: { onOpenWizard?
                                         {activeTab === tab && (
                                             <motion.div layoutId="dActiveTab" className="absolute inset-0 bg-white rounded-full shadow-sm" transition={{ type: "spring", bounce: 0.2, duration: 0.6 }} />
                                         )}
-                                        <span className="relative z-10">{tab === 'pm' ? 'Property Mgmt' : tab}</span>
+                                        <span className="relative z-10">{tab}</span>
                                     </button>
                                 ))}
                             </div>

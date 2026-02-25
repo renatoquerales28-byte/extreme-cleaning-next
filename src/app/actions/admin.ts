@@ -4,6 +4,82 @@ import { db } from "@/lib/db";
 import { leads, pricingConfig, promotions } from "@/lib/db/schema";
 import { desc, eq, sql } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { Resend } from "resend";
+
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "extremecleaning.ops@gmail.com";
+
+async function sendAdminNotification(leadData: any) {
+    if (!process.env.RESEND_API_KEY) return;
+    try {
+        const resend = new Resend(process.env.RESEND_API_KEY);
+        const d = leadData.details || {};
+        await resend.emails.send({
+            from: "ECS Bookings <onboarding@resend.dev>",
+            to: [ADMIN_EMAIL],
+            subject: `🧹 New Lead — ${leadData.firstName || ""} ${leadData.lastName || ""}`,
+            html: `
+                <div style="font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; background: #f9fafb; border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb;">
+                    <div style="background: #024653; padding: 28px 32px;">
+                        <h1 style="margin: 0; color: #ffffff; font-size: 22px; font-weight: 700;">🧹 New Booking Request</h1>
+                        <p style="margin: 6px 0 0; color: #a7d9e0; font-size: 14px;">Extreme Cleaning Services — Admin Notification</p>
+                    </div>
+                    <div style="padding: 28px 32px;">
+                        <h2 style="color: #024653; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">👤 Client Info</h2>
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+                            <tr style="border-bottom: 1px solid #e5e7eb;">
+                                <td style="padding: 10px 0; color: #6b7280; font-size: 14px; width: 40%;">Name</td>
+                                <td style="padding: 10px 0; color: #111827; font-size: 14px; font-weight: 600;">${leadData.firstName || ""} ${leadData.lastName || ""}</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e5e7eb;">
+                                <td style="padding: 10px 0; color: #6b7280; font-size: 14px;">Email</td>
+                                <td style="padding: 10px 0; font-size: 14px; font-weight: 600;"><a href="mailto:${leadData.email}" style="color: #024653;">${leadData.email || "N/A"}</a></td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e5e7eb;">
+                                <td style="padding: 10px 0; color: #6b7280; font-size: 14px;">Phone</td>
+                                <td style="padding: 10px 0; color: #111827; font-size: 14px;">${leadData.phone || "N/A"}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 0; color: #6b7280; font-size: 14px;">ZIP Code</td>
+                                <td style="padding: 10px 0; color: #111827; font-size: 14px;">${d.zipCode || "N/A"}</td>
+                            </tr>
+                        </table>
+                        <h2 style="color: #024653; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">🗓️ Service Details</h2>
+                        <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
+                            <tr style="border-bottom: 1px solid #e5e7eb;">
+                                <td style="padding: 10px 0; color: #6b7280; font-size: 14px; width: 40%;">Service Type</td>
+                                <td style="padding: 10px 0; color: #111827; font-size: 14px; font-weight: 600;">${leadData.serviceType || "N/A"}</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e5e7eb;">
+                                <td style="padding: 10px 0; color: #6b7280; font-size: 14px;">Frequency</td>
+                                <td style="padding: 10px 0; color: #111827; font-size: 14px;">${leadData.frequency || d.frequency || "N/A"}</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid #e5e7eb;">
+                                <td style="padding: 10px 0; color: #6b7280; font-size: 14px;">Address</td>
+                                <td style="padding: 10px 0; color: #111827; font-size: 14px;">${d.address || "N/A"}, ${d.city || ""}</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 0; color: #6b7280; font-size: 14px;">Cleaning Type</td>
+                                <td style="padding: 10px 0; color: #111827; font-size: 14px;">${d.cleaningType || "N/A"}</td>
+                            </tr>
+                        </table>
+                        <div style="text-align: center; margin-top: 8px;">
+                            <a href="https://extreme-cleaning-next.vercel.app/admin"
+                               style="display: inline-block; background: #024653; color: #ffffff; font-size: 14px; font-weight: 600; text-decoration: none; padding: 12px 28px; border-radius: 8px;">
+                                View in Admin Dashboard →
+                            </a>
+                        </div>
+                    </div>
+                    <div style="background: #f3f4f6; padding: 16px 32px; text-align: center; border-top: 1px solid #e5e7eb;">
+                        <p style="margin: 0; color: #9ca3af; font-size: 12px;">Extreme Cleaning Services — Internal Notification</p>
+                    </div>
+                </div>
+            `,
+        });
+        console.log("✅ Admin notification sent to", ADMIN_EMAIL);
+    } catch (err: any) {
+        console.error("⚠️ Admin email failed (non-blocking):", err.message);
+    }
+}
 
 export async function warmUpServer() {
     try {
@@ -111,6 +187,9 @@ export async function createLead(data: typeof leads.$inferInsert) {
 
         const duration = Date.now() - startTime;
         console.log(`✅ Lead created in ${duration}ms (ID: ${result[0].insertedId})`);
+
+        // Fire-and-forget: notificar al admin por email sin bloquear la respuesta
+        sendAdminNotification(data).catch(() => { });
 
         // revalidatePath("/admin"); // Disabled for performance
         return { success: true, leadId: result[0].insertedId };

@@ -47,6 +47,7 @@ function AdminLayoutContent({
         { name: "Leads", href: "/admin", icon: "📋" },
         { name: "Calendar", href: "/admin/calendar", icon: "📅" },
         { name: "Clients", href: "/admin/clients", icon: "👤" },
+        { name: "Newsletter", href: "/admin/newsletter", icon: "📨" },
         { name: "Pricing", href: "/admin/pricing", icon: "💲" },
         { name: "Locations", href: "/admin/locations", icon: "📍" },
         ...(FEATURE_FLAGS.ENABLE_PROMOTIONS ? [{ name: "Promotions", href: "/admin/promotions", icon: "🏷️" }] : []),

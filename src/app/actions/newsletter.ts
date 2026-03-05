@@ -106,3 +106,13 @@ export async function subscribeToNewsletter(formData: FormData) {
         };
     }
 }
+
+export async function getNewsletterSubscribers() {
+    try {
+        const subscribers = await db.select().from(newsletterSubscribers);
+        return { success: true, count: subscribers.length, subscribers };
+    } catch (error: any) {
+        console.error("❌ Error fetching newsletter subscribers:", error.message);
+        return { success: false, error: "Failed to fetch newsletter subscribers" };
+    }
+}

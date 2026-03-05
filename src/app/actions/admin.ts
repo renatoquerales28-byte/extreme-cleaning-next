@@ -84,9 +84,6 @@ async function sendAdminNotification(leadData: any) {
                         <p style="color: #4b5563; font-size: 16px; line-height: 1.6;">
                             Thank you for contacting <strong>Extreme Cleaning</strong>! We have received your request and an advisor will contact you soon.
                         </p>
-                        <p style="color: #4b5563; font-size: 16px; line-height: 1.6;">
-                            If you have immediate questions or need to make adjustments to your request, feel free to reply directly to this email.
-                        </p>
                         <br/>
                         <p style="color: #9ca3af; font-size: 14px;">
                             Best regards,<br/>

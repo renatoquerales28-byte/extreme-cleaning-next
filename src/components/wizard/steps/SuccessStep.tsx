@@ -68,17 +68,10 @@ export default function SuccessStep() {
                             <ShieldCheck size={280} />
                         </div>
 
-                        <div className="flex items-center justify-between border-b border-[#024653]/10 pb-8 relative z-10">
-                            <div className="space-y-2">
-                                <p className="text-[10px] font-bold uppercase tracking-widest text-[#024653]/30">Lead ID</p>
-                                <p className="text-sm font-mono font-bold text-[#024653]">#ECS-REQ-{Math.random().toString(36).substr(2, 6).toUpperCase()}</p>
-                            </div>
-                            <div className="text-right space-y-2">
-                                <p className="text-[10px] font-bold uppercase tracking-widest text-[#024653]/30">Service Status</p>
-                                <div className="flex items-center gap-2 justify-end">
-                                    <div className="w-1.5 h-1.5 rounded-full bg-[#05D16E]" />
-                                    <p className="text-[10px] font-bold text-[#024653] uppercase tracking-widest">Awaiting Callback</p>
-                                </div>
+                        <div className="flex items-center justify-end border-b border-[#024653]/10 pb-8 relative z-10">
+                            <div className="flex items-center gap-2">
+                                <div className="w-1.5 h-1.5 rounded-full bg-[#05D16E]" />
+                                <p className="text-[10px] font-bold text-[#024653] uppercase tracking-widest">Awaiting Callback</p>
                             </div>
                         </div>
 
@@ -105,14 +98,7 @@ export default function SuccessStep() {
                             </div>
                         </div>
 
-                        <div className="pt-6 relative z-10">
-                            <div className="bg-[#024653] text-white p-4 rounded-xl text-center space-y-2">
-                                <p className="text-[9px] font-medium opacity-60 uppercase tracking-[0.3em]">
-                                    Summary Dispatched To
-                                </p>
-                                <p className="text-xs font-bold tracking-widest truncate">{data.email || "recipient@terminal.com"}</p>
-                            </div>
-                        </div>
+
                     </motion.div>
                 </div>
             </div>

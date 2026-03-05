@@ -15,10 +15,13 @@ async function sendAdminNotification(leadData: any) {
         const resend = new Resend(process.env.RESEND_API_KEY);
         const d = leadData.details || {};
 
+        const adminEmailClean = ADMIN_EMAIL.trim();
+        const senderEmailClean = SENDER_EMAIL.trim();
+
         // 1. Email to Operations (Admin)
-        await resend.emails.send({
-            from: `ECS Bookings <${SENDER_EMAIL}>`,
-            to: [ADMIN_EMAIL],
+        const adminRes = await resend.emails.send({
+            from: `ECS Bookings <${senderEmailClean}>`,
+            to: [adminEmailClean],
             replyTo: leadData.email || undefined,
             subject: `🧹 New Lead — ${leadData.firstName || ""} ${leadData.lastName || ""}`,
             html: `
@@ -70,13 +73,18 @@ async function sendAdminNotification(leadData: any) {
                 </div>
             `,
         });
-        console.log("✅ Admin notification sent to", ADMIN_EMAIL);
+
+        if (adminRes.error) {
+            console.error("❌ Resend Admin Error:", adminRes.error);
+        } else {
+            console.log("✅ Admin notification sent to", adminEmailClean, "ID:", adminRes.data?.id);
+        }
 
         // 2. Auto-Reply Email to Customer
         if (leadData.email) {
-            await resend.emails.send({
-                from: `Extreme Cleaning <${SENDER_EMAIL}>`,
-                to: [leadData.email],
+            const customerRes = await resend.emails.send({
+                from: `Extreme Cleaning <${senderEmailClean}>`,
+                to: [leadData.email.trim()],
                 subject: `Request Received! | Extreme Cleaning`,
                 html: `
                     <div style="font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; padding: 32px; border: 1px solid #e5e7eb; border-radius: 12px;">
@@ -93,11 +101,16 @@ async function sendAdminNotification(leadData: any) {
                     </div>
                 `
             });
-            console.log("✅ Customer auto-reply sent to", leadData.email);
+
+            if (customerRes.error) {
+                console.error("❌ Resend Customer Error:", customerRes.error);
+            } else {
+                console.log("✅ Customer auto-reply sent to", leadData.email, "ID:", customerRes.data?.id);
+            }
         }
 
     } catch (err: any) {
-        console.error("⚠️ Email notifications failed (non-blocking):", err.message);
+        console.error("⚠️ Email notifications failed context:", err.message);
     }
 }
 

@@ -7,15 +7,19 @@ import { revalidatePath } from "next/cache";
 import { Resend } from "resend";
 
 const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "extremecleaning.ops@gmail.com";
+const SENDER_EMAIL = process.env.SENDER_EMAIL || "no-reply@extremecleaning509.com";
 
 async function sendAdminNotification(leadData: any) {
     if (!process.env.RESEND_API_KEY) return;
     try {
         const resend = new Resend(process.env.RESEND_API_KEY);
         const d = leadData.details || {};
+
+        // 1. Email to Operations (Admin)
         await resend.emails.send({
-            from: "ECS Bookings <onboarding@resend.dev>",
+            from: `ECS Bookings <${SENDER_EMAIL}>`,
             to: [ADMIN_EMAIL],
+            replyTo: leadData.email || undefined,
             subject: `🧹 New Lead — ${leadData.firstName || ""} ${leadData.lastName || ""}`,
             html: `
                 <div style="font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; background: #f9fafb; border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb;">
@@ -62,22 +66,41 @@ async function sendAdminNotification(leadData: any) {
                                 <td style="padding: 10px 0; color: #111827; font-size: 14px;">${d.cleaningType || "N/A"}</td>
                             </tr>
                         </table>
-                        <div style="text-align: center; margin-top: 8px;">
-                            <a href="https://extreme-cleaning-next.vercel.app/admin"
-                               style="display: inline-block; background: #024653; color: #ffffff; font-size: 14px; font-weight: 600; text-decoration: none; padding: 12px 28px; border-radius: 8px;">
-                                View in Admin Dashboard →
-                            </a>
-                        </div>
-                    </div>
-                    <div style="background: #f3f4f6; padding: 16px 32px; text-align: center; border-top: 1px solid #e5e7eb;">
-                        <p style="margin: 0; color: #9ca3af; font-size: 12px;">Extreme Cleaning Services — Internal Notification</p>
                     </div>
                 </div>
             `,
         });
         console.log("✅ Admin notification sent to", ADMIN_EMAIL);
+
+        // 2. Auto-Reply Email to Customer
+        if (leadData.email) {
+            await resend.emails.send({
+                from: `Extreme Cleaning <${SENDER_EMAIL}>`,
+                to: [leadData.email],
+                subject: `Request Received! | Extreme Cleaning`,
+                html: `
+                    <div style="font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; padding: 32px; border: 1px solid #e5e7eb; border-radius: 12px;">
+                        <h1 style="color: #024653; font-size: 24px; margin-top: 0;">Hi ${leadData.firstName || "there"},</h1>
+                        <p style="color: #4b5563; font-size: 16px; line-height: 1.6;">
+                            Thank you for contacting <strong>Extreme Cleaning</strong>! We have received your request and an advisor will contact you soon.
+                        </p>
+                        <p style="color: #4b5563; font-size: 16px; line-height: 1.6;">
+                            If you have immediate questions or need to make adjustments to your request, feel free to reply directly to this email.
+                        </p>
+                        <br/>
+                        <p style="color: #9ca3af; font-size: 14px;">
+                            Best regards,<br/>
+                            <strong>The Extreme Cleaning Team</strong><br/>
+                            <a href="https://extreme-cleaning-next.vercel.app" style="color: #05D16E; text-decoration: none;">extreme-cleaning.com</a>
+                        </p>
+                    </div>
+                `
+            });
+            console.log("✅ Customer auto-reply sent to", leadData.email);
+        }
+
     } catch (err: any) {
-        console.error("⚠️ Admin email failed (non-blocking):", err.message);
+        console.error("⚠️ Email notifications failed (non-blocking):", err.message);
     }
 }
 

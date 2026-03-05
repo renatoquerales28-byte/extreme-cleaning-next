@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Star, Check, ArrowRight } from "lucide-react";
 import { GOOGLE_REVIEWS } from "@/lib/data/reviews_mock";
 import { motion } from "framer-motion";
+import { NewsletterForm } from "./NewsletterForm";
 
 export default function FooterSection() {
     return (
@@ -72,41 +73,7 @@ export default function FooterSection() {
             <div className="lg:hidden w-full px-6 flex flex-col gap-16">
 
                 {/* 1. Newsletter Block */}
-                <div className="space-y-8">
-                    <h2 className="text-3xl font-light leading-tight tracking-tight">
-                        Get special offers <br />
-                        <span className="italic font-normal">in your mailbox</span>
-                    </h2>
-
-                    <div className="space-y-6">
-                        <div className="relative group w-full">
-                            <input
-                                type="email"
-                                placeholder="name@example.com"
-                                className="w-full bg-white border border-[#024653]/10 px-6 h-14 rounded-2xl text-sm focus:outline-none focus:ring-2 focus:ring-[#085560]/10 transition-all font-normal text-[#024653] shadow-sm"
-                            />
-                            <button className="absolute right-2 top-2 bottom-2 px-6 bg-[#085560] text-white rounded-xl text-[10px] font-bold uppercase tracking-widest shadow-lg active:scale-95 transition-all">
-                                SUBSCRIBE
-                            </button>
-                        </div>
-                        <label className="flex items-start gap-3 cursor-pointer group">
-                            <div className="relative flex items-center justify-center mt-0.5">
-                                <input
-                                    type="checkbox"
-                                    className="peer appearance-none w-4 h-4 rounded border border-[#024653]/20 bg-white checked:bg-[#085560] checked:border-[#085560] transition-colors cursor-pointer"
-                                />
-                                <Check
-                                    size={10}
-                                    strokeWidth={4}
-                                    className="absolute text-white opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none"
-                                />
-                            </div>
-                            <span className="text-[10px] font-normal text-[#024653]/50 leading-snug">
-                                I agree to receive updates and news from ECS. You can unsubscribe at any time.
-                            </span>
-                        </label>
-                    </div>
-                </div>
+                <NewsletterForm />
 
                 {/* 2. Brand & Navigation Grid */}
                 <div className="grid grid-cols-2 gap-10 border-t border-[#024653]/5 pt-12">
@@ -174,36 +141,7 @@ export default function FooterSection() {
 
                     {/* COL 1: Newsletter (4/12) */}
                     <div className="col-span-4 space-y-6">
-                        <h2 className="text-3xl xl:text-4xl font-light leading-tight tracking-tight">
-                            Get special offers <br />
-                            <span className="italic">in your mailbox</span>
-                        </h2>
-                        <div className="relative group w-full max-w-[360px]">
-                            <input
-                                type="email"
-                                placeholder="name@example.com"
-                                className="w-full bg-white border border-[#024653]/10 px-6 py-3.5 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-[#05D16E]/20 transition-all font-normal text-[#024653]"
-                            />
-                            <button className="absolute right-1.5 top-1.5 bottom-1.5 px-6 bg-[#085560] text-white rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-[#064a54] transition-all">
-                                SEND
-                            </button>
-                        </div>
-                        <label className="flex items-center gap-2 cursor-pointer group">
-                            <div className="relative flex items-center justify-center">
-                                <input
-                                    type="checkbox"
-                                    className="peer appearance-none w-3.5 h-3.5 rounded border border-[#024653]/30 bg-transparent checked:border-[#085560] transition-colors cursor-pointer"
-                                />
-                                <Check
-                                    size={9}
-                                    strokeWidth={4}
-                                    className="absolute text-[#085560] opacity-0 peer-checked:opacity-100 transition-opacity pointer-events-none"
-                                />
-                            </div>
-                            <span className="text-[9px] font-normal text-[#024653]/40 group-hover:text-[#024653]/60 transition-colors">
-                                I agree to the <Link href="#" className="underline underline-offset-2">privacy statement</Link>
-                            </span>
-                        </label>
+                        <NewsletterForm isDesktop />
                     </div>
 
                     {/* COL 2: Links (2/12) */}

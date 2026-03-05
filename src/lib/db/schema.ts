@@ -69,3 +69,11 @@ export const staff = pgTable("staff", {
     active: boolean("active").default(true).notNull(),
     createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+export const newsletterSubscribers = pgTable("newsletter_subscribers", {
+    id: serial("id").primaryKey(),
+    email: text("email").notNull().unique(),
+    city: text("city").default("Spokane").notNull(),
+    source: text("source").default("footer").notNull(),
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+});

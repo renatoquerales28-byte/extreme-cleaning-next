@@ -23,11 +23,11 @@ async function sendAdminNotification(leadData: any) {
             from: `ECS Bookings <${senderEmailClean}>`,
             to: [adminEmailClean],
             replyTo: leadData.email || undefined,
-            subject: `🧹 New Lead — ${leadData.firstName || ""} ${leadData.lastName || ""}`,
+            subject: `New Lead — ${leadData.firstName || ""} ${leadData.lastName || ""}`,
             html: `
                 <div style="font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; background: #f9fafb; border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb;">
                     <div style="background: #024653; padding: 28px 32px;">
-                        <h1 style="margin: 0; color: #ffffff; font-size: 22px; font-weight: 700;">🧹 New Booking Request</h1>
+                        <h1 style="margin: 0; color: #ffffff; font-size: 22px; font-weight: 700;">New Booking Request</h1>
                         <p style="margin: 6px 0 0; color: #a7d9e0; font-size: 14px;">Extreme Cleaning Services — Admin Notification</p>
                     </div>
                     <div style="padding: 28px 32px;">

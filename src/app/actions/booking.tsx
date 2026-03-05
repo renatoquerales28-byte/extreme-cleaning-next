@@ -24,13 +24,13 @@ export async function submitBooking(formData: any) {
         const emailPromise = resend.emails.send({
             from: "ECS Bookings <onboarding@resend.dev>",
             to: [ADMIN_EMAIL],
-            subject: `🧹 New Booking — ${formData.firstName} ${formData.lastName}`,
+            subject: `New Booking — ${formData.firstName} ${formData.lastName}`,
             html: `
                 <div style="font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 0 auto; background: #f9fafb; border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb;">
                     
                     <!-- Header -->
                     <div style="background: #024653; padding: 28px 32px;">
-                        <h1 style="margin: 0; color: #ffffff; font-size: 22px; font-weight: 700;">🧹 New Booking Received</h1>
+                        <h1 style="margin: 0; color: #ffffff; font-size: 22px; font-weight: 700;">New Booking Received</h1>
                         <p style="margin: 6px 0 0; color: #a7d9e0; font-size: 14px;">Extreme Cleaning Services — Admin Notification</p>
                     </div>
 

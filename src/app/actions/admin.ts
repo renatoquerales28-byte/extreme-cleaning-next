@@ -211,8 +211,8 @@ export async function createLead(data: typeof leads.$inferInsert) {
         const duration = Date.now() - startTime;
         console.log(`✅ Lead created in ${duration}ms (ID: ${result[0].insertedId})`);
 
-        // Fire-and-forget: notificar al admin por email sin bloquear la respuesta
-        sendAdminNotification(data).catch(() => { });
+        // Await the email notification so Vercel doesn't kill the function prematurely
+        await sendAdminNotification(data);
 
         // revalidatePath("/admin"); // Disabled for performance
         return { success: true, leadId: result[0].insertedId };

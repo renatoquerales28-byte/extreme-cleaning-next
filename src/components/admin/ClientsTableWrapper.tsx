@@ -1,6 +1,6 @@
 
 import { getClients } from "@/app/actions/admin";
-import ClientsTable from "@/components/admin/ClientsTable";
+import ClientsView from "@/components/admin/ClientsView";
 
 export default async function ClientsTableWrapper() {
     const { data: clients, error } = await getClients();
@@ -13,5 +13,5 @@ export default async function ClientsTableWrapper() {
         );
     }
 
-    return <ClientsTable clients={clients || []} />;
+    return <ClientsView clients={clients || []} />;
 }

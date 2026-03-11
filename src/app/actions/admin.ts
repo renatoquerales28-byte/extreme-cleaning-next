@@ -2,7 +2,7 @@
 
 import { db } from "@/lib/db";
 import { leads, pricingConfig, promotions } from "@/lib/db/schema";
-import { desc, eq, sql } from "drizzle-orm";
+import { desc, eq, sql, inArray } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { Resend } from "resend";
 
@@ -31,7 +31,7 @@ async function sendAdminNotification(leadData: any) {
                         <p style="margin: 6px 0 0; color: #a7d9e0; font-size: 14px;">Extreme Cleaning Services — Admin Notification</p>
                     </div>
                     <div style="padding: 28px 32px;">
-                        <h2 style="color: #024653; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">👤 Client Info</h2>
+                        <h2 style="color: #024653; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">Client Info</h2>
                         <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
                             <tr style="border-bottom: 1px solid #e5e7eb;">
                                 <td style="padding: 10px 0; color: #6b7280; font-size: 14px; width: 40%;">Name</td>
@@ -50,7 +50,7 @@ async function sendAdminNotification(leadData: any) {
                                 <td style="padding: 10px 0; color: #111827; font-size: 14px;">${d.zipCode || "N/A"}</td>
                             </tr>
                         </table>
-                        <h2 style="color: #024653; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">🗓️ Service Details</h2>
+                        <h2 style="color: #024653; font-size: 15px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; margin: 0 0 12px;">Service Details</h2>
                         <table style="width: 100%; border-collapse: collapse; margin-bottom: 24px;">
                             <tr style="border-bottom: 1px solid #e5e7eb;">
                                 <td style="padding: 10px 0; color: #6b7280; font-size: 14px; width: 40%;">Service Type</td>
@@ -110,7 +110,7 @@ async function sendAdminNotification(leadData: any) {
         }
 
     } catch (err: any) {
-        console.error("⚠️ Email notifications failed context:", err.message);
+        console.error("Email notifications failed context:", err.message);
     }
 }
 
@@ -387,5 +387,17 @@ export async function findCustomerByPhone(phone: string) {
     } catch (error) {
         console.error("Search error:", error);
         return { success: false, error: "Database search failed" };
+    }
+}
+
+export async function deleteLeads(ids: number[]) {
+    try {
+        if (!ids || ids.length === 0) return { success: true };
+        await db.delete(leads).where(inArray(leads.id, ids));
+        revalidatePath("/admin");
+        return { success: true };
+    } catch (error) {
+        console.error("Failed to delete leads:", error);
+        return { success: false, error: "Failed to delete leads" };
     }
 }

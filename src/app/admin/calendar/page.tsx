@@ -84,7 +84,7 @@ export default function CalendarPage() {
             {/* Main Calendar Area */}
             <div className="flex-1 bg-white dark:bg-slate-900 p-6 rounded-xl shadow-sm border border-slate-200 dark:border-slate-800 min-h-[600px] transition-colors">
                 <div className="flex items-center justify-between mb-8">
-                    <h2 className="text-xl font-serif text-slate-900 dark:text-white flex items-center gap-2">
+                    <h2 className="text-xl font-bold tracking-tight text-[#024653] dark:text-white flex items-center gap-2">
                         <CalendarIcon className="text-[#0891B2] dark:text-[#22d3ee]" /> Calendar Management
                     </h2>
                     <CalendarSettingsModal />

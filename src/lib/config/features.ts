@@ -7,6 +7,8 @@
 export const FEATURE_FLAGS = {
     // Current status: Phase 1 (Promotions hidden)
     ENABLE_PROMOTIONS: false,
+    ENABLE_CALENDAR: false,
+    ENABLE_SUPPORT: false,
 
     // Future features
     ENABLE_REFERRALS: false,

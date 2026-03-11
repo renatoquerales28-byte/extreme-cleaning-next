@@ -87,12 +87,9 @@ export default function LocationsPage() {
     };
 
     return (
-        <div className="space-y-8">
-            <div className="flex justify-between items-end">
-                <div>
-                    <h1 className="text-3xl font-black text-[#024653] dark:text-white tracking-tighter">Service Locations</h1>
-                    <p className="text-slate-500 dark:text-slate-400 font-medium">Manage where you operate.</p>
-                </div>
+        <div className="space-y-0">
+            <div className="flex items-center justify-between mb-8">
+                <h1 className="text-3xl font-bold tracking-tight text-[#024653] dark:text-white">Service Locations</h1>
             </div>
 
             <div className="grid lg:grid-cols-3 gap-8">

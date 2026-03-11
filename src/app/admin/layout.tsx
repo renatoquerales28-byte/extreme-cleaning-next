@@ -6,6 +6,17 @@ import { usePathname, useRouter } from "next/navigation";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { ModeToggle } from "@/components/mode-toggle";
+import { 
+    LayoutList, 
+    Calendar, 
+    Users, 
+    Mail, 
+    DollarSign, 
+    MapPin, 
+    Tag, 
+    LifeBuoy, 
+    LogOut 
+} from "lucide-react";
 
 import { FEATURE_FLAGS } from "@/lib/config/features";
 import { AuthProvider } from "@/components/providers/AuthProvider";
@@ -44,21 +55,21 @@ function AdminLayoutContent({
     }
 
     const navItems = [
-        { name: "Leads", href: "/admin", icon: "📋" },
-        { name: "Calendar", href: "/admin/calendar", icon: "📅" },
-        { name: "Clients", href: "/admin/clients", icon: "👤" },
-        { name: "Newsletter", href: "/admin/newsletter", icon: "📨" },
-        { name: "Pricing", href: "/admin/pricing", icon: "💲" },
-        { name: "Locations", href: "/admin/locations", icon: "📍" },
-        ...(FEATURE_FLAGS.ENABLE_PROMOTIONS ? [{ name: "Promotions", href: "/admin/promotions", icon: "🏷️" }] : []),
-        { name: "Support", href: "/admin/support", icon: "🆘" },
+        { name: "Leads", href: "/admin", icon: LayoutList },
+        ...(FEATURE_FLAGS.ENABLE_CALENDAR ? [{ name: "Calendar", href: "/admin/calendar", icon: Calendar }] : []),
+        { name: "Clients", href: "/admin/clients", icon: Users },
+        { name: "Newsletter", href: "/admin/newsletter", icon: Mail },
+        ...(FEATURE_FLAGS.ENABLE_CALENDAR ? [{ name: "Pricing", href: "/admin/pricing", icon: DollarSign }] : []),
+        { name: "Locations", href: "/admin/locations", icon: MapPin },
+        ...(FEATURE_FLAGS.ENABLE_PROMOTIONS ? [{ name: "Promotions", href: "/admin/promotions", icon: Tag }] : []),
+        ...(FEATURE_FLAGS.ENABLE_SUPPORT ? [{ name: "Support", href: "/admin/support", icon: LifeBuoy }] : []),
     ];
 
     return (
         <div className="min-h-screen bg-background flex">
             {/* Sidebar */}
             <aside className="w-64 bg-white dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 flex flex-col transition-colors">
-                <div className="p-6 border-b border-slate-200 dark:border-slate-800 flex justify-center">
+                <div className="p-6 flex justify-start">
                     <div className="relative w-40 h-16">
                         <Image
                             src="/brand/logo-full.png"
@@ -73,6 +84,7 @@ function AdminLayoutContent({
                 <nav className="flex-1 p-4 space-y-2">
                     {navItems.map((item) => {
                         const isActive = pathname === item.href;
+                        const Icon = item.icon;
                         return (
                             <Link
                                 key={item.href}
@@ -83,7 +95,7 @@ function AdminLayoutContent({
                                     : "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800"
                                     }`}
                             >
-                                <span className="text-xl">{item.icon}</span>
+                                <Icon size={20} className={isActive ? "text-white dark:text-slate-900" : "text-slate-500"} />
                                 <span className="font-medium">{item.name}</span>
                             </Link>
                         );
@@ -91,13 +103,13 @@ function AdminLayoutContent({
                 </nav>
 
 
-                <div className="p-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
+                <div className="p-4 space-y-2">
                     <ModeToggle />
                     <button
                         onClick={() => signOut({ callbackUrl: "/admin/login" })}
-                        className="flex items-center gap-3 px-4 py-3 w-full text-left text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+                        className="flex items-center gap-3 px-4 py-3 w-full text-left text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors border border-transparent hover:border-red-100 dark:hover:border-red-900/30"
                     >
-                        <span className="text-xl">🚪</span>
+                        <LogOut size={20} />
                         <span className="font-medium">Sign Out</span>
                     </button>
                 </div>
@@ -105,7 +117,7 @@ function AdminLayoutContent({
 
             {/* Main Content */}
             <main className="flex-1 overflow-auto">
-                <div className="p-8 max-w-7xl mx-auto">
+                <div className="px-8 pb-8 pt-[60px] max-w-7xl mx-auto">
                     {children}
                 </div>
             </main>

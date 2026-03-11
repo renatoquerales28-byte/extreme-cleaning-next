@@ -3,30 +3,34 @@
 import { useState } from "react";
 import { Eye, User, Mail, Phone, Calendar, DollarSign, Clock } from "lucide-react";
 
-export default function ClientsTable({ clients }: { clients: any[] }) {
+export default function ClientsTable({ clients, searchTerm = "", onSearch }: { clients: any[], searchTerm?: string, onSearch?: (v: string) => void }) {
     const [selectedClient, setSelectedClient] = useState<any>(null);
-    const [searchTerm, setSearchTerm] = useState("");
+    const [internalSearch, setInternalSearch] = useState("");
+
+    const term = onSearch ? searchTerm : internalSearch;
+    const handleSearch = onSearch ?? setInternalSearch;
 
     const filteredClients = clients.filter(client =>
-        client.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        client.lastName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        client.email?.toLowerCase().includes(searchTerm.toLowerCase())
+        client.firstName?.toLowerCase().includes(term.toLowerCase()) ||
+        client.lastName?.toLowerCase().includes(term.toLowerCase()) ||
+        client.email?.toLowerCase().includes(term.toLowerCase())
     );
 
     return (
         <>
-            <div className="space-y-4">
-                {/* Search */}
-                <div className="flex justify-end">
-                    <input
-                        type="text"
-                        placeholder="Search clients..."
-                        className="px-4 py-2 border border-[#D1D5DB] dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-[#0891B2] outline-none text-sm w-full md:w-64 bg-white dark:bg-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600"
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-                </div>
-
+            <div>
+                {/* Search shown inline only when no external handler */}
+                {!onSearch && (
+                    <div className="flex justify-end mb-4">
+                        <input
+                            type="text"
+                            placeholder="Search clients..."
+                            className="px-4 py-2 border border-[#D1D5DB] dark:border-slate-700 rounded-lg focus:ring-2 focus:ring-[#0891B2] outline-none text-sm w-full md:w-64 bg-white dark:bg-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-600"
+                            value={internalSearch}
+                            onChange={(e) => setInternalSearch(e.target.value)}
+                        />
+                    </div>
+                )}
                 <div className="bg-white dark:bg-slate-900 rounded-xl shadow-sm border border-[#D1D5DB] dark:border-slate-800 overflow-hidden transition-colors">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">

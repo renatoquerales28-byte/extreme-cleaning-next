@@ -35,11 +35,11 @@ export default function SupportPage() {
     };
 
     return (
-        <div className="p-8 space-y-8">
-            <div className="flex items-center justify-between">
+        <div className="space-y-6">
+            <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h1 className="text-3xl font-black text-[#024653] dark:text-white transition-colors">Support & Help Requests</h1>
-                    <p className="text-slate-500 dark:text-slate-400 font-medium">Urgent callbacks and help messages.</p>
+                    <h1 className="text-3xl font-bold tracking-tight text-[#024653] dark:text-white">Support & Help Requests</h1>
+                    <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Urgent callbacks and help messages.</p>
                 </div>
                 <button
                     onClick={fetchRequests}

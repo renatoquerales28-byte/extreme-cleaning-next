@@ -81,7 +81,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                         >
                             <Image
                                 src={heroImages[wordIndex]}
-                                alt="Extreme Cleaning Professional"
+                                alt="Professional residential and commercial cleaning results by Extreme Cleaning Spokane"
                                 fill
                                 className="object-cover object-top"
                                 priority
@@ -187,9 +187,9 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                             >
                                 {[
                                     "Residential Cleaning", "Commercial Janitorial", "Post-Construction", "Move-In/Move-Out",
-                                    "Deep Cleaning", "Eco-Friendly", "Office Cleaning", "Sanitization",
+                                    "Premium Cleaning", "Eco-Friendly", "Office Cleaning", "Sanitization",
                                     "Residential Cleaning", "Commercial Janitorial", "Post-Construction", "Move-In/Move-Out",
-                                    "Deep Cleaning", "Eco-Friendly", "Office Cleaning", "Sanitization"
+                                    "Premium Cleaning", "Eco-Friendly", "Office Cleaning", "Sanitization"
                                 ].map((tag, i) => (
                                     <span key={i} className="px-5 py-2.5 rounded-full bg-[#f3f6f6] text-xs font-medium tracking-wide text-[#024653]/90 whitespace-nowrap shadow-sm">
                                         {tag}
@@ -215,7 +215,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                             <div className="flex flex-col gap-5">
                                 <ZipCodeInput variant="sticky" onSuccess={onOpenWizard} />
                                 <div className="text-center text-[10px] text-[#024653]/60 font-medium px-4 leading-tight">
-                                    Get 15% off your first deep cleaning service this month.
+                                    Get 15% off your first professional cleaning service this month.
                                 </div>
                             </div>
                         </motion.div>
@@ -293,7 +293,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
 
                                 {/* Service Tags */}
                                 <div className="flex flex-wrap gap-2">
-                                    {["Residential Deep Clean", "Post-Construction", "Move-In Ready"].map((tag, i) => (
+                                    {["Residential Cleaning", "Post-Construction", "Move-In Ready"].map((tag, i) => (
                                         <span key={i} className="px-3.5 py-1.5 rounded-full bg-[#f3f6f6] text-[10px] font-medium tracking-wide text-[#024653]/80">
                                             {tag}
                                         </span>
@@ -345,7 +345,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                                 <div className="relative w-full h-full">
                                     <Image
                                         src={heroImages[wordIndex]}
-                                        alt={`ECS ${words[wordIndex]} Cleaning`}
+                                        alt={`Premium ${words[wordIndex]} cleaning services in Spokane Washington`}
                                         fill
                                         className="object-cover"
                                         priority

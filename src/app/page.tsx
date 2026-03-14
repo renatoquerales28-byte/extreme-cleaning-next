@@ -90,7 +90,7 @@ export default function Home() {
                         <div className="relative h-12 w-32 md:w-36 overflow-hidden">
                             <Image
                                 src="/brand/logo-full.png"
-                                alt="ECS Logo"
+                                alt="Extreme Cleaning Spokane - Premium Professional Cleaning"
                                 fill
                                 style={{
                                     filter: 'brightness(0) saturate(100%) invert(18%) sepia(87%) saturate(464%) hue-rotate(142deg) brightness(91%) contrast(97%)'
@@ -158,7 +158,7 @@ export default function Home() {
                             <Link href="#hero-section" onClick={() => setMobileMenuOpen(false)} className="relative h-7 w-24 shrink-0 overflow-hidden">
                                 <Image
                                     src="/brand/logo-full.png"
-                                    alt="ECS Logo"
+                                    alt="Extreme Cleaning Spokane Logo"
                                     fill
                                     className="object-contain"
                                     style={{
@@ -240,7 +240,6 @@ export default function Home() {
             <ServiceSelectorSection onOpenWizard={handleOpenWizard} />
             <ProcessSection onOpenWizard={handleOpenWizard} />
             <AboutSection />
-
             <FooterSection />
 
             {/* INTEGRATED WIZARD MODAL */}

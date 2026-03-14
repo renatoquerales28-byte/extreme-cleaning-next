@@ -9,10 +9,9 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface ZipStepProps {
     onNext: () => void;
-    onReturning: () => void;
 }
 
-export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
+export default function ZipStep({ onNext }: ZipStepProps) {
     const { register, watch, trigger, setValue } = useFormContext<WizardData>();
     const { setAction } = useWizardAction();
     const zipCode = watch("zipCode") || "";
@@ -144,27 +143,6 @@ export default function ZipStep({ onNext, onReturning }: ZipStepProps) {
                             </motion.div>
                         )}
                     </AnimatePresence>
-                </div>
-
-                {/* Returning Client Selection - Matches Aesthetic */}
-                <div className="pt-12 w-full max-w-sm">
-                    <button
-                        onClick={onReturning}
-                        className="w-full bg-[#024653]/5 hover:bg-[#024653]/10 border border-transparent rounded-[2rem] p-4 flex items-center justify-between group transition-all duration-300"
-                    >
-                        <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#024653] shadow-sm group-hover:scale-110 transition-transform">
-                                <User size={18} />
-                            </div>
-                            <div className="text-left">
-                                <p className="text-[9px] font-bold uppercase tracking-[0.15em] text-[#024653]/40">Existing Account?</p>
-                                <p className="text-[11px] font-semibold text-[#024653] uppercase tracking-widest">Access Saved Dashboard</p>
-                            </div>
-                        </div>
-                        <div className="pr-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-1 transition-all">
-                            <ArrowRight size={16} className="text-[#024653]" />
-                        </div>
-                    </button>
                 </div>
             </div>
         </div>

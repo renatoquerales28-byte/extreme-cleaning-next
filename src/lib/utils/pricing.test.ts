@@ -35,8 +35,6 @@ describe('Pricing Logic', () => {
                 zipCode: '99201',
                 city: 'Spokane',
                 state: 'WA',
-                step: 4,
-                smallPortfolio: []
             };
             // Base 165 * (1 - 0.20) = 165 * 0.8 = 132
             expect(calculateTotal(data as WizardData)).toBe(132);
@@ -53,8 +51,6 @@ describe('Pricing Logic', () => {
                 zipCode: '99201',
                 city: 'Spokane',
                 state: 'WA',
-                step: 4,
-                smallPortfolio: []
             };
             // Base 165 * (1 - 0.10) = 165 * 0.9 = 148.5 -> rounded to 149
             expect(calculateTotal(data as WizardData)).toBe(149);
@@ -78,7 +74,6 @@ describe('Pricing Logic', () => {
                 commSqFt: '500',
                 zipCode: '99201',
                 frequency: 'weekly',
-                step: 4
             } as any;
             // 500 * 0.12 = 60. Max(150, 60) = 150
             expect(calculateTotal(data)).toBe(150);

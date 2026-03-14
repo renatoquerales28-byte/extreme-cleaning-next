@@ -5,7 +5,7 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, CheckCircle2, Check } from "lucide-react";
 
-type ServiceType = 'residential' | 'commercial' | 'pm';
+type ServiceType = 'residential' | 'commercial';
 
 const SERVICE_CONTENT = {
     residential: {
@@ -71,38 +71,6 @@ const SERVICE_CONTENT = {
                 shortDesc: "Expert removal of fine construction dust and debris from every surface. We ensure your new build or renovation is ready for immediate occupancy."
             },
         ]
-    },
-    pm: {
-        description: "Reliable turnover cleaning for property managers and landlords. We ensure your units are rent-ready faster.",
-        benefits: [
-            "Rapid Turnaround Times",
-            "Photo Documentation",
-            "Key Management Secure",
-            "Volume Discounts"
-        ],
-        options: [
-            {
-                id: 'turnover',
-                label: 'Tenant Turnover',
-                price: 'Custom Quote',
-                tag: 'Priority',
-                shortDesc: "Fast-track your property listings with our high-efficiency turnover service. We specialize in getting units rent-ready within 24 hours while maintaining elite standards."
-            },
-            {
-                id: 'common',
-                label: 'Common Areas',
-                price: 'Custom Quote',
-                tag: null,
-                shortDesc: "Reliable maintenance for shared building amenities, lobbies, and corridors. We ensure first impressions for potential tenants are always impeccable and corridors remain spot-free."
-            },
-            {
-                id: 'eviction',
-                label: 'Trash Out',
-                price: 'Custom Quote',
-                tag: null,
-                shortDesc: "Complete debris removal and heavy-duty sanitization for challenging unit conditions. We handle full clear-outs and deep odor removal to restore units to market-ready condition."
-            },
-        ]
     }
 };
 
@@ -114,9 +82,6 @@ const getMobileDesc = (id: string, label: string, tab: ServiceType) => {
         'deep': tab === 'commercial' ? "High-touch disinfection and deep sanitization." : "Detailed restoration for maximum hygiene.",
         'move': "Complete sanitization for a flawless move transition.",
         'post-construction-res': "Post-renovation dust and debris removal.",
-        'turnover': "High-efficiency turnover for rent-ready units.",
-        'common': "Pristine maintenance for shared building spaces.",
-        'eviction': "Heavy-duty debris removal and sanitization.",
         'post-construction': "Expert build cleanup for immediate occupancy."
     };
     return descs[id] || "Professional cleaning service tailored for you.";
@@ -144,16 +109,14 @@ export default function ServiceSelectorSection({ onOpenWizard }: { onOpenWizard?
 
         const typeMap: any = {
             'residential': 'residential',
-            'commercial': 'commercial',
-            'pm': 'property_mgmt'
+            'commercial': 'commercial'
         };
 
         const intensityMap: any = {
             'first_cleaning': 'first_cleaning',
             'move': 'move_in_out',
             'post-construction-res': 'post_construction',
-            'post-construction': 'post_construction',
-            'turnover': 'move_in_out'
+            'post-construction': 'post_construction'
         };
 
         const serviceType = typeMap[activeTab] || activeTab;
@@ -199,7 +162,7 @@ export default function ServiceSelectorSection({ onOpenWizard }: { onOpenWizard?
                                 />
                             )}
                             <span className={`relative z-10 transition-colors ${activeTab === tab ? 'text-white' : ''}`}>
-                                {tab === 'pm' ? 'Property' : tab}
+                                {tab}
                             </span>
                         </button>
                     ))}
@@ -208,7 +171,7 @@ export default function ServiceSelectorSection({ onOpenWizard }: { onOpenWizard?
                 {/* 2. Short Dynamic Description */}
                 <div className="text-center space-y-2">
                     <h3 className="text-xl font-bold text-[#024653] capitalize">
-                        {activeTab === 'pm' ? 'Property Management' : activeTab} Services
+                        {activeTab} Services
                     </h3>
                     <AnimatePresence mode="wait">
                         <motion.p

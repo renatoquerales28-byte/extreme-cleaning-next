@@ -19,7 +19,6 @@ export const DEFAULT_PRICING = {
     multiplier_post_construction: 2.0,
     commercial_min: 150,
     commercial_sq_ft_rate: 0.12,
-    property_mgmt_flat: 120,
     // Extras
     extra_oven: 35,
     extra_fridge: 30,
@@ -65,9 +64,6 @@ export const calculateTotal = (data: WizardData, config: Partial<PricingConfig> 
     } else if (data.serviceType === "commercial") {
         const sq = data.commSqFt || 0;
         total = Math.max(p.commercial_min, Math.round(sq * p.commercial_sq_ft_rate));
-    } else if (data.serviceType === "property_mgmt") {
-        const count = data.propertyCount || 1;
-        total = p.property_mgmt_flat * count;
     }
 
     // Add Extras

@@ -11,7 +11,7 @@ import { useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 
 import { wizardSchema, type WizardData } from "@/lib/schemas/wizard";
-import { WIZARD_FLOW, StepId, STEP_ORDER } from "@/lib/wizard/config";
+import { WIZARD_FLOW, StepId } from "@/lib/wizard/config";
 import { WizardActionProvider, useWizardAction } from "./WizardActionContext";
 
 interface ExtremeCleaningWizardProps {
@@ -83,7 +83,6 @@ function WizardNavigation({ onClose }: { onClose?: () => void }) {
     const [currentStep, setCurrentStep] = useState<StepId>(getInitialStep);
     const [isInitializing, setIsInitializing] = useState(!!(initialZip && initialZip.length === 5));
     const [history, setHistory] = useState<StepId[]>(getInitialStep() !== 'zip' ? ["zip"] : []);
-    const [customerData, setCustomerData] = useState<any>(null);
     const { action } = useWizardAction();
 
     const methods = useForm<WizardData>({
@@ -94,10 +93,8 @@ function WizardNavigation({ onClose }: { onClose?: () => void }) {
             cleaningType: initialIntensity || "regular",
             bedrooms: 1,
             bathrooms: 1,
-            propertyCount: 1,
             floors: 1,
             frequency: "onetime",
-            mode: "new"
         },
         mode: "onChange"
     });
@@ -132,19 +129,9 @@ function WizardNavigation({ onClose }: { onClose?: () => void }) {
         if (!stepConfig) return;
 
         // Step-specific validation
-        const validationMap: Record<string, any[]> = {
-            zip: ["zipCode"],
-            service: ["serviceType"],
-            cleaning_type: ["cleaningType"],
-            property_and_extras: ["bedrooms", "bathrooms", "sqFt", "frequency"],
-            contact: ["firstName", "lastName", "email", "phone", "address", "city"],
-            commercial_details: ["businessType", "commSqFt", "floors", "frequency"],
-            portfolio_summary: ["address", "city"]
-        };
+        const fieldsToValidate = stepConfig.validationFields || [];
 
-        const fieldsToValidate = (validationMap as any)[currentStep] || [];
-
-        const isValid = await trigger(fieldsToValidate);
+        const isValid = await trigger(fieldsToValidate as any);
         if (!isValid) {
             const errors = methods.formState.errors;
             const firstError = Object.values(errors)[0];
@@ -152,48 +139,13 @@ function WizardNavigation({ onClose }: { onClose?: () => void }) {
             return;
         }
 
-        // ZIP Code DB Validation (Final catch-all)
-        if (currentStep === 'zip') {
-            try {
-                const { checkZipAvailability } = await import("@/app/actions/location");
-                const res = await checkZipAvailability(freshData.zipCode);
-                if (res.status === 'unavailable') {
-                    toast.error("Sorry, we don't service this area yet.");
-                    return;
-                }
-            } catch (error) {
-                console.error("ZIP check failed:", error);
-            }
-        }
-
-        // Progressive Lead Capture
-        if (['contact'].includes(currentStep)) {
-            try {
-                const { createLead, updateLead } = await import("@/app/actions/admin");
-                const leadId = methods.getValues("leadId");
-
-                const leadData = {
-                    firstName: freshData.firstName,
-                    lastName: freshData.lastName,
-                    email: freshData.email,
-                    phone: freshData.phone,
-                    serviceType: freshData.serviceType,
-                    frequency: freshData.frequency,
-                    totalPrice: 0, // No price in Phase 1
-                    status: "new",
-                    details: freshData,
-                };
-
-                const res = leadId
-                    ? await updateLead(Number(leadId), leadData)
-                    : await createLead(leadData);
-
-                if (res.success && (res as any).leadId) {
-                    methods.setValue("leadId", (res as any).leadId);
-                }
-            } catch (error) {
-                console.error("Lead sync error:", error);
-            }
+        // Execute Step Side Effects (Phase 2 Refactor)
+        if (stepConfig.onComplete) {
+            const success = await stepConfig.onComplete(freshData, {
+                setValue: methods.setValue,
+                getValues: methods.getValues
+            });
+            if (success === false) return; // Stop if hook fails
         }
 
         const nextStepId = typeof stepConfig.next === 'function' ? stepConfig.next(freshData) : stepConfig.next;
@@ -217,55 +169,23 @@ function WizardNavigation({ onClose }: { onClose?: () => void }) {
         setCurrentStep(stepId);
     };
 
-    const handleReturning = () => {
-        setHistory(prev => [...prev, currentStep]);
-        setCurrentStep('returning_lookup');
-    };
-
     const config = WIZARD_FLOW[currentStep];
     const ActiveStep = config?.component;
 
-    // progress calculation using STEP_ORDER
-    const progressIndex = STEP_ORDER.indexOf(currentStep);
-    const progress = progressIndex >= 0 ? (progressIndex / (STEP_ORDER.length - 1)) * 100 : 0;
+    // progress calculation using stages (Phase 3 Refactor)
+    const totalStages = 5;
+    const currentStage = config.stage || 1;
+    const progress = currentStep === 'success' ? 100 : Math.min(100, (currentStage / totalStages) * 100);
 
     const stepProps: any = {
         onNext: handleNext,
         onEditStep: handleEditStep,
         onBack: handleBack,
-        onReturning: handleReturning,
         onGoToStep: (stepId: StepId) => {
             setHistory(prev => [...prev, currentStep]);
             setCurrentStep(stepId);
         }
     };
-
-    if (currentStep === 'returning_lookup') {
-        stepProps.onFound = (data: any) => {
-            setCustomerData(data);
-            handleNext();
-        };
-    }
-
-    if (currentStep === 'returning_select') {
-        stepProps.customerName = customerData?.customer?.firstName || "Guest";
-        stepProps.properties = customerData?.properties || [];
-        stepProps.onSelect = (prop: any) => {
-            if (prop) {
-                methods.setValue("address", prop.address);
-                methods.setValue("city", prop.city);
-                methods.setValue("zipCode", prop.zipCode);
-                // Pre-fill personal info if available in Vault
-                if (customerData?.customer) {
-                    methods.setValue("firstName", customerData.customer.firstName);
-                    methods.setValue("lastName", customerData.customer.lastName);
-                    methods.setValue("email", customerData.customer.email);
-                    methods.setValue("phone", customerData.customer.phone);
-                }
-            }
-            handleNext();
-        };
-    }
 
     if (!config) {
         return <div className="p-20">Error: Configuration for step &quot;{currentStep}&quot; not found.</div>;
@@ -322,25 +242,6 @@ function WizardNavigation({ onClose }: { onClose?: () => void }) {
                                 {config.description}
                             </p>
                         </div>
-
-                        {/* PORTFOLIO QUEUE BADGE (Property Mgmt Only) */}
-                        {watch("serviceType") === 'property_mgmt' && (watch("smallPortfolio")?.length || 0) > 0 && (
-                            <motion.div
-                                initial={{ opacity: 0, x: -20 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                className="relative z-10 mb-8 flex flex-col items-end lg:items-start"
-                            >
-                                <div className="bg-[#05D16E] text-black px-4 py-2 rounded-xl flex items-center gap-3 shadow-xl shadow-[#05D16E]/20">
-                                    <div className="w-6 h-6 rounded-lg bg-black/10 flex items-center justify-center font-bold">
-                                        {watch("smallPortfolio")?.length}
-                                    </div>
-                                    <div className="flex flex-col">
-                                        <span className="text-[9px] font-bold uppercase tracking-widest leading-none">Properties</span>
-                                        <span className="text-[7px] font-semibold uppercase tracking-tighter opacity-60 leading-none">In Queue</span>
-                                    </div>
-                                </div>
-                            </motion.div>
-                        )}
 
                         <div className="relative z-10 w-full lg:max-w-none flex justify-end lg:justify-start">
                             <div className="w-1/2 lg:w-full flex items-center gap-4">

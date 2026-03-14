@@ -45,15 +45,15 @@ export default function ContactStep({ onNext }: ContactStepProps) {
                 <div className="flex flex-col space-y-4">
                     <div className="flex items-center gap-3 ml-1 mb-1">
                         <div className="w-5 h-5 rounded-md bg-[#024653] flex items-center justify-center shadow-lg shadow-[#024653]/10">
-                            {(data.serviceType === 'commercial' || data.serviceType === 'property_mgmt') ? <Building2 size={12} className="text-white" /> : <User size={12} className="text-white" />}
+                            {data.serviceType === 'commercial' ? <Building2 size={12} className="text-white" /> : <User size={12} className="text-white" />}
                         </div>
                         <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#024653]">
-                            {(data.serviceType === 'commercial' || data.serviceType === 'property_mgmt') ? '1. Business & Contact' : '1. Personal Information'}
+                            {data.serviceType === 'commercial' ? '1. Business & Contact' : '1. Personal Information'}
                         </span>
                     </div>
 
                     <div className="flex-1 bg-[#F9F8F2] border border-[#024653]/10 rounded-xl p-6 lg:p-8 space-y-6 flex flex-col justify-center">
-                        {(data.serviceType === "commercial" || data.serviceType === "property_mgmt") && (
+                        {data.serviceType === "commercial" && (
                             <div className="space-y-2">
                                 <label className="text-[9px] font-semibold uppercase tracking-widest text-[#024653]/40 ml-1">Company Name</label>
                                 <div className="relative">
@@ -120,16 +120,11 @@ export default function ContactStep({ onNext }: ContactStepProps) {
                             <MapPin size={12} className="text-white" />
                         </div>
                         <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#024653]">
-                            {data.serviceType === 'property_mgmt' ? '2. Account Billing Address' : '2. Service address'}
+                            2. Service address
                         </span>
                     </div>
 
                     <div className="flex-1 bg-[#F9F8F2] border border-[#024653]/10 rounded-xl p-6 lg:p-8 space-y-6 flex flex-col justify-center">
-                        {data.serviceType === 'property_mgmt' && (
-                            <p className="text-[9px] font-bold text-[#05D16E] bg-[#05D16E]/5 p-3 rounded-lg uppercase tracking-widest border border-[#05D16E]/10">
-                                Portfolio Review Complete. Provide your master billing address below.
-                            </p>
-                        )}
                         <div className="space-y-2">
                             <label className="text-[9px] font-semibold uppercase tracking-widest text-[#024653]/40 ml-1">Street Address</label>
                             <input

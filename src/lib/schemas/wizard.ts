@@ -1,6 +1,6 @@
 import * as z from "zod";
 
-export const serviceTypes = ["residential", "commercial", "property_mgmt"] as const;
+export const serviceTypes = ["residential", "commercial"] as const;
 export const cleaningTypes = ["regular", "standard", "deep", "move_in_out", "post_construction", "first_cleaning", "office_maintenance", "deep_sanitization"] as const;
 export const frequencies = ["weekly", "biweekly", "monthly", "onetime", "daily"] as const;
 
@@ -10,7 +10,7 @@ export const wizardSchema = z.object({
     zipCode: z.string().length(5, "ZIP code must be 5 digits").regex(/^\d+$/, "Must be digits only"),
     serviceType: z.enum(serviceTypes).optional(),
 
-    // Residential / PM Details
+    // Residential Details
     bedrooms: z.number().min(1).max(10).default(1),
     bathrooms: z.number().min(1).max(10).default(1),
     sqFt: z.number().min(100).max(10000).default(1000),
@@ -21,21 +21,6 @@ export const wizardSchema = z.object({
     businessType: z.string().optional(),
     commSqFt: z.coerce.number().optional(), // Coerce because input might return string
     floors: z.number().min(1).default(1),
-
-    // Portfolio (PM)
-    propertyCount: z.number().min(1).default(1),
-    serviceNeeds: z.array(z.string()).default([]),
-    smallPortfolio: z.array(z.object({
-        id: z.number(),
-        name: z.string(),
-        bedrooms: z.number(),
-        bathrooms: z.number(),
-        sqFt: z.number(),
-        cleaningType: z.enum(cleaningTypes),
-        address: z.string().optional(),
-        city: z.string().optional(),
-        zipCode: z.string().optional()
-    })).default([]),
 
     // Contact
     companyName: z.string().optional(),
@@ -51,10 +36,6 @@ export const wizardSchema = z.object({
     city: z.string().default("Spokane"),
     state: z.string().default("WA"),
 
-    // Date & Time Selection
-    serviceDate: z.union([z.string(), z.date()]).optional(), // ISO string or Date object
-    serviceTime: z.string().optional(), // HH:mm format
-
     // Logic helpers
     referralCode: z.string().optional(),
     promoCode: z.string().optional(),
@@ -62,7 +43,6 @@ export const wizardSchema = z.object({
     originalPrice: z.number().optional(),
     totalPrice: z.number().optional(),
     leadId: z.union([z.number(), z.string()]).optional(),
-    mode: z.string().optional(), // 'returning' or other modes
     extras: z.array(z.string()).default([]), // Selected add-on services IDs
 });
 

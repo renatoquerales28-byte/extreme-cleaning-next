@@ -1,6 +1,6 @@
 "use client";
 
-import { Home, Building2, LayoutGrid, ArrowRight, Target, ShieldCheck } from "lucide-react";
+import { Home, Building2, ArrowRight, Target } from "lucide-react";
 import { useWizardAction } from "../WizardActionContext";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
@@ -30,7 +30,7 @@ export default function ServiceStep({ onNext }: ServiceStepProps) {
     const { setAction } = useWizardAction();
     const selected = watch("serviceType");
 
-    const handleSelect = (id: "residential" | "commercial" | "property_mgmt") => {
+    const handleSelect = (id: "residential" | "commercial") => {
         setValue("serviceType", id);
     };
 

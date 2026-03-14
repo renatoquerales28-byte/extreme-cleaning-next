@@ -2,8 +2,9 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, MapPin, ClipboardList, Banknote, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
+
+import ZipCodeInput from "./ZipCodeInput";
 
 interface ProcessSectionProps {
     onOpenWizard?: (zip: string) => void;
@@ -11,10 +12,6 @@ interface ProcessSectionProps {
 
 export default function ProcessSection({ onOpenWizard }: ProcessSectionProps) {
     const router = useRouter();
-    const [zipCode, setZipCode] = useState("");
-    const [isFocused, setIsFocused] = useState(false);
-    const [isChecking, setIsChecking] = useState(false);
-    const [error, setError] = useState<string | null>(null);
 
     const steps = [
         {
@@ -144,85 +141,7 @@ export default function ProcessSection({ onOpenWizard }: ProcessSectionProps) {
                     transition={{ duration: 0.6, delay: 0.4 }}
                     className="flex flex-col items-center w-full"
                 >
-                    <form
-                        onSubmit={async (e) => {
-                            e.preventDefault();
-                            if (zipCode.length === 5) {
-                                setIsChecking(true);
-                                setError(null);
-                                try {
-                                    const { checkZipAvailability } = await import("@/app/actions/location");
-                                    const res = await checkZipAvailability(zipCode);
-
-                                    if (res.status === 'unavailable') {
-                                        setError("Outside Spokane Radius");
-                                        return;
-                                    }
-
-                                    if (onOpenWizard) {
-                                        onOpenWizard(zipCode);
-                                    } else {
-                                        router.push(`/quote?zip=${zipCode}`);
-                                    }
-                                } catch (err) {
-                                    console.error("ZIP check failed:", err);
-                                    setError("Verification failed. Try again.");
-                                } finally {
-                                    setIsChecking(false);
-                                }
-                            } else {
-                                setError("Please enter a valid 5-digit zip code");
-                            }
-                        }}
-                        className="flex gap-3 justify-center items-center w-full max-w-2xl"
-                    >
-                        <div className="relative flex-1 sm:flex-none sm:min-w-[240px]">
-                            <div className={`flex items-center bg-white rounded-full px-4 py-3 shadow-[0_4px_20px_rgba(2,70,83,0.06)] border transition-all duration-300 ${error ? 'border-red-500 shadow-[0_4px_25px_rgba(239,68,68,0.1)]' : isFocused ? 'border-[#05D16E]/40 shadow-[0_4px_25px_rgba(5,209,110,0.1)]' : 'border-gray-100'}`}>
-                                <MapPin size={16} className={error ? 'text-red-500' : isFocused ? 'text-[#05D16E]' : 'text-[#024653]/30'} />
-                                <input
-                                    type="text"
-                                    value={zipCode}
-                                    onChange={(e) => {
-                                        setError(null);
-                                        setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5));
-                                    }}
-                                    onFocus={() => setIsFocused(true)}
-                                    onBlur={() => setIsFocused(false)}
-                                    placeholder="Enter Zipcode"
-                                    className="bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-medium placeholder:text-[#024653]/30 text-sm ml-2 w-full"
-                                />
-                            </div>
-
-                            {/* Error Message - Now anchored to this container */}
-                            <AnimatePresence>
-                                {error && (
-                                    <motion.p
-                                        initial={{ opacity: 0, y: -5 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -5 }}
-                                        className="absolute left-6 top-full mt-2 text-red-500 text-[11px] font-medium whitespace-nowrap"
-                                    >
-                                        {error}
-                                    </motion.p>
-                                )}
-                            </AnimatePresence>
-                        </div>
-
-                        <button
-                            type="submit"
-                            disabled={isChecking}
-                            className={`${error ? 'bg-red-500' : 'bg-[#024653]'} group text-white px-6 py-3 rounded-full font-semibold text-sm flex items-center justify-center gap-2 hover:bg-[#02333d] transition-all duration-300 hover:shadow-[0_10px_30px_rgba(2,70,83,0.2)] whitespace-nowrap min-w-[180px]`}
-                        >
-                            {isChecking ? (
-                                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                            ) : (
-                                <>
-                                    Get Your Free Quote
-                                    <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-                                </>
-                            )}
-                        </button>
-                    </form>
+                    <ZipCodeInput variant="process" className="max-w-2xl" onSuccess={onOpenWizard} />
                 </motion.div>
             </div>
         </section>

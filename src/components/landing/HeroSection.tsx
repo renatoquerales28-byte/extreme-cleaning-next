@@ -3,17 +3,15 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Sparkles, MapPin } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 
+import ZipCodeInput from "./ZipCodeInput";
+
 export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: string) => void }) {
     const router = useRouter();
-    const [zipCode, setZipCode] = useState("");
-    const [isFocused, setIsFocused] = useState(false);
-    const [isStickyFocused, setIsStickyFocused] = useState(false);
     const [showSticky, setShowSticky] = useState(false);
-    const [error, setError] = useState<string | null>(null);
 
     const words = ["Home", "Business", "Office", "Building"];
     const heroImages = [
@@ -46,36 +44,6 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
         handleScroll();
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
-
-    const handleStart = async (e?: React.FormEvent) => {
-        if (e) e.preventDefault();
-        if (zipCode.length === 5) {
-            try {
-                const { checkZipAvailability } = await import("@/app/actions/location");
-                const res = await checkZipAvailability(zipCode);
-
-                if (res.status === 'unavailable') {
-                    setError("Sorry, we don't service this area yet.");
-                    return;
-                }
-
-                if (onOpenWizard) {
-                    onOpenWizard(zipCode);
-                    // Also update URL to keep things in sync if they share the link
-                    const url = new URL(window.location.href);
-                    url.searchParams.set('zip', zipCode);
-                    window.history.pushState({}, '', url);
-                } else {
-                    router.push(`/quote?zip=${zipCode}`);
-                }
-            } catch (error) {
-                console.error("ZIP check failed:", error);
-                toast.error("Something went wrong. Please try again.");
-            }
-        } else {
-            setError("Please enter a valid 5-digit zip code");
-        }
-    };
 
     return (
         <section id="hero-section" className="relative w-full bg-transparent p-0 lg:pt-[20px] lg:h-[100svh] lg:max-h-[1000px] overflow-hidden font-sans text-[#024653] snap-start scroll-mt-[60px]">
@@ -207,38 +175,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                         </p>
 
                         {/* Mobile Delicate Input */}
-                        <div className="max-w-md mx-auto relative group pt-2">
-                            <form onSubmit={handleStart} className={`flex items-center bg-white rounded-2xl p-1 transition-all duration-300 border ${error ? 'border-red-500 shadow-[0_0_10px_rgba(239,68,68,0.1)]' : 'border-gray-100 shadow-[0_4px_15px_rgba(0,0,0,0.05)]'}`}>
-                                <div className={`pl-4 ${error ? 'text-red-500' : 'text-[#024653]/40'}`}>
-                                    <MapPin size={18} />
-                                </div>
-                                <input
-                                    type="text"
-                                    value={zipCode}
-                                    onChange={(e) => {
-                                        setError(null);
-                                        setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5));
-                                    }}
-                                    placeholder="Enter Zip Code"
-                                    className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-medium placeholder:text-[#024653]/30 text-base px-3 h-10"
-                                />
-                                <button type="submit" className={`${error ? 'bg-red-500' : 'bg-[#05D16E]'} text-white w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors`}>
-                                    <ArrowRight size={18} className="stroke-[3px]" />
-                                </button>
-                            </form>
-                            <AnimatePresence>
-                                {error && (
-                                    <motion.p
-                                        initial={{ opacity: 0, y: -5 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -5 }}
-                                        className="absolute left-4 top-full mt-1 text-red-500 text-[11px] font-medium whitespace-nowrap"
-                                    >
-                                        {error}
-                                    </motion.p>
-                                )}
-                            </AnimatePresence>
-                        </div>
+                        <ZipCodeInput variant="hero-mobile" className="pt-2" onSuccess={onOpenWizard} />
 
                         {/* Mobile Spacer & Ticker */}
                         <div className="h-[3px] w-full" />
@@ -276,33 +213,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
                             className="fixed bottom-0 left-0 right-0 z-50 bg-[#F9F8F2] border-t border-[#024653]/5 rounded-t-[1.25rem] px-6 pt-6 pb-10 shadow-[0_-10px_40px_rgba(0,0,0,0.12)]"
                         >
                             <div className="flex flex-col gap-5">
-                                <div className="flex items-center gap-2 w-full">
-                                    {/* Input side */}
-                                    <div className={`flex-1 flex items-center bg-white rounded-full px-4 h-12 shadow-[0_4px_20px_rgba(2,70,83,0.06)] border transition-all duration-300 ${error ? 'border-red-500' : isStickyFocused ? 'border-[#05D16E]/40 shadow-[0_4px_25px_rgba(5,209,110,0.1)]' : 'border-gray-100'}`}>
-                                        <MapPin size={16} className={`shrink-0 transition-colors ${error ? 'text-red-500' : isStickyFocused ? 'text-[#05D16E]' : 'text-[#024653]/30'}`} />
-                                        <input
-                                            type="text"
-                                            value={zipCode}
-                                            onChange={(e) => {
-                                                setError(null);
-                                                setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5));
-                                            }}
-                                            onFocus={() => setIsStickyFocused(true)}
-                                            onBlur={() => setIsStickyFocused(false)}
-                                            placeholder="Zipcode"
-                                            className="bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-medium placeholder:text-[#024653]/30 text-sm ml-2 w-full"
-                                        />
-                                    </div>
-
-                                    {/* Button side */}
-                                    <button
-                                        onClick={() => handleStart()}
-                                        className="bg-[#024653] text-white px-5 h-12 rounded-full font-semibold text-[10px] uppercase tracking-wider flex items-center justify-center gap-2 transition-all duration-300 shadow-[0_10px_25px_rgba(2,70,83,0.2)] active:scale-95 whitespace-nowrap"
-                                    >
-                                        <span>Get Free Quote</span>
-                                        <ArrowRight size={14} />
-                                    </button>
-                                </div>
+                                <ZipCodeInput variant="sticky" onSuccess={onOpenWizard} />
                                 <div className="text-center text-[10px] text-[#024653]/60 font-medium px-4 leading-tight">
                                     Get 15% off your first deep cleaning service this month.
                                 </div>
@@ -377,48 +288,7 @@ export default function HeroSection({ onOpenWizard }: { onOpenWizard?: (zip?: st
 
                                 {/* Premium Elevated Zip Code Input - Refined Shadow */}
                                 <div className="max-w-md">
-                                    <form onSubmit={handleStart} className="relative group">
-                                        <div className={`flex items-center bg-white rounded-2xl p-1.5 transition-all duration-500 border ${error
-                                            ? 'border-red-500 shadow-[0_12px_30px_rgba(239,68,68,0.1)]'
-                                            : isFocused
-                                                ? 'border-gray-100 shadow-[0_12px_30px_rgba(2,70,83,0.12)] scale-[1.01]'
-                                                : 'border-gray-100/50 shadow-[0_4px_12px_rgba(2,70,83,0.05)]'
-                                            }`}>
-                                            <div className={`pl-5 transition-colors duration-300 ${error ? 'text-red-500' : isFocused ? 'text-[#024653]' : 'text-[#024653]/40'}`}>
-                                                <MapPin size={20} />
-                                            </div>
-                                            <input
-                                                type="text"
-                                                value={zipCode}
-                                                onChange={(e) => {
-                                                    setError(null);
-                                                    setZipCode(e.target.value.replace(/\D/g, '').slice(0, 5));
-                                                }}
-                                                onFocus={() => setIsFocused(true)}
-                                                onBlur={() => setIsFocused(false)}
-                                                placeholder="Enter Zip Code"
-                                                className="w-full bg-transparent border-none focus:ring-0 focus:outline-none text-[#024653] font-medium placeholder:text-[#024653]/30 text-base px-4 py-2 h-12"
-                                            />
-                                            <button
-                                                type="submit"
-                                                className={`${error ? 'bg-red-500 hover:bg-red-600' : 'bg-[#05D16E] hover:bg-[#04bd63]'} text-white w-12 h-12 rounded-xl flex items-center justify-center transition-all shrink-0 shadow-[0_2px_4px_rgba(5,209,110,0.1)] active:scale-95`}
-                                            >
-                                                <ArrowRight size={20} className="stroke-[3px]" />
-                                            </button>
-                                        </div>
-                                        <AnimatePresence>
-                                            {error && (
-                                                <motion.p
-                                                    initial={{ opacity: 0, y: -5 }}
-                                                    animate={{ opacity: 1, y: 0 }}
-                                                    exit={{ opacity: 0, y: -5 }}
-                                                    className="absolute left-5 top-full mt-1 text-red-500 text-[12px] font-medium whitespace-nowrap"
-                                                >
-                                                    {error}
-                                                </motion.p>
-                                            )}
-                                        </AnimatePresence>
-                                    </form>
+                                    <ZipCodeInput variant="hero-desktop" onSuccess={onOpenWizard} />
                                 </div>
 
                                 {/* Service Tags */}

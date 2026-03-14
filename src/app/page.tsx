@@ -19,6 +19,8 @@ const ExtremeCleaningWizard = dynamic(() => import("@/components/wizard/ExtremeC
     ssr: false,
 });
 
+import ZipCodeInput from "@/components/landing/ZipCodeInput";
+
 export default function Home() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
@@ -52,13 +54,25 @@ export default function Home() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const handleOpenWizard = () => {
-        // Clear URL params to ensure wizard starts from step 1
+    const handleOpenWizard = (zip?: any) => {
+        // Clear URL params to ensure wizard starts from step 1 (except ZIP if provided)
+        const url = new URL(window.location.href);
+        url.searchParams.delete('quote');
+        if (typeof zip === 'string' && zip.length > 0) {
+            url.searchParams.set('zip', zip);
+        } else {
+            url.searchParams.delete('zip');
+        }
+        window.history.pushState({}, '', url.pathname + url.search);
+        setWizardOpen(true);
+    };
+
+    const handleCloseWizard = () => {
         const url = new URL(window.location.href);
         url.searchParams.delete('zip');
         url.searchParams.delete('quote');
         window.history.pushState({}, '', url.pathname);
-        setWizardOpen(true);
+        setWizardOpen(false);
     };
 
     return (
@@ -105,7 +119,7 @@ export default function Home() {
                                     className="flex items-center"
                                 >
                                     <button
-                                        onClick={handleOpenWizard}
+                                        onClick={() => handleOpenWizard()}
                                         className="px-6 py-2 bg-[#024653] text-white rounded-xl text-[10px] font-normal uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-lg shadow-[#024653]/10 whitespace-nowrap"
                                     >
                                         Get Quote
@@ -187,22 +201,13 @@ export default function Home() {
                                 {/* Zip Code Block */}
                                 <div className="space-y-4">
                                     <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#024653]/40">Get an instant quote</p>
-                                    <div className="flex bg-white rounded-2xl p-1.5 shadow-sm border border-[#024653]/5">
-                                        <input
-                                            type="text"
-                                            placeholder="Zip Code"
-                                            className="flex-1 bg-transparent px-4 outline-none text-[#024653] text-sm font-medium"
-                                        />
-                                        <button
-                                            onClick={() => {
-                                                setMobileMenuOpen(false);
-                                                handleOpenWizard();
-                                            }}
-                                            className="bg-[#024653] text-white px-6 py-3 rounded-xl text-[10px] font-bold uppercase tracking-widest shadow-lg active:scale-95 transition-all"
-                                        >
-                                            Start
-                                        </button>
-                                    </div>
+                                    <ZipCodeInput 
+                                        variant="hero-mobile" 
+                                        onSuccess={(zip) => {
+                                            setMobileMenuOpen(false);
+                                            handleOpenWizard(zip);
+                                        }} 
+                                    />
                                 </div>
 
                                 {/* Social Media & Copyright */}
@@ -229,30 +234,11 @@ export default function Home() {
                 )}
             </AnimatePresence>
 
-            <HeroSection onOpenWizard={(zip) => {
-                if (zip) {
-                    const url = new URL(window.location.href);
-                    url.searchParams.set('zip', zip);
-                    window.history.pushState({}, '', url);
-                }
-                setWizardOpen(true);
-            }} />
+            <HeroSection onOpenWizard={handleOpenWizard} />
 
             {/* NEW STRATEGIC SECTIONS */}
-            <ServiceSelectorSection onOpenWizard={(zip) => {
-                if (zip) {
-                    const url = new URL(window.location.href);
-                    url.searchParams.set('zip', zip);
-                    window.history.pushState({}, '', url);
-                }
-                setWizardOpen(true);
-            }} />
-            <ProcessSection onOpenWizard={(zip) => {
-                const url = new URL(window.location.href);
-                url.searchParams.set('zip', zip);
-                window.history.pushState({}, '', url);
-                setWizardOpen(true);
-            }} />
+            <ServiceSelectorSection onOpenWizard={handleOpenWizard} />
+            <ProcessSection onOpenWizard={handleOpenWizard} />
             <AboutSection />
 
             <FooterSection />
@@ -260,7 +246,7 @@ export default function Home() {
             {/* INTEGRATED WIZARD MODAL */}
             <ExtremeCleaningWizard
                 isOpen={wizardOpen}
-                onClose={() => setWizardOpen(false)}
+                onClose={handleCloseWizard}
             />
         </main>
     );

@@ -16,7 +16,7 @@ export function useZipSelection(onSuccess?: (zip: string) => void) {
         if (zip && zip !== zipCode) {
             setZipCode(zip);
         }
-    }, [searchParams]);
+    }, [searchParams, zipCode]);
 
     const handleZipChange = useCallback((value: string) => {
         setError(null);
@@ -32,7 +32,7 @@ export function useZipSelection(onSuccess?: (zip: string) => void) {
             url.searchParams.delete("zip");
         }
         window.history.replaceState({}, "", url.toString());
-    }, [zipCode]);
+    }, []);
 
     const validateAndProceed = useCallback(async (e?: React.FormEvent) => {
         if (e) e.preventDefault();

@@ -2,11 +2,10 @@
 export default function Loading() {
     return (
         <div className="animate-pulse">
-            <h1 className="h-9 w-48 bg-gray-200 rounded-lg mb-8"></h1>
-
-            {/* Search Bar Skeleton */}
-            <div className="flex justify-end mb-4">
-                <div className="h-10 w-64 bg-gray-200 rounded-lg"></div>
+            <div className="flex justify-end h-0 mb-0">
+                <div className="relative -top-16">
+                    <div className="h-10 w-64 bg-gray-200 rounded-lg"></div>
+                </div>
             </div>
 
             {/* Table Skeleton */}

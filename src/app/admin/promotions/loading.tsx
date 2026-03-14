@@ -2,8 +2,6 @@
 export default function Loading() {
     return (
         <div className="animate-pulse">
-            {/* Header Skeleton */}
-            <div className="h-9 w-48 bg-gray-200 rounded-lg mb-8"></div>
 
             {/* Create New Skeleton */}
             <div className="bg-white p-6 rounded-xl shadow-sm border border-[#D1D5DB] mb-8 h-40"></div>

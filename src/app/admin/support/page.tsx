@@ -36,11 +36,7 @@ export default function SupportPage() {
 
     return (
         <div className="space-y-6">
-            <div className="flex items-center justify-between mb-8">
-                <div>
-                    <h1 className="text-3xl font-bold tracking-tight text-[#024653] dark:text-white">Support & Help Requests</h1>
-                    <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">Urgent callbacks and help messages.</p>
-                </div>
+            <div className="flex justify-end mb-8">
                 <button
                     onClick={fetchRequests}
                     className="px-4 py-2 bg-slate-100 dark:bg-slate-800 text-[#024653] dark:text-white font-bold rounded-lg hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"

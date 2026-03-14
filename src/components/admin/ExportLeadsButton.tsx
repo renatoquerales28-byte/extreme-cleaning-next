@@ -79,11 +79,7 @@ export default function ExportLeadsButton() {
                     <span>Exportando...</span>
                 </>
             ) : (
-                <>
-                    <FileSpreadsheet size={18} />
-                    <span>Exportar a Excel</span>
-                    <Download size={16} />
-                </>
+                <span>Exportar a Excel</span>
             )}
         </button>
     );

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Eye, X, Gift, Copy, Check, Sparkles, Trash2, AlertTriangle } from "lucide-react";
+// No icons
 import { generateOneTimePromo } from "@/app/actions/promotions";
 import { deleteLeads } from "@/app/actions/admin";
 import { toast } from "sonner";
@@ -129,9 +129,8 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                                             </div>
                                             <button
                                                 onClick={() => setShowDeleteConfirm(true)}
-                                                className="flex items-center gap-2 bg-red-500 hover:bg-red-600 px-4 py-1.5 rounded-lg text-sm font-black text-white transition-all shadow-md shadow-red-500/10 active:scale-95"
+                                                className="bg-red-500 hover:bg-red-600 px-4 py-1.5 rounded-lg text-sm font-black text-white transition-all shadow-md shadow-red-500/10 active:scale-95"
                                             >
-                                                <Trash2 size={16} />
                                                 Delete Selected
                                             </button>
                                         </div>
@@ -185,13 +184,12 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                                                 <div className="font-medium">{lead.details?.address || "No Address Provided"}</div>
                                                 <div className="text-sm text-slate-500 dark:text-slate-500">{lead.details?.zipCode || "N/A"} {lead.details?.city || ""}</div>
                                             </td>
-                                            <td className="px-6 py-4">
+                                            <td className="px-6 py-4 text-right">
                                                 <button
                                                     onClick={() => setSelectedLead(lead)}
-                                                    className="p-2 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-full text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
-                                                    title="View Full Details"
+                                                    className="text-xs font-bold text-[#024653] dark:text-[#a7d9e0] hover:underline uppercase tracking-wider transition-colors"
                                                 >
-                                                    <Eye size={20} />
+                                                    Manage
                                                 </button>
                                             </td>
                                         </tr>
@@ -273,9 +271,9 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                             <h2 className="text-2xl font-bold tracking-tight text-[#024653]">Lead Details</h2>
                             <button
                                 onClick={handleCloseModal}
-                                className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                                className="px-4 py-2 hover:bg-gray-100 rounded-lg transition-colors font-bold text-slate-500"
                             >
-                                <X size={24} className="text-gray-500" />
+                                Close
                             </button>
                         </div>
 
@@ -328,9 +326,6 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                                 <section className="bg-gradient-to-br from-[#024653] to-[#012f38] text-white p-6 rounded-2xl relative overflow-hidden">
                                     <div className="relative z-10">
                                         <div className="flex items-center gap-3 mb-4">
-                                            <div className="p-2 bg-white/10 rounded-lg backdrop-blur-sm">
-                                                <Gift size={20} className="text-[#05D16E]" />
-                                            </div>
                                             <h3 className="font-bold text-lg">Send a Special Offer</h3>
                                         </div>
 
@@ -344,13 +339,12 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                                                             navigator.clipboard.writeText(generatedCode);
                                                             toast.success("Copied to clipboard!");
                                                         }}
-                                                        className="p-2 hover:bg-white/20 rounded-lg transition-colors text-white/50 hover:text-white"
+                                                        className="px-3 py-1 bg-white/10 hover:bg-white/20 rounded font-bold text-xs transition-colors text-white"
                                                     >
-                                                        <Copy size={20} />
+                                                        Copy
                                                     </button>
                                                 </div>
                                                 <div className="flex items-center gap-2 text-xs text-[#05D16E] bg-[#05D16E]/10 w-fit px-3 py-1 rounded-full">
-                                                    <Check size={12} />
                                                     <span>Single use • Expires in 48h</span>
                                                 </div>
                                             </div>
@@ -381,7 +375,6 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                                             </div>
                                         )}
                                     </div>
-                                    <Sparkles className="absolute -bottom-4 -right-4 text-white/5 w-32 h-32 rotate-12" />
                                 </section>
                             ) : null}
 
@@ -391,9 +384,8 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                             {FEATURE_FLAGS.ENABLE_PROMOTIONS && !generatedCode && !isGenerating && (
                                 <button
                                     onClick={() => setIsGenerating(true)}
-                                    className="flex items-center gap-2 px-4 py-2 text-[#024653] font-bold hover:bg-[#024653]/5 rounded-lg transition-colors"
+                                    className="px-4 py-2 text-[#024653] font-bold hover:bg-[#024653]/5 rounded-lg transition-colors border border-[#024653]/10"
                                 >
-                                    <Gift size={18} />
                                     Gift Discount
                                 </button>
                             )}
@@ -415,8 +407,8 @@ export default function LeadsTable({ leads }: { leads: any[] }) {
                 <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
                     <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl w-full max-w-md p-6 space-y-6 border border-slate-200 dark:border-slate-800">
                         <div className="flex flex-col items-center text-center space-y-4">
-                            <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center text-red-600">
-                                <AlertTriangle size={32} />
+                            <div className="w-16 h-16 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center text-red-600 font-bold text-2xl">
+                                !
                             </div>
                             <div className="space-y-2">
                                 <h3 className="text-xl font-bold text-slate-900 dark:text-white">Delete {selectedIds.length} Lead(s)?</h3>

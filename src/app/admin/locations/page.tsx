@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { getAllServiceAreas, upsertServiceArea, deleteServiceArea } from "@/app/actions/location";
-import { MapPin, Plus, Trash2, Edit2, Check, X, AlertTriangle } from "lucide-react";
+// No icons
 import { useForm } from "react-hook-form";
 
 type ServiceArea = {
@@ -88,15 +88,11 @@ export default function LocationsPage() {
 
     return (
         <div className="space-y-0">
-            <div className="flex items-center justify-between mb-8">
-                <h1 className="text-3xl font-bold tracking-tight text-[#024653] dark:text-white">Service Locations</h1>
-            </div>
 
             <div className="grid lg:grid-cols-3 gap-8">
                 {/* Form Card */}
                 <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 h-fit transition-colors">
                     <h2 className="text-xl font-bold text-[#024653] dark:text-[#22d3ee] mb-4 flex items-center gap-2">
-                        {isEditing ? <Edit2 size={20} /> : <Plus size={20} />}
                         {isEditing ? "Edit Location" : "Add New Location"}
                     </h2>
 
@@ -152,7 +148,6 @@ export default function LocationsPage() {
                 {/* List Card */}
                 <div className="lg:col-span-2 bg-white dark:bg-slate-900 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-800 transition-colors">
                     <h2 className="text-xl font-bold text-[#024653] dark:text-[#22d3ee] mb-6 flex items-center gap-2">
-                        <MapPin size={20} />
                         Existing Areas ({areas.length})
                     </h2>
 
@@ -169,8 +164,8 @@ export default function LocationsPage() {
                             {areas.map((area) => (
                                 <div key={area.id} className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-slate-200 dark:hover:border-slate-700 transition-all group">
                                     <div className="flex items-center gap-4">
-                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${area.status === 'active' ? 'bg-[#05D16E]/10 text-[#05D16E]' : 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400'}`}>
-                                            {area.status === 'active' ? <Check size={20} /> : <AlertTriangle size={20} />}
+                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold text-xs ${area.status === 'active' ? 'bg-[#05D16E]/10 text-[#05D16E]' : 'bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400'}`}>
+                                            {area.status === 'active' ? 'A' : '!'}
                                         </div>
                                         <div>
                                             <h3 className="text-lg font-black text-[#024653] dark:text-white">{area.zipCode}</h3>
@@ -184,15 +179,15 @@ export default function LocationsPage() {
                                         </span>
                                         <button
                                             onClick={() => startEdit(area)}
-                                            className="p-2 hover:bg-white dark:hover:bg-slate-700 rounded-lg text-slate-400 hover:text-blue-500 transition-colors"
+                                            className="text-[10px] font-bold text-blue-500 hover:underline uppercase tracking-widest transition-colors mr-2"
                                         >
-                                            <Edit2 size={16} />
+                                            Edit
                                         </button>
                                         <button
                                             onClick={() => handleDelete(area.id)}
-                                            className="p-2 hover:bg-white dark:hover:bg-slate-700 rounded-lg text-slate-400 hover:text-red-500 transition-colors"
+                                            className="text-[10px] font-bold text-red-500 hover:underline uppercase tracking-widest transition-colors"
                                         >
-                                            <Trash2 size={16} />
+                                            Delete
                                         </button>
                                     </div>
                                 </div>

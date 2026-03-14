@@ -2,8 +2,6 @@
 export default function Loading() {
     return (
         <div className="animate-pulse">
-            {/* Header Skeleton */}
-            <div className="h-9 w-48 bg-gray-200 rounded-lg mb-8"></div>
 
             {/* Grid Skeleton */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

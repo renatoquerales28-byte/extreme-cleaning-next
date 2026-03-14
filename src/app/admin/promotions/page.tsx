@@ -16,7 +16,6 @@ export default async function PromotionsPage() {
 
     return (
         <div>
-            <h1 className="text-3xl font-bold tracking-tight text-[#024653] dark:text-white mb-8">Promotions</h1>
             <PromotionsContent initialPromotions={promotions} />
         </div>
     );

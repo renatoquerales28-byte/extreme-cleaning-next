@@ -2,8 +2,11 @@
 export default function Loading() {
     return (
         <div className="animate-pulse">
-            {/* Header Skeleton */}
-            <div className="h-9 w-48 bg-gray-200 rounded-lg mb-8"></div>
+            <div className="flex justify-end h-0 mb-0">
+                <div className="relative -top-16">
+                    <div className="h-10 w-40 bg-gray-200 rounded-lg"></div>
+                </div>
+            </div>
 
             {/* Table/Content Card Skeleton */}
             <div className="bg-white rounded-xl shadow-sm border border-[#D1D5DB] overflow-hidden">

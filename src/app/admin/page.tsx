@@ -8,9 +8,10 @@ export const dynamic = 'force-dynamic';
 export default function AdminDashboardPage() {
     return (
         <div>
-            <div className="flex items-center justify-between mb-8">
-                <h1 className="text-3xl font-bold tracking-tight text-[#024653] dark:text-white">Recent Leads</h1>
-                <ExportLeadsButton />
+            <div className="flex justify-end h-0 mb-0">
+                <div className="relative -top-16">
+                    <ExportLeadsButton />
+                </div>
             </div>
 
             <Suspense fallback={<Loading />}>
